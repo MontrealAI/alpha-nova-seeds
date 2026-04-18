@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { join, relative } from "node:path";
 
 export function timestampTag(date = new Date()): string {
   return date.toISOString().replace(/[:.]/g, "-");
@@ -39,7 +39,8 @@ export function generateChecksums(rootDir: string): string {
     .map((filePath) => {
       const content = readFileSync(filePath);
       const hash = createHash("sha256").update(content).digest("hex");
-      return `${hash}  ${filePath}`;
+      const relativePath = relative(rootDir, filePath);
+      return `${hash}  ${relativePath}`;
     })
     .join("\n");
 }

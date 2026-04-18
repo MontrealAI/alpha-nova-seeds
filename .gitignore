@@ -21,3 +21,5 @@ contracts/cache/
 contracts/typechain-types/
 contracts/ignition/deployments/
 contracts/.env
+
+!contracts/.env.example
