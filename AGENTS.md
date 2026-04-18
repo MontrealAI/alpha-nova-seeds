@@ -247,7 +247,15 @@ Use language like:
 Use the commands actually defined in the repo.
 If commands differ from assumptions here, update this file.
 
-At minimum, contributors should discover and run the relevant checks for:
+Minimum command set for v2.6 RC hardening work:
+
+- `pytest -q backend/tests`
+- `python backend/scripts/export_openapi.py`
+- `python scripts/contracts/export_abi.py`
+- `cd sdk && npm run build --if-present`
+- `python scripts/release/generate_provenance_manifest.py --tag v2.6.0-rc.1 --output /tmp/provenance-manifest.json`
+
+At minimum, contributors should run checks covering:
 - contracts tests / static analysis
 - backend tests / lint / migrations
 - SDK schema validation / type checks

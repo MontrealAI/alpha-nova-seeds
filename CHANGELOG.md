@@ -34,3 +34,4 @@
   - Release provenance checkout now uses the requested tag ref so manifest/SBOM match archived source.
   - Council active seat read-model now treats challenged seats as active until deactivation.
   - Release provenance bundle now includes deterministic OpenAPI export for API-surface verification.
+  - Root posture docs normalized to v2.6 RC framing; added contracts package map and CODEOWNERS baseline.
