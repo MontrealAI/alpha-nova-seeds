@@ -1,0 +1,252 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Nova-Seeds v2.6 RC API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ready": {
+      "get": {
+        "summary": "Ready",
+        "operationId": "ready_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadinessStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/summary": {
+      "get": {
+        "summary": "Dashboard Summary",
+        "operationId": "dashboard_summary_dashboard_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardSummary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics": {
+      "get": {
+        "summary": "Metrics",
+        "operationId": "metrics_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/governance/reviewer-ledger": {
+      "get": {
+        "summary": "Reviewer Ledger",
+        "operationId": "reviewer_ledger_governance_reviewer_ledger_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ReviewerStakeRow"
+                  },
+                  "type": "array",
+                  "title": "Response Reviewer Ledger Governance Reviewer Ledger Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/governance/council-seats": {
+      "get": {
+        "summary": "Council Seats",
+        "operationId": "council_seats_governance_council_seats_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CouncilSeatRow"
+                  },
+                  "type": "array",
+                  "title": "Response Council Seats Governance Council Seats Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CouncilSeatRow": {
+        "properties": {
+          "term_id": {
+            "type": "integer",
+            "title": "Term Id"
+          },
+          "seat_id": {
+            "type": "integer",
+            "title": "Seat Id"
+          },
+          "open_challenges": {
+            "type": "integer",
+            "title": "Open Challenges"
+          },
+          "resolved_challenges": {
+            "type": "integer",
+            "title": "Resolved Challenges"
+          }
+        },
+        "type": "object",
+        "required": [
+          "term_id",
+          "seat_id",
+          "open_challenges",
+          "resolved_challenges"
+        ],
+        "title": "CouncilSeatRow"
+      },
+      "DashboardSummary": {
+        "properties": {
+          "seed_count": {
+            "type": "integer",
+            "title": "Seed Count"
+          },
+          "greenlit_count": {
+            "type": "integer",
+            "title": "Greenlit Count"
+          },
+          "sovereign_count": {
+            "type": "integer",
+            "title": "Sovereign Count"
+          },
+          "open_decryption_requests": {
+            "type": "integer",
+            "title": "Open Decryption Requests"
+          },
+          "open_challenges": {
+            "type": "integer",
+            "title": "Open Challenges"
+          },
+          "total_delegations": {
+            "type": "integer",
+            "title": "Total Delegations"
+          },
+          "total_reward_events": {
+            "type": "integer",
+            "title": "Total Reward Events"
+          }
+        },
+        "type": "object",
+        "required": [
+          "seed_count",
+          "greenlit_count",
+          "sovereign_count",
+          "open_decryption_requests",
+          "open_challenges",
+          "total_delegations",
+          "total_reward_events"
+        ],
+        "title": "DashboardSummary"
+      },
+      "ReadinessStatus": {
+        "properties": {
+          "ready": {
+            "type": "boolean",
+            "title": "Ready"
+          },
+          "latest_block": {
+            "type": "integer",
+            "title": "Latest Block"
+          },
+          "safe_block": {
+            "type": "integer",
+            "title": "Safe Block"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ready",
+          "latest_block",
+          "safe_block"
+        ],
+        "title": "ReadinessStatus"
+      },
+      "ReviewerStakeRow": {
+        "properties": {
+          "reviewer": {
+            "type": "string",
+            "title": "Reviewer"
+          },
+          "total_rewards": {
+            "type": "number",
+            "title": "Total Rewards"
+          },
+          "total_claimed": {
+            "type": "number",
+            "title": "Total Claimed"
+          },
+          "total_slashed": {
+            "type": "number",
+            "title": "Total Slashed"
+          },
+          "claimable": {
+            "type": "number",
+            "title": "Claimable"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reviewer",
+          "total_rewards",
+          "total_claimed",
+          "total_slashed",
+          "claimable"
+        ],
+        "title": "ReviewerStakeRow"
+      }
+    }
+  }
+}

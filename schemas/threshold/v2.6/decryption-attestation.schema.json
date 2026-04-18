@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://montreal.ai/alpha-nova-seeds/schemas/threshold/v2.6/decryption-attestation.schema.json",
+  "title": "Nova-Seeds v2.6 Decryption Attestation",
+  "type": "object",
+  "required": ["requestId", "seedId", "plaintextHash", "completionHash", "termId", "deadline", "signer", "signature"],
+  "properties": {
+    "requestId": {"type": "string", "pattern": "^0x[a-fA-F0-9]{64}$"},
+    "seedId": {"type": "string", "pattern": "^0x[a-fA-F0-9]{64}$"},
+    "plaintextHash": {"type": "string", "pattern": "^0x[a-fA-F0-9]{64}$"},
+    "completionHash": {"type": "string", "pattern": "^0x[a-fA-F0-9]{64}$"},
+    "termId": {"type": "string", "pattern": "^[0-9]+$"},
+    "deadline": {"type": "string", "pattern": "^[0-9]+$"},
+    "signer": {"type": "string", "pattern": "^0x[a-fA-F0-9]{40}$"},
+    "signature": {"type": "string", "pattern": "^0x[a-zA-Z0-9_<>-]+$"}
+  },
+  "additionalProperties": false
+}

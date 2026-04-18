@@ -17,3 +17,25 @@ class DashboardSummary(BaseModel):
     open_challenges: int
     total_delegations: int
     total_reward_events: int
+
+class ReadinessStatus(BaseModel):
+    ready: bool
+    latest_block: int
+    safe_block: int
+
+class MetricPoint(BaseModel):
+    name: str
+    value: float
+
+class ReviewerStakeRow(BaseModel):
+    reviewer: str
+    total_rewards: float
+    total_claimed: float
+    total_slashed: float
+    claimable: float
+
+class CouncilSeatRow(BaseModel):
+    term_id: int
+    seat_id: int
+    open_challenges: int
+    resolved_challenges: int

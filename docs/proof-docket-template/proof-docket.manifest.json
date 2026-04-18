@@ -1,0 +1,8 @@
+{
+  "version": "2.6.0-rc.0",
+  "repository": "MontrealAI/alpha-nova-seeds",
+  "commit": "<fill-at-release-time>",
+  "sha256sums": "../release/artifacts/SHA256SUMS",
+  "generatedAt": "<iso8601>",
+  "notes": "Public proof docket shell for v2.6 RC"
+}

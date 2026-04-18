@@ -1,0 +1,69 @@
+name: release-provenance
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v2.6*'
+
+permissions:
+  id-token: write
+  contents: read
+  attestations: write
+
+jobs:
+  build-and-attest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build release artifacts
+        run: ./scripts/release/build_artifacts.sh
+
+      - name: Generate checksums
+        run: ./scripts/release/generate_sha256sums.sh
+
+      - name: Upload source artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-artifacts
+          path: release/artifacts/source/
+
+      - name: Upload canonical artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: canonical-artifacts
+          path: release/artifacts/canonical/
+
+      - name: Upload checksums
+        uses: actions/upload-artifact@v4
+        with:
+          name: checksums
+          path: release/artifacts/SHA256SUMS
+
+      - name: Generate SBOM (SPDX JSON)
+        uses: anchore/sbom-action@v0
+        with:
+          format: spdx-json
+          output-file: release/artifacts/sbom.spdx.json
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: release/artifacts/sbom.spdx.json
+
+      - name: Attest source artifact
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: 'release/artifacts/source/*'
+
+      - name: Attest canonical artifacts
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: 'release/artifacts/canonical/*'
+
+      - name: Attest SBOM
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: 'release/artifacts/sbom.spdx.json'
