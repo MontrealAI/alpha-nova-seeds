@@ -35,3 +35,4 @@
   - Council active seat read-model now treats challenged seats as active until deactivation.
   - Release provenance bundle now includes deterministic OpenAPI export for API-surface verification.
   - Root posture docs normalized to v2.6 RC framing; added contracts package map and CODEOWNERS baseline.
+  - SDK package/version now align to v2.6.0-rc.1 metadata while EIP-712 attestation domain remains at verifier-compatible `2.5`.
