@@ -11,7 +11,7 @@ type Eip712Signer = ethers.Signer & {
 
 export const domain = (chainId: number, verifyingContract: string) => ({
   name: "NovaSeedAttestations",
-  version: "2.6",
+  version: "2.5",
   chainId,
   verifyingContract,
 });

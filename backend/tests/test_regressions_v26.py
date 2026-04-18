@@ -60,9 +60,12 @@ def test_release_workflow_exports_openapi_surface():
     assert 'dist/openapi-v2.6.0-rc.1.json' in workflow
 
 
-def test_sdk_version_and_eip712_domain_track_v26_rc():
+def test_sdk_version_tracks_v26_rc_but_eip712_domain_matches_verifier_surface():
     package = (ROOT / 'sdk/package.json').read_text()
     eip712 = (ROOT / 'sdk/shared/eip712.ts').read_text()
+    verifier = (ROOT / 'contracts/SignedAttestationVerifierV25.sol').read_text()
+
     assert '"name": "alpha-nova-seeds-v26-sdk"' in package
     assert '"version": "2.6.0-rc.1"' in package
-    assert 'version: "2.6"' in eip712
+    assert 'version: "2.5"' in eip712
+    assert 'EIP712("NovaSeedAttestations", "2.5")' in verifier
