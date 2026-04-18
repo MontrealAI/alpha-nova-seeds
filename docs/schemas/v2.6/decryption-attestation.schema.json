@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/MontrealAI/alpha-nova-seeds/docs/schemas/v2.6/decryption-attestation.schema.json",
+  "title": "NovaSeedsDecryptionAttestationV26",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "requestId": {"type": "string", "pattern": "^0x[a-fA-F0-9]{64}$"},
+    "seedId": {"type": "string", "pattern": "^0x[a-fA-F0-9]{64}$"},
+    "plaintextHash": {"type": "string", "pattern": "^0x[a-fA-F0-9]{64}$"},
+    "completionHash": {"type": "string", "pattern": "^0x[a-fA-F0-9]{64}$"},
+    "termId": {"type": "string", "pattern": "^[0-9]+$"},
+    "deadline": {"type": "string", "pattern": "^[0-9]+$"},
+    "signer": {"type": "string", "pattern": "^0x[a-fA-F0-9]{40}$"},
+    "signature": {"type": "string", "pattern": "^0x[a-fA-F0-9<>_]+$"}
+  },
+  "required": [
+    "requestId",
+    "seedId",
+    "plaintextHash",
+    "completionHash",
+    "termId",
+    "deadline",
+    "signer",
+    "signature"
+  ]
+}

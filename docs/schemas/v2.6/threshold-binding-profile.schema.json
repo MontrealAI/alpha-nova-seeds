@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/MontrealAI/alpha-nova-seeds/docs/schemas/v2.6/threshold-binding-profile.schema.json",
+  "title": "NovaSeedsThresholdBindingProfileV26",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "profileId": {"type": "string", "pattern": "^0x[a-fA-F0-9]{64}$"},
+    "provider": {"type": "string", "minLength": 1},
+    "networkName": {"type": "string", "minLength": 1},
+    "committeeRoot": {"type": "string", "pattern": "^0x[a-fA-F0-9]{64}$"},
+    "relayerRoot": {"type": "string", "pattern": "^0x[a-fA-F0-9]{64}$"},
+    "committeeSize": {"type": "integer", "minimum": 1},
+    "threshold": {"type": "integer", "minimum": 1},
+    "timeoutSeconds": {"type": "integer", "minimum": 1},
+    "policyHash": {"type": "string", "pattern": "^0x[a-fA-F0-9]{64}$"},
+    "notes": {"type": "string"}
+  },
+  "required": [
+    "profileId",
+    "provider",
+    "networkName",
+    "committeeRoot",
+    "relayerRoot",
+    "committeeSize",
+    "threshold",
+    "timeoutSeconds",
+    "policyHash"
+  ]
+}

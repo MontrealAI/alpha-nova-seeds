@@ -1,0 +1,6 @@
+{
+  "release": "v2.6.0-rc1",
+  "commit": "<fill-commit-sha>",
+  "generatedAt": "<iso-8601>",
+  "scope": ["identity", "proof", "settlement", "governance"]
+}

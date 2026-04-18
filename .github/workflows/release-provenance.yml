@@ -1,0 +1,53 @@
+name: release-provenance
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  id-token: write
+  contents: read
+  attestations: write
+
+jobs:
+  provenance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build source artifact
+        run: |
+          git archive --format=tar.gz --output alpha-nova-seeds-${GITHUB_REF_NAME:-snapshot}.tar.gz HEAD
+
+      - name: Generate SHA256SUMS
+        run: |
+          sha256sum alpha-nova-seeds-*.tar.gz > SHA256SUMS
+
+      - name: Generate SBOM (SPDX JSON)
+        uses: anchore/sbom-action@v0
+        with:
+          path: .
+          format: spdx-json
+          output-file: sbom.spdx.json
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-provenance
+          path: |
+            alpha-nova-seeds-*.tar.gz
+            SHA256SUMS
+            sbom.spdx.json
+
+      - name: Attest source artifact
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: alpha-nova-seeds-*.tar.gz
+
+      - name: Attest SBOM artifact
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: sbom.spdx.json

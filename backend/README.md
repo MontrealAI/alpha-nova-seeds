@@ -1,25 +1,28 @@
-# Nova-Seeds v2.5 backend
+# Nova-Seeds Backend (FastAPI + Postgres)
 
-Production-oriented starter backend:
-- **Postgres** for indexed state
-- **Redis** for checkpoints/caching
-- **FastAPI** for REST APIs
-- **web3.py** event indexer
+## What this service does
+- exposes operator API for dashboard views,
+- indexes on-chain events from `NovaSeedRegistryV25`,
+- maintains deterministic read models.
 
-## Services
-- `api` — REST + dashboard summary
-- `worker` — event indexer / backfiller
-- `postgres` — state store
-- `redis` — offsets + cache
+## v2.6 RC hardening
+- versioned SQL migrations,
+- idempotent event ingestion,
+- reorg-safe cursor + confirmations,
+- `/health`, `/readiness`, `/metrics`,
+- OpenAPI export (`/openapi/export` and `scripts/export_openapi.py`),
+- deterministic backfill (`scripts/backfill.py`).
 
-## Quick start
+## Run
+
 ```bash
-cp .env.example .env
-# fill values
-
-docker compose up --build
+pip install -r requirements.txt
+uvicorn app.main:app --reload
 ```
 
-Then open:
-- API docs: `http://localhost:8000/docs`
-- Dashboard: `dashboard/index.html`
+## Migrations
+
+Apply in order:
+1. `migrations/001_init.sql`
+2. `migrations/002_indexer_cursor.sql`
+3. `migrations/003_governance_accounting.sql`

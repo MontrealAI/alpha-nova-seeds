@@ -1,75 +1,70 @@
 # α-AGI Nova-Seeds
 
-**Sealed venture blueprints for sovereign opportunity formation — enabling machine-driven evolution of enterprise systems at production scale.**
+**Verifiable release-candidate infrastructure for sovereign opportunity formation.**
 
-> AGI ALPHA evolves sovereign opportunities the way directed evolution evolves enzymes: from working parents, through variant generation, real-world selection, and compounding capability formation.
+> Current milestone focus: **proof hardening** over rhetoric expansion.
 
-**Latest release:** [Nova-Seeds v2.5](../../releases/tag/v2.5)
-
----
-
-## What this is
-
-Nova-Seeds are **cryptographically sealed enterprise embryos**:
-
-- foresight genomes
-- execution FusionPlans
-- governance and validation pathways
-- promotion into α-AGI Sovereigns
-
-This repository contains the **production-grade architecture (v2.5)**.
+**Latest candidate:** `v2.6.0-rc1`  
+**Previous architecture baseline:** `v2.5`
 
 ---
 
-## System Overview
+## System framing
 
 `α-AGI Insight → Nova-Seeds → MARK → Sovereigns`
 
-- **Insight** identifies high-leverage AGI opportunities
-- **Nova-Seeds** encode them as sealed venture blueprints
-- **MARK** evaluates, prices, and selects
-- **Sovereigns** execute through real economic workflows
+Constitutional stack order preserved in this repository:
+
+1. identity
+2. proof
+3. settlement
+4. governance
 
 ---
 
-## Architecture
+## Repository map
 
-> 🎖️ **α‑AGI Insight** — identifies high‑leverage AGI opportunities<br>
-> ↓<br>
-> 🌱 **Nova‑Seeds** — sealed venture blueprints<br>
-> ↓<br>
-> 🔮 **MARK** — selection, pricing, and sovereign formation<br>
-> ↓<br>
-> 🔱 **Sovereigns** — execution-layer enterprises<br>
-> ↓<br>
-> 📜 **α‑AGI Jobs** → 👾 **Agents** → ✅ **Validators**<br>
-> ↓<br>
-> ⚙️ **Architect** — continuous optimisation
+- `contracts/` — Solidity identity/proof/governance contracts
+- `sdk/` — threshold cryptography bindings
+- `backend/` — FastAPI + Postgres indexer/read API
+- `dashboard/` — operator UI and snapshot exports
+- `docs/` — release verification, trust model, threat model, proof docket shell
 
 ---
 
-## Repository Structure
+## v2.6 RC highlights
 
-- **contracts/** — smart contracts (identity, registry, governance)
-- **sdk/** — threshold cryptography bindings
-- **backend/** — FastAPI + Postgres indexer
-- **dashboard/** — operator interface
-
----
-
-## Why this matters
-
-This system enables:
-
-- programmable formation of sovereign enterprises
-- validator-gated economic execution
-- compounding capability through iterative selection
-- a new substrate for machine-driven innovation
-
-Nova-Seeds are not ideas — they are **evolvable economic structures**.
+- Root repository contract docs (`CONTRIBUTING`, `SECURITY`, `SUPPORT`, `RELEASES`, `CHANGELOG`, `CODEOWNERS`).
+- Release provenance workflow with source artifact, SBOM, attestations, and `SHA256SUMS`.
+- Contract hardening for release metadata and deterministic reviewer/council accounting visibility.
+- Canonical versioned threshold schemas and round-trip examples.
+- Backend hardening: migrations, idempotent + reorg-safe cursoring, health/readiness/metrics/OpenAPI export, deterministic backfill command.
+- Dashboard hardening for seeds/rounds/reviewer ledger/council seats/lineage/provenance/alerts plus JSON and PNG snapshot export.
 
 ---
 
-## Version
+## Quickstart
 
-Initial import of Nova-Seeds v2.5 architecture.
+### Backend
+
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
+### Dashboard
+
+Serve `dashboard/` with any static file server while backend runs on `localhost:8000`.
+
+---
+
+## Release verification
+
+Use `docs/verify-release.md` for exact local verification commands.
+
+---
+
+## Release-candidate status
+
+This repository state is for verifiable RC operation and review. It does not assert completed audit or final production deployment.

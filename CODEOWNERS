@@ -1,0 +1,10 @@
+# Default ownership
+* @MontrealAI
+
+# Stack-specific ownership
+/contracts/ @MontrealAI
+/backend/ @MontrealAI
+/dashboard/ @MontrealAI
+/sdk/ @MontrealAI
+/docs/ @MontrealAI
+/.github/workflows/ @MontrealAI

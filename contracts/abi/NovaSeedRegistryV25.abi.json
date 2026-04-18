@@ -1,0 +1,11 @@
+[
+  {"type":"function","name":"VERSION","inputs":[],"outputs":[{"name":"","type":"string"}],"stateMutability":"pure"},
+  {"type":"function","name":"RELEASE_METADATA_HASH","inputs":[],"outputs":[{"name":"","type":"bytes32"}],"stateMutability":"pure"},
+  {"type":"function","name":"releaseMetadata","inputs":[],"outputs":[{"name":"version","type":"string"},{"name":"metadataHash","type":"bytes32"}],"stateMutability":"pure"},
+  {"type":"function","name":"setCreator","inputs":[{"name":"creator","type":"address"},{"name":"allowed","type":"bool"}],"outputs":[],"stateMutability":"nonpayable"},
+  {"type":"function","name":"draftSeed","inputs":[{"name":"seedId","type":"bytes32"},{"name":"parentSeedId","type":"bytes32"},{"name":"manifestHash","type":"bytes32"},{"name":"ciphertextHash","type":"bytes32"},{"name":"publicSummaryHash","type":"bytes32"},{"name":"fusionPlanHash","type":"bytes32"},{"name":"mutationMapHash","type":"bytes32"},{"name":"evidenceHash","type":"bytes32"},{"name":"authorizedViewersRoot","type":"bytes32"},{"name":"envelopeKeyHash","type":"bytes32"},{"name":"decryptionPolicyHash","type":"bytes32"},{"name":"payloadURI","type":"string"},{"name":"publicSummaryURI","type":"string"},{"name":"fusionPlanURI","type":"string"},{"name":"tokenURI","type":"string"}],"outputs":[{"name":"tokenId","type":"uint256"}],"stateMutability":"nonpayable"},
+  {"type":"function","name":"submitReview","inputs":[{"name":"seedId","type":"bytes32"},{"name":"weight","type":"uint96"},{"name":"decision","type":"uint8"},{"name":"reasonHash","type":"bytes32"}],"outputs":[],"stateMutability":"nonpayable"},
+  {"type":"event","name":"SeedDrafted","inputs":[{"name":"seedId","type":"bytes32","indexed":true},{"name":"tokenId","type":"uint256","indexed":true},{"name":"parentSeedId","type":"bytes32","indexed":true}],"anonymous":false},
+  {"type":"event","name":"ReviewSubmitted","inputs":[{"name":"seedId","type":"bytes32","indexed":true},{"name":"reviewer","type":"address","indexed":true},{"name":"weight","type":"uint96","indexed":false},{"name":"decision","type":"uint8","indexed":false}],"anonymous":false},
+  {"type":"event","name":"SovereignRegistered","inputs":[{"name":"seedId","type":"bytes32","indexed":true},{"name":"sovereignPackageHash","type":"bytes32","indexed":false},{"name":"sovereignContract","type":"address","indexed":false}],"anonymous":false}
+]

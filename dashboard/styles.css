@@ -1,8 +1,9 @@
-body { font-family: Inter, system-ui, sans-serif; background:#0b1020; color:#eef2ff; margin:0; padding:40px; }
-.hero { max-width:980px; margin:0 auto 32px auto; }
-.eyebrow { letter-spacing:0.12em; font-size:12px; color:#a5b4fc; margin-bottom:10px; }
-h1 { font-size:42px; line-height:1.08; max-width:900px; margin:0 0 12px 0; }
-p { color:#cbd5e1; max-width:760px; }
-.grid { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:18px; max-width:980px; margin:32px auto; }
-.card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:20px; }
-.metric { font-size:36px; font-weight:700; margin-top:8px; }
+body { font-family: Arial, sans-serif; margin: 0; background: #0f172a; color: #e2e8f0; }
+header { padding: 1rem 1.5rem; background: #111827; position: sticky; top: 0; z-index: 10; }
+.sub { color: #93c5fd; }
+.actions { display: flex; gap: 0.5rem; }
+button { background: #2563eb; color: white; border: none; border-radius: 4px; padding: 0.5rem 0.75rem; cursor: pointer; }
+main { padding: 1rem 1.5rem; display: grid; gap: 1rem; }
+.grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.card { background: #1e293b; border-radius: 8px; padding: 0.75rem; border: 1px solid #334155; }
+pre { white-space: pre-wrap; word-break: break-word; }
