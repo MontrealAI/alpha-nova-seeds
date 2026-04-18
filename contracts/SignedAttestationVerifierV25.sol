@@ -20,12 +20,15 @@ contract SignedAttestationVerifierV25 is EIP712, Ownable {
 
     mapping(address => bool) public trustedSigners;
 
+    /// @notice Construct verifier with EIP-712 domain for Nova-Seed attestations.
     constructor(address initialOwner) EIP712("NovaSeedAttestations", "2.5") Ownable(initialOwner) {}
 
+    /// @notice Allow or revoke trusted signers for proof attestations.
     function setTrustedSigner(address signer, bool trusted) external onlyOwner {
         trustedSigners[signer] = trusted;
     }
 
+    /// @notice Hash a manifest-attestation payload for off-chain signing.
     function hashManifestAttestation(
         bytes32 seedId,
         bytes32 manifestHash,
@@ -37,6 +40,7 @@ contract SignedAttestationVerifierV25 is EIP712, Ownable {
         return _hashTypedDataV4(structHash);
     }
 
+    /// @notice Hash a decryption-attestation payload for off-chain signing.
     function hashDecryptAttestation(
         bytes32 requestId,
         bytes32 seedId,
@@ -49,6 +53,7 @@ contract SignedAttestationVerifierV25 is EIP712, Ownable {
         return _hashTypedDataV4(structHash);
     }
 
+    /// @notice Hash a challenge-evidence payload for off-chain signing.
     function hashChallengeEvidence(
         bytes32 challengeId,
         bytes32 seedId,
@@ -60,6 +65,7 @@ contract SignedAttestationVerifierV25 is EIP712, Ownable {
         return _hashTypedDataV4(structHash);
     }
 
+    /// @notice Recover signer and return trust status for a digest/signature pair.
     function verify(bytes32 digest, bytes calldata signature) external view returns (address signer, bool trusted) {
         signer = ECDSA.recover(digest, signature);
         trusted = trustedSigners[signer];

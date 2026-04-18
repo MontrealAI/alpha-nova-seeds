@@ -18,6 +18,7 @@ Expected files in `verify-dist/`:
 - `alpha-nova-seeds-<TAG>.tar.gz`
 - `provenance-manifest-<TAG>.json`
 - `sbom-<TAG>.spdx.json`
+- `openapi-v2.6.0-rc.1.json`
 - `SHA256SUMS`
 
 ## 2) Verify checksums
@@ -42,7 +43,14 @@ jq -e '.files[] | select(.path and .sha256 and .size_bytes)' provenance-manifest
 tar -tzf alpha-nova-seeds-<TAG>.tar.gz | head -n 20
 ```
 
-## 5) Verify GitHub attestation exists
+## 5) Validate OpenAPI release surface
+
+```bash
+jq -e '.info.version == "2.6.0-rc.1"' openapi-v2.6.0-rc.1.json
+jq -e '.paths["/ready"] and .paths["/metrics"] and .paths["/governance/reviewer-ledger"]' openapi-v2.6.0-rc.1.json
+```
+
+## 6) Verify GitHub attestation exists
 
 ```bash
 gh attestation verify alpha-nova-seeds-<TAG>.tar.gz --repo MontrealAI/alpha-nova-seeds
