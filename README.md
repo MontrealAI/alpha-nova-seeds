@@ -6,6 +6,7 @@
 
 **Latest candidate:** `v2.6.0-rc1`  
 **Previous architecture baseline:** `v2.5`
+**Explore:** [🔮 α‑AGI MARK](./docs/alpha-agi-mark.md) · [📦 Latest release](https://github.com/MontrealAI/alpha-nova-seeds/releases/latest)
 
 ---
 
