@@ -1,6 +1,14 @@
 import { ethers } from "ethers";
 import type { ManifestAttestation, DecryptionAttestation } from "./types.js";
 
+type Eip712Signer = ethers.Signer & {
+  _signTypedData: (
+    domain: { name: string; version: string; chainId: number; verifyingContract: string },
+    types: Record<string, Array<{ name: string; type: string }>>,
+    value: unknown,
+  ) => Promise<string>;
+};
+
 export const domain = (chainId: number, verifyingContract: string) => ({
   name: "NovaSeedAttestations",
   version: "2.5",
@@ -35,7 +43,7 @@ export async function signManifestAttestation(
   verifyingContract: string,
   value: ManifestAttestation,
 ): Promise<string> {
-  return signer._signTypedData(domain(chainId, verifyingContract), manifestTypes, value as any);
+  return (signer as Eip712Signer)._signTypedData(domain(chainId, verifyingContract), manifestTypes, value as any);
 }
 
 export async function signDecryptAttestation(
@@ -44,5 +52,5 @@ export async function signDecryptAttestation(
   verifyingContract: string,
   value: DecryptionAttestation,
 ): Promise<string> {
-  return signer._signTypedData(domain(chainId, verifyingContract), decryptTypes, value as any);
+  return (signer as Eip712Signer)._signTypedData(domain(chainId, verifyingContract), decryptTypes, value as any);
 }
