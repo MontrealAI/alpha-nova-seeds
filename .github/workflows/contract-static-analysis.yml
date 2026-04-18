@@ -1,0 +1,18 @@
+name: contract-static-analysis
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'contracts/**'
+      - '.github/workflows/contract-static-analysis.yml'
+
+jobs:
+  slither:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: crytic/slither-action@v0.4.0
+        with:
+          target: contracts
+          fail-on: none

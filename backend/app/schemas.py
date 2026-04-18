@@ -1,5 +1,6 @@
 from pydantic import BaseModel
-from typing import Optional, List, Dict, Any
+from typing import Optional
+
 
 class SeedOut(BaseModel):
     seed_id: str
@@ -9,6 +10,7 @@ class SeedOut(BaseModel):
     sovereign_package_uri: Optional[str] = None
     sovereign_contract: Optional[str] = None
 
+
 class DashboardSummary(BaseModel):
     seed_count: int
     greenlit_count: int
@@ -17,3 +19,9 @@ class DashboardSummary(BaseModel):
     open_challenges: int
     total_delegations: int
     total_reward_events: int
+
+
+class OperationalStatus(BaseModel):
+    ok: bool
+    service: str
+    version: str

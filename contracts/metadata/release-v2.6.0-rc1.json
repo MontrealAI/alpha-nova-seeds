@@ -1,0 +1,9 @@
+{
+  "release": "v2.6.0-rc1",
+  "versionConstant": "2.6.0-rc1",
+  "metadataHashHint": "keccak256(alpha-nova-seeds:v2.6.0-rc1)",
+  "nonGoals": [
+    "audit attestation",
+    "production deployment claim"
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Nova-Seeds API",
+    "version": "2.6.0-rc1"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationalStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readiness": {
+      "get": {
+        "summary": "Readiness",
+        "operationId": "readiness_readiness_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationalStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics": {
+      "get": {
+        "summary": "Metrics",
+        "operationId": "metrics_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/summary": {
+      "get": {
+        "summary": "Dashboard Summary",
+        "operationId": "dashboard_summary_dashboard_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardSummary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/reviewer-ledger": {
+      "get": {
+        "summary": "Reviewer Ledger",
+        "operationId": "reviewer_ledger_dashboard_reviewer_ledger_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/council-seats": {
+      "get": {
+        "summary": "Council Seats",
+        "operationId": "council_seats_dashboard_council_seats_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi/export": {
+      "get": {
+        "summary": "Export Openapi",
+        "operationId": "export_openapi_openapi_export_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DashboardSummary": {
+        "properties": {
+          "seed_count": {
+            "type": "integer",
+            "title": "Seed Count"
+          },
+          "greenlit_count": {
+            "type": "integer",
+            "title": "Greenlit Count"
+          },
+          "sovereign_count": {
+            "type": "integer",
+            "title": "Sovereign Count"
+          },
+          "open_decryption_requests": {
+            "type": "integer",
+            "title": "Open Decryption Requests"
+          },
+          "open_challenges": {
+            "type": "integer",
+            "title": "Open Challenges"
+          },
+          "total_delegations": {
+            "type": "integer",
+            "title": "Total Delegations"
+          },
+          "total_reward_events": {
+            "type": "integer",
+            "title": "Total Reward Events"
+          }
+        },
+        "type": "object",
+        "required": [
+          "seed_count",
+          "greenlit_count",
+          "sovereign_count",
+          "open_decryption_requests",
+          "open_challenges",
+          "total_delegations",
+          "total_reward_events"
+        ],
+        "title": "DashboardSummary"
+      },
+      "OperationalStatus": {
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "title": "Ok"
+          },
+          "service": {
+            "type": "string",
+            "title": "Service"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ok",
+          "service",
+          "version"
+        ],
+        "title": "OperationalStatus"
+      }
+    }
+  }
+}

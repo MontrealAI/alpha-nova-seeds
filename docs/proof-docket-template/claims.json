@@ -1,0 +1,13 @@
+{
+  "claims": [
+    "v2.6.0-rc1 is a verifiable release candidate",
+    "proof and governance accounting surfaces are materially expanded"
+  ],
+  "nonGoals": [
+    "audited deployment",
+    "mainnet production guarantee"
+  ],
+  "unknowns": [
+    "independent external audit outcomes"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "sourceArchive": "alpha-nova-seeds-<tag>.tar.gz",
+  "sha256sums": "SHA256SUMS",
+  "sbom": "sbom.spdx.json",
+  "attestations": [
+    "build-provenance-source",
+    "build-provenance-sbom"
+  ]
+}
