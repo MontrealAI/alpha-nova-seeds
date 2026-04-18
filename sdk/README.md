@@ -1,11 +1,20 @@
-# Nova-Seeds v2.5 SDK bindings
+# Nova-Seeds v2.6 RC SDK bindings
 
-This directory contains practical TypeScript adapters for threshold-cryptography network integration.
+TypeScript adapters and shared types for threshold cryptography integration.
 
 ## Included adapters
-- `lit/` — Lit Protocol bindings using the current package surface documented under `@lit-protocol/lit-client` and `@lit-protocol/auth`.
-- `taco/` — TACo / Threshold Access Control bindings using `@nucypher/taco`, `@nucypher/taco-auth`, and `ethers@5` as required by TACo docs.
-- `shared/` — common typed-data, attestation, and signature verification utilities.
+- `lit/` — Lit Protocol integration helpers.
+- `taco/` — TACo integration helpers.
+- `shared/` — common typed-data and schema-aligned payload types.
 
-## What is real vs placeholder
-The adapters use the **real package names and documented setup paths**. Some functions remain opinionated wrappers around those SDKs and should be tested against your chosen environment before production.
+## v2.6 additions
+
+`shared/types.ts` now includes schema-aligned interfaces:
+- `V26ThresholdBindingProfile`
+- `V26DecryptionAttestation`
+
+These mirror canonical schemas under `schemas/v2.6/` and support round-trip JSON validation in backend tests.
+
+## RC posture
+
+These SDK surfaces support proof workflows for the release candidate. They are not an audit guarantee.

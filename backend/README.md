@@ -1,25 +1,36 @@
-# Nova-Seeds v2.5 backend
+# Nova-Seeds v2.6 RC backend
 
-Production-oriented starter backend:
-- **Postgres** for indexed state
-- **Redis** for checkpoints/caching
-- **FastAPI** for REST APIs
-- **web3.py** event indexer
+FastAPI + Postgres indexer backend focused on proof/readiness hardening.
 
-## Services
-- `api` — REST + dashboard summary
-- `worker` — event indexer / backfiller
-- `postgres` — state store
-- `redis` — offsets + cache
+## Capabilities
+
+- Versioned SQL migrations (`001_init.sql`, `002_v26_hardening.sql`)
+- Idempotent + reorg-safe event ingestion cursor
+- Health + readiness endpoints (`/health`, `/ready`)
+- Governance accounting APIs (`/governance/reviewer-ledger`, `/governance/council-seats`)
+- Proof summary API (`/proof/summary`)
+- Metrics endpoint (`/metrics`)
+- OpenAPI export (`/openapi.json`)
+- Deterministic backfill command (`python -m app.backfill`)
 
 ## Quick start
-```bash
-cp .env.example .env
-# fill values
 
-docker compose up --build
+```bash
+python -m pip install -r requirements.txt
+uvicorn app.main:app --reload
 ```
 
-Then open:
-- API docs: `http://localhost:8000/docs`
-- Dashboard: `dashboard/index.html`
+## Deterministic backfill
+
+```bash
+python -m app.backfill --from-block 0 --to-block 100000
+```
+
+## Migration order
+
+1. `backend/migrations/001_init.sql`
+2. `backend/migrations/002_v26_hardening.sql`
+
+## Rollback note
+
+To roll back v2.6 read models, drop only additive v2.6 objects (`indexer_state`, `reviewer_stake_ledger`, `council_seat_lifecycle`, `reviewer_stake_balances`, `council_active_seat_count`) and restart with v2.5 API/indexer behavior.
