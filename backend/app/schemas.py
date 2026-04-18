@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional, List, Dict, Any
+from typing import Optional, List
 
 class SeedOut(BaseModel):
     seed_id: str
@@ -17,3 +17,26 @@ class DashboardSummary(BaseModel):
     open_challenges: int
     total_delegations: int
     total_reward_events: int
+
+class ReviewerStakeRow(BaseModel):
+    reviewer: str
+    net_delta: float
+
+class CouncilSeatRow(BaseModel):
+    term_id: Optional[int] = None
+    seat_id: Optional[int] = None
+    occupant: Optional[str] = None
+    event_type: str
+    tx_hash: str
+    block_number: int
+
+class ProofSummary(BaseModel):
+    chain_event_count: int
+    reviewer_ledger_rows: int
+    council_lifecycle_rows: int
+    open_challenges: int
+
+class ReadyStatus(BaseModel):
+    ok: bool
+    chain_events: int
+    cursor_block: int

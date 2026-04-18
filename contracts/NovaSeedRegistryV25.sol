@@ -9,6 +9,8 @@ import "./CouncilGovernanceV25.sol";
 import "./ChallengePolicyModuleV25.sol";
 
 contract NovaSeedRegistryV25 is Ownable {
+    string public constant RELEASE_VERSION = "2.6.0-rc.1";
+    bytes32 public constant RELEASE_METADATA_HASH = keccak256("alpha-nova-seeds:v2.6.0-rc.1");
     enum SeedState { NONE, DRAFT, SEALED, UNDER_REVIEW, GREENLIT, BLOOMING, SOVEREIGN, QUARANTINED, REJECTED, FAILED, FORKED, DEPRECATED }
     enum ReviewDecision { NONE, APPROVE, GREENLIGHT, REJECT, QUARANTINE, PROHIBIT }
 
@@ -190,5 +192,9 @@ contract NovaSeedRegistryV25 is Ownable {
         s.sovereignPackageURI = sovereignPackageURI;
         s.sovereignContract = sovereignContract;
         emit SovereignRegistered(seedId, sovereignPackageHash, sovereignContract);
+    }
+
+    function releaseMetadata() external pure returns (string memory version, bytes32 metadataHash) {
+        return (RELEASE_VERSION, RELEASE_METADATA_HASH);
     }
 }

@@ -1,75 +1,44 @@
 # α-AGI Nova-Seeds
 
-**Sealed venture blueprints for sovereign opportunity formation — enabling machine-driven evolution of enterprise systems at production scale.**
+**Sealed venture blueprints for sovereign opportunity formation.**
 
-> AGI ALPHA evolves sovereign opportunities the way directed evolution evolves enzymes: from working parents, through variant generation, real-world selection, and compounding capability formation.
+This repository now tracks **v2.6.0-rc.1**, a **verifiable release candidate** focused on proof surfaces and release provenance.
 
-**Explore:** [🔮 α‑AGI MARK](./docs/alpha-agi-mark.md) · [📦 Latest release](https://github.com/MontrealAI/alpha-nova-seeds/releases/latest)
+> System framing: **α-AGI Insight → Nova-Seeds → MARK → Sovereigns**
 
----
+## Doctrine
 
-## What this is
+Nova-Seeds implementation order remains:
 
-Nova-Seeds are **cryptographically sealed enterprise embryos**:
+1. **identity**
+2. **proof**
+3. **settlement**
+4. **governance**
 
-- foresight genomes
-- execution FusionPlans
-- governance and validation pathways
-- promotion into α-AGI Sovereigns
+## Repository structure
 
-This repository contains the **production-grade architecture (v2.5)**.
+- `contracts/` — Solidity identity/proof/governance contracts
+- `sdk/` — threshold cryptography bindings + typed payload helpers
+- `backend/` — FastAPI + Postgres indexer and proof/governance APIs
+- `dashboard/` — operator dashboard and snapshots
+- `schemas/` — versioned canonical JSON schemas (v2.6)
+- `docs/` — trust, threat, verification, and proof docket guidance
+- `release/` — release checklist and implementation plans
 
----
+## v2.6 RC highlights
 
-## System Overview
+- Root repository contract docs (`CONTRIBUTING`, `SECURITY`, `SUPPORT`, `RELEASES`, `CHANGELOG`, `CODEOWNERS`).
+- Release provenance workflow: source archive, SHA256SUMS, SBOM, and attestations.
+- Canonical threshold schema surfaces + lifecycle documentation.
+- Governance accounting visibility for reviewer stake and council seat lifecycle.
+- Backend hardening: readiness, metrics, idempotent/reorg-safe indexing, deterministic backfill.
+- Dashboard hardening: proof/governance/operator pages and snapshot export.
+- Trust/proof documentation and docket templates.
 
-`α-AGI Insight → Nova-Seeds → MARK → Sovereigns`
+## Verify release artifacts
 
-- **Insight** identifies high-leverage AGI opportunities
-- **Nova-Seeds** encode them as sealed venture blueprints
-- **MARK** evaluates, prices, and selects
-- **Sovereigns** execute through real economic workflows
+Use `docs/verify-release.md` after running the release provenance workflow.
 
----
+## Important posture
 
-## Architecture
-
-> 🎖️ **α‑AGI Insight** — identifies high‑leverage AGI opportunities<br>
-> ↓<br>
-> 🌱 **Nova‑Seeds** — sealed venture blueprints<br>
-> ↓<br>
-> 🔮 **MARK** — selection, pricing, and sovereign formation<br>
-> ↓<br>
-> 🔱 **Sovereigns** — execution-layer enterprises<br>
-> ↓<br>
-> 📜 **α‑AGI Jobs** → 👾 **Agents** → ✅ **Validators**<br>
-> ↓<br>
-> ⚙️ **Architect** — continuous optimisation
-
----
-
-## Repository Structure
-
-- **contracts/** — smart contracts (identity, registry, governance)
-- **sdk/** — threshold cryptography bindings
-- **backend/** — FastAPI + Postgres indexer
-- **dashboard/** — operator interface
-
----
-
-## Why this matters
-
-This system enables:
-
-- programmable formation of sovereign enterprises
-- validator-gated economic execution
-- compounding capability through iterative selection
-- a new substrate for machine-driven innovation
-
-Nova-Seeds are not ideas — they are **evolvable economic structures**.
-
----
-
-## Version
-
-Initial import of Nova-Seeds v2.5 architecture.
+v2.6 is an RC hardening release. It does **not** claim to be audited final deployment.

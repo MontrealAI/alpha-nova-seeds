@@ -3,23 +3,83 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Nova-Seeds v2.5 Operator Dashboard</title>
+  <title>Nova-Seeds v2.6 RC Operator Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="hero">
-    <div class="eyebrow">NOVA-SEEDS v2.5</div>
-    <h1>Governed venture embryos with threshold reveal, delegated councils, and production indexing.</h1>
-    <p>Operator view for lineage, decryption, council governance, rewards, and sovereign promotion.</p>
+    <div class="eyebrow">NOVA-SEEDS v2.6 RC</div>
+    <h1>Proof-first operations for seeds, governance accounting, lineage, and release provenance.</h1>
+    <p>Green path: identity intake → proof completeness → settlement accounting → governance lifecycle visibility.</p>
+    <div class="actions">
+      <button id="exportJson">Export JSON Snapshot</button>
+      <button id="exportPng">Export PNG Snapshot</button>
+    </div>
   </div>
-  <div class="grid">
-    <div class="card"><h3>Total Seeds</h3><div id="seed_count" class="metric">—</div></div>
-    <div class="card"><h3>Greenlit</h3><div id="greenlit_count" class="metric">—</div></div>
-    <div class="card"><h3>Sovereigns</h3><div id="sovereign_count" class="metric">—</div></div>
-    <div class="card"><h3>Open Decryption</h3><div id="open_decryption_requests" class="metric">—</div></div>
-    <div class="card"><h3>Open Challenges</h3><div id="open_challenges" class="metric">—</div></div>
+
+  <div class="tabs">
+    <button data-tab="seeds" class="active">Seeds</button>
+    <button data-tab="rounds">Rounds</button>
+    <button data-tab="reviewer">Reviewer Ledger</button>
+    <button data-tab="council">Council Seats</button>
+    <button data-tab="lineage">Sovereign Lineage</button>
+    <button data-tab="provenance">Release Provenance</button>
+    <button data-tab="alerts">Alerts/Disputes</button>
+    <button data-tab="green">Green Path</button>
+  </div>
+
+  <section id="seeds" class="panel active">
+    <div class="grid">
+      <div class="card"><h3>Total Seeds</h3><div id="seed_count" class="metric">—</div></div>
+      <div class="card"><h3>Greenlit</h3><div id="greenlit_count" class="metric">—</div></div>
+      <div class="card"><h3>Sovereigns</h3><div id="sovereign_count" class="metric">—</div></div>
+      <div class="card"><h3>Open Decryption</h3><div id="open_decryption_requests" class="metric">—</div></div>
+    </div>
+  </section>
+
+  <section id="rounds" class="panel">
     <div class="card"><h3>Delegations</h3><div id="total_delegations" class="metric">—</div></div>
-  </div>
+    <div class="card"><h3>Total Reward Events</h3><div id="total_reward_events" class="metric">—</div></div>
+    <div class="card"><h3>Proof Events Indexed</h3><div id="chain_event_count" class="metric">—</div></div>
+  </section>
+
+  <section id="reviewer" class="panel">
+    <h3>Reviewer stake ledger</h3>
+    <pre id="reviewerLedger">[]</pre>
+  </section>
+
+  <section id="council" class="panel">
+    <h3>Council seat lifecycle</h3>
+    <pre id="councilSeats">[]</pre>
+  </section>
+
+  <section id="lineage" class="panel">
+    <h3>Sovereign lineage</h3>
+    <p>Lineage data source schema: <code>sovereign_lineage_dashboard_schema_v25.json</code></p>
+  </section>
+
+  <section id="provenance" class="panel">
+    <h3>Release provenance</h3>
+    <p>Verification guide: <code>docs/verify-release.md</code></p>
+    <p>Attestation workflow: <code>.github/workflows/release-provenance.yml</code></p>
+  </section>
+
+  <section id="alerts" class="panel">
+    <div class="card"><h3>Open Challenges</h3><div id="open_challenges" class="metric">—</div></div>
+    <div class="card"><h3>Unresolved proof alerts</h3><div id="proof_alerts" class="metric">—</div></div>
+  </section>
+
+  <section id="green" class="panel">
+    <h3>Green path operator checks</h3>
+    <ol>
+      <li>Run migrations 001 + 002 in order.</li>
+      <li>Run deterministic backfill and confirm readiness.</li>
+      <li>Verify proof summary, reviewer ledger, and council lifecycle are non-erroring.</li>
+      <li>Verify release provenance bundle before promotion.</li>
+    </ol>
+  </section>
+
+  <canvas id="snapshotCanvas" width="1200" height="700" class="hidden"></canvas>
   <script src="app.js"></script>
 </body>
 </html>
