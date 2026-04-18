@@ -4,6 +4,8 @@
 
 > AGI ALPHA evolves sovereign opportunities the way directed evolution evolves enzymes: from working parents, through variant generation, real-world selection, and compounding capability formation.
 
+**Latest release:** [Nova-Seeds v2.5](../../releases/tag/v2.5)
+
 ---
 
 ## What this is
