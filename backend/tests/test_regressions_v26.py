@@ -8,6 +8,7 @@ def test_migration_uses_postgres_compatible_view_statements():
     assert 'CREATE VIEW IF NOT EXISTS' not in sql
     assert 'DROP VIEW IF EXISTS reviewer_stake_balances;' in sql
     assert 'DROP VIEW IF EXISTS council_active_seat_count;' in sql
+    assert "WHERE latest.event_type IN ('assigned', 'reassigned', 'challenged');" in sql
 
 
 def test_indexer_reorg_rewind_deletes_derived_rows():
@@ -48,5 +49,6 @@ def test_event_abis_include_governance_and_review_events():
 def test_release_workflow_archives_requested_tag_not_head():
     workflow = (ROOT / '.github/workflows/release-provenance.yml').read_text()
     assert 'refs/tags/${{ inputs.release_tag }}' in workflow
+    assert 'ref: refs/tags/${{ inputs.release_tag }}' in workflow
     assert 'git archive --format=tar.gz' in workflow
     assert 'HEAD > dist/alpha-nova-seeds-${{ inputs.release_tag }}.tar.gz' not in workflow

@@ -54,4 +54,4 @@ FROM (
   FROM council_seat_lifecycle
   ORDER BY seat_id, block_number DESC, log_index DESC
 ) latest
-WHERE latest.event_type IN ('assigned', 'reassigned');
+WHERE latest.event_type IN ('assigned', 'reassigned', 'challenged');

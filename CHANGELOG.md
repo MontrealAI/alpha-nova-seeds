@@ -31,3 +31,5 @@
   - Challenge resolution rewinds now remain reorg-safe by updating resolution block markers.
   - Release provenance workflow now archives the requested release tag ref instead of branch HEAD.
   - Challenge creation block is immutable; resolution uses a separate resolved block marker for rewind safety.
+  - Release provenance checkout now uses the requested tag ref so manifest/SBOM match archived source.
+  - Council active seat read-model now treats challenged seats as active until deactivation.
