@@ -6,6 +6,8 @@
 
 **Latest release:** [Nova-Seeds v2.5](../../releases/tag/v2.5)
 
+**Explore:** [🔮 α‑AGI MARK](./docs/alpha-agi-mark.md) · [📦 Latest release](https://github.com/MontrealAI/alpha-nova-seeds/releases/latest)
+
 ---
 
 ## What this is
