@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Response
 from sqlalchemy import text
+from typing import List
 from .db import engine
 from .schemas import DashboardSummary, ProofSummary, ReviewerStakeRow, CouncilSeatRow, ReadyStatus
 

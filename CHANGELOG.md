@@ -18,3 +18,8 @@
 
 ### Notes
 - This release is a **verifiable release candidate**, not an audited final deployment.
+- Follow-up fixes applied after initial RC patch:
+  - CI now uses `npm install` when no lockfile is present.
+  - Reorg rewind now also clears derived governance rows.
+  - Migration view DDL updated for PostgreSQL compatibility.
+  - FastAPI `List` typing import fixed to avoid startup error.

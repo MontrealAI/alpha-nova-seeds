@@ -88,6 +88,8 @@ def run_once(start_override: int | None = None, end_override: int | None = None)
 
         # Reorg-safe delete for mutable tail
         conn.execute(text('DELETE FROM chain_events WHERE block_number >= :start_block'), {'start_block': start_block})
+        conn.execute(text('DELETE FROM reviewer_stake_ledger WHERE block_number >= :start_block'), {'start_block': start_block})
+        conn.execute(text('DELETE FROM council_seat_lifecycle WHERE block_number >= :start_block'), {'start_block': start_block})
 
         events = 0
         for event_abi in ABI:

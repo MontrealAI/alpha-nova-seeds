@@ -31,7 +31,7 @@ jobs:
       - name: Install and typecheck SDK
         working-directory: sdk
         run: |
-          npm ci
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
           npm run build --if-present
 
   static-analysis:

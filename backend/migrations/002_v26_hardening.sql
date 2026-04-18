@@ -34,12 +34,14 @@ CREATE TABLE IF NOT EXISTS council_seat_lifecycle (
   UNIQUE (tx_hash, log_index)
 );
 
-CREATE VIEW IF NOT EXISTS reviewer_stake_balances AS
+DROP VIEW IF EXISTS reviewer_stake_balances;
+CREATE VIEW reviewer_stake_balances AS
 SELECT reviewer, COALESCE(SUM(delta), 0) AS net_delta
 FROM reviewer_stake_ledger
 GROUP BY reviewer;
 
-CREATE VIEW IF NOT EXISTS council_active_seat_count AS
+DROP VIEW IF EXISTS council_active_seat_count;
+CREATE VIEW council_active_seat_count AS
 SELECT COUNT(*)::BIGINT AS active_seats
 FROM (
   SELECT DISTINCT ON (seat_id) seat_id, event_type
