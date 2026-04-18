@@ -1,7 +1,7 @@
 {
-  "name": "alpha-nova-seeds-v25-sdk",
+  "name": "alpha-nova-seeds-v26-sdk",
   "private": true,
-  "version": "2.5.0",
+  "version": "2.6.0-rc.1",
   "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.json"
