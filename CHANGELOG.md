@@ -23,3 +23,6 @@
   - Reorg rewind now also clears derived governance rows.
   - Migration view DDL updated for PostgreSQL compatibility.
   - FastAPI `List` typing import fixed to avoid startup error.
+  - Council lifecycle indexing now records real seat identifiers from governance events.
+  - Reviewer/governance read-model indexing now includes required event ABIs.
+  - Provenance manifest timestamp is deterministic (commit time / SOURCE_DATE_EPOCH), not wall-clock.

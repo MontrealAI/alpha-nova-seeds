@@ -8,6 +8,9 @@ INSERT INTO indexer_state (id, last_safe_block)
 VALUES (1, 0)
 ON CONFLICT (id) DO NOTHING;
 
+ALTER TABLE seat_challenges
+ADD COLUMN IF NOT EXISTS block_number BIGINT NOT NULL DEFAULT 0;
+
 CREATE TABLE IF NOT EXISTS reviewer_stake_ledger (
   id BIGSERIAL PRIMARY KEY,
   reviewer TEXT NOT NULL,

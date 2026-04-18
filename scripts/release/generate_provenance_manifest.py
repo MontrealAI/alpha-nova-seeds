@@ -6,6 +6,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -45,6 +47,22 @@ def iter_files() -> list[Path]:
     return sorted(files)
 
 
+def deterministic_timestamp() -> str:
+    env_epoch = os.environ.get("SOURCE_DATE_EPOCH")
+    if env_epoch:
+        return datetime.fromtimestamp(int(env_epoch), tz=timezone.utc).isoformat()
+
+    git_commit_time = subprocess.check_output(
+        ["git", "log", "-1", "--format=%cI", "HEAD"],
+        cwd=REPO_ROOT,
+        text=True,
+    ).strip()
+    if git_commit_time:
+        return git_commit_time
+
+    return datetime(1970, 1, 1, tzinfo=timezone.utc).isoformat()
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--tag", required=True)
@@ -53,7 +71,7 @@ def main() -> None:
 
     manifest = {
         "release_tag": args.tag,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "generated_at_utc": deterministic_timestamp(),
         "generator": "scripts/release/generate_provenance_manifest.py",
         "files": [],
     }
