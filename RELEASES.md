@@ -25,7 +25,12 @@ If regeneration is required, cut a new tag (for example, `v2.6.0-rc.2`) and prod
 ## Release flow
 
 1. Merge implementation changes and docs.
-2. Run CI and local verification checks.
+2. Run CI and local verification checks:
+   - `pytest -q backend/tests`
+   - `python backend/scripts/export_openapi.py`
+   - `python scripts/contracts/export_abi.py`
+   - `cd sdk && npm run build --if-present`
+   - `python scripts/release/generate_provenance_manifest.py --tag <TAG> --output /tmp/provenance-manifest-<TAG>.json`
 3. Trigger `release-provenance.yml` workflow.
 4. Publish release notes referencing generated artifacts.
 5. Validate `docs/verify-release.md` commands against the release assets.

@@ -1,0 +1,15 @@
+# Node.js dependencies and build outputs
+node_modules/
+sdk/node_modules/
+dashboard/node_modules/
+dist/
+
+# Python cache/build artifacts
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Common local environment files
+.env
+.env.*
+
