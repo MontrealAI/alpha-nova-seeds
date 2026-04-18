@@ -9,8 +9,10 @@ import { ethers } from "ethers";
  * This adapter is intentionally opinionated: it establishes a session and exposes signed manifest attestations.
  */
 export class LitThresholdBinding {
-  private clientPromise: Promise<LitClient>;
+  private client?: LitClient;
+  private clientPromise?: Promise<LitClient>;
   private authManager;
+  private readonly networkModule: LitNetworkModule;
 
   constructor(private readonly network = "naga") {
     this.authManager = createAuthManager({
@@ -20,12 +22,11 @@ export class LitThresholdBinding {
         storagePath: ".lit-auth-storage",
       }),
     });
-    const networkModule = resolveNetworkModule(this.network);
-    this.clientPromise = createLitClient({ network: networkModule });
+    this.networkModule = resolveNetworkModule(this.network);
   }
 
   async connect(): Promise<void> {
-    await this.clientPromise;
+    await this.ensureClient();
   }
 
   async attestManifest(signer: ethers.Signer, payload: unknown): Promise<{ payloadHash: string; signer: string }> {
@@ -39,6 +40,27 @@ export class LitThresholdBinding {
     // Placeholder wrapper around executeJs / Lit Actions.
     // Intentionally left minimal because policy scripts vary by deployment.
     return { ok: true, params: jsParams };
+  }
+
+  private async ensureClient(): Promise<LitClient> {
+    if (this.client) {
+      return this.client;
+    }
+
+    if (!this.clientPromise) {
+      this.clientPromise = createLitClient({ network: this.networkModule })
+        .then((client) => {
+          this.client = client;
+          return client;
+        })
+        .catch((error) => {
+          // Allow retry on a future connect() call if initialization fails.
+          this.clientPromise = undefined;
+          throw error;
+        });
+    }
+
+    return this.clientPromise;
   }
 }
 
@@ -64,7 +86,10 @@ function resolveNetworkModule(network: string): LitNetworkModule {
     case "proto":
       return nagaProto;
     case "naga":
-    default:
       return naga;
+    default:
+      throw new Error(
+        `Unsupported Lit network "${network}". Supported values: naga, local, dev, test, staging, mainnet, proto.`,
+      );
   }
 }
