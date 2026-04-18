@@ -1,25 +1,32 @@
-# Nova-Seeds v2.5 backend
+# Nova-Seeds v2.6 RC backend
 
-Production-oriented starter backend:
-- **Postgres** for indexed state
-- **Redis** for checkpoints/caching
-- **FastAPI** for REST APIs
-- **web3.py** event indexer
+FastAPI + Postgres indexer backend for proof and governance visibility.
 
 ## Services
-- `api` — REST + dashboard summary
-- `worker` — event indexer / backfiller
-- `postgres` — state store
-- `redis` — offsets + cache
+- `api` — REST endpoints, health/readiness, metrics, OpenAPI
+- `worker` — deterministic event indexer and backfill command
+- `postgres` — state store and read-model views
+- `redis` — optional cache/checkpoints
 
-## Quick start
+## Key v2.6 RC surfaces
+- `GET /health`
+- `GET /ready`
+- `GET /dashboard/summary`
+- `GET /governance/reviewer-ledger`
+- `GET /governance/council-seats`
+- `GET /metrics`
+
+## Migrations
+Apply in order:
+1. `backend/migrations/001_init.sql`
+2. `backend/migrations/002_v26_hardening.sql`
+
+## Deterministic backfill
 ```bash
-cp .env.example .env
-# fill values
-
-docker compose up --build
+python -m app.indexer --from-block 0 --to-block 12345678
 ```
 
-Then open:
-- API docs: `http://localhost:8000/docs`
-- Dashboard: `dashboard/index.html`
+## Export OpenAPI
+```bash
+python -m app.export_openapi
+```

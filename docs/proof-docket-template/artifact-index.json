@@ -1,0 +1,7 @@
+{
+  "artifacts": [
+    {"name": "source bundle", "path": "release/artifacts/source/"},
+    {"name": "canonical payload bundle", "path": "release/artifacts/canonical/"},
+    {"name": "sbom", "path": "release/artifacts/sbom.spdx.json"}
+  ]
+}

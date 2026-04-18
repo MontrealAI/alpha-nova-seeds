@@ -1,0 +1,15 @@
+# Default ownership
+* @MontrealAI
+
+# Contracts and protocol
+/contracts/ @MontrealAI
+/sdk/ @MontrealAI
+
+# Backend and operations
+/backend/ @MontrealAI
+/release/ @MontrealAI
+/.github/ @MontrealAI
+
+# Dashboard and docs
+/dashboard/ @MontrealAI
+/docs/ @MontrealAI

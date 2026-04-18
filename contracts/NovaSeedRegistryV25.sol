@@ -8,6 +8,9 @@ import "./ReviewerRewardTreasuryV25.sol";
 import "./CouncilGovernanceV25.sol";
 import "./ChallengePolicyModuleV25.sol";
 
+/// @title NovaSeedRegistryV25
+/// @notice Registry for Nova-Seeds identity, review flow, and sovereign registration.
+/// @dev v2.6 RC adds explicit release metadata constants for indexers and dashboards.
 contract NovaSeedRegistryV25 is Ownable {
     enum SeedState { NONE, DRAFT, SEALED, UNDER_REVIEW, GREENLIT, BLOOMING, SOVEREIGN, QUARANTINED, REJECTED, FAILED, FORKED, DEPRECATED }
     enum ReviewDecision { NONE, APPROVE, GREENLIGHT, REJECT, QUARANTINE, PROHIBIT }
@@ -54,6 +57,8 @@ contract NovaSeedRegistryV25 is Ownable {
     mapping(bytes32 => Review[]) public seedReviews;
     mapping(bytes32 => mapping(address => bool)) public hasReviewed;
     mapping(address => bool) public creators;
+    string public constant RELEASE_VERSION = "2.6.0-rc.0";
+    bytes32 public constant RELEASE_METADATA_HASH = keccak256("alpha-nova-seeds:v2.6.0-rc.0");
 
     event CreatorSet(address indexed creator, bool allowed);
     event SeedDrafted(bytes32 indexed seedId, uint256 indexed tokenId, bytes32 indexed parentSeedId);
@@ -84,11 +89,13 @@ contract NovaSeedRegistryV25 is Ownable {
         challengePolicy = _challengePolicy;
     }
 
+    /// @notice Adds or removes a creator that is allowed to draft seeds.
     function setCreator(address creator, bool allowed) external onlyOwner {
         creators[creator] = allowed;
         emit CreatorSet(creator, allowed);
     }
 
+    /// @notice Drafts a seed identity record and mints the backing ERC721 token.
     function draftSeed(
         bytes32 seedId,
         bytes32 parentSeedId,
@@ -133,6 +140,7 @@ contract NovaSeedRegistryV25 is Ownable {
         emit SeedDrafted(seedId, tokenId, parentSeedId);
     }
 
+    /// @notice Seals a drafted seed.
     function sealSeed(bytes32 seedId) external onlyCreator {
         SeedRecord storage s = seeds[seedId];
         require(s.state == SeedState.DRAFT, "BAD_STATE");
@@ -140,6 +148,7 @@ contract NovaSeedRegistryV25 is Ownable {
         emit SeedSealed(seedId);
     }
 
+    /// @notice Moves a sealed seed to review.
     function openReview(bytes32 seedId) external onlyCreator {
         SeedRecord storage s = seeds[seedId];
         require(s.state == SeedState.SEALED, "BAD_STATE");
@@ -147,6 +156,7 @@ contract NovaSeedRegistryV25 is Ownable {
         emit ReviewOpened(seedId);
     }
 
+    /// @notice Submits a review decision and accrues reviewer treasury credits.
     function submitReview(bytes32 seedId, uint96 weight, ReviewDecision decision, bytes32 reasonHash) external {
         SeedRecord storage s = seeds[seedId];
         require(s.state == SeedState.UNDER_REVIEW, "NOT_UNDER_REVIEW");
@@ -157,6 +167,7 @@ contract NovaSeedRegistryV25 is Ownable {
         emit ReviewSubmitted(seedId, msg.sender, weight, decision);
     }
 
+    /// @notice Finalizes aggregate review state.
     function finalizeReview(bytes32 seedId) external onlyCreator {
         SeedRecord storage s = seeds[seedId];
         require(s.state == SeedState.UNDER_REVIEW, "BAD_STATE");
@@ -182,6 +193,7 @@ contract NovaSeedRegistryV25 is Ownable {
         }
     }
 
+    /// @notice Registers a sovereign package for a greenlit or blooming seed.
     function registerSovereign(bytes32 seedId, bytes32 sovereignPackageHash, string calldata sovereignPackageURI, address sovereignContract) external onlyCreator {
         SeedRecord storage s = seeds[seedId];
         require(s.state == SeedState.GREENLIT || s.state == SeedState.BLOOMING, "BAD_STATE");

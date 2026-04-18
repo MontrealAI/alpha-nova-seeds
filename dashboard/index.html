@@ -3,23 +3,57 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Nova-Seeds v2.5 Operator Dashboard</title>
+  <title>Nova-Seeds v2.6 RC Operator Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <body>
-  <div class="hero">
-    <div class="eyebrow">NOVA-SEEDS v2.5</div>
-    <h1>Governed venture embryos with threshold reveal, delegated councils, and production indexing.</h1>
-    <p>Operator view for lineage, decryption, council governance, rewards, and sovereign promotion.</p>
+  <div class="hero" id="snapshot-root">
+    <div class="eyebrow">NOVA-SEEDS v2.6 RC</div>
+    <h1>Proof-first operator dashboard.</h1>
+    <p>Identity → proof → settlement → governance, with release provenance visibility.</p>
   </div>
-  <div class="grid">
-    <div class="card"><h3>Total Seeds</h3><div id="seed_count" class="metric">—</div></div>
-    <div class="card"><h3>Greenlit</h3><div id="greenlit_count" class="metric">—</div></div>
-    <div class="card"><h3>Sovereigns</h3><div id="sovereign_count" class="metric">—</div></div>
-    <div class="card"><h3>Open Decryption</h3><div id="open_decryption_requests" class="metric">—</div></div>
-    <div class="card"><h3>Open Challenges</h3><div id="open_challenges" class="metric">—</div></div>
-    <div class="card"><h3>Delegations</h3><div id="total_delegations" class="metric">—</div></div>
+
+  <div class="toolbar">
+    <button onclick="showPage('seeds')">Seeds</button>
+    <button onclick="showPage('rounds')">Rounds</button>
+    <button onclick="showPage('reviewer-ledger')">Reviewer Ledger</button>
+    <button onclick="showPage('council-seats')">Council Seats</button>
+    <button onclick="showPage('lineage')">Sovereign Lineage</button>
+    <button onclick="showPage('provenance')">Release Provenance</button>
+    <button onclick="showPage('alerts')">Alerts / Disputes</button>
+    <button onclick="showPage('green-path')">Green Path</button>
+    <button onclick="exportSnapshotJSON()">Export JSON</button>
+    <button onclick="exportSnapshotPNG()">Export PNG</button>
   </div>
+
+  <div class="page" id="seeds">
+    <h2>Seeds</h2>
+    <div class="grid">
+      <div class="card"><h3>Total Seeds</h3><div id="seed_count" class="metric">—</div></div>
+      <div class="card"><h3>Greenlit</h3><div id="greenlit_count" class="metric">—</div></div>
+      <div class="card"><h3>Sovereigns</h3><div id="sovereign_count" class="metric">—</div></div>
+    </div>
+  </div>
+
+  <div class="page hidden" id="rounds"><h2>Rounds</h2><pre id="rounds_json">Loading...</pre></div>
+  <div class="page hidden" id="reviewer-ledger"><h2>Reviewer Ledger</h2><pre id="ledger_json">Loading...</pre></div>
+  <div class="page hidden" id="council-seats"><h2>Council Seats</h2><pre id="seats_json">Loading...</pre></div>
+  <div class="page hidden" id="lineage"><h2>Sovereign Lineage</h2><pre id="lineage_json">Loading...</pre></div>
+  <div class="page hidden" id="provenance"><h2>Release Provenance</h2><pre id="provenance_json">Loading...</pre></div>
+  <div class="page hidden" id="alerts"><h2>Alerts / Disputes</h2><pre id="alerts_json">Loading...</pre></div>
+
+  <div class="page hidden" id="green-path">
+    <h2>Green Path Operator Page</h2>
+    <ol>
+      <li>Confirm seed drafted/sealed events indexed.</li>
+      <li>Confirm threshold artifacts validate against v2.6 schemas.</li>
+      <li>Confirm review reaches greenlit without unresolved disputes.</li>
+      <li>Confirm reviewer ledger and council seat views are deterministic.</li>
+      <li>Capture release provenance snapshot and checksums.</li>
+    </ol>
+  </div>
+
   <script src="app.js"></script>
 </body>
 </html>

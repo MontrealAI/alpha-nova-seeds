@@ -1,0 +1,16 @@
+[
+  {"type":"constructor","inputs":[{"name":"initialOwner","type":"address"},{"name":"_seedNFT","type":"address"},{"name":"_thresholdAdapter","type":"address"},{"name":"_treasury","type":"address"},{"name":"_governance","type":"address"},{"name":"_challengePolicy","type":"address"}]},
+  {"type":"function","name":"RELEASE_VERSION","stateMutability":"view","inputs":[],"outputs":[{"name":"","type":"string"}]},
+  {"type":"function","name":"RELEASE_METADATA_HASH","stateMutability":"view","inputs":[],"outputs":[{"name":"","type":"bytes32"}]},
+  {"type":"function","name":"setCreator","stateMutability":"nonpayable","inputs":[{"name":"creator","type":"address"},{"name":"allowed","type":"bool"}],"outputs":[]},
+  {"type":"function","name":"draftSeed","stateMutability":"nonpayable","inputs":[{"name":"seedId","type":"bytes32"},{"name":"parentSeedId","type":"bytes32"},{"name":"manifestHash","type":"bytes32"},{"name":"ciphertextHash","type":"bytes32"},{"name":"publicSummaryHash","type":"bytes32"},{"name":"fusionPlanHash","type":"bytes32"},{"name":"mutationMapHash","type":"bytes32"},{"name":"evidenceHash","type":"bytes32"},{"name":"authorizedViewersRoot","type":"bytes32"},{"name":"envelopeKeyHash","type":"bytes32"},{"name":"decryptionPolicyHash","type":"bytes32"},{"name":"payloadURI","type":"string"},{"name":"publicSummaryURI","type":"string"},{"name":"fusionPlanURI","type":"string"},{"name":"tokenURI","type":"string"}],"outputs":[{"name":"tokenId","type":"uint256"}]},
+  {"type":"function","name":"sealSeed","stateMutability":"nonpayable","inputs":[{"name":"seedId","type":"bytes32"}],"outputs":[]},
+  {"type":"function","name":"openReview","stateMutability":"nonpayable","inputs":[{"name":"seedId","type":"bytes32"}],"outputs":[]},
+  {"type":"function","name":"submitReview","stateMutability":"nonpayable","inputs":[{"name":"seedId","type":"bytes32"},{"name":"weight","type":"uint96"},{"name":"decision","type":"uint8"},{"name":"reasonHash","type":"bytes32"}],"outputs":[]},
+  {"type":"function","name":"finalizeReview","stateMutability":"nonpayable","inputs":[{"name":"seedId","type":"bytes32"}],"outputs":[]},
+  {"type":"function","name":"registerSovereign","stateMutability":"nonpayable","inputs":[{"name":"seedId","type":"bytes32"},{"name":"sovereignPackageHash","type":"bytes32"},{"name":"sovereignPackageURI","type":"string"},{"name":"sovereignContract","type":"address"}],"outputs":[]},
+  {"type":"event","name":"SeedDrafted","anonymous":false,"inputs":[{"indexed":true,"name":"seedId","type":"bytes32"},{"indexed":true,"name":"tokenId","type":"uint256"},{"indexed":true,"name":"parentSeedId","type":"bytes32"}]},
+  {"type":"event","name":"SeedGreenlit","anonymous":false,"inputs":[{"indexed":true,"name":"seedId","type":"bytes32"}]},
+  {"type":"event","name":"SeedQuarantined","anonymous":false,"inputs":[{"indexed":true,"name":"seedId","type":"bytes32"}]},
+  {"type":"event","name":"SovereignRegistered","anonymous":false,"inputs":[{"indexed":true,"name":"seedId","type":"bytes32"},{"indexed":false,"name":"sovereignPackageHash","type":"bytes32"},{"indexed":false,"name":"sovereignContract","type":"address"}]}
+]
