@@ -1,162 +1,89 @@
-# 🌱💫 α‑AGI Nova‑Seeds 🔐
+# α‑AGI Nova‑Seeds (v2.6.0-rc.1 posture)
 
-**Sealed venture blueprints for sovereign opportunity formation — enabling machine-driven evolution of enterprise systems at production scale.**
+Nova‑Seeds are **sealed venture blueprints for sovereign opportunity formation**.
 
-> AGI ALPHA evolves sovereign opportunities the way directed evolution evolves enzymes: from working parents, through variant generation, real-world selection, and compounding capability formation.
+This repository is maintained as a **verifiable release candidate** and **production-grade starter architecture** — not as an audited final deployment.
 
-**Explore:** [🌱💫 α‑AGI Nova‑Seeds 🔐](./README.md) · [α‑AGI MARK 🔮🌌✨](./docs/alpha-agi-mark.md) · [🔱 α‑AGI Sovereign 👑✨](./docs/alpha-agi-sovereign.md) · [📦 Latest release](https://github.com/MontrealAI/alpha-nova-seeds/releases/latest)
-
-**Status:** the `main` branch tracks the current hardening path and can run ahead of the latest packaged milestone. The latest public release is **Nova‑Seeds v2.5**. The current branch is oriented toward the next release candidate, with emphasis on proof surfaces, governance hardening, and release provenance.
-
----
-
-## In one glance
-
-```text
-🎖️ α‑AGI Insight
-      ↓
-🌱💫 α‑AGI Nova‑Seeds 🔐
-      ↓
-α‑AGI MARK 🔮🌌✨
-      ↓
-🔱 α‑AGI Sovereign 👑✨
-      ↓
-📜 α‑AGI Jobs → 👾 Agents → ✅ Validators
-      ↓
-⚙️ Architect (continuous optimisation)
-```
-
-- **🌱💫 α‑AGI Nova‑Seeds 🔐** encode machine-discovered enterprise futures as sealed venture blueprints.
-- **α‑AGI MARK 🔮🌌✨** screens, prices, and promotes those blueprints under validator-gated formation pressure.
-- **🔱 α‑AGI Sovereign 👑✨** is the operating enterprise form that emerges when a seed survives selection strongly enough to become real.
-
----
-
-## What this is
-
-Nova‑Seeds are **cryptographically sealed enterprise embryos**:
-
-- foresight genomes  
-- execution FusionPlans  
-- governance and validation pathways  
-- promotion into α‑AGI Sovereigns  
-
-This repository contains the **production-grade architecture** for that formation stack.
-
----
-
-## System Overview
+System framing:
 
 `α‑AGI Insight → Nova‑Seeds → MARK → Sovereigns`
 
-- **Insight** identifies high-leverage AGI opportunities.
-- **Nova‑Seeds** encode them as sealed venture blueprints.
-- **MARK** evaluates, prices, and selects.
-- **Sovereigns** execute through real economic workflows.
+Operational doctrine:
+
+1. identity
+2. proof
+3. settlement
+4. governance
 
 ---
 
-## Architecture
+## What this repository contains
 
-> 🎖️ **α‑AGI Insight** — identifies high‑leverage AGI opportunities<br>
-> ↓<br>
-> 🌱 **Nova‑Seeds** — sealed venture blueprints<br>
-> ↓<br>
-> 🔮 **MARK** — selection, pricing, and sovereign formation<br>
-> ↓<br>
-> 🔱 **Sovereigns** — execution-layer enterprises<br>
-> ↓<br>
-> 📜 **α‑AGI Jobs** → 👾 **Agents** → ✅ **Validators**<br>
-> ↓<br>
-> ⚙️ **Architect** — continuous optimisation
+- `contracts/` — Solidity contracts for seed identity, registry, governance, workflow/challenge policy, reviewer treasury, and council mechanics.
+- `sdk/` — threshold-cryptography bindings and typed payload helpers.
+- `backend/` — FastAPI + Postgres indexer and proof/governance APIs.
+- `dashboard/` — operator UI for seed, governance, and provenance visibility.
+- `schemas/` — canonical versioned JSON schemas.
+- `docs/` — trust model, threat model, green path, proof docket, and release verification guidance.
+- `release/` — release-check surfaces and RC hardening notes.
 
 ---
 
-## Repository Structure
+## Release posture (April 18, 2026)
 
-- **contracts/** — smart contracts for identity, proof, governance, workflow, and challenge policy  
-- **sdk/** — threshold cryptography bindings and typed payload helpers  
-- **backend/** — FastAPI + Postgres indexer and governance / proof APIs  
-- **dashboard/** — operator interface and snapshots  
-- **schemas/** — versioned canonical JSON schemas  
-- **docs/** — trust, threat, verification, MARK, and Sovereign documentation  
-- **release/** — release checklists and implementation plans  
-- **scripts/** — development and release utility scripts  
-- **.github/workflows/** — CI, release provenance, and automation workflows  
+- Current target posture: **v2.6.0-rc.1 verifiable release candidate**.
+- Latest generally referenced milestone in earlier docs: **v2.5 foundational architecture release**.
+- This repo deliberately avoids claims such as “audited”, “final”, “mainnet-safe by default”, or “fully proven compounding substrate”.
 
-### Root governance and release files
+What is currently represented as real:
 
-- **AGENTS.md** — agent-facing repository guidance  
-- **CHANGELOG.md** — release change history  
-- **CODEOWNERS** — code ownership and review boundaries  
-- **CONTRIBUTING.md** — contribution guide  
-- **RELEASES.md** — release process and checklist  
-- **SECURITY.md** — security reporting and posture  
-- **SUPPORT.md** — support paths and expectations  
+- architectural substrate across contracts + SDK + backend + dashboard
+- explicit governance and verification doctrine
+- additive hardening for provenance, operator visibility, and deterministic indexing
+
+What is not claimed as proven here:
+
+- final security assurance from an external audit
+- fully deployed production guarantees
+- evidence of adjacent-mandate compounding reuse beyond the proof shells in this repo
 
 ---
 
-## Documentation Map
+## Core operating docs
 
-### Core formation docs
-- [α‑AGI MARK 🔮🌌✨](./docs/alpha-agi-mark.md) — the selection environment where machine-discovered futures are screened, priced, and promoted  
-- [🔱 α‑AGI Sovereign 👑✨](./docs/alpha-agi-sovereign.md) — the operating enterprise form that emerges from a surviving seed  
-
-### Governance, trust, and proof docs
-- [Council seat lifecycle](./docs/council-seat-lifecycle.md)  
-- [Reviewer stake accounting](./docs/reviewer-stake-accounting.md)  
-- [Threshold attestation lifecycle](./docs/threshold-attestation-lifecycle.md)  
-- [Trust model](./docs/trust-model.md)  
-- [Threat model](./docs/threat-model.md)  
-- [Green path](./docs/green-path.md)  
-- [Verify release artifacts](./docs/verify-release.md)  
-- [Proof docket template](./docs/proof-docket-template/)  
-
-### Release materials
-- [📦 Latest release](https://github.com/MontrealAI/alpha-nova-seeds/releases/latest)  
+- [AGENTS.md](./AGENTS.md) — repository operating contract for maintainers and agents
+- [CONTRIBUTING.md](./CONTRIBUTING.md) — contribution workflow and PR checklist
+- [SECURITY.md](./SECURITY.md) — reporting and triage policy
+- [SUPPORT.md](./SUPPORT.md) — support expectations
+- [RELEASES.md](./RELEASES.md) — release contract and flow
+- [CHANGELOG.md](./CHANGELOG.md) — version history
 
 ---
 
-## Why this matters
+## Verification-first docs
 
-This system enables:
-
-- programmable formation of sovereign enterprises  
-- validator-gated economic execution  
-- compounding capability through iterative selection  
-- a new substrate for machine-driven innovation  
-
-Nova‑Seeds are not ideas — they are **evolvable economic structures**.
-
----
-
-## For non-technical readers
-
-If you are new to the system, read it in this order:
-
-1. **This README** — to understand the full formation stack  
-2. [α‑AGI MARK 🔮🌌✨](./docs/alpha-agi-mark.md) — to understand how future enterprises are screened and promoted  
-3. [🔱 α‑AGI Sovereign 👑✨](./docs/alpha-agi-sovereign.md) — to understand what emerges from a successful seed  
-4. [📦 Latest release](https://github.com/MontrealAI/alpha-nova-seeds/releases/latest) — to download the latest packaged milestone  
+- [Verify release artifacts](./docs/verify-release.md)
+- [Trust model](./docs/trust-model.md)
+- [Threat model](./docs/threat-model.md)
+- [Green path](./docs/green-path.md)
+- [Proof docket template](./docs/proof-docket-template/)
+- [Threshold attestation lifecycle](./docs/threshold-attestation-lifecycle.md)
+- [Council seat lifecycle](./docs/council-seat-lifecycle.md)
+- [Reviewer stake accounting](./docs/reviewer-stake-accounting.md)
 
 ---
 
-## Current release posture
+## Quick local verification
 
-The latest public release is **Nova‑Seeds v2.5 — Foundational Architecture Release**.
+```bash
+# backend tests
+pytest -q backend/tests
 
-That release should be understood as:
+# backend OpenAPI export
+python backend/scripts/export_openapi.py
 
-- production-grade architecture  
-- public system milestone  
-- implementation and governance substrate  
-- **not** an audited final deployment  
+# SDK typecheck/build
+cd sdk && npm run build --if-present && cd -
+```
 
-The `main` branch may include hardening work beyond the latest release.
-
----
-
-## Version
-
-Latest packaged milestone: **Nova‑Seeds v2.5**  
-Current development track: **next hardening path / release candidate work on `main`**
+For full RC artifact verification (checksums + attestation + SBOM), follow [`docs/verify-release.md`](./docs/verify-release.md).

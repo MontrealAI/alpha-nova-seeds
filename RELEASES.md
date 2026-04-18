@@ -9,6 +9,19 @@ Each release candidate must include:
 3. **Provenance artifacts** (source archive hash, SHA256SUMS, attestations, SBOM).
 4. **Rollback notes** with operator decision points.
 
+## Immutable release asset naming
+
+Use deterministic file names keyed by tag so operators can verify from a clean machine:
+
+- `alpha-nova-seeds-<TAG>.tar.gz`
+- `provenance-manifest-<TAG>.json`
+- `sbom-<TAG>.spdx.json`
+- `openapi-v2.6.0-rc.1.json`
+- `SHA256SUMS`
+
+Do not overwrite an existing release asset for the same `<TAG>`.
+If regeneration is required, cut a new tag (for example, `v2.6.0-rc.2`) and produce a new immutable set.
+
 ## Release flow
 
 1. Merge implementation changes and docs.
