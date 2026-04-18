@@ -16,6 +16,7 @@ def test_indexer_reorg_rewind_deletes_derived_rows():
     assert 'DELETE FROM reviewer_stake_ledger WHERE block_number >= :start_block' in source
     assert 'DELETE FROM council_seat_lifecycle WHERE block_number >= :start_block' in source
     assert 'DELETE FROM seat_challenges WHERE block_number >= :start_block' in source
+    assert 'WHERE resolved_block_number >= :start_block' in source
 
 
 def test_fastapi_main_imports_list_typing():
@@ -33,3 +34,11 @@ def test_event_abis_include_governance_and_review_events():
     assert 'SeatAssigned' in governance_abi
     assert 'ChallengeOpened' in governance_abi
     assert 'ChallengeResolved' in governance_abi
+
+
+def test_challenge_lifecycle_uses_causal_cutoff_and_seat_occupant():
+    source = (ROOT / 'backend/app/indexer.py').read_text()
+    assert 'block_number < :block_number OR' in source
+    assert '(block_number = :block_number AND log_index <= :log_index)' in source
+    assert "'deactivated'" in source
+    assert "row['challenger']" not in source

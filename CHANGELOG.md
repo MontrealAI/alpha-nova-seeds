@@ -26,3 +26,5 @@
   - Council lifecycle indexing now records real seat identifiers from governance events.
   - Reviewer/governance read-model indexing now includes required event ABIs.
   - Provenance manifest timestamp is deterministic (commit time / SOURCE_DATE_EPOCH), not wall-clock.
+  - Challenge lifecycle attribution is now causal (bounded by block/log position) and uses seat occupant for deactivation entries.
+  - Reorg rewinds now reset mutated challenge resolution state (`resolved/upheld`) when resolution happened in mutable tail.

@@ -11,6 +11,9 @@ ON CONFLICT (id) DO NOTHING;
 ALTER TABLE seat_challenges
 ADD COLUMN IF NOT EXISTS block_number BIGINT NOT NULL DEFAULT 0;
 
+ALTER TABLE seat_challenges
+ADD COLUMN IF NOT EXISTS resolved_block_number BIGINT;
+
 CREATE TABLE IF NOT EXISTS reviewer_stake_ledger (
   id BIGSERIAL PRIMARY KEY,
   reviewer TEXT NOT NULL,
