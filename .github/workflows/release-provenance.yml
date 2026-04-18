@@ -38,6 +38,10 @@ jobs:
             --tag "${{ inputs.release_tag }}" \
             --output dist/provenance-manifest-${{ inputs.release_tag }}.json
 
+      - name: Export OpenAPI surface
+        run: |
+          python backend/scripts/export_openapi.py
+
       - name: Generate SHA256SUMS
         run: |
           (cd dist && sha256sum * > SHA256SUMS)
@@ -56,6 +60,7 @@ jobs:
             dist/alpha-nova-seeds-${{ inputs.release_tag }}.tar.gz
             dist/provenance-manifest-${{ inputs.release_tag }}.json
             dist/sbom-${{ inputs.release_tag }}.spdx.json
+            dist/openapi-v2.6.0-rc.1.json
             dist/SHA256SUMS
 
       - name: Upload release provenance bundle

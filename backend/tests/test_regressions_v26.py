@@ -52,3 +52,9 @@ def test_release_workflow_archives_requested_tag_not_head():
     assert 'ref: refs/tags/${{ inputs.release_tag }}' in workflow
     assert 'git archive --format=tar.gz' in workflow
     assert 'HEAD > dist/alpha-nova-seeds-${{ inputs.release_tag }}.tar.gz' not in workflow
+
+
+def test_release_workflow_exports_openapi_surface():
+    workflow = (ROOT / '.github/workflows/release-provenance.yml').read_text()
+    assert 'python backend/scripts/export_openapi.py' in workflow
+    assert 'dist/openapi-v2.6.0-rc.1.json' in workflow

@@ -33,3 +33,4 @@
   - Challenge creation block is immutable; resolution uses a separate resolved block marker for rewind safety.
   - Release provenance checkout now uses the requested tag ref so manifest/SBOM match archived source.
   - Council active seat read-model now treats challenged seats as active until deactivation.
+  - Release provenance bundle now includes deterministic OpenAPI export for API-surface verification.

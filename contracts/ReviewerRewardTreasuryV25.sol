@@ -21,20 +21,24 @@ contract ReviewerRewardTreasuryV25 is Ownable {
         _;
     }
 
+    /// @notice Construct reviewer treasury with reward token.
     constructor(address initialOwner, IERC20 _rewardToken) Ownable(initialOwner) {
         rewardToken = _rewardToken;
     }
 
+    /// @notice Allow or revoke a distributor that can accrue/slash rewards.
     function setDistributor(address distributor, bool allowed) external onlyOwner {
         distributors[distributor] = allowed;
         emit DistributorSet(distributor, allowed);
     }
 
+    /// @notice Accrue reviewer stake rewards from governance-reviewed activity.
     function accrue(address reviewer, uint256 amount, bytes32 ref) external onlyDistributor {
         accrued[reviewer] += amount;
         emit RewardAccrued(reviewer, amount, ref);
     }
 
+    /// @notice Claim accrued rewards into the caller wallet.
     function claim() external {
         uint256 amount = accrued[msg.sender];
         require(amount > 0, "NO_REWARD");
@@ -44,6 +48,7 @@ contract ReviewerRewardTreasuryV25 is Ownable {
         emit RewardClaimed(msg.sender, amount);
     }
 
+    /// @notice Apply deterministic clawback for disputes/slashing outcomes.
     function clawback(address reviewer, uint256 amount, bytes32 reasonHash) external onlyDistributor {
         require(accrued[reviewer] >= amount, "INSUFFICIENT_ACCRUED");
         accrued[reviewer] -= amount;

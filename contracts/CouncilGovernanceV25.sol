@@ -47,17 +47,21 @@ contract CouncilGovernanceV25 is Ownable {
         _;
     }
 
+    /// @notice Construct governance with an initial owner/admin.
     constructor(address initialOwner) Ownable(initialOwner) {}
 
+    /// @notice Allow or revoke election-admin authority.
     function setElectionAdmin(address admin, bool allowed) external onlyOwner {
         electionAdmins[admin] = allowed;
     }
 
+    /// @notice Open the next governance term.
     function openTerm() external onlyElectionAdmin returns (uint64 termId) {
         termId = ++currentTermId;
         emit TermOpened(termId);
     }
 
+    /// @notice Assign or reassign a seat for the current term.
     function assignSeat(uint32 seatId, address occupant, uint96 weight, bool active) external onlyElectionAdmin {
         if (seatId == 0 || seatId > seatCount) {
             seatCount += 1;
@@ -67,16 +71,19 @@ contract CouncilGovernanceV25 is Ownable {
         emit SeatAssigned(currentTermId, seatId, occupant, weight);
     }
 
+    /// @notice Delegate voting weight for the current term.
     function delegate(address delegatee, uint96 votingWeight) external {
         delegationOf[currentTermId][msg.sender] = delegatee;
         _termSnapshots[currentTermId].push(DelegationSnapshot(currentTermId, msg.sender, delegatee, votingWeight));
         emit Delegated(currentTermId, msg.sender, delegatee, votingWeight);
     }
 
+    /// @notice Read immutable delegation snapshots for a term.
     function delegationSnapshots(uint64 termId) external view returns (DelegationSnapshot[] memory) {
         return _termSnapshots[termId];
     }
 
+    /// @notice Open a bonded challenge against a council seat.
     function openSeatChallenge(uint32 seatId, bytes32 reasonHash) external payable returns (bytes32 challengeId) {
         require(seats[seatId].occupant != address(0), "NO_SEAT");
         require(msg.value > 0, "BOND_REQUIRED");
@@ -85,6 +92,7 @@ contract CouncilGovernanceV25 is Ownable {
         emit ChallengeOpened(challengeId, currentTermId, seatId, msg.sender, reasonHash, msg.value);
     }
 
+    /// @notice Resolve a seat challenge and route bond according to outcome.
     function resolveSeatChallenge(bytes32 challengeId, bool upheld) external onlyElectionAdmin {
         Challenge storage c = challenges[challengeId];
         require(!c.resolved, "ALREADY_RESOLVED");
