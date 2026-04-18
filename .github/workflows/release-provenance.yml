@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -26,7 +28,8 @@ jobs:
       - name: Build source artifact
         run: |
           mkdir -p dist
-          git archive --format=tar.gz --prefix=alpha-nova-seeds-${{ inputs.release_tag }}/ HEAD > dist/alpha-nova-seeds-${{ inputs.release_tag }}.tar.gz
+          git rev-parse --verify "refs/tags/${{ inputs.release_tag }}"
+          git archive --format=tar.gz --prefix=alpha-nova-seeds-${{ inputs.release_tag }}/ "refs/tags/${{ inputs.release_tag }}" > dist/alpha-nova-seeds-${{ inputs.release_tag }}.tar.gz
 
       - name: Generate provenance manifest
         run: |

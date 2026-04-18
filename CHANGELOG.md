@@ -29,3 +29,5 @@
   - Registry ABI snapshot export now includes review/quarantine events used by governance indexing.
   - Challenge/deactivation lifecycle attribution now uses causal seat-occupant lookups.
   - Challenge resolution rewinds now remain reorg-safe by updating resolution block markers.
+  - Release provenance workflow now archives the requested release tag ref instead of branch HEAD.
+  - Challenge creation block is immutable; resolution uses a separate resolved block marker for rewind safety.

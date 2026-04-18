@@ -112,7 +112,7 @@ def _handle_challenge_opened(conn, payload: dict, args: dict):
     bond = int(args.get('bond', 0))
 
     conn.execute(text("""
-        INSERT INTO seat_challenges (challenge_id, term_id, seat_id, challenger, reason_hash, bond, resolved, upheld, block_number, updated_at)
+        INSERT INTO seat_challenges (challenge_id, term_id, seat_id, challenger, reason_hash, bond, resolved, upheld, block_number, resolved_block_number, updated_at)
         VALUES (
           decode(replace(:challenge_id, '0x', ''), 'hex'),
           :term_id,
@@ -123,6 +123,7 @@ def _handle_challenge_opened(conn, payload: dict, args: dict):
           false,
           NULL,
           :block_number,
+          NULL,
           now()
         )
         ON CONFLICT (challenge_id) DO NOTHING
@@ -147,9 +148,9 @@ def _handle_challenge_resolved(conn, payload: dict, args: dict):
 
     conn.execute(text("""
         UPDATE seat_challenges
-        SET resolved = true, upheld = :upheld, block_number = :block_number, updated_at = now()
+        SET resolved = true, upheld = :upheld, resolved_block_number = :resolved_block_number, updated_at = now()
         WHERE challenge_id = decode(replace(:challenge_id, '0x', ''), 'hex')
-    """), {'upheld': upheld, 'challenge_id': challenge_id, 'block_number': payload['block_number']})
+    """), {'upheld': upheld, 'challenge_id': challenge_id, 'resolved_block_number': payload['block_number']})
 
     if upheld:
         row = conn.execute(text('''
@@ -222,6 +223,11 @@ def run_once(start_override: int | None = None, end_override: int | None = None)
         conn.execute(text('DELETE FROM reviewer_stake_ledger WHERE block_number >= :start_block'), {'start_block': start_block})
         conn.execute(text('DELETE FROM council_seat_lifecycle WHERE block_number >= :start_block'), {'start_block': start_block})
         conn.execute(text('DELETE FROM seat_challenges WHERE block_number >= :start_block'), {'start_block': start_block})
+        conn.execute(text('''
+            UPDATE seat_challenges
+            SET resolved = false, upheld = NULL, resolved_block_number = NULL, updated_at = now()
+            WHERE resolved_block_number >= :start_block
+        '''), {'start_block': start_block})
 
         events = 0
         for source in EVENT_SOURCES:

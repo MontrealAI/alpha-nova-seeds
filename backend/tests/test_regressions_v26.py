@@ -16,7 +16,8 @@ def test_indexer_reorg_rewind_deletes_derived_rows():
     assert 'DELETE FROM reviewer_stake_ledger WHERE block_number >= :start_block' in source
     assert 'DELETE FROM council_seat_lifecycle WHERE block_number >= :start_block' in source
     assert 'DELETE FROM seat_challenges WHERE block_number >= :start_block' in source
-    assert "SET resolved = true, upheld = :upheld, block_number = :block_number, updated_at = now()" in source
+    assert "SET resolved = true, upheld = :upheld, resolved_block_number = :resolved_block_number, updated_at = now()" in source
+    assert "WHERE resolved_block_number >= :start_block" in source
 
 
 def test_indexer_uses_causal_order_and_bounded_occupant_lookups():
@@ -42,3 +43,10 @@ def test_event_abis_include_governance_and_review_events():
     assert 'SeatAssigned' in governance_abi
     assert 'ChallengeOpened' in governance_abi
     assert 'ChallengeResolved' in governance_abi
+
+
+def test_release_workflow_archives_requested_tag_not_head():
+    workflow = (ROOT / '.github/workflows/release-provenance.yml').read_text()
+    assert 'refs/tags/${{ inputs.release_tag }}' in workflow
+    assert 'git archive --format=tar.gz' in workflow
+    assert 'HEAD > dist/alpha-nova-seeds-${{ inputs.release_tag }}.tar.gz' not in workflow
