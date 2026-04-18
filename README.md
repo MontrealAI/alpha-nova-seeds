@@ -28,21 +28,21 @@ This repository contains the **production-grade architecture (v2.5)**.
 - **MARK** evaluates, prices, and selects
 - **Sovereigns** execute through real economic workflows
 
+---
+
 ## Architecture
 
-```text
-α-AGI Insight
-      ↓
-Nova-Seeds (sealed venture blueprints)
-      ↓
-MARK (selection & pricing)
-      ↓
-Sovereigns (execution layer)
-      ↓
-α-AGI Jobs → Agents → Validators
-      ↓
-Architect (continuous optimisation)
-```
+> 🎖️ **α‑AGI Insight** — identifies high‑leverage AGI opportunities<br>
+> ↓<br>
+> 🌱 **Nova‑Seeds** — sealed venture blueprints<br>
+> ↓<br>
+> 🔮 **MARK** — selection, pricing, and sovereign formation<br>
+> ↓<br>
+> 🔱 **Sovereigns** — execution-layer enterprises<br>
+> ↓<br>
+> 📜 **α‑AGI Jobs** → 👾 **Agents** → ✅ **Validators**<br>
+> ↓<br>
+> ⚙️ **Architect** — continuous optimisation
 
 ---
 
