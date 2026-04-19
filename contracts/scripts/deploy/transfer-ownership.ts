@@ -57,16 +57,27 @@ async function main(): Promise<void> {
   assertSafetyFlag("ALLOW_OWNERSHIP_TRANSFER", "Ownership transfer");
   const env = getEnv();
 
-  const deploymentDir = process.argv[2] || latestDeploymentDir(hre.network.name);
-  const manifestPath = join(deploymentDir, "manifest.json");
+  const explicitDeploymentDir = process.argv[2];
+
+  let manifestPath: string | undefined;
+  if (explicitDeploymentDir) {
+    manifestPath = join(explicitDeploymentDir, "manifest.json");
+  } else {
+    try {
+      manifestPath = join(latestDeploymentDir(hre.network.name), "manifest.json");
+    } catch {
+      manifestPath = undefined;
+    }
+  }
 
   let addresses: Record<string, string | undefined>;
-  if (existsSync(manifestPath)) {
+  if (manifestPath && existsSync(manifestPath)) {
     addresses = addressesFromManifest(manifestPath);
     console.log(`Using contract addresses from manifest: ${manifestPath}`);
   } else {
     addresses = addressesFromEnv();
-    console.log(`Manifest not found at ${manifestPath}. Falling back to explicit *_ADDRESS environment variables.`);
+    const reason = manifestPath ? `Manifest not found at ${manifestPath}` : `No deployment directory found for network ${hre.network.name}`;
+    console.log(`${reason}. Falling back to explicit *_ADDRESS environment variables.`);
   }
 
   for (const [name, address] of Object.entries(addresses)) {
