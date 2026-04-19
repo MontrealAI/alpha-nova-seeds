@@ -51,4 +51,16 @@ describe("CouncilGovernanceV25 lifecycle", function () {
 
     await expect(governance.connect(outsider).resolveSeatChallenge(challengeId, false)).to.be.revertedWith("ALREADY_RESOLVED");
   });
+
+  it("rejects unauthorized challenge resolution and missing seat challenges", async function () {
+    const [owner, admin, outsider] = await hre.ethers.getSigners();
+    const governance = await hre.ethers.deployContract("CouncilGovernanceV25", [owner.address]);
+
+    await governance.connect(owner).setElectionAdmin(admin.address, true);
+    await governance.connect(admin).openTerm();
+    await governance.connect(admin).assignSeat(1, admin.address, 1, true);
+
+    await expect(governance.connect(outsider).resolveSeatChallenge(hre.ethers.id("missing"), true)).to.be.revertedWith("NOT_ELECTION_ADMIN");
+    await expect(governance.connect(admin).openSeatChallenge(2, hre.ethers.id("no-seat"), { value: 1n })).to.be.revertedWith("NO_SEAT");
+  });
 });
