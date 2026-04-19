@@ -99,9 +99,10 @@ Hardhat regression specs in `contracts/test/` now include:
 
 - `alpha-seed.lifecycle.ts` for identity NFT owner/registry controls and URI mutation guards.
 - `registry.lifecycle.ts` for draft/seal/review/finalize/sovereign sequencing and reviewer reward coupling.
+- `registry.lifecycle.ts` also validates quarantine/reject outcomes and blocks sovereign registration from invalid terminal paths.
 - `challenge.policy.ts` for policy activation, adjudication matching, warning-only and finalization guards.
-- `governance.lifecycle.ts` for term/seat/challenge bonding and resolution controls.
-- `treasury.accounting.ts` for distributor controls, clawback accounting, and no double-claim.
-- `attestation.verifier.ts` for trusted signer gating and malformed signature rejection.
-- `threshold.adapter.ts` for threshold profile validation and fail-closed request completion/cancel flow.
+- `governance.lifecycle.ts` for term/seat/challenge bonding, missing-seat rejection, and resolution controls.
+- `treasury.accounting.ts` for distributor controls, clawback accounting, no double-claim, and underfunded-claim fail-closed behavior.
+- `attestation.verifier.ts` for trusted signer gating, malformed signature rejection, and domain-separation assertions.
+- `threshold.adapter.ts` for threshold profile validation plus attestation-expiry and timeout fail-closed request completion behavior.
 - `workflow.adapter.ts` for owner-only workflow actions and greenlit/blooming state gates.
