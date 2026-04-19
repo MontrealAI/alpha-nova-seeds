@@ -93,6 +93,9 @@ async function main(): Promise<void> {
     addresses = addressesFromManifest(manifestPath);
     console.log(`Using contract addresses from manifest: ${manifestPath}`);
   } else {
+    if (explicitDeploymentDir) {
+      throw new Error(`Explicit deployment directory provided but manifest is missing: ${manifestPath}`);
+    }
     addresses = addressesFromEnv();
     const reason = manifestPath ? `Manifest not found at ${manifestPath}` : `No deployment directory found for network ${hre.network.name}`;
     console.log(`${reason}. Falling back to explicit *_ADDRESS environment variables.`);
