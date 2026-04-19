@@ -1,0 +1,15 @@
+{
+  "name": "alpha-nova-seeds",
+  "private": true,
+  "scripts": {
+    "contracts:build": "npm --prefix contracts run build",
+    "contracts:test": "npm --prefix contracts run test",
+    "deploy:checklist": "npm --prefix contracts run deploy:checklist",
+    "deploy:fork": "npm --prefix contracts run deploy:fork",
+    "deploy:sepolia": "npm --prefix contracts run deploy:sepolia",
+    "deploy:mainnet": "npm --prefix contracts run deploy:mainnet -- --broadcast",
+    "deploy:verify": "npm --prefix contracts run deploy:verify",
+    "deploy:postcheck": "npm --prefix contracts run deploy:postcheck",
+    "deploy:handoff": "npm --prefix contracts run deploy:handoff"
+  }
+}

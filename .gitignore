@@ -13,3 +13,13 @@ __pycache__/
 .env
 .env.*
 
+
+# Hardhat contract workspace artifacts
+contracts/node_modules/
+contracts/artifacts/
+contracts/cache/
+contracts/typechain-types/
+contracts/ignition/deployments/
+contracts/.env
+
+!contracts/.env.example

@@ -62,6 +62,9 @@ What is not claimed as proven here:
 
 ## Verification-first docs
 
+- [Mainnet deployment runbook](./docs/mainnet-deployment.md)
+- [Operator handoff checklist](./docs/operator-handoff.md)
+- [Verify deployment artifacts](./docs/verify-deployment.md)
 - [Verify release artifacts](./docs/verify-release.md)
 - [Trust model](./docs/trust-model.md)
 - [Threat model](./docs/threat-model.md)

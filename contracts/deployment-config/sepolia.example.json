@@ -1,0 +1,14 @@
+{
+  "network": "sepolia",
+  "release": "2.6.0-rc.1",
+  "defaults": {
+    "trustedSigners": [],
+    "creatorAllowlist": [],
+    "thresholdProfiles": [],
+    "challengePolicies": []
+  },
+  "notes": [
+    "Use this profile for rehearsal and manifest validation.",
+    "Mirror production-safe posture before any mainnet attempt."
+  ]
+}

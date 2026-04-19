@@ -9,7 +9,7 @@ Doctrine alignment:
 3. **settlement**
 4. **governance**
 
-This is a release-candidate architecture surface, not an audited final deployment claim.
+This is a verifiable release-candidate architecture surface, not an audited final deployment claim.
 
 ## Contract roles
 
@@ -21,6 +21,25 @@ This is a release-candidate architecture surface, not an audited final deploymen
 - `ChallengePolicyModuleV25.sol` — challenge/dispute policy mechanics.
 - `ReviewerRewardTreasuryV25.sol` — reviewer reward/stake treasury mechanics.
 - `CouncilGovernanceV25.sol` — council seat/governance decision mechanics.
+
+## Hardhat deployment workspace
+
+The contracts package now includes a Hardhat 3 deployment/verification workspace:
+
+- `hardhat.config.ts` — network + compiler + verification setup.
+- `ignition/modules/` — declarative module graph for repeatable deployment.
+- `scripts/deploy/` — operator scripts for checklist, dry-run, deployment, verification, postcheck, and ownership handoff.
+- `deployments/<network>/<timestamp>/` — generated manifest + addresses + checksums + postcheck + operator handoff pack.
+- `deployment-config/` — conservative profile examples for rehearsals and governance review.
+
+## Operator safety posture
+
+Deployment scripts are fail-closed by default:
+
+- no auto-broadcast to mainnet without explicit `--broadcast` plus env gate
+- no auto-activation of creators/signers/profiles/policy knobs
+- no private keys in source control (env only)
+- explicit role ownership checks + handoff tooling
 
 ## Interface package
 
@@ -36,6 +55,15 @@ Generate/update snapshots with:
 
 ```bash
 python scripts/contracts/export_abi.py
+```
+
+## Build and test
+
+From repository root:
+
+```bash
+npm run contracts:build
+npm run contracts:test
 ```
 
 ## v2.6 RC hardening expectations
