@@ -2,6 +2,7 @@ import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import hre from "hardhat";
 import { assertSafetyFlag, getEnv } from "../lib/env";
+import { readDeploymentConfig } from "../lib/config";
 import { readManifest } from "../lib/deployment";
 
 const EXPECTED_CONTRACT_NAMES = [
@@ -95,6 +96,16 @@ async function transfer(name: string, contractAddress: string, newOwner: string)
 async function main(): Promise<void> {
   assertSafetyFlag("ALLOW_OWNERSHIP_TRANSFER", "Ownership transfer");
   const env = getEnv();
+  const config = readDeploymentConfig(
+    hre.network.name as "mainnet" | "sepolia" | "mainnet-fork",
+    env.DEPLOYMENT_CONFIG_PATH
+  );
+  const expectedOwner = config.roles.adminOwner;
+  if (env.ADMIN_OWNER_ADDRESS.toLowerCase() !== expectedOwner.toLowerCase()) {
+    throw new Error(
+      `Owner mismatch: ADMIN_OWNER_ADDRESS=${env.ADMIN_OWNER_ADDRESS} does not match deployment-config roles.adminOwner=${expectedOwner}.`
+    );
+  }
 
   const explicitDeploymentDir = deploymentOverrideFromArgs(process.argv);
 
@@ -126,7 +137,7 @@ async function main(): Promise<void> {
     if (!address) {
       throw new Error(`Missing ${name} address. Provide deployment manifest path or set environment addresses.`);
     }
-    await transfer(name, address, env.ADMIN_OWNER_ADDRESS);
+    await transfer(name, address, expectedOwner);
   }
 }
 
