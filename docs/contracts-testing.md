@@ -92,3 +92,16 @@ Contracts security gates fail loud on:
 - malformed Echidna harness/config executions.
 
 Echidna runs on `workflow_dispatch` and nightly schedule to keep PR latency bounded while preserving recurring stateful fuzz pressure.
+
+## Contract-by-contract test targets
+
+Hardhat regression specs in `contracts/test/` now include:
+
+- `alpha-seed.lifecycle.ts` for identity NFT owner/registry controls and URI mutation guards.
+- `registry.lifecycle.ts` for draft/seal/review/finalize/sovereign sequencing and reviewer reward coupling.
+- `challenge.policy.ts` for policy activation, adjudication matching, warning-only and finalization guards.
+- `governance.lifecycle.ts` for term/seat/challenge bonding and resolution controls.
+- `treasury.accounting.ts` for distributor controls, clawback accounting, and no double-claim.
+- `attestation.verifier.ts` for trusted signer gating and malformed signature rejection.
+- `threshold.adapter.ts` for threshold profile validation and fail-closed request completion/cancel flow.
+- `workflow.adapter.ts` for owner-only workflow actions and greenlit/blooming state gates.

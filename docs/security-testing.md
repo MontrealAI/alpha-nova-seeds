@@ -30,3 +30,8 @@ This testing layer does not claim the contracts are:
 - proven under all adversarial market conditions.
 
 Independent review and formal audit remain required for high-stakes deployment decisions.
+
+
+## CI gates
+
+`.github/workflows/contracts-security.yml` enforces compile + Foundry unit/fuzz/invariant + Slither on pushes/PRs touching contracts, and runs Echidna campaigns on schedule/dispatch for sequence-level adversarial pressure.
