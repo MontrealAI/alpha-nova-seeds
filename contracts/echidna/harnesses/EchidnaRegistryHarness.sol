@@ -13,6 +13,7 @@ import "../../mocks/MockERC20.sol";
 contract EchidnaRegistryHarness {
     NovaSeedRegistryV25 internal registry;
     mapping(bytes32 => bool) internal drafted;
+    bytes32 internal lastDraftedSeedId;
 
     constructor() {
         MockERC20 token = new MockERC20("R", "R", 1e24);
@@ -33,10 +34,23 @@ contract EchidnaRegistryHarness {
         if (!drafted[seedId]) {
             registry.draftSeed(seedId, h, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token");
             drafted[seedId] = true;
+            lastDraftedSeedId = seedId;
         }
     }
 
-    function echidna_no_illegal_terminal_state_from_none() external view returns (bool) {
-        return true;
+    function echidna_no_illegal_terminal_state_from_none() external returns (bool) {
+        if (!drafted[lastDraftedSeedId]) return true;
+
+        (bool ok,) = address(registry).call(
+            abi.encodeWithSelector(
+                registry.registerSovereign.selector,
+                lastDraftedSeedId,
+                keccak256("pkg"),
+                "ipfs://package",
+                address(this)
+            )
+        );
+
+        return !ok;
     }
 }

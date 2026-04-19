@@ -69,15 +69,15 @@ contract ContractsSecurityTest {
         AlphaNovaSeedV25 seed = new AlphaNovaSeedV25(address(this));
         ExternalCaller outsider = new ExternalCaller();
 
-        require(_expectRevert(address(seed), abi.encodeWithSelector(outsider.callSetRegistry.selector, seed, address(outsider))), "owner gate");
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetRegistry.selector, seed, address(outsider))), "owner gate");
         seed.setRegistry(address(this));
 
         uint256 tokenId = seed.mint(address(0xBEEF), "ipfs://seed");
         require(tokenId == 1, "mint id");
         require(keccak256(bytes(seed.tokenURI(tokenId))) == keccak256(bytes("ipfs://seed")), "uri");
 
-        require(_expectRevert(address(seed), abi.encodeWithSelector(outsider.callSetRegistry.selector, seed, address(0))), "set registry outsider");
-        require(_expectRevert(address(seed), abi.encodeWithSelector(outsider.callMint.selector, seed, address(this), "x")), "mint outsider");
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetRegistry.selector, seed, address(0))), "set registry outsider");
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callMint.selector, seed, address(this), "x")), "mint outsider");
         require(_expectRevert(address(seed), abi.encodeWithSelector(seed.tokenURI.selector, 999)), "missing token");
     }
 
@@ -109,7 +109,7 @@ contract ContractsSecurityTest {
         registry.registerSovereign(seedId, h, "ipfs://sovereign", address(this));
 
         ExternalCaller outsider = new ExternalCaller();
-        require(_expectRevert(address(registry), abi.encodeWithSelector(outsider.callSetCreator.selector, registry, address(outsider), true)), "set creator auth");
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetCreator.selector, registry, address(outsider), true)), "set creator auth");
         require(_expectRevert(address(registry), abi.encodeWithSelector(registry.draftSeed.selector, seedId, h, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token")), "duplicate id");
     }
 
@@ -126,7 +126,7 @@ contract ContractsSecurityTest {
         require(uint256(outcome) == uint256(ChallengePolicyModuleV25.Outcome.UPHELD), "upheld");
 
         ExternalCaller outsider = new ExternalCaller();
-        require(_expectRevert(address(module), abi.encodeWithSelector(outsider.callSetPolicy.selector, module, policyId)), "owner only");
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetPolicy.selector, module, policyId)), "owner only");
         require(_expectRevert(address(module), abi.encodeWithSelector(module.finalize.selector, challengeId)), "double finalize");
     }
 
@@ -152,7 +152,7 @@ contract ContractsSecurityTest {
         require(!active, "deactivate seat");
 
         ExternalCaller outsider = new ExternalCaller();
-        require(_expectRevert(address(gov), abi.encodeWithSelector(outsider.callResolve.selector, gov, challengeId)), "resolve auth");
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callResolve.selector, gov, challengeId)), "resolve auth");
     }
 
     function test_treasury_access_and_accounting_paths() external {
@@ -160,7 +160,7 @@ contract ContractsSecurityTest {
         ReviewerRewardTreasuryV25 treasury = new ReviewerRewardTreasuryV25(address(this), reward);
 
         ExternalCaller outsider = new ExternalCaller();
-        require(_expectRevert(address(treasury), abi.encodeWithSelector(outsider.callSetDistributor.selector, treasury, address(outsider), true)), "only owner");
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetDistributor.selector, treasury, address(outsider), true)), "only owner");
 
         treasury.setDistributor(address(this), true);
         treasury.accrue(address(this), 100, keccak256("x"));
@@ -184,7 +184,7 @@ contract ContractsSecurityTest {
         require(trusted, "trusted signer");
 
         ExternalCaller outsider = new ExternalCaller();
-        require(_expectRevert(address(verifier), abi.encodeWithSelector(outsider.callSetTrustedSigner.selector, verifier, address(outsider), true)), "owner only");
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetTrustedSigner.selector, verifier, address(outsider), true)), "owner only");
     }
 
     function test_threshold_adapter_lifecycle_and_rejections() external {
@@ -210,7 +210,7 @@ contract ContractsSecurityTest {
         adapter.cancelRequest(requestId);
 
         ExternalCaller outsider = new ExternalCaller();
-        require(_expectRevert(address(adapter), abi.encodeWithSelector(outsider.callSetBinding.selector, adapter, p)), "set profile auth");
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetBinding.selector, adapter, p)), "set profile auth");
         require(_expectRevert(address(adapter), abi.encodeWithSelector(adapter.cancelRequest.selector, requestId)), "cancel twice");
     }
 

@@ -56,6 +56,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: foundry-rs/foundry-toolchain@v1
+      - name: Install contracts dependencies
+        working-directory: contracts
+        run: npm ci
       - name: Run Foundry unit, fuzz, and invariant gates
         working-directory: contracts
         run: |
