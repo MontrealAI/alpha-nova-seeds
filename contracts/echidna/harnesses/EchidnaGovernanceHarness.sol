@@ -17,7 +17,11 @@ contract EchidnaGovernanceHarness {
     function assign(uint32 seatId, uint96 weight) external {
         uint32 bounded = (seatId % 16) + 1;
         gov.assignSeat(bounded, address(uint160(uint256(keccak256(abi.encodePacked(seatId, weight))))), weight, true);
-        lastSeatId = bounded;
+        if (bounded > gov.seatCount()) {
+            lastSeatId = gov.seatCount();
+        } else {
+            lastSeatId = bounded;
+        }
     }
 
     function openChallenge(bytes32 reason) external payable {
