@@ -6,8 +6,8 @@ async function main(): Promise<void> {
     throw new Error(`dryrun-mainnet-fork must run on hardhat network, got ${hre.network.name}`);
   }
 
-  if (!process.env.MAINNET_RPC_URL) {
-    throw new Error("MAINNET_RPC_URL is required to run fork dry-run.");
+  if (!process.env.MAINNET_FORK_RPC_URL && !process.env.MAINNET_RPC_URL) {
+    throw new Error("MAINNET_FORK_RPC_URL (or MAINNET_RPC_URL fallback) is required to run fork dry-run.");
   }
 
   const result = await runDeployment("mainnet-fork", { enforceGate: false, outputNetworkName: "mainnet-fork" });

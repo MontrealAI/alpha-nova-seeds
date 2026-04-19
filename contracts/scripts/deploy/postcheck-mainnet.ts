@@ -2,6 +2,7 @@ import { readdirSync } from "node:fs";
 import { join } from "node:path";
 import hre from "hardhat";
 import { getEnv } from "../lib/env";
+import { readDeploymentConfig } from "../lib/config";
 import { readManifest } from "../lib/deployment";
 import { postcheckMarkdown } from "../lib/report";
 import { writeText } from "../lib/io";
@@ -22,6 +23,7 @@ function addressByName(manifestPath: string): Record<string, string> {
 
 async function main(): Promise<void> {
   const env = getEnv();
+  const config = readDeploymentConfig(hre.network.name as "mainnet" | "sepolia" | "mainnet-fork", env.DEPLOYMENT_CONFIG_PATH);
   const deploymentDir = process.argv[2] || latestDeploymentDir(hre.network.name);
   const addresses = addressByName(join(deploymentDir, "manifest.json"));
 
@@ -48,9 +50,9 @@ async function main(): Promise<void> {
       novaSeedRegistry,
       workflowAdapter
     },
-    expectedOwner: env.ADMIN_OWNER_ADDRESS,
-    rewardToken: env.AGI_TOKEN_ADDRESS,
-    agiJobManager: env.AGIJOBMANAGER_ADDRESS
+    expectedOwner: config.roles.adminOwner,
+    rewardToken: config.dependencies.agiToken,
+    agiJobManager: config.dependencies.agiJobManager
   });
 
   writeText(join(deploymentDir, "postcheck-report.md"), report);

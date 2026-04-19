@@ -75,8 +75,9 @@ function addressesFromEnv(): Record<string, string | undefined> {
 async function transfer(name: string, contractAddress: string, newOwner: string): Promise<void> {
   const contract = await hre.ethers.getContractAt(name, contractAddress);
   const currentOwner = await (contract as any).owner();
+  console.log(`${name}: before owner=${currentOwner}`);
   if (currentOwner.toLowerCase() === newOwner.toLowerCase()) {
-    console.log(`${name}: already owned by ${newOwner}`);
+    console.log(`${name}: after owner=${newOwner} (unchanged)`);
     return;
   }
 
@@ -88,7 +89,7 @@ async function transfer(name: string, contractAddress: string, newOwner: string)
     throw new Error(`${name}: transfer transaction mined but owner mismatch. expected=${newOwner} actual=${updatedOwner}`);
   }
 
-  console.log(`${name}: ownership transferred to ${newOwner}. tx=${tx.hash}`);
+  console.log(`${name}: after owner=${updatedOwner}. tx=${tx.hash}`);
 }
 
 async function main(): Promise<void> {

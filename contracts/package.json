@@ -9,6 +9,7 @@
   "scripts": {
     "build": "hardhat compile",
     "test": "hardhat test",
+    "test:fork": "hardhat test --network hardhat test/deployment.smoke.ts",
     "lint:config": "tsx scripts/deploy/checklist.ts --validate-only",
     "deploy:checklist": "tsx scripts/deploy/checklist.ts",
     "deploy:fork": "hardhat run scripts/deploy/dryrun-mainnet-fork.ts --network hardhat",

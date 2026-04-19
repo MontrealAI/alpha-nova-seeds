@@ -13,4 +13,13 @@ This folder stores operator-reviewed configuration profiles used by deployment s
 - `mainnet.example.json` — conservative reference values.
 - `sepolia.example.json` — testnet reference values.
 
-Copy one of these files and adapt to your operation with evidence-backed governance approvals.
+## Usage
+
+1. Copy the network example to a concrete operator-reviewed file:
+   - `cp contracts/deployment-config/mainnet.example.json contracts/deployment-config/mainnet.json`
+   - `cp contracts/deployment-config/sepolia.example.json contracts/deployment-config/sepolia.json`
+2. Replace placeholder addresses under `roles` and `dependencies`.
+3. Keep `defaults` empty unless governance has approved a specific activation list.
+4. Optionally set `DEPLOYMENT_CONFIG_PATH` in `contracts/.env` to target an alternate config location.
+
+Deployment scripts fail closed if `<network>.json` is missing or malformed.

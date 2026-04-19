@@ -34,9 +34,9 @@ export default defineConfig({
     hardhat: {
       type: "edr-simulated",
       chainType: "l1",
-      forking: process.env.MAINNET_RPC_URL
+      forking: (process.env.MAINNET_FORK_RPC_URL || process.env.MAINNET_RPC_URL)
         ? {
-            url: process.env.MAINNET_RPC_URL
+            url: process.env.MAINNET_FORK_RPC_URL || process.env.MAINNET_RPC_URL!
           }
         : undefined
     },
@@ -53,7 +53,7 @@ export default defineConfig({
     mainnet: {
       type: "http",
       chainType: "l1",
-      url: configVariable("MAINNET_RPC_URL"),
+      url: process.env.MAINNET_RPC_URL || process.env.MAINNET_RPC_URL_SECONDARY || configVariable("MAINNET_RPC_URL"),
       accounts: privateKey ? [privateKey] : []
     }
   },

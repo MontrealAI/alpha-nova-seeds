@@ -27,12 +27,21 @@ cp contracts/.env.example contracts/.env
 Required for deployment flow:
 
 - `MAINNET_RPC_URL`
+- `MAINNET_RPC_URL_SECONDARY` (recommended failover)
+- `MAINNET_FORK_RPC_URL` (recommended fork source)
 - `SEPOLIA_RPC_URL`
 - `DEPLOYER_PRIVATE_KEY`
 - `ADMIN_OWNER_ADDRESS`
-- `AGI_TOKEN_ADDRESS`
-- `AGIJOBMANAGER_ADDRESS`
 - `ETHERSCAN_API_KEY` (required for verification)
+
+Create network config files first:
+
+```bash
+cp contracts/deployment-config/mainnet.example.json contracts/deployment-config/mainnet.json
+cp contracts/deployment-config/sepolia.example.json contracts/deployment-config/sepolia.json
+```
+
+Fill `roles` and `dependencies` with operator-reviewed addresses. Scripts fail closed if these files are missing.
 
 Safety gates (all default `false`):
 
@@ -47,6 +56,7 @@ Safety gates (all default `false`):
 npm --prefix contracts install
 npm run contracts:build
 npm run contracts:test
+npm run contracts:test:fork
 ```
 
 ## 3) Preflight checklist

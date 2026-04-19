@@ -64,6 +64,14 @@ From repository root:
 ```bash
 npm run contracts:build
 npm run contracts:test
+npm run contracts:test:fork
+```
+
+Before deployment scripts, create operator-reviewed deployment config files:
+
+```bash
+cp contracts/deployment-config/mainnet.example.json contracts/deployment-config/mainnet.json
+cp contracts/deployment-config/sepolia.example.json contracts/deployment-config/sepolia.json
 ```
 
 ## v2.6 RC hardening expectations
