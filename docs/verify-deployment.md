@@ -30,7 +30,7 @@ npm run deploy:verify
 Or pass an explicit deployment directory:
 
 ```bash
-npm --prefix contracts run deploy:verify -- deployments/mainnet/<timestamp>
+npm --prefix contracts run deploy:verify -- -- deployments/mainnet/<timestamp>
 ```
 
 Verification script behavior:
