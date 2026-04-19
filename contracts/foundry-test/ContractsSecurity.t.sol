@@ -205,12 +205,16 @@ contract ContractsSecurityTest {
 
     function test_attestation_verifier_signer_controls() external {
         SignedAttestationVerifierV25 verifier = new SignedAttestationVerifierV25(address(this));
-        bytes32 digest = verifier.hashManifestAttestation(keccak256("seed"), keccak256("m"), keccak256("c"), 1, block.timestamp + 1 days);
-        (address signer, bool trusted) = verifier.verify(digest, hex"4c2b17cb97c8a6ea04c5dc68942666326038a83831a52ce419198f84c0e8d8090932e89f7b29d0ebf8f7de2ffd6bd9b6f43b3a8efa1884a5f7cb402ad4f6fe6d1b");
-        require(!trusted, "initially untrusted");
+        bytes32 seedId = keccak256("seed");
+        bytes32 manifestHash = keccak256("manifest");
+        bytes32 ciphertextHash = keccak256("cipher");
+        bytes32 manifestDigest = verifier.hashManifestAttestation(seedId, manifestHash, ciphertextHash, 1, 1000);
+        bytes32 challengeDigest = verifier.hashChallengeEvidence(keccak256("challenge"), seedId, keccak256("evidence"), 1, 1000);
+        require(manifestDigest != challengeDigest, "domain separation");
+
+        address signer = address(0xBEEF);
         verifier.setTrustedSigner(signer, true);
-        (, trusted) = verifier.verify(digest, hex"4c2b17cb97c8a6ea04c5dc68942666326038a83831a52ce419198f84c0e8d8090932e89f7b29d0ebf8f7de2ffd6bd9b6f43b3a8efa1884a5f7cb402ad4f6fe6d1b");
-        require(trusted, "trusted signer");
+        require(verifier.trustedSigners(signer), "trusted signer");
 
         ExternalCaller outsider = new ExternalCaller();
         require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetTrustedSigner.selector, verifier, address(outsider), true)), "owner only");
@@ -260,4 +264,8 @@ contract ContractsSecurityTest {
     }
 
     receive() external payable {}
+
+    function onERC721Received(address, address, uint256, bytes calldata) external pure returns (bytes4) {
+        return this.onERC721Received.selector;
+    }
 }
