@@ -139,6 +139,8 @@ contract ContractsSecurityTest {
         require(_expectRevert(address(g.registry), abi.encodeWithSelector(g.registry.openReview.selector, seedId)), "bad state");
         g.registry.sealSeed(seedId);
         g.registry.openReview(seedId);
+        ExternalCaller outsider = new ExternalCaller();
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callFinalize.selector, g.registry, seedId)), "finalize auth");
         ReviewSubmitter reviewerA = new ReviewSubmitter();
         ReviewSubmitter reviewerB = new ReviewSubmitter();
         reviewerA.submit(g.registry, seedId, 3, NovaSeedRegistryV25.ReviewDecision.GREENLIGHT, h);
@@ -148,9 +150,7 @@ contract ContractsSecurityTest {
         g.registry.registerSovereign(seedId, h, "ipfs://sovereign", address(this));
         require(_expectRevert(address(g.registry), abi.encodeWithSelector(g.registry.openReview.selector, seedId)), "terminal state");
 
-        ExternalCaller outsider = new ExternalCaller();
         require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetCreator.selector, g.registry, address(outsider), true)), "set creator auth");
-        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callFinalize.selector, g.registry, seedId)), "finalize auth");
         require(_expectRevert(address(g.registry), abi.encodeWithSelector(g.registry.draftSeed.selector, seedId, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token")), "duplicate id");
     }
 
@@ -291,12 +291,12 @@ contract ContractsSecurityTest {
         (, , , bool finalized) = workflowEngine.jobs(jobId);
         require(finalized, "job finalized");
 
-        registryView.setState(seedId, 2);
-        require(_expectRevert(address(adapter), abi.encodeWithSelector(adapter.createAssay.selector, seedId, keccak256("assay2"), 1)), "state restricted");
-
         ExternalCaller outsider = new ExternalCaller();
         require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callCreateAssay.selector, adapter, seedId, keccak256("assay3"), 1)), "workflow owner create");
         require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callFinalizeAssay.selector, adapter, seedId, jobId)), "workflow owner finalize");
+
+        registryView.setState(seedId, 2);
+        require(_expectRevert(address(adapter), abi.encodeWithSelector(adapter.createAssay.selector, seedId, keccak256("assay2"), 1)), "state restricted");
     }
 
     function test_integration_seed_review_and_governance_challenge_path() external {
@@ -307,8 +307,10 @@ contract ContractsSecurityTest {
         g.registry.draftSeed(seedId, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token");
         g.registry.sealSeed(seedId);
         g.registry.openReview(seedId);
-        g.registry.submitReview(seedId, 5, NovaSeedRegistryV25.ReviewDecision.GREENLIGHT, h);
-        g.registry.submitReview(seedId, 3, NovaSeedRegistryV25.ReviewDecision.APPROVE, h);
+        ReviewSubmitter reviewerA = new ReviewSubmitter();
+        ReviewSubmitter reviewerB = new ReviewSubmitter();
+        reviewerA.submit(g.registry, seedId, 5, NovaSeedRegistryV25.ReviewDecision.GREENLIGHT, h);
+        reviewerB.submit(g.registry, seedId, 3, NovaSeedRegistryV25.ReviewDecision.APPROVE, h);
         g.registry.finalizeReview(seedId);
         g.registry.registerSovereign(seedId, h, "ipfs://seed-integration", address(this));
         require(_expectRevert(address(g.registry), abi.encodeWithSelector(g.registry.registerSovereign.selector, seedId, h, "ipfs://double", address(this))), "terminal sovereign");
