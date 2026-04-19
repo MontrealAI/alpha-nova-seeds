@@ -1,6 +1,6 @@
 # Nova-Seeds contracts map (v2.6 RC posture)
 
-This package contains Solidity surfaces for the Nova-Seeds on-chain anchors.
+This package contains Solidity surfaces for Nova-Seeds on-chain anchors.
 
 Doctrine alignment:
 
@@ -9,80 +9,68 @@ Doctrine alignment:
 3. **settlement**
 4. **governance**
 
-This is a verifiable release-candidate architecture surface, not an audited final deployment claim.
+This is a **verifiable release candidate** surface, not an audited final deployment claim.
 
 ## Contract roles
 
-- `AlphaNovaSeedV25.sol` — primary seed identity/formation anchor.
-- `NovaSeedRegistryV25.sol` — registry of seed records and status transitions.
-- `SignedAttestationVerifierV25.sol` — signature and attestation validation hooks.
-- `ThresholdNetworkAdapterV25.sol` — threshold-network integration adapter surface.
-- `NovaSeedWorkflowAdapterV25.sol` — workflow bridge between seed lifecycle and execution modules.
-- `ChallengePolicyModuleV25.sol` — challenge/dispute policy mechanics.
-- `ReviewerRewardTreasuryV25.sol` — reviewer reward/stake treasury mechanics.
-- `CouncilGovernanceV25.sol` — council seat/governance decision mechanics.
+- `AlphaNovaSeedV25.sol` — seed identity NFT anchor.
+- `NovaSeedRegistryV25.sol` — lifecycle registry and review transitions.
+- `SignedAttestationVerifierV25.sol` — EIP-712 digest/signature verification.
+- `ThresholdNetworkAdapterV25.sol` — threshold-network request lifecycle.
+- `NovaSeedWorkflowAdapterV25.sol` — workflow bridge for assay jobs.
+- `ChallengePolicyModuleV25.sol` — challenge adjudication policy.
+- `ReviewerRewardTreasuryV25.sol` — reviewer reward accounting.
+- `CouncilGovernanceV25.sol` — council terms, seats, delegation, bonded challenges.
 
-## Hardhat deployment workspace
+## Tooling in this workspace
 
-The contracts package now includes a Hardhat 3 deployment/verification workspace:
+The package intentionally keeps the existing Hardhat deployment stack and adds security testing layers:
 
-- `hardhat.config.ts` — network + compiler + verification setup.
-- `ignition/modules/` — declarative module graph for repeatable deployment.
-- `scripts/deploy/` — operator scripts for checklist, dry-run, deployment, verification, postcheck, and ownership handoff.
-- `deployments/<network>/<timestamp>/` — generated manifest + addresses + checksums + postcheck + operator handoff pack.
-- `deployment-config/` — conservative profile examples for rehearsals and governance review.
+- **Hardhat**: deployment scripts and TypeScript integration tests.
+- **Foundry**: Solidity unit, fuzz, and invariant tests in `foundry-test/`.
+- **Slither**: static analysis with fail-loud severity gates.
+- **Echidna**: sequence/property fuzzing harnesses in `echidna/harnesses/`.
 
-Runtime baseline:
-
-- Node.js `22.10.0+` (Hardhat 3 requirement).
-
-## Operator safety posture
-
-Deployment scripts are fail-closed by default:
-
-- no auto-broadcast to mainnet without explicit `--broadcast` plus env gate
-- no auto-activation of creators/signers/profiles/policy knobs
-- no private keys in source control (env only)
-- explicit role ownership checks + manifest-driven handoff tooling
-
-## Interface package
-
-- `interfaces/` contains typed contract interfaces used across modules and indexer/event decoding surfaces.
-
-## ABI export surface
-
-Stable ABI snapshots are kept in:
-
-- `contracts/abi/`
-
-Generate/update snapshots with:
-
-```bash
-python scripts/contracts/export_abi.py
-```
-
-## Build and test
+## Commands
 
 From repository root:
 
 ```bash
 npm run contracts:build
 npm run contracts:test
-npm run contracts:test:fork
+npm run test:contracts:unit
+npm run test:contracts:fuzz
+npm run test:contracts:invariant
+npm run analyze:slither
+npm run test:contracts:echidna
 ```
 
-Before deployment scripts, create operator-reviewed deployment config files:
+Or from `contracts/` directly:
 
 ```bash
-cp contracts/deployment-config/mainnet.example.json contracts/deployment-config/mainnet.json
-cp contracts/deployment-config/sepolia.example.json contracts/deployment-config/sepolia.json
+npm run build
+npm run test
+npm run test:contracts:unit
+npm run test:contracts:fuzz
+npm run test:contracts:invariant
+npm run analyze:slither
+npm run test:contracts:echidna
 ```
 
-## v2.6 RC hardening expectations
+## What each layer proves
 
-When modifying contract behavior:
+- **Hardhat tests**: integration wiring and deployment posture checks.
+- **Foundry unit tests**: revert-path and lifecycle guardrails for each contract.
+- **Foundry fuzz/invariant tests**: arithmetic and state-coherence boundaries.
+- **Echidna harnesses**: adversarial transaction-sequence properties for treasury, governance, threshold, and registry interactions.
+- **Slither**: static detector sweep to catch common anti-patterns/regressions.
 
-- add or update NatSpec on public/external surfaces
-- update corresponding tests and ABI snapshots
-- document governance/settlement semantics changes in docs
-- avoid hidden privileged paths
+## Out of scope
+
+This layer increases testable evidence but does **not** prove:
+
+- economic game-theory robustness under all external actors,
+- cryptographic implementation correctness of external threshold networks,
+- production-final audit status.
+
+Use this package with operator review, threat-model review, and independent audit processes.

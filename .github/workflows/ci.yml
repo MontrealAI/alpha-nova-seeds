@@ -4,6 +4,7 @@ on:
   push:
     branches: ["**"]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   backend-tests:
@@ -34,17 +35,7 @@ jobs:
           if [ -f package-lock.json ]; then npm ci; else npm install; fi
           npm run build --if-present
 
-  static-analysis:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run slither static analysis
-        uses: crytic/slither-action@v0.4.0
-        continue-on-error: true
-        with:
-          fail-on: none
-
-  contracts-tests:
+  contracts-hardhat:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -54,8 +45,75 @@ jobs:
       - name: Install contracts dependencies
         working-directory: contracts
         run: npm ci
-      - name: Compile and test contracts
+      - name: Compile and TypeScript contract tests
         working-directory: contracts
         run: |
           npm run build
           npm run test
+
+  contracts-foundry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+      - name: Install contracts dependencies
+        working-directory: contracts
+        run: npm ci
+      - name: Run Foundry unit, fuzz, and invariant gates
+        working-directory: contracts
+        run: |
+          forge --version
+          npm run test:contracts:unit
+          npm run test:contracts:fuzz
+          npm run test:contracts:invariant
+
+  contracts-slither:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.10.0"
+      - name: Install slither
+        run: pip install slither-analyzer
+      - name: Install contracts dependencies
+        working-directory: contracts
+        run: npm ci
+      - name: Run slither fail-loud analysis
+        working-directory: contracts
+        run: npm run analyze:slither
+
+  contracts-echidna:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.10.0"
+      - name: Install contracts dependencies
+        working-directory: contracts
+        run: npm ci
+      - name: Run Echidna sequence properties
+        uses: crytic/echidna-action@v2
+        with:
+          files: contracts/echidna/harnesses/EchidnaTreasuryHarness.sol
+          config-file: contracts/echidna/config/treasury.yaml
+      - name: Run Echidna governance properties
+        uses: crytic/echidna-action@v2
+        with:
+          files: contracts/echidna/harnesses/EchidnaGovernanceHarness.sol
+          config-file: contracts/echidna/config/governance.yaml
+      - name: Run Echidna threshold properties
+        uses: crytic/echidna-action@v2
+        with:
+          files: contracts/echidna/harnesses/EchidnaThresholdHarness.sol
+          config-file: contracts/echidna/config/threshold.yaml
+      - name: Run Echidna registry properties
+        uses: crytic/echidna-action@v2
+        with:
+          files: contracts/echidna/harnesses/EchidnaRegistryHarness.sol
+          config-file: contracts/echidna/config/registry.yaml
