@@ -1,23 +1,46 @@
+import { existsSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 import hre from "hardhat";
 import { assertSafetyFlag, getEnv } from "../lib/env";
+import { readManifest } from "../lib/deployment";
 
-async function transfer(name: string, contractAddress: string, newOwner: string): Promise<void> {
-  const contract = await hre.ethers.getContractAt("Ownable", contractAddress);
-  const currentOwner = await contract.owner();
-  if (currentOwner.toLowerCase() === newOwner.toLowerCase()) {
-    console.log(`${name}: already owned by ${newOwner}`);
-    return;
+const EXPECTED_CONTRACT_NAMES = [
+  "AlphaNovaSeedV25",
+  "SignedAttestationVerifierV25",
+  "ThresholdNetworkAdapterV25",
+  "ReviewerRewardTreasuryV25",
+  "CouncilGovernanceV25",
+  "ChallengePolicyModuleV25",
+  "NovaSeedRegistryV25",
+  "NovaSeedWorkflowAdapterV25"
+] as const;
+
+function latestDeploymentDir(network: string): string {
+  const networkDir = join("deployments", network);
+  if (!existsSync(networkDir)) {
+    throw new Error(`Deployment directory not found: ${networkDir}`);
   }
-  const tx = await contract.transferOwnership(newOwner);
-  await tx.wait();
-  console.log(`${name}: ownership transferred to ${newOwner}. tx=${tx.hash}`);
+  const stamps = readdirSync(networkDir).sort();
+  if (stamps.length === 0) {
+    throw new Error(`No deployment folders found in ${networkDir}`);
+  }
+  return join(networkDir, stamps[stamps.length - 1]);
 }
 
-async function main(): Promise<void> {
-  assertSafetyFlag("ALLOW_OWNERSHIP_TRANSFER", "Ownership transfer");
-  const env = getEnv();
+function addressesFromManifest(manifestPath: string): Record<string, string> {
+  const manifest = readManifest(manifestPath);
+  const byName = Object.fromEntries(manifest.contracts.map((c) => [c.name, c.address])) as Record<string, string>;
 
-  const addresses = {
+  const missing = EXPECTED_CONTRACT_NAMES.filter((name) => !byName[name]);
+  if (missing.length > 0) {
+    throw new Error(`Manifest is missing expected contracts: ${missing.join(", ")}`);
+  }
+
+  return Object.fromEntries(EXPECTED_CONTRACT_NAMES.map((name) => [name, byName[name]]));
+}
+
+function addressesFromEnv(): Record<string, string | undefined> {
+  return {
     AlphaNovaSeedV25: process.env.ALPHA_NOVA_SEED_ADDRESS,
     SignedAttestationVerifierV25: process.env.SIGNED_ATTESTATION_VERIFIER_ADDRESS,
     ThresholdNetworkAdapterV25: process.env.THRESHOLD_NETWORK_ADAPTER_ADDRESS,
@@ -27,10 +50,60 @@ async function main(): Promise<void> {
     NovaSeedRegistryV25: process.env.NOVA_SEED_REGISTRY_ADDRESS,
     NovaSeedWorkflowAdapterV25: process.env.NOVA_SEED_WORKFLOW_ADAPTER_ADDRESS
   };
+}
+
+async function transfer(name: string, contractAddress: string, newOwner: string): Promise<void> {
+  const contract = await hre.ethers.getContractAt(name, contractAddress);
+  const currentOwner = await (contract as any).owner();
+  if (currentOwner.toLowerCase() === newOwner.toLowerCase()) {
+    console.log(`${name}: already owned by ${newOwner}`);
+    return;
+  }
+
+  const tx = await (contract as any).transferOwnership(newOwner);
+  await tx.wait();
+
+  const updatedOwner = await (contract as any).owner();
+  if (updatedOwner.toLowerCase() !== newOwner.toLowerCase()) {
+    throw new Error(`${name}: transfer transaction mined but owner mismatch. expected=${newOwner} actual=${updatedOwner}`);
+  }
+
+  console.log(`${name}: ownership transferred to ${newOwner}. tx=${tx.hash}`);
+}
+
+async function main(): Promise<void> {
+  assertSafetyFlag("ALLOW_OWNERSHIP_TRANSFER", "Ownership transfer");
+  const env = getEnv();
+
+  const explicitDeploymentDir = process.argv[2];
+
+  let manifestPath: string | undefined;
+  if (explicitDeploymentDir) {
+    manifestPath = join(explicitDeploymentDir, "manifest.json");
+  } else {
+    try {
+      manifestPath = join(latestDeploymentDir(hre.network.name), "manifest.json");
+    } catch {
+      manifestPath = undefined;
+    }
+  }
+
+  let addresses: Record<string, string | undefined>;
+  if (manifestPath && existsSync(manifestPath)) {
+    addresses = addressesFromManifest(manifestPath);
+    console.log(`Using contract addresses from manifest: ${manifestPath}`);
+  } else {
+    if (explicitDeploymentDir) {
+      throw new Error(`Explicit deployment directory provided but manifest is missing: ${manifestPath}`);
+    }
+    addresses = addressesFromEnv();
+    const reason = manifestPath ? `Manifest not found at ${manifestPath}` : `No deployment directory found for network ${hre.network.name}`;
+    console.log(`${reason}. Falling back to explicit *_ADDRESS environment variables.`);
+  }
 
   for (const [name, address] of Object.entries(addresses)) {
     if (!address) {
-      throw new Error(`Missing ${name} address in environment for transfer script.`);
+      throw new Error(`Missing ${name} address. Provide deployment manifest path or set environment addresses.`);
     }
     await transfer(name, address, env.ADMIN_OWNER_ADDRESS);
   }
