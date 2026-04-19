@@ -32,6 +32,10 @@ The contracts package now includes a Hardhat 3 deployment/verification workspace
 - `deployments/<network>/<timestamp>/` — generated manifest + addresses + checksums + postcheck + operator handoff pack.
 - `deployment-config/` — conservative profile examples for rehearsals and governance review.
 
+Runtime baseline:
+
+- Node.js `22.10.0+` (Hardhat 3 requirement).
+
 ## Operator safety posture
 
 Deployment scripts are fail-closed by default:
@@ -64,6 +68,14 @@ From repository root:
 ```bash
 npm run contracts:build
 npm run contracts:test
+npm run contracts:test:fork
+```
+
+Before deployment scripts, create operator-reviewed deployment config files:
+
+```bash
+cp contracts/deployment-config/mainnet.example.json contracts/deployment-config/mainnet.json
+cp contracts/deployment-config/sepolia.example.json contracts/deployment-config/sepolia.json
 ```
 
 ## v2.6 RC hardening expectations

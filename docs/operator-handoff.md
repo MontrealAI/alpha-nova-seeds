@@ -23,6 +23,7 @@ From `contracts/deployments/<network>/<timestamp>/` archive:
 ## Transfer and acceptance
 
 - Run `npm run deploy:handoff` with `ALLOW_OWNERSHIP_TRANSFER=true`.
+- The script prints both **before** and **after** owner values for each contract.
 - By default, handoff reads the latest deployment manifest under `contracts/deployments/<network>/`.
 - Optional explicit path override:
   - `npm --prefix contracts run deploy:handoff -- -- deployments/mainnet/<timestamp>`

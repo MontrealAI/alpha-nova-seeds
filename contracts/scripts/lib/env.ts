@@ -1,19 +1,32 @@
 import "dotenv/config";
 import { z } from "zod";
 
+const blankToUndefined = (value: unknown): unknown =>
+  typeof value === "string" && value.trim() === "" ? undefined : value;
+
+const optionalUrl = z.preprocess(blankToUndefined, z.string().url().optional());
+const optionalAddress = z.preprocess(blankToUndefined, z.string().regex(/^0x[a-fA-F0-9]{40}$/).optional());
+const optionalString = z.preprocess(blankToUndefined, z.string().min(1).optional());
+
 const envSchema = z.object({
-  MAINNET_RPC_URL: z.string().url().optional(),
-  SEPOLIA_RPC_URL: z.string().url().optional(),
-  ETHERSCAN_API_KEY: z.string().min(1).optional(),
-  DEPLOYER_PRIVATE_KEY: z.string().min(1).optional(),
+  MAINNET_RPC_URL: optionalUrl,
+  MAINNET_RPC_URL_SECONDARY: optionalUrl,
+  MAINNET_FORK_RPC_URL: optionalUrl,
+  SEPOLIA_RPC_URL: optionalUrl,
+  ETHERSCAN_API_KEY: optionalString,
+  DEPLOYER_PRIVATE_KEY: optionalString,
+  DEPLOYMENT_CONFIG_PATH: optionalString,
   ADMIN_OWNER_ADDRESS: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
-  PAUSER_ADDRESS: z.string().regex(/^0x[a-fA-F0-9]{40}$/).optional(),
-  TREASURY_ADDRESS: z.string().regex(/^0x[a-fA-F0-9]{40}$/).optional(),
-  ENS_REGISTRY_ADDRESS: z.string().regex(/^0x[a-fA-F0-9]{40}$/).optional(),
-  NAMEWRAPPER_ADDRESS: z.string().regex(/^0x[a-fA-F0-9]{40}$/).optional(),
-  ENS_NAME: z.string().min(1).optional(),
-  AGI_TOKEN_ADDRESS: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
-  AGIJOBMANAGER_ADDRESS: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
+  PAUSER_ADDRESS: optionalAddress,
+  EMERGENCY_GUARDIAN_ADDRESS: optionalAddress,
+  TREASURY_ADDRESS: optionalAddress,
+  REVIEWER_REWARD_TREASURY_ADDRESS: optionalAddress,
+  COUNCIL_ADMIN_ADDRESS: optionalAddress,
+  ENS_REGISTRY_ADDRESS: optionalAddress,
+  NAMEWRAPPER_ADDRESS: optionalAddress,
+  ENS_NAME: optionalString,
+  AGI_TOKEN_ADDRESS: optionalAddress,
+  AGIJOBMANAGER_ADDRESS: optionalAddress,
   ALLOW_DEPLOY_TO_SEPOLIA: z.enum(["true", "false"]).default("false"),
   ALLOW_DEPLOY_TO_MAINNET: z.enum(["true", "false"]).default("false"),
   ALLOW_OWNERSHIP_TRANSFER: z.enum(["true", "false"]).default("false"),

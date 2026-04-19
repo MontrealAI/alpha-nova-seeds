@@ -4,6 +4,7 @@
   "scripts": {
     "contracts:build": "npm --prefix contracts run build",
     "contracts:test": "npm --prefix contracts run test",
+    "contracts:test:fork": "npm --prefix contracts run test:fork",
     "deploy:checklist": "npm --prefix contracts run deploy:checklist",
     "deploy:fork": "npm --prefix contracts run deploy:fork",
     "deploy:sepolia": "npm --prefix contracts run deploy:sepolia",

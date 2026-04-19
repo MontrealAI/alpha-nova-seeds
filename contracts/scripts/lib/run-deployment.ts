@@ -1,11 +1,16 @@
 import hre from "hardhat";
 import { assertSafetyFlag, getEnv } from "./env";
 import { assertOwnership, deployComposite, getAddressMap, type CoreContracts, roleStateSummary } from "./contracts";
-import { artifactHint, deployedBytecodeHash, deploymentOutputDir, newBaseManifest, writeDeploymentArtifacts } from "./deployment";
+import { EXPECTED_RELEASE, artifactHint, deployedBytecodeHash, deploymentOutputDir, newBaseManifest, writeDeploymentArtifacts } from "./deployment";
 import { postcheckMarkdown } from "./report";
+import { readDeploymentConfig } from "./config";
 
 export async function runDeployment(networkName: "mainnet" | "sepolia" | "mainnet-fork", options?: { enforceGate?: boolean; outputNetworkName?: string; }): Promise<{ outDir: string; addresses: Record<string, string>; contracts: CoreContracts; }> {
   const env = getEnv();
+  const config = readDeploymentConfig(networkName, env.DEPLOYMENT_CONFIG_PATH);
+  if (config.release !== EXPECTED_RELEASE) {
+    throw new Error(`Deployment config release mismatch: expected ${EXPECTED_RELEASE} but got ${config.release}.`);
+  }
   const [deployer] = await hre.ethers.getSigners();
   const chain = await hre.ethers.provider.getNetwork();
 
@@ -19,43 +24,45 @@ export async function runDeployment(networkName: "mainnet" | "sepolia" | "mainne
   }
 
   const contracts = await deployComposite({
-    initialOwner: env.ADMIN_OWNER_ADDRESS,
-    rewardToken: env.AGI_TOKEN_ADDRESS,
-    agiJobManager: env.AGIJOBMANAGER_ADDRESS
+    initialOwner: config.roles.adminOwner,
+    rewardToken: config.dependencies.agiToken,
+    agiJobManager: config.dependencies.agiJobManager
   });
 
-  await assertOwnership(contracts, env.ADMIN_OWNER_ADDRESS);
+  await assertOwnership(contracts, config.roles.adminOwner);
 
   const addresses = getAddressMap(contracts);
 
   const constructorArgsByName: Record<string, unknown[]> = {
-    AlphaNovaSeedV25: [env.ADMIN_OWNER_ADDRESS],
-    SignedAttestationVerifierV25: [env.ADMIN_OWNER_ADDRESS],
-    ThresholdNetworkAdapterV25: [env.ADMIN_OWNER_ADDRESS, addresses.SignedAttestationVerifierV25],
-    ReviewerRewardTreasuryV25: [env.ADMIN_OWNER_ADDRESS, env.AGI_TOKEN_ADDRESS],
-    CouncilGovernanceV25: [env.ADMIN_OWNER_ADDRESS],
-    ChallengePolicyModuleV25: [env.ADMIN_OWNER_ADDRESS],
+    AlphaNovaSeedV25: [config.roles.adminOwner],
+    SignedAttestationVerifierV25: [config.roles.adminOwner],
+    ThresholdNetworkAdapterV25: [config.roles.adminOwner, addresses.SignedAttestationVerifierV25],
+    ReviewerRewardTreasuryV25: [config.roles.adminOwner, config.dependencies.agiToken],
+    CouncilGovernanceV25: [config.roles.adminOwner],
+    ChallengePolicyModuleV25: [config.roles.adminOwner],
     NovaSeedRegistryV25: [
-      env.ADMIN_OWNER_ADDRESS,
+      config.roles.adminOwner,
       addresses.AlphaNovaSeedV25,
       addresses.ThresholdNetworkAdapterV25,
       addresses.ReviewerRewardTreasuryV25,
       addresses.CouncilGovernanceV25,
       addresses.ChallengePolicyModuleV25
     ],
-    NovaSeedWorkflowAdapterV25: [env.ADMIN_OWNER_ADDRESS, addresses.NovaSeedRegistryV25, env.AGIJOBMANAGER_ADDRESS]
+    NovaSeedWorkflowAdapterV25: [config.roles.adminOwner, addresses.NovaSeedRegistryV25, config.dependencies.agiJobManager]
   };
 
   const manifest = newBaseManifest({
+    release: config.release,
     network: options?.outputNetworkName ?? networkName,
     chainId: Number(chain.chainId),
     deployer: deployer.address,
-    adminOwner: env.ADMIN_OWNER_ADDRESS,
-    pauserAddress: env.PAUSER_ADDRESS,
-    treasuryAddress: env.TREASURY_ADDRESS,
-    agiTokenAddress: env.AGI_TOKEN_ADDRESS,
-    agiJobManagerAddress: env.AGIJOBMANAGER_ADDRESS
+    adminOwner: config.roles.adminOwner,
+    pauserAddress: config.roles.pauser,
+    treasuryAddress: config.roles.treasury,
+    agiTokenAddress: config.dependencies.agiToken,
+    agiJobManagerAddress: config.dependencies.agiJobManager
   });
+  manifest.notes.push(...config.notes);
 
   for (const [name, address] of Object.entries(addresses)) {
     const bytecodeHash = await deployedBytecodeHash(hre, address);
@@ -71,19 +78,19 @@ export async function runDeployment(networkName: "mainnet" | "sepolia" | "mainne
     });
   }
 
-  const roleSummary = await roleStateSummary(contracts, env.ADMIN_OWNER_ADDRESS);
+  const roleSummary = await roleStateSummary(contracts, config.roles.adminOwner);
   const postcheck = await postcheckMarkdown({
     networkName: options?.outputNetworkName ?? networkName,
     chainId: chain.chainId,
     contracts,
-    expectedOwner: env.ADMIN_OWNER_ADDRESS,
-    rewardToken: env.AGI_TOKEN_ADDRESS,
-    agiJobManager: env.AGIJOBMANAGER_ADDRESS
+    expectedOwner: config.roles.adminOwner,
+    rewardToken: config.dependencies.agiToken,
+    agiJobManager: config.dependencies.agiJobManager
   });
 
   const handoff = `# Ownership and role handoff status\n\n${roleSummary}\n\n` +
     `## Transfer status\n` +
-    `- Initial owner set at deployment: ${env.ADMIN_OWNER_ADDRESS}\n` +
+    `- Initial owner set at deployment: ${config.roles.adminOwner}\n` +
     `- Additional transfer required: only if temporary owner deployment path was used.\n`;
 
   const outDir = deploymentOutputDir(options?.outputNetworkName ?? networkName);

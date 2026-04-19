@@ -6,6 +6,7 @@ import { ensureDir, generateChecksums, timestampTag, writeJson, writeText } from
 import { getGitCommitSha } from "./git";
 
 export type DeployedAddressMap = Record<string, string>;
+export const EXPECTED_RELEASE = "2.6.0-rc.1";
 
 export type DeploymentManifest = {
   schema: "alpha-nova-seeds/deployment-manifest/v1";
@@ -96,6 +97,7 @@ export function readManifest(path: string): DeploymentManifest {
 }
 
 export function newBaseManifest(args: {
+  release: string;
   network: string;
   chainId: number;
   deployer: string;
@@ -107,7 +109,7 @@ export function newBaseManifest(args: {
 }): DeploymentManifest {
   return {
     schema: "alpha-nova-seeds/deployment-manifest/v1",
-    release: "2.6.0-rc.1",
+    release: args.release,
     generatedAt: new Date().toISOString(),
     chainId: args.chainId,
     network: args.network,

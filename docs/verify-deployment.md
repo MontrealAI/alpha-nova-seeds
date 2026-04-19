@@ -39,6 +39,7 @@ Verification script behavior:
 - fails closed if runtime hash differs from manifest
 - attempts verification with manifest constructor arguments
 - writes updated verification status back to `manifest.json`
+- uses deployment-config role/dependency expectations for postcheck parity
 
 ## 4) Cross-check runtime wiring
 
