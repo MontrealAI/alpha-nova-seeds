@@ -25,7 +25,7 @@ From `contracts/deployments/<network>/<timestamp>/` archive:
 - Run `npm run deploy:handoff` with `ALLOW_OWNERSHIP_TRANSFER=true`.
 - By default, handoff reads the latest deployment manifest under `contracts/deployments/<network>/`.
 - Optional explicit path override:
-  - `npm --prefix contracts run deploy:handoff -- deployments/mainnet/<timestamp>`
+  - `npm --prefix contracts run deploy:handoff -- -- deployments/mainnet/<timestamp>`
 - Explicit override is fail-closed: missing `<path>/manifest.json` throws
 - Require two-person review of final owner state and checksum file.
 - Store artifact packet in release provenance storage together with commit SHA.

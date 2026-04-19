@@ -39,6 +39,26 @@ function addressesFromManifest(manifestPath: string): Record<string, string> {
   return Object.fromEntries(EXPECTED_CONTRACT_NAMES.map((name) => [name, byName[name]]));
 }
 
+function deploymentOverrideFromArgs(argv: string[]): string | undefined {
+  const delimiterIndex = argv.lastIndexOf("--");
+  if (delimiterIndex >= 0) {
+    const afterDelimiter = argv[delimiterIndex + 1];
+    if (afterDelimiter && !afterDelimiter.startsWith("-")) {
+      return afterDelimiter;
+    }
+  }
+
+  const scriptIndex = argv.findIndex((arg) => arg.includes("transfer-ownership."));
+  if (scriptIndex >= 0) {
+    const next = argv[scriptIndex + 1];
+    if (next && !next.startsWith("-")) {
+      return next;
+    }
+  }
+
+  return undefined;
+}
+
 function addressesFromEnv(): Record<string, string | undefined> {
   return {
     AlphaNovaSeedV25: process.env.ALPHA_NOVA_SEED_ADDRESS,
@@ -75,7 +95,7 @@ async function main(): Promise<void> {
   assertSafetyFlag("ALLOW_OWNERSHIP_TRANSFER", "Ownership transfer");
   const env = getEnv();
 
-  const explicitDeploymentDir = process.argv[2];
+  const explicitDeploymentDir = deploymentOverrideFromArgs(process.argv);
 
   let manifestPath: string | undefined;
   if (explicitDeploymentDir) {

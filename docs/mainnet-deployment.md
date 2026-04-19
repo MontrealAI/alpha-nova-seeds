@@ -105,7 +105,7 @@ Behavior:
 
 - uses the latest `contracts/deployments/mainnet/<timestamp>/manifest.json` by default
 - supports optional explicit path override:
-  - `npm --prefix contracts run deploy:handoff -- deployments/mainnet/<timestamp>`
+  - `npm --prefix contracts run deploy:handoff -- -- deployments/mainnet/<timestamp>`
 - explicit path is fail-closed: script errors if `<path>/manifest.json` is missing
 - requires `ALLOW_OWNERSHIP_TRANSFER=true`
 
