@@ -41,4 +41,22 @@ describe("SignedAttestationVerifierV25 verification behavior", function () {
       .to.be.revertedWithCustomError(verifier, "OwnableUnauthorizedAccount")
       .withArgs(outsider.address);
   });
+
+  it("keeps attestation domains separated by type hash", async function () {
+    const [owner] = await hre.ethers.getSigners();
+    const verifier = await hre.ethers.deployContract("SignedAttestationVerifierV25", [owner.address]);
+    const seedId = hre.ethers.id("seed/domain");
+    const requestId = hre.ethers.id("request/domain");
+    const evidenceHash = hre.ethers.id("evidence/domain");
+    const completionHash = hre.ethers.id("completion/domain");
+    const sharedDeadline = 10_000_000_000;
+
+    const manifestDigest = await verifier.hashManifestAttestation(seedId, evidenceHash, completionHash, 1, sharedDeadline);
+    const decryptDigest = await verifier.hashDecryptAttestation(requestId, seedId, evidenceHash, completionHash, 1, sharedDeadline);
+    const challengeDigest = await verifier.hashChallengeEvidence(requestId, seedId, evidenceHash, 1, sharedDeadline);
+
+    expect(manifestDigest).to.not.equal(decryptDigest);
+    expect(manifestDigest).to.not.equal(challengeDigest);
+    expect(decryptDigest).to.not.equal(challengeDigest);
+  });
 });

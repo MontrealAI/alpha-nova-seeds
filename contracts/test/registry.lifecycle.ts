@@ -58,4 +58,31 @@ describe("NovaSeedRegistryV25 lifecycle", function () {
     await expect(registry.connect(reviewer).submitReview(seedId, 3, 1, hre.ethers.id("r2"))).to.be.revertedWith("ALREADY_REVIEWED");
     expect(await treasury.accrued(reviewer.address)).to.equal(hre.ethers.parseEther("1"));
   });
+
+  it("enforces quarantine/reject transitions and blocks sovereign registration outside valid states", async function () {
+    const { creator, reviewer, registry } = await deployRegistryGraph();
+    const seedId = hre.ethers.id("seed-3");
+    const hash = hre.ethers.id("h3");
+
+    await registry.connect(creator).draftSeed(seedId, hash, hash, hash, hash, hash, hash, hash, hash, hash, hash, "p", "s", "f", "t");
+    await registry.connect(creator).sealSeed(seedId);
+    await registry.connect(creator).openReview(seedId);
+    await registry.connect(reviewer).submitReview(seedId, 1, 4, hre.ethers.id("quarantine"));
+    await registry.connect(creator).finalizeReview(seedId);
+
+    const quarantined = await registry.seeds(seedId);
+    expect(quarantined.state).to.equal(7n);
+    await expect(registry.connect(creator).registerSovereign(seedId, hash, "ipfs://pkg", creator.address)).to.be.revertedWith("BAD_STATE");
+
+    const rejectedSeedId = hre.ethers.id("seed-4");
+    await registry.connect(creator).draftSeed(rejectedSeedId, hash, hash, hash, hash, hash, hash, hash, hash, hash, hash, "p", "s", "f", "t");
+    await registry.connect(creator).sealSeed(rejectedSeedId);
+    await registry.connect(creator).openReview(rejectedSeedId);
+    await registry.connect(reviewer).submitReview(rejectedSeedId, 1, 1, hre.ethers.id("approve-only"));
+    await registry.connect(creator).finalizeReview(rejectedSeedId);
+
+    const rejected = await registry.seeds(rejectedSeedId);
+    expect(rejected.state).to.equal(8n);
+    await expect(registry.connect(creator).registerSovereign(rejectedSeedId, hash, "ipfs://pkg2", creator.address)).to.be.revertedWith("BAD_STATE");
+  });
 });
