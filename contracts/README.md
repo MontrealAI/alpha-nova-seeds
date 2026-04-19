@@ -39,7 +39,7 @@ Deployment scripts are fail-closed by default:
 - no auto-broadcast to mainnet without explicit `--broadcast` plus env gate
 - no auto-activation of creators/signers/profiles/policy knobs
 - no private keys in source control (env only)
-- explicit role ownership checks + handoff tooling
+- explicit role ownership checks + manifest-driven handoff tooling
 
 ## Interface package
 
