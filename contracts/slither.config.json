@@ -1,5 +1,5 @@
 {
-  "filter_paths": "(node_modules|test|foundry-test)",
+  "filter_paths": "(^|/)(node_modules|test|foundry-test)(/|$)",
   "solc_remaps": ["@openzeppelin/=node_modules/@openzeppelin/"],
   "exclude": ["naming-convention"],
   "checklist": true,

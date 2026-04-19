@@ -1,4 +1,4 @@
-testMode: assertion
+testMode: property
 contract: EchidnaRegistryHarness
 seqLen: 40
 testLimit: 15000
