@@ -51,20 +51,26 @@ contract FuzzAndInvariantTest {
         require(ok != shouldRevert, "threshold-boundary mismatch");
     }
 
-    function testFuzz_treasury_arithmetic(uint128 accrueAmount, uint128 slashAmount) external {
-        address reviewer = address(uint160(uint256(keccak256(abi.encodePacked(accrueAmount, slashAmount)))));
-        treasury.accrue(reviewer, accrueAmount, keccak256("accrue"));
+    function testFuzz_treasury_arithmetic(uint128 accrueAmount, uint128 slashAmount, bool claimNow) external {
+        treasury.accrue(address(this), accrueAmount, keccak256("accrue"));
         totalAccrued += accrueAmount;
 
         uint256 boundedSlash = slashAmount;
-        if (boundedSlash > treasury.accrued(reviewer)) boundedSlash = treasury.accrued(reviewer);
+        if (boundedSlash > treasury.accrued(address(this))) boundedSlash = treasury.accrued(address(this));
 
         if (boundedSlash > 0) {
-            treasury.clawback(reviewer, boundedSlash, keccak256("slash"));
+            treasury.clawback(address(this), boundedSlash, keccak256("slash"));
             totalClawed += boundedSlash;
         }
 
-        require(totalAccrued >= totalClaimed + totalClawed, "value created unexpectedly");
+        uint256 claimable = treasury.accrued(address(this));
+        if (claimNow && claimable > 0) {
+            token.transfer(address(treasury), claimable);
+            treasury.claim();
+            totalClaimed += claimable;
+        }
+
+        require(totalAccrued == totalClaimed + totalClawed + treasury.accrued(address(this)), "value drift");
     }
 
     function testFuzz_governance_seat_count_coherence(uint32 seatId, uint96 weight) external {
@@ -82,15 +88,14 @@ contract FuzzAndInvariantTest {
     }
 
     function invariant_treasury_no_negative_accounting() external view {
-        require(totalAccrued >= totalClaimed + totalClawed, "underflow accounting invariant");
+        require(totalAccrued == totalClaimed + totalClawed + treasury.accrued(address(this)), "underflow accounting invariant");
+        require(treasury.claimed(address(this)) == totalClaimed, "claim accounting mismatch");
     }
 
     function invariant_governance_seatcount_nonzero_for_assigned() external view {
         for (uint32 i = 1; i <= governance.seatCount(); i++) {
             (address occupant,,) = governance.seats(i);
-            if (occupant != address(0)) {
-                require(i <= governance.seatCount(), "seat out of range");
-            }
+            require(occupant != address(0), "seat gap");
         }
     }
 }

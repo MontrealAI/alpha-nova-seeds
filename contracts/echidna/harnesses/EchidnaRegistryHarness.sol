@@ -32,7 +32,7 @@ contract EchidnaRegistryHarness {
     function draft(bytes32 seedId) external {
         bytes32 h = keccak256("h");
         if (!drafted[seedId]) {
-            registry.draftSeed(seedId, h, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token");
+            registry.draftSeed(seedId, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token");
             drafted[seedId] = true;
             lastDraftedSeedId = seedId;
         }

@@ -111,7 +111,7 @@ contract ContractsSecurityTest {
 
         bytes32 seedId = keccak256("seed");
         bytes32 h = keccak256("h");
-        registry.draftSeed(seedId, h, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token");
+        registry.draftSeed(seedId, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token");
         require(_expectRevert(address(registry), abi.encodeWithSelector(registry.openReview.selector, seedId)), "bad state");
         registry.sealSeed(seedId);
         registry.openReview(seedId);
@@ -125,7 +125,7 @@ contract ContractsSecurityTest {
 
         ExternalCaller outsider = new ExternalCaller();
         require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetCreator.selector, registry, address(outsider), true)), "set creator auth");
-        require(_expectRevert(address(registry), abi.encodeWithSelector(registry.draftSeed.selector, seedId, h, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token")), "duplicate id");
+        require(_expectRevert(address(registry), abi.encodeWithSelector(registry.draftSeed.selector, seedId, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token")), "duplicate id");
     }
 
     function test_challenge_policy_math_and_finalization() external {
