@@ -45,14 +45,14 @@ describe("NovaSeedRegistryV25 lifecycle", function () {
   });
 
   it("prevents duplicate reviews and accrues reward once per reviewer", async function () {
-    const { creator, reviewer, registry, council, treasury } = await deployRegistryGraph();
+    const { owner, creator, reviewer, registry, council, treasury } = await deployRegistryGraph();
     const seedId = hre.ethers.id("seed-2");
     const hash = hre.ethers.id("h2");
 
     await registry.connect(creator).draftSeed(seedId, hash, hash, hash, hash, hash, hash, hash, hash, hash, hash, "p", "s", "f", "t");
     await registry.connect(creator).sealSeed(seedId);
     await registry.connect(creator).openReview(seedId);
-    await council.connect(creator).openTerm();
+    await council.connect(owner).openTerm();
 
     await registry.connect(reviewer).submitReview(seedId, 3, 1, hre.ethers.id("r1"));
     await expect(registry.connect(reviewer).submitReview(seedId, 3, 1, hre.ethers.id("r2"))).to.be.revertedWith("ALREADY_REVIEWED");

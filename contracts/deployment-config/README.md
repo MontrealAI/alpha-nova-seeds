@@ -23,3 +23,4 @@ This folder stores operator-reviewed configuration profiles used by deployment s
 4. Optionally set `DEPLOYMENT_CONFIG_PATH` in `contracts/.env` to target an alternate config location.
 
 Deployment scripts fail closed if `<network>.json` is missing or malformed.
+Deployment scripts also fail closed when the config `network` field does not match the active deploy target.

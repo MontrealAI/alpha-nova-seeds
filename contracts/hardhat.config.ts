@@ -25,7 +25,7 @@ export default defineConfig({
     }
   },
   paths: {
-    sources: "./",
+    sources: "./contracts-src",
     tests: "./test",
     cache: "./cache",
     artifacts: "./artifacts"

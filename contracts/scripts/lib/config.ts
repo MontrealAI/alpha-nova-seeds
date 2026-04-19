@@ -46,5 +46,11 @@ export function readDeploymentConfig(network: "mainnet" | "sepolia" | "mainnet-f
     const details = parsed.error.issues.map((issue) => `- ${issue.path.join(".")}: ${issue.message}`).join("\n");
     throw new Error(`Deployment config validation failed for ${configPath}:\n${details}`);
   }
+  const acceptedNetworks = network === "mainnet-fork" ? new Set(["mainnet", "mainnet-fork"]) : new Set([network]);
+  if (!acceptedNetworks.has(parsed.data.network)) {
+    throw new Error(
+      `Deployment config network mismatch for ${configPath}: expected "${network}" but found "${parsed.data.network}".`
+    );
+  }
   return parsed.data;
 }
