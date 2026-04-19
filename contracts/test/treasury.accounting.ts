@@ -19,4 +19,14 @@ describe("ReviewerRewardTreasuryV25 accounting", function () {
     expect(await treasury.claimed(reviewer.address)).to.equal(60n);
     await expect(treasury.connect(reviewer).claim()).to.be.revertedWith("NO_REWARD");
   });
+
+  it("fails closed when treasury is underfunded", async function () {
+    const [owner, distributor, reviewer] = await hre.ethers.getSigners();
+    const rewardToken = await hre.ethers.deployContract("MockERC20", ["AGI", "AGI", hre.ethers.parseEther("1000000")]);
+    const treasury = await hre.ethers.deployContract("ReviewerRewardTreasuryV25", [owner.address, await rewardToken.getAddress()]);
+
+    await treasury.connect(owner).setDistributor(distributor.address, true);
+    await treasury.connect(distributor).accrue(reviewer.address, 100n, hre.ethers.id("insufficient-liquidity"));
+    await expect(treasury.connect(reviewer).claim()).to.be.revertedWith("TRANSFER_FAIL");
+  });
 });
