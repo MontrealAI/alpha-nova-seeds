@@ -64,7 +64,8 @@ contract FuzzAndInvariantTest {
         }
 
         uint256 claimable = treasury.accrued(address(this));
-        if (claimNow && claimable > 0) {
+        uint256 available = token.balanceOf(address(this));
+        if (claimNow && claimable > 0 && claimable <= available) {
             token.transfer(address(treasury), claimable);
             treasury.claim();
             totalClaimed += claimable;
