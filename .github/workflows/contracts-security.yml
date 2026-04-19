@@ -62,12 +62,16 @@ jobs:
       matrix:
         include:
           - harness: contracts/echidna/harnesses/EchidnaTreasuryHarness.sol
+            contract: EchidnaTreasuryHarness
             smoke_config: contracts/echidna/config/treasury.smoke.yaml
           - harness: contracts/echidna/harnesses/EchidnaGovernanceHarness.sol
+            contract: EchidnaGovernanceHarness
             smoke_config: contracts/echidna/config/governance.smoke.yaml
           - harness: contracts/echidna/harnesses/EchidnaThresholdHarness.sol
+            contract: EchidnaThresholdHarness
             smoke_config: contracts/echidna/config/threshold.smoke.yaml
           - harness: contracts/echidna/harnesses/EchidnaRegistryHarness.sol
+            contract: EchidnaRegistryHarness
             smoke_config: contracts/echidna/config/registry.smoke.yaml
     steps:
       - uses: actions/checkout@v4
@@ -81,6 +85,7 @@ jobs:
         uses: crytic/echidna-action@v2
         with:
           files: ${{ matrix.harness }}
+          contract: ${{ matrix.contract }}
           config: ${{ matrix.smoke_config }}
 
   echidna-campaigns:
@@ -91,12 +96,16 @@ jobs:
       matrix:
         include:
           - harness: contracts/echidna/harnesses/EchidnaTreasuryHarness.sol
+            contract: EchidnaTreasuryHarness
             config: contracts/echidna/config/treasury.yaml
           - harness: contracts/echidna/harnesses/EchidnaGovernanceHarness.sol
+            contract: EchidnaGovernanceHarness
             config: contracts/echidna/config/governance.yaml
           - harness: contracts/echidna/harnesses/EchidnaThresholdHarness.sol
+            contract: EchidnaThresholdHarness
             config: contracts/echidna/config/threshold.yaml
           - harness: contracts/echidna/harnesses/EchidnaRegistryHarness.sol
+            contract: EchidnaRegistryHarness
             config: contracts/echidna/config/registry.yaml
     steps:
       - uses: actions/checkout@v4
@@ -110,4 +119,5 @@ jobs:
         uses: crytic/echidna-action@v2
         with:
           files: ${{ matrix.harness }}
+          contract: ${{ matrix.contract }}
           config: ${{ matrix.config }}

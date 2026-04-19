@@ -1,5 +1,4 @@
 testMode: property
-contract: EchidnaGovernanceHarness
 seqLen: 20
 testLimit: 300
-cryticArgs: ["--compile-force-framework", "hardhat"]
+cryticArgs: ["--compile-force-framework", "foundry"]
