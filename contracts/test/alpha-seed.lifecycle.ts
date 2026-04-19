@@ -6,7 +6,7 @@ describe("AlphaNovaSeedV25 identity controls", function () {
     const [owner, registry, outsider, receiver] = await hre.ethers.getSigners();
     const nft = await hre.ethers.deployContract("AlphaNovaSeedV25", [owner.address]);
 
-    await expect(nft.connect(outsider).setRegistry(registry.address)).to.be.revertedWith("OwnableUnauthorizedAccount");
+    await expect(nft.connect(outsider).setRegistry(registry.address)).to.be.revertedWithCustomError(nft, "OwnableUnauthorizedAccount").withArgs(outsider.address);
     await expect(nft.connect(owner).setRegistry(hre.ethers.ZeroAddress)).to.be.revertedWith("BAD_REGISTRY");
 
     await nft.connect(owner).setRegistry(registry.address);

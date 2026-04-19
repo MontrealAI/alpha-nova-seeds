@@ -37,6 +37,8 @@ describe("SignedAttestationVerifierV25 verification behavior", function () {
     const [owner, outsider] = await hre.ethers.getSigners();
     const verifier = await hre.ethers.deployContract("SignedAttestationVerifierV25", [owner.address]);
 
-    await expect(verifier.connect(outsider).setTrustedSigner(outsider.address, true)).to.be.revertedWith("OwnableUnauthorizedAccount");
+    await expect(verifier.connect(outsider).setTrustedSigner(outsider.address, true))
+      .to.be.revertedWithCustomError(verifier, "OwnableUnauthorizedAccount")
+      .withArgs(outsider.address);
   });
 });
