@@ -1,13 +1,16 @@
 import hre from "hardhat";
 import { assertSafetyFlag, getEnv } from "./env";
 import { assertOwnership, deployComposite, getAddressMap, type CoreContracts, roleStateSummary } from "./contracts";
-import { artifactHint, deployedBytecodeHash, deploymentOutputDir, newBaseManifest, writeDeploymentArtifacts } from "./deployment";
+import { EXPECTED_RELEASE, artifactHint, deployedBytecodeHash, deploymentOutputDir, newBaseManifest, writeDeploymentArtifacts } from "./deployment";
 import { postcheckMarkdown } from "./report";
 import { readDeploymentConfig } from "./config";
 
 export async function runDeployment(networkName: "mainnet" | "sepolia" | "mainnet-fork", options?: { enforceGate?: boolean; outputNetworkName?: string; }): Promise<{ outDir: string; addresses: Record<string, string>; contracts: CoreContracts; }> {
   const env = getEnv();
   const config = readDeploymentConfig(networkName, env.DEPLOYMENT_CONFIG_PATH);
+  if (config.release !== EXPECTED_RELEASE) {
+    throw new Error(`Deployment config release mismatch: expected ${EXPECTED_RELEASE} but got ${config.release}.`);
+  }
   const [deployer] = await hre.ethers.getSigners();
   const chain = await hre.ethers.provider.getNetwork();
 
@@ -49,6 +52,7 @@ export async function runDeployment(networkName: "mainnet" | "sepolia" | "mainne
   };
 
   const manifest = newBaseManifest({
+    release: config.release,
     network: options?.outputNetworkName ?? networkName,
     chainId: Number(chain.chainId),
     deployer: deployer.address,
