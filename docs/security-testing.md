@@ -1,30 +1,38 @@
 # Security testing posture (contracts)
 
-This repository is a **verifiable release candidate** and should be treated as hardening-in-progress.
+This repository is a **verifiable release candidate** and remains hardening-in-progress.
 
-## Security test stack
+## Security test layers
 
-The contracts subsystem uses layered testing:
+1. **Hardhat integration tests**
+   - Deployment wiring and integration behavior.
+2. **Foundry unit tests**
+   - Contract-aware happy/revert/authorization paths.
+3. **Foundry fuzz + invariants**
+   - Arithmetic, lifecycle boundary, and state-coherence properties.
+4. **Echidna stateful campaigns**
+   - Adversarial transaction-sequence properties on treasury, governance, threshold, and registry surfaces.
+5. **Slither static analysis**
+   - Detector-based static regression checks with fail-high policy.
 
-1. Hardhat integration tests for deployment posture and integration wiring.
-2. Foundry Solidity tests for unit, fuzz, and invariant checks.
-3. Echidna transaction-sequence property tests for high-risk surfaces.
-4. Slither static analysis for detector-based regression catching.
+## Risks now covered by executable evidence
 
-## Risk surfaces covered
+- unauthorized lifecycle mutation attempts,
+- duplicate seed insertion and lifecycle misuse,
+- adjudication-policy inactive/finalized bypass attempts,
+- council seat/challenge authority boundaries,
+- reward accrual/slash/claim conservation,
+- malformed/untrusted signature rejection and digest domain separation,
+- invalid threshold profile persistence and untrusted completion rejection,
+- workflow adapter fail-closed behavior when downstream engine fails.
 
-- unauthorized lifecycle mutation,
-- reviewer reward accounting regressions,
-- threshold profile misconfiguration,
-- governance seat/challenge lifecycle misuse,
-- registry lifecycle ordering failures.
+## Out of scope / still not proven
 
-## What this does not claim
+This does **not** prove:
 
-This testing layer does not claim the contracts are:
+- economic security under all market/game-theoretic conditions,
+- threshold-network cryptographic correctness of external operators,
+- exhaustive formal verification of all state transitions,
+- audit-complete or production-final deployment safety.
 
-- audited,
-- production-final,
-- proven under all adversarial market conditions.
-
-Independent review and formal audit remain required for high-stakes deployment decisions.
+High-stakes deployment still requires independent human security review and external audit.

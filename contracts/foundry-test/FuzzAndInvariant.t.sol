@@ -5,7 +5,24 @@ import "../ReviewerRewardTreasuryV25.sol";
 import "../ThresholdNetworkAdapterV25.sol";
 import "../SignedAttestationVerifierV25.sol";
 import "../CouncilGovernanceV25.sol";
+import "../AlphaNovaSeedV25.sol";
+import "../NovaSeedRegistryV25.sol";
+import "../ChallengePolicyModuleV25.sol";
 import "../mocks/MockERC20.sol";
+
+contract RegistryOutsider {
+    function attemptDraft(
+        NovaSeedRegistryV25 registry,
+        bytes32 seedId,
+        bytes32 h,
+        string calldata payload,
+        string calldata summary,
+        string calldata fusion,
+        string calldata tokenURI
+    ) external {
+        registry.draftSeed(seedId, h, h, h, h, h, h, h, h, h, h, payload, summary, fusion, tokenURI);
+    }
+}
 
 contract FuzzAndInvariantTest {
     MockERC20 internal token;
@@ -13,6 +30,8 @@ contract FuzzAndInvariantTest {
     SignedAttestationVerifierV25 internal verifier;
     ThresholdNetworkAdapterV25 internal adapter;
     CouncilGovernanceV25 internal governance;
+    AlphaNovaSeedV25 internal nft;
+    NovaSeedRegistryV25 internal registry;
 
     uint256 internal totalAccrued;
     uint256 internal totalClaimed;
@@ -29,6 +48,26 @@ contract FuzzAndInvariantTest {
         governance = new CouncilGovernanceV25(address(this));
         governance.setElectionAdmin(address(this), true);
         governance.openTerm();
+
+        ChallengePolicyModuleV25 challenge = new ChallengePolicyModuleV25(address(this));
+        nft = new AlphaNovaSeedV25(address(this));
+        registry = new NovaSeedRegistryV25(address(this), nft, adapter, treasury, governance, challenge);
+        nft.setRegistry(address(registry));
+        treasury.setDistributor(address(registry), true);
+        registry.setCreator(address(this), true);
+        ThresholdNetworkAdapterV25.BindingProfile memory seededProfile = ThresholdNetworkAdapterV25.BindingProfile({
+            profileId: keccak256(abi.encodePacked(uint16(3), uint16(2), uint64(1))),
+            provider: "lit",
+            networkName: "seeded",
+            committeeRoot: bytes32(uint256(11)),
+            relayerRoot: bytes32(uint256(12)),
+            committeeSize: 3,
+            threshold: 2,
+            timeoutSeconds: 60,
+            policyHash: bytes32(uint256(13)),
+            active: true
+        });
+        adapter.setBindingProfile(seededProfile);
     }
 
     function testFuzz_threshold_boundaries(uint16 committeeSize, uint16 threshold, uint64 timeoutSeconds) external {
@@ -88,6 +127,36 @@ contract FuzzAndInvariantTest {
         require(governance.seatCount() >= expectedAssignedSeatId, "seat count incoherent");
     }
 
+    function testFuzz_registry_seed_uniqueness(bytes32 seedId) external {
+        if (seedId == bytes32(0)) seedId = keccak256("non-zero");
+        bytes32 h = keccak256("h");
+        if (registry.seeds(seedId).seedId == bytes32(0)) {
+            registry.draftSeed(seedId, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token");
+        }
+
+        (bool ok,) = address(registry).call(
+            abi.encodeWithSelector(
+                registry.draftSeed.selector,
+                seedId,
+                h,
+                h,
+                h,
+                h,
+                h,
+                h,
+                h,
+                h,
+                h,
+                h,
+                "payload",
+                "summary",
+                "fusion",
+                "token"
+            )
+        );
+        require(!ok, "duplicate seed admitted");
+    }
+
     function invariant_treasury_no_negative_accounting() external view {
         require(totalAccrued == totalClaimed + totalClawed + treasury.accrued(address(this)), "underflow accounting invariant");
         require(treasury.claimed(address(this)) == totalClaimed, "claim accounting mismatch");
@@ -98,5 +167,51 @@ contract FuzzAndInvariantTest {
             (address occupant,,) = governance.seats(i);
             require(occupant != address(0), "seat gap");
         }
+    }
+
+    function invariant_threshold_profile_always_valid_when_active() external view {
+        bytes32 profileId = keccak256(abi.encodePacked(uint16(3), uint16(2), uint64(1)));
+        (
+            bytes32 persistedId,
+            string memory provider,
+            string memory network,
+            bytes32 committeeRoot,
+            bytes32 relayerRoot,
+            uint16 committeeSize,
+            uint16 threshold,
+            uint64 timeoutSeconds,
+            bytes32 policyHash,
+            bool active
+        ) = adapter.profiles(profileId);
+
+        provider;
+        network;
+        committeeRoot;
+        relayerRoot;
+        timeoutSeconds;
+        policyHash;
+
+        if (persistedId != bytes32(0) && active) {
+            require(threshold > 0 && threshold <= committeeSize, "invalid persisted threshold");
+        }
+    }
+
+    function invariant_registry_unauthorized_creator_cannot_draft() external {
+        RegistryOutsider outsider = new RegistryOutsider();
+        bytes32 seedId = keccak256("outsider-seed");
+        bytes32 h = keccak256("outsider-h");
+        (bool ok,) = address(outsider).call(
+            abi.encodeWithSelector(
+                outsider.attemptDraft.selector,
+                registry,
+                seedId,
+                h,
+                "payload",
+                "summary",
+                "fusion",
+                "token"
+            )
+        );
+        require(!ok, "unauthorized draft succeeded");
     }
 }
