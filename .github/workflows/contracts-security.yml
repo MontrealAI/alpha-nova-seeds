@@ -1,0 +1,110 @@
+name: contracts-security
+
+on:
+  pull_request:
+    paths:
+      - "contracts/**"
+      - ".github/workflows/contracts-security.yml"
+      - "docs/contracts-testing.md"
+      - "docs/security-testing.md"
+      - "package.json"
+  push:
+    branches: ["**"]
+    paths:
+      - "contracts/**"
+      - ".github/workflows/contracts-security.yml"
+      - "docs/contracts-testing.md"
+      - "docs/security-testing.md"
+      - "package.json"
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 1"
+
+jobs:
+  hardhat-compile-and-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.10.0"
+      - name: Install contracts dependencies
+        working-directory: contracts
+        run: npm ci
+      - name: Compile and run contract integration tests
+        working-directory: contracts
+        run: |
+          npm run build
+          npm run test
+
+  foundry-unit-fuzz-invariant:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.10.0"
+      - name: Install contracts dependencies
+        working-directory: contracts
+        run: npm ci
+      - name: Run compile and security test gates
+        working-directory: contracts
+        run: |
+          forge --version
+          forge build
+          npm run test:contracts:unit
+          npm run test:contracts:fuzz
+          npm run test:contracts:invariant
+
+  slither-fail-high:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: foundry-rs/foundry-toolchain@v1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.10.0"
+      - name: Install tooling
+        run: pip install slither-analyzer
+      - name: Install contracts dependencies
+        working-directory: contracts
+        run: npm ci
+      - name: Run slither high-severity gate
+        working-directory: contracts
+        run: npm run analyze:slither
+
+  echidna-campaigns:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.10.0"
+      - name: Install contracts dependencies
+        working-directory: contracts
+        run: npm ci
+      - name: Treasury property campaign
+        uses: crytic/echidna-action@v2
+        with:
+          files: contracts/echidna/harnesses/EchidnaTreasuryHarness.sol
+          config-file: contracts/echidna/config/treasury.yaml
+      - name: Governance property campaign
+        uses: crytic/echidna-action@v2
+        with:
+          files: contracts/echidna/harnesses/EchidnaGovernanceHarness.sol
+          config-file: contracts/echidna/config/governance.yaml
+      - name: Threshold property campaign
+        uses: crytic/echidna-action@v2
+        with:
+          files: contracts/echidna/harnesses/EchidnaThresholdHarness.sol
+          config-file: contracts/echidna/config/threshold.yaml
+      - name: Registry property campaign
+        uses: crytic/echidna-action@v2
+        with:
+          files: contracts/echidna/harnesses/EchidnaRegistryHarness.sol
+          config-file: contracts/echidna/config/registry.yaml

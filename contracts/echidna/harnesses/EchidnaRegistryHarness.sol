@@ -10,10 +10,44 @@ import "../../CouncilGovernanceV25.sol";
 import "../../ChallengePolicyModuleV25.sol";
 import "../../mocks/MockERC20.sol";
 
+contract RegistryCaller {
+    function draft(
+        NovaSeedRegistryV25 registry,
+        bytes32 seedId,
+        bytes32 h,
+        string calldata payload,
+        string calldata summary,
+        string calldata fusion,
+        string calldata tokenURI
+    ) external returns (bool ok) {
+        (ok,) = address(registry).call(
+            abi.encodeWithSelector(
+                registry.draftSeed.selector,
+                seedId,
+                h,
+                h,
+                h,
+                h,
+                h,
+                h,
+                h,
+                h,
+                h,
+                h,
+                payload,
+                summary,
+                fusion,
+                tokenURI
+            )
+        );
+    }
+}
+
 contract EchidnaRegistryHarness {
     NovaSeedRegistryV25 internal registry;
     mapping(bytes32 => bool) internal drafted;
     bytes32 internal lastDraftedSeedId;
+    RegistryCaller internal outsider;
 
     constructor() {
         MockERC20 token = new MockERC20("R", "R", 1e24);
@@ -27,6 +61,7 @@ contract EchidnaRegistryHarness {
         nft.setRegistry(address(registry));
         treasury.setDistributor(address(registry), true);
         registry.setCreator(address(this), true);
+        outsider = new RegistryCaller();
     }
 
     function draft(bytes32 seedId) external {
@@ -51,6 +86,13 @@ contract EchidnaRegistryHarness {
             )
         );
 
+        return !ok;
+    }
+
+    function echidna_registry_mutation_requires_creator_authority() external returns (bool) {
+        bytes32 seedId = keccak256(abi.encodePacked(block.number, block.timestamp));
+        bytes32 h = keccak256("outside");
+        bool ok = outsider.draft(registry, seedId, h, "payload", "summary", "fusion", "token");
         return !ok;
     }
 }

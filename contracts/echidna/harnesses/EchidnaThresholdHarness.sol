@@ -7,6 +7,7 @@ import "../../SignedAttestationVerifierV25.sol";
 contract EchidnaThresholdHarness {
     ThresholdNetworkAdapterV25 internal adapter;
     bytes32 internal lastProfileId;
+    bytes32 internal lastRequestId;
 
     constructor() {
         SignedAttestationVerifierV25 verifier = new SignedAttestationVerifierV25(address(this));
@@ -35,6 +36,32 @@ contract EchidnaThresholdHarness {
         } else {
             require(ok, "valid threshold rejected");
         }
+    }
+
+    function openRequest(bytes32 seedId, bytes32 ciphertextHash, bytes32 manifestHash) external {
+        if (lastProfileId == bytes32(0)) return;
+        (bool ok, bytes memory data) = address(adapter).call(
+            abi.encodeWithSelector(adapter.openRequest.selector, seedId, lastProfileId, ciphertextHash, manifestHash)
+        );
+        if (ok) {
+            lastRequestId = abi.decode(data, (bytes32));
+        }
+    }
+
+    function tryCompleteWithoutSignature() external {
+        if (lastRequestId == bytes32(0)) return;
+        (bool ok,) = address(adapter).call(
+            abi.encodeWithSelector(
+                adapter.completeRequest.selector,
+                lastRequestId,
+                keccak256("p"),
+                keccak256("c"),
+                1,
+                block.timestamp + 100,
+                hex"0102"
+            )
+        );
+        require(!ok, "completion succeeded without trusted attestation");
     }
 
     function echidna_invalid_profile_never_persisted() external view returns (bool) {

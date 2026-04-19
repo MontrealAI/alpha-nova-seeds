@@ -1,6 +1,6 @@
 # Contracts testing guide (v2.6.0-rc.1)
 
-This guide describes how to run contract security tests from a clean checkout.
+This guide explains the security-testing command surface for the contracts subsystem from a clean checkout.
 
 ## Prerequisites
 
@@ -10,7 +10,7 @@ This guide describes how to run contract security tests from a clean checkout.
 - Slither (`slither`)
 - Echidna (`echidna`)
 
-Install contract dependencies:
+Install dependencies:
 
 ```bash
 npm --prefix contracts ci
@@ -22,54 +22,69 @@ npm --prefix contracts ci
 npm run contracts:build
 ```
 
-## Unit tests (Foundry)
+## Run the full contracts gate
+
+```bash
+npm run test:contracts
+```
+
+This executes unit + fuzz + invariant suites through Foundry.
+
+## Unit tests (contract-aware + adversarial)
 
 ```bash
 npm run test:contracts:unit
 ```
 
-Coverage intent:
+The suite includes per-contract happy/revert/authorization paths for:
 
-- ownership and role gates
-- revert-path controls
-- lifecycle transitions and terminal-state guards
-- integration edges for registry + workflow + governance components
+- `AlphaNovaSeedV25`
+- `NovaSeedRegistryV25`
+- `ChallengePolicyModuleV25`
+- `CouncilGovernanceV25`
+- `ReviewerRewardTreasuryV25`
+- `SignedAttestationVerifierV25`
+- `ThresholdNetworkAdapterV25`
+- `NovaSeedWorkflowAdapterV25`
 
-## Fuzz tests (Foundry)
+## Fuzz tests
 
 ```bash
 npm run test:contracts:fuzz
 ```
 
-Coverage intent:
+Fuzz coverage targets:
 
-- threshold/quorum boundaries
-- arithmetic edge ranges
-- seat assignment and governance coherence edges
+- threshold/quorum boundary constraints,
+- reviewer accrual/slash/claim accounting boundaries,
+- seat-count coherence,
+- registry seed uniqueness and duplicate insertion rejection.
 
-## Invariant tests (Foundry)
+## Invariant tests
 
 ```bash
 npm run test:contracts:invariant
 ```
 
-Coverage intent:
+Invariant coverage targets:
 
-- accounting monotonicity and no implicit value creation
-- state coherence under repeated stateful interactions
+- accounting conservation (`accrued = claimed + clawed + balance`),
+- governance seat-map coherence,
+- persisted threshold profile validity,
+- unauthorized creator inability to draft registry records.
 
-## Echidna property tests
+## Echidna campaigns
 
 ```bash
 npm run test:contracts:echidna
 ```
 
-Harnesses:
+Campaign harnesses:
 
-- `EchidnaTreasuryHarness.sol`
-- `EchidnaGovernanceHarness.sol`
-- `EchidnaThresholdHarness.sol`
-- `EchidnaRegistryHarness.sol`
+- `contracts/echidna/harnesses/EchidnaTreasuryHarness.sol`
+- `contracts/echidna/harnesses/EchidnaGovernanceHarness.sol`
+- `contracts/echidna/harnesses/EchidnaThresholdHarness.sol`
+- `contracts/echidna/harnesses/EchidnaRegistryHarness.sol`
 
 ## Slither static analysis
 
@@ -77,13 +92,18 @@ Harnesses:
 npm run analyze:slither
 ```
 
-The command fails on high-severity findings.
+Policy:
 
-## CI expectations
+- high severity = release-blocking,
+- medium severity = review-required,
+- low severity = triage-required.
 
-Contracts security gates fail loud on:
+## CI gates
 
-- compile errors,
-- unit/fuzz/invariant failures,
-- Slither high-severity findings,
-- malformed Echidna harness/config executions.
+Contracts security is enforced by `.github/workflows/contracts-security.yml`:
+
+- compile,
+- integration tests,
+- Foundry unit/fuzz/invariant tests,
+- Slither fail-high analysis,
+- Echidna campaigns (scheduled and manual dispatch).
