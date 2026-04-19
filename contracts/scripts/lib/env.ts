@@ -24,6 +24,7 @@ const envSchema = z.object({
   COUNCIL_ADMIN_ADDRESS: optionalAddress,
   ENS_REGISTRY_ADDRESS: optionalAddress,
   NAMEWRAPPER_ADDRESS: optionalAddress,
+  PUBLIC_RESOLVER_ADDRESS: optionalAddress,
   ENS_NAME: optionalString,
   AGI_TOKEN_ADDRESS: optionalAddress,
   AGIJOBMANAGER_ADDRESS: optionalAddress,
