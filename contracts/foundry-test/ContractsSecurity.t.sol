@@ -118,6 +118,7 @@ contract ContractsSecurityTest {
         AlphaNovaSeedV25 seed = new AlphaNovaSeedV25(address(this));
         ExternalCaller outsider = new ExternalCaller();
 
+        require(_expectRevert(address(seed), abi.encodeWithSelector(seed.setRegistry.selector, address(0))), "zero registry");
         require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetRegistry.selector, seed, address(outsider))), "owner gate");
         seed.setRegistry(address(this));
 
@@ -135,6 +136,22 @@ contract ContractsSecurityTest {
 
         bytes32 seedId = keccak256("seed");
         bytes32 h = keccak256("h");
+        require(
+            _expectRevert(
+                address(g.registry),
+                abi.encodeWithSelector(g.registry.draftSeed.selector, bytes32(0), h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token")
+            ),
+            "zero seed id"
+        );
+        require(
+            _expectRevert(
+                address(g.registry),
+                abi.encodeWithSelector(
+                    g.registry.draftSeed.selector, keccak256("bad-manifest"), h, bytes32(0), h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token"
+                )
+            ),
+            "manifest required"
+        );
         g.registry.draftSeed(seedId, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token");
         require(_expectRevert(address(g.registry), abi.encodeWithSelector(g.registry.openReview.selector, seedId)), "bad state");
         g.registry.sealSeed(seedId);
@@ -147,6 +164,18 @@ contract ContractsSecurityTest {
         reviewerB.submit(g.registry, seedId, 2, NovaSeedRegistryV25.ReviewDecision.APPROVE, h);
         g.registry.finalizeReview(seedId);
 
+        require(
+            _expectRevert(
+                address(g.registry), abi.encodeWithSelector(g.registry.registerSovereign.selector, seedId, bytes32(0), "ipfs://bad", address(this))
+            ),
+            "package hash required"
+        );
+        require(
+            _expectRevert(
+                address(g.registry), abi.encodeWithSelector(g.registry.registerSovereign.selector, seedId, h, "ipfs://bad", address(0))
+            ),
+            "sovereign contract required"
+        );
         g.registry.registerSovereign(seedId, h, "ipfs://sovereign", address(this));
         require(_expectRevert(address(g.registry), abi.encodeWithSelector(g.registry.openReview.selector, seedId)), "terminal state");
 
@@ -175,6 +204,10 @@ contract ContractsSecurityTest {
 
         ExternalCaller outsider = new ExternalCaller();
         require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetPolicy.selector, module, policyId)), "owner only");
+        require(
+            _expectRevert(address(module), abi.encodeWithSelector(module.recordVote.selector, challengeId, warningPolicyId, true, 1, false)),
+            "policy mismatch"
+        );
         require(
             _expectRevert(
                 address(module),
@@ -206,6 +239,7 @@ contract ContractsSecurityTest {
         (,,bool active) = gov.seats(2);
         require(!active, "deactivate seat");
         require(_expectRevert(address(gov), abi.encodeWithSelector(gov.resolveSeatChallenge.selector, challengeId, true)), "double resolve");
+        require(_expectRevert(address(gov), abi.encodeWithSelector(gov.resolveSeatChallenge.selector, keccak256("missing"), false)), "unknown challenge");
         require(_expectRevert(address(gov), abi.encodeWithSelector(gov.openSeatChallenge.selector, 2, keccak256("no-bond"))), "bond required");
 
         ExternalCaller outsider = new ExternalCaller();
@@ -272,6 +306,13 @@ contract ContractsSecurityTest {
         bytes32 requestId = adapter.openRequest(keccak256("seed"), p.profileId, keccak256("cipher"), keccak256("manifest"));
         adapter.challengeRequest(requestId, keccak256("challenge"));
         adapter.cancelRequest(requestId);
+        require(
+            _expectRevert(
+                address(adapter),
+                abi.encodeWithSelector(adapter.completeRequest.selector, requestId, keccak256("p"), keccak256("c"), 1, block.timestamp + 1, hex"0102")
+            ),
+            "cannot finalize cancelled"
+        );
         require(_expectRevert(address(adapter), abi.encodeWithSelector(adapter.openRequest.selector, keccak256("seed2"), keccak256("missing"), keccak256("cipher2"), keccak256("manifest2"))), "inactive profile");
 
         ExternalCaller outsider = new ExternalCaller();
@@ -292,6 +333,7 @@ contract ContractsSecurityTest {
         require(finalized, "job finalized");
 
         ExternalCaller outsider = new ExternalCaller();
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetMark.selector, adapter, INovaSeedMARKV25(address(0xABCD)))), "set mark auth");
         require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callCreateAssay.selector, adapter, seedId, keccak256("assay3"), 1)), "workflow owner create");
         require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callFinalizeAssay.selector, adapter, seedId, jobId)), "workflow owner finalize");
 

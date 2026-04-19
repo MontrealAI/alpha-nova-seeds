@@ -17,7 +17,9 @@ The contracts subsystem uses layered testing:
 - reviewer reward accounting regressions,
 - threshold profile misconfiguration,
 - governance seat/challenge lifecycle misuse,
-- registry lifecycle ordering failures.
+- registry lifecycle ordering failures,
+- expired decryption attestation rejection,
+- policy-mismatch challenge voting rejection.
 
 ## What this does not claim
 

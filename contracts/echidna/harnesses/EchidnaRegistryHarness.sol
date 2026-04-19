@@ -10,10 +10,25 @@ import "../../CouncilGovernanceV25.sol";
 import "../../ChallengePolicyModuleV25.sol";
 import "../../mocks/MockERC20.sol";
 
+contract RegistryAttacker {
+    function setCreator(NovaSeedRegistryV25 registry, address creator, bool allowed) external {
+        registry.setCreator(creator, allowed);
+    }
+
+    function draftSeed(NovaSeedRegistryV25 registry, bytes32 id, bytes32 h) external {
+        registry.draftSeed(id, h, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token");
+    }
+
+    function registerSovereign(NovaSeedRegistryV25 registry, bytes32 id, bytes32 h) external {
+        registry.registerSovereign(id, h, "ipfs://package", address(this));
+    }
+}
+
 contract EchidnaRegistryHarness {
     NovaSeedRegistryV25 internal registry;
     mapping(bytes32 => bool) internal drafted;
     bytes32 internal lastDraftedSeedId;
+    RegistryAttacker internal attacker;
 
     constructor() {
         MockERC20 token = new MockERC20("R", "R", 1e24);
@@ -27,6 +42,7 @@ contract EchidnaRegistryHarness {
         nft.setRegistry(address(registry));
         treasury.setDistributor(address(registry), true);
         registry.setCreator(address(this), true);
+        attacker = new RegistryAttacker();
     }
 
     function draft(bytes32 seedId) external {
@@ -52,5 +68,13 @@ contract EchidnaRegistryHarness {
         );
 
         return !ok;
+    }
+
+    function echidna_no_registry_mutation_without_authority() external returns (bool) {
+        bytes32 h = keccak256("unauthorized");
+        (bool creatorSet,) = address(attacker).call(abi.encodeWithSelector(attacker.setCreator.selector, registry, address(attacker), true));
+        (bool draftedByUnauthorized,) = address(attacker).call(abi.encodeWithSelector(attacker.draftSeed.selector, registry, h, h));
+        (bool registerUnauthorized,) = address(attacker).call(abi.encodeWithSelector(attacker.registerSovereign.selector, registry, h, h));
+        return !creatorSet && !draftedByUnauthorized && !registerUnauthorized;
     }
 }

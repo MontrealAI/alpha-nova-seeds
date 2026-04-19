@@ -5,6 +5,9 @@ import "../ReviewerRewardTreasuryV25.sol";
 import "../ThresholdNetworkAdapterV25.sol";
 import "../SignedAttestationVerifierV25.sol";
 import "../CouncilGovernanceV25.sol";
+import "../AlphaNovaSeedV25.sol";
+import "../NovaSeedRegistryV25.sol";
+import "../ChallengePolicyModuleV25.sol";
 import "../mocks/MockERC20.sol";
 
 contract FuzzAndInvariantTest {
@@ -13,10 +16,15 @@ contract FuzzAndInvariantTest {
     SignedAttestationVerifierV25 internal verifier;
     ThresholdNetworkAdapterV25 internal adapter;
     CouncilGovernanceV25 internal governance;
+    AlphaNovaSeedV25 internal nft;
+    NovaSeedRegistryV25 internal registry;
+    ChallengePolicyModuleV25 internal challenge;
 
     uint256 internal totalAccrued;
     uint256 internal totalClaimed;
     uint256 internal totalClawed;
+    bytes32 internal lastProfileId;
+    uint256 internal draftNonce;
 
     constructor() {
         token = new MockERC20("Reward", "RWD", 1e27);
@@ -29,6 +37,12 @@ contract FuzzAndInvariantTest {
         governance = new CouncilGovernanceV25(address(this));
         governance.setElectionAdmin(address(this), true);
         governance.openTerm();
+
+        challenge = new ChallengePolicyModuleV25(address(this));
+        nft = new AlphaNovaSeedV25(address(this));
+        registry = new NovaSeedRegistryV25(address(this), nft, adapter, treasury, governance, challenge);
+        nft.setRegistry(address(registry));
+        registry.setCreator(address(this), true);
     }
 
     function testFuzz_threshold_boundaries(uint16 committeeSize, uint16 threshold, uint64 timeoutSeconds) external {
@@ -48,6 +62,9 @@ contract FuzzAndInvariantTest {
 
         bool shouldRevert = threshold == 0 || threshold > committeeSize;
         (bool ok,) = address(adapter).call(abi.encodeWithSelector(adapter.setBindingProfile.selector, p));
+        if (ok) {
+            lastProfileId = p.profileId;
+        }
         require(ok != shouldRevert, "threshold-boundary mismatch");
     }
 
@@ -88,6 +105,29 @@ contract FuzzAndInvariantTest {
         require(governance.seatCount() >= expectedAssignedSeatId, "seat count incoherent");
     }
 
+    function testFuzz_registry_invalid_identity_rejected(bytes32 seedId, bytes32 manifestHash, bytes32 ciphertextHash) external {
+        bytes32 h = keccak256("h");
+        bytes32 fuzzSeedId = keccak256(abi.encode(seedId, draftNonce++));
+        if (fuzzSeedId == bytes32(0)) {
+            fuzzSeedId = bytes32(uint256(1));
+        }
+        if (manifestHash != bytes32(0) && ciphertextHash != bytes32(0)) {
+            manifestHash = bytes32(0);
+        }
+        (bool ok,) = address(registry).call(
+            abi.encodeWithSelector(
+                registry.draftSeed.selector, fuzzSeedId, h, manifestHash, ciphertextHash, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token"
+            )
+        );
+        require(!ok, "registry accepted invalid identity");
+    }
+
+    function testFuzz_attestation_rejects_malformed_signature(bytes32 digest, bytes calldata signature) external view {
+        if (signature.length == 65) return;
+        (bool ok,) = address(verifier).staticcall(abi.encodeWithSelector(verifier.verify.selector, digest, signature));
+        require(!ok, "malformed signature accepted");
+    }
+
     function invariant_treasury_no_negative_accounting() external view {
         require(totalAccrued == totalClaimed + totalClawed + treasury.accrued(address(this)), "underflow accounting invariant");
         require(treasury.claimed(address(this)) == totalClaimed, "claim accounting mismatch");
@@ -98,5 +138,11 @@ contract FuzzAndInvariantTest {
             (address occupant,,) = governance.seats(i);
             require(occupant != address(0), "seat gap");
         }
+    }
+
+    function invariant_threshold_profile_respects_quorum_math() external view {
+        if (lastProfileId == bytes32(0)) return;
+        (,,,,, uint16 committeeSize, uint16 threshold,,,) = adapter.profiles(lastProfileId);
+        require(threshold > 0 && threshold <= committeeSize, "threshold invariant broken");
     }
 }

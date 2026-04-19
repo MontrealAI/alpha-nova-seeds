@@ -46,6 +46,8 @@ Coverage intent:
 - threshold/quorum boundaries
 - arithmetic edge ranges
 - seat assignment and governance coherence edges
+- registry identity validation boundaries (`seedId`, `manifestHash`, `ciphertextHash`)
+- malformed signature rejection for attestation verification
 
 ## Invariant tests (Foundry)
 
@@ -56,7 +58,8 @@ npm run test:contracts:invariant
 Coverage intent:
 
 - accounting monotonicity and no implicit value creation
-- state coherence under repeated stateful interactions
+- governance seat occupancy coherence
+- threshold profile quorum-math coherence
 
 ## Echidna property tests
 
@@ -87,3 +90,5 @@ Contracts security gates fail loud on:
 - unit/fuzz/invariant failures,
 - Slither high-severity findings,
 - malformed Echidna harness/config executions.
+
+Echidna runs on `workflow_dispatch` and nightly schedule to keep PR latency bounded while preserving recurring stateful fuzz pressure.
