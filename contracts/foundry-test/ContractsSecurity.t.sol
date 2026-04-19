@@ -57,6 +57,16 @@ contract ExternalCaller {
     function callSetMark(NovaSeedWorkflowAdapterV25 workflow, INovaSeedMARKV25 mark) external {
         workflow.setMARK(mark);
     }
+
+    function callCreateAssay(NovaSeedWorkflowAdapterV25 workflow, bytes32 seedId, bytes32 assaySpecHash, uint256 reward)
+        external
+    {
+        workflow.createAssay(seedId, assaySpecHash, reward);
+    }
+
+    function callFinalizeAssay(NovaSeedWorkflowAdapterV25 workflow, bytes32 seedId, uint256 jobId) external {
+        workflow.finalizeAssay(seedId, jobId);
+    }
 }
 
 
@@ -129,6 +139,8 @@ contract ContractsSecurityTest {
         require(_expectRevert(address(g.registry), abi.encodeWithSelector(g.registry.openReview.selector, seedId)), "bad state");
         g.registry.sealSeed(seedId);
         g.registry.openReview(seedId);
+        ExternalCaller outsider = new ExternalCaller();
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callFinalize.selector, g.registry, seedId)), "finalize auth");
         ReviewSubmitter reviewerA = new ReviewSubmitter();
         ReviewSubmitter reviewerB = new ReviewSubmitter();
         reviewerA.submit(g.registry, seedId, 3, NovaSeedRegistryV25.ReviewDecision.GREENLIGHT, h);
@@ -136,8 +148,8 @@ contract ContractsSecurityTest {
         g.registry.finalizeReview(seedId);
 
         g.registry.registerSovereign(seedId, h, "ipfs://sovereign", address(this));
+        require(_expectRevert(address(g.registry), abi.encodeWithSelector(g.registry.openReview.selector, seedId)), "terminal state");
 
-        ExternalCaller outsider = new ExternalCaller();
         require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetCreator.selector, g.registry, address(outsider), true)), "set creator auth");
         require(_expectRevert(address(g.registry), abi.encodeWithSelector(g.registry.draftSeed.selector, seedId, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token")), "duplicate id");
     }
@@ -154,8 +166,22 @@ contract ContractsSecurityTest {
         ChallengePolicyModuleV25.Outcome outcome = module.finalize(challengeId);
         require(uint256(outcome) == uint256(ChallengePolicyModuleV25.Outcome.UPHELD), "upheld");
 
+        bytes32 warningPolicyId = keccak256("warning-policy");
+        bytes32 warningChallengeId = keccak256("warning-challenge");
+        module.setPolicy(warningPolicyId, 5, 5, 1, true);
+        module.recordVote(warningChallengeId, warningPolicyId, false, 0, true);
+        ChallengePolicyModuleV25.Outcome warningOutcome = module.finalize(warningChallengeId);
+        require(uint256(warningOutcome) == uint256(ChallengePolicyModuleV25.Outcome.WARNED), "warned");
+
         ExternalCaller outsider = new ExternalCaller();
         require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetPolicy.selector, module, policyId)), "owner only");
+        require(
+            _expectRevert(
+                address(module),
+                abi.encodeWithSelector(module.recordVote.selector, keccak256("inactive-challenge"), keccak256("inactive-policy"), true, 1, false)
+            ),
+            "inactive policy"
+        );
         require(_expectRevert(address(module), abi.encodeWithSelector(module.finalize.selector, challengeId)), "double finalize");
     }
 
@@ -179,6 +205,8 @@ contract ContractsSecurityTest {
         gov.resolveSeatChallenge(challengeId, true);
         (,,bool active) = gov.seats(2);
         require(!active, "deactivate seat");
+        require(_expectRevert(address(gov), abi.encodeWithSelector(gov.resolveSeatChallenge.selector, challengeId, true)), "double resolve");
+        require(_expectRevert(address(gov), abi.encodeWithSelector(gov.openSeatChallenge.selector, 2, keccak256("no-bond"))), "bond required");
 
         ExternalCaller outsider = new ExternalCaller();
         require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callResolve.selector, gov, challengeId)), "resolve auth");
@@ -195,6 +223,7 @@ contract ContractsSecurityTest {
         treasury.accrue(address(this), 100, keccak256("x"));
         treasury.clawback(address(this), 40, keccak256("slash"));
         require(treasury.accrued(address(this)) == 60, "accrued");
+        require(_expectRevert(address(treasury), abi.encodeWithSelector(treasury.clawback.selector, address(this), 100, keccak256("over-slash"))), "slash bound");
 
         reward.transfer(address(treasury), 60);
         treasury.claim();
@@ -215,6 +244,8 @@ contract ContractsSecurityTest {
         address signer = address(0xBEEF);
         verifier.setTrustedSigner(signer, true);
         require(verifier.trustedSigners(signer), "trusted signer");
+        bytes memory malformedSig = hex"0102";
+        require(_expectRevert(address(verifier), abi.encodeWithSelector(verifier.verify.selector, manifestDigest, malformedSig)), "malformed sig");
 
         ExternalCaller outsider = new ExternalCaller();
         require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetTrustedSigner.selector, verifier, address(outsider), true)), "owner only");
@@ -241,6 +272,7 @@ contract ContractsSecurityTest {
         bytes32 requestId = adapter.openRequest(keccak256("seed"), p.profileId, keccak256("cipher"), keccak256("manifest"));
         adapter.challengeRequest(requestId, keccak256("challenge"));
         adapter.cancelRequest(requestId);
+        require(_expectRevert(address(adapter), abi.encodeWithSelector(adapter.openRequest.selector, keccak256("seed2"), keccak256("missing"), keccak256("cipher2"), keccak256("manifest2"))), "inactive profile");
 
         ExternalCaller outsider = new ExternalCaller();
         require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetBinding.selector, adapter, p)), "set profile auth");
@@ -259,8 +291,38 @@ contract ContractsSecurityTest {
         (, , , bool finalized) = workflowEngine.jobs(jobId);
         require(finalized, "job finalized");
 
+        ExternalCaller outsider = new ExternalCaller();
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callCreateAssay.selector, adapter, seedId, keccak256("assay3"), 1)), "workflow owner create");
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callFinalizeAssay.selector, adapter, seedId, jobId)), "workflow owner finalize");
+
         registryView.setState(seedId, 2);
         require(_expectRevert(address(adapter), abi.encodeWithSelector(adapter.createAssay.selector, seedId, keccak256("assay2"), 1)), "state restricted");
+    }
+
+    function test_integration_seed_review_and_governance_challenge_path() external {
+        RegistryGraph memory g = _deployRegistryGraph();
+
+        bytes32 seedId = keccak256("seed-integration");
+        bytes32 h = keccak256("integration-hash");
+        g.registry.draftSeed(seedId, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token");
+        g.registry.sealSeed(seedId);
+        g.registry.openReview(seedId);
+        ReviewSubmitter reviewerA = new ReviewSubmitter();
+        ReviewSubmitter reviewerB = new ReviewSubmitter();
+        reviewerA.submit(g.registry, seedId, 5, NovaSeedRegistryV25.ReviewDecision.GREENLIGHT, h);
+        reviewerB.submit(g.registry, seedId, 3, NovaSeedRegistryV25.ReviewDecision.APPROVE, h);
+        g.registry.finalizeReview(seedId);
+        g.registry.registerSovereign(seedId, h, "ipfs://seed-integration", address(this));
+        require(_expectRevert(address(g.registry), abi.encodeWithSelector(g.registry.registerSovereign.selector, seedId, h, "ipfs://double", address(this))), "terminal sovereign");
+
+        g.governance.assignSeat(1, address(0x1111), 4, true);
+        (bool opened, bytes memory data) =
+            address(g.governance).call{value: 1 ether}(abi.encodeWithSelector(g.governance.openSeatChallenge.selector, 1, h));
+        require(opened, "challenge open");
+        bytes32 challengeId = abi.decode(data, (bytes32));
+        g.governance.resolveSeatChallenge(challengeId, true);
+        (,,bool active) = g.governance.seats(1);
+        require(!active, "seat disabled after upheld challenge");
     }
 
     receive() external payable {}
