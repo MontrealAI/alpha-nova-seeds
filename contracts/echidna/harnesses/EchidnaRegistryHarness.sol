@@ -16,7 +16,7 @@ contract RegistryAttacker {
     }
 
     function draftSeed(NovaSeedRegistryV25 registry, bytes32 id, bytes32 h) external {
-        registry.draftSeed(id, h, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token");
+        registry.draftSeed(id, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token");
     }
 
     function registerSovereign(NovaSeedRegistryV25 registry, bytes32 id, bytes32 h) external {
