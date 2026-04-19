@@ -1,0 +1,5 @@
+testMode: assertion
+contract: EchidnaRegistryHarness
+seqLen: 40
+testLimit: 15000
+cryticArgs: ["--compile-force-framework", "hardhat"]
