@@ -34,4 +34,4 @@ Independent review and formal audit remain required for high-stakes deployment d
 
 ## CI gates
 
-`.github/workflows/contracts-security.yml` enforces compile + Foundry unit/fuzz/invariant + Slither on pushes/PRs touching contracts, and runs Echidna campaigns on schedule/dispatch for sequence-level adversarial pressure.
+`.github/workflows/contracts-security.yml` enforces compile + Foundry unit/fuzz/invariant + Slither on pushes/PRs touching contracts, runs Echidna smoke campaigns on PR/push to catch harness/config regressions, and runs full Echidna campaigns on schedule/dispatch for deeper sequence-level adversarial pressure.
