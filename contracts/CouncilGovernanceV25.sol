@@ -95,6 +95,7 @@ contract CouncilGovernanceV25 is Ownable {
     /// @notice Resolve a seat challenge and route bond according to outcome.
     function resolveSeatChallenge(bytes32 challengeId, bool upheld) external onlyElectionAdmin {
         Challenge storage c = challenges[challengeId];
+        require(c.challengeId != bytes32(0), "NO_CHALLENGE");
         require(!c.resolved, "ALREADY_RESOLVED");
         c.resolved = true;
         c.upheld = upheld;

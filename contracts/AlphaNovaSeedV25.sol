@@ -17,6 +17,7 @@ contract AlphaNovaSeedV25 is ERC721, Ownable {
     constructor(address initialOwner) ERC721("Alpha Nova-Seed", "ANSEED") Ownable(initialOwner) {}
 
     function setRegistry(address _registry) external onlyOwner {
+        require(_registry != address(0), "BAD_REGISTRY");
         registry = _registry;
     }
 

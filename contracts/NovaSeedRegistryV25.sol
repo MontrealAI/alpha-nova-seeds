@@ -114,6 +114,9 @@ contract NovaSeedRegistryV25 is Ownable {
         string calldata fusionPlanURI,
         string calldata tokenURI
     ) external onlyCreator returns (uint256 tokenId) {
+        require(seedId != bytes32(0), "BAD_SEED_ID");
+        require(manifestHash != bytes32(0), "BAD_MANIFEST");
+        require(ciphertextHash != bytes32(0), "BAD_CIPHERTEXT");
         require(seeds[seedId].seedId == bytes32(0), "SEED_EXISTS");
         tokenId = seedNFT.mint(msg.sender, tokenURI);
         seeds[seedId] = SeedRecord({
@@ -198,6 +201,8 @@ contract NovaSeedRegistryV25 is Ownable {
     function registerSovereign(bytes32 seedId, bytes32 sovereignPackageHash, string calldata sovereignPackageURI, address sovereignContract) external onlyCreator {
         SeedRecord storage s = seeds[seedId];
         require(s.state == SeedState.GREENLIT || s.state == SeedState.BLOOMING, "BAD_STATE");
+        require(sovereignPackageHash != bytes32(0), "BAD_PACKAGE_HASH");
+        require(sovereignContract != address(0), "BAD_SOVEREIGN");
         s.state = SeedState.SOVEREIGN;
         s.sovereignPackageHash = sovereignPackageHash;
         s.sovereignPackageURI = sovereignPackageURI;
