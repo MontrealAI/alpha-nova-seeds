@@ -4,6 +4,17 @@ import hre from "hardhat";
 import { assertSafetyFlag, getEnv } from "../lib/env";
 import { readManifest } from "../lib/deployment";
 
+const EXPECTED_CONTRACT_NAMES = [
+  "AlphaNovaSeedV25",
+  "SignedAttestationVerifierV25",
+  "ThresholdNetworkAdapterV25",
+  "ReviewerRewardTreasuryV25",
+  "CouncilGovernanceV25",
+  "ChallengePolicyModuleV25",
+  "NovaSeedRegistryV25",
+  "NovaSeedWorkflowAdapterV25"
+] as const;
+
 function latestDeploymentDir(network: string): string {
   const networkDir = join("deployments", network);
   if (!existsSync(networkDir)) {
@@ -18,7 +29,14 @@ function latestDeploymentDir(network: string): string {
 
 function addressesFromManifest(manifestPath: string): Record<string, string> {
   const manifest = readManifest(manifestPath);
-  return Object.fromEntries(manifest.contracts.map((c) => [c.name, c.address]));
+  const byName = Object.fromEntries(manifest.contracts.map((c) => [c.name, c.address])) as Record<string, string>;
+
+  const missing = EXPECTED_CONTRACT_NAMES.filter((name) => !byName[name]);
+  if (missing.length > 0) {
+    throw new Error(`Manifest is missing expected contracts: ${missing.join(", ")}`);
+  }
+
+  return Object.fromEntries(EXPECTED_CONTRACT_NAMES.map((name) => [name, byName[name]]));
 }
 
 function addressesFromEnv(): Record<string, string | undefined> {
