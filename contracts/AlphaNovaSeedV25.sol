@@ -9,6 +9,8 @@ contract AlphaNovaSeedV25 is ERC721, Ownable {
     mapping(uint256 => string) private _uris;
     address public registry;
 
+    event RegistrySet(address indexed registry);
+
     modifier onlyRegistry() {
         require(msg.sender == registry, "NOT_REGISTRY");
         _;
@@ -19,6 +21,7 @@ contract AlphaNovaSeedV25 is ERC721, Ownable {
     function setRegistry(address _registry) external onlyOwner {
         require(_registry != address(0), "BAD_REGISTRY");
         registry = _registry;
+        emit RegistrySet(_registry);
     }
 
     function mint(address to, string calldata uri) external onlyRegistry returns (uint256 tokenId) {

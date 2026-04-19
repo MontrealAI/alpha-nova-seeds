@@ -88,8 +88,8 @@ contract ThresholdNetworkAdapterV25 is Ownable {
         require(block.timestamp <= r.deadline, "TIMED_OUT");
         require(block.timestamp <= deadline, "ATTESTATION_EXPIRED");
         bytes32 digest = verifier.hashDecryptAttestation(requestId, r.seedId, plaintextHash, completionHash, termId, deadline);
-        (, bool trusted) = verifier.verify(digest, signature);
-        require(trusted, "BAD_SIGNATURE");
+        (address signer, bool trusted) = verifier.verify(digest, signature);
+        require(signer != address(0) && trusted, "BAD_SIGNATURE");
         r.status = RequestStatus.FULFILLED;
         r.plaintextHash = plaintextHash;
         r.completionHash = completionHash;
