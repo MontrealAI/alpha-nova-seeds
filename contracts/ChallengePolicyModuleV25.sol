@@ -58,6 +58,7 @@ contract ChallengePolicyModuleV25 is Ownable {
             a.challengeId = challengeId;
             a.policyId = policyId;
         }
+        require(a.policyId == policyId, "POLICY_MISMATCH");
         require(!a.finalized, "FINALIZED");
         if (warningOnly) {
             a.warnings += 1;
