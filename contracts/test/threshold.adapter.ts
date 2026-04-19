@@ -77,7 +77,7 @@ describe("ThresholdNetworkAdapterV25 fail-closed transitions", function () {
       relayerRoot: hre.ethers.ZeroHash,
       committeeSize: 3,
       threshold: 2,
-      timeoutSeconds: 1,
+      timeoutSeconds: 120,
       policyHash: hre.ethers.ZeroHash,
       active: true
     };
@@ -113,7 +113,7 @@ describe("ThresholdNetworkAdapterV25 fail-closed transitions", function () {
     await expect(adapter.connect(requester).completeRequest(requestId, hre.ethers.id("plain"), hre.ethers.id("completion"), 1, 0, sig)).to.be
       .revertedWith("ATTESTATION_EXPIRED");
 
-    await hre.ethers.provider.send("evm_increaseTime", [2]);
+    await hre.ethers.provider.send("evm_increaseTime", [121]);
     await hre.ethers.provider.send("evm_mine", []);
     await expect(
       adapter.connect(requester).completeRequest(requestId, hre.ethers.id("plain"), hre.ethers.id("completion"), 1, 9_999_999_999, sig)

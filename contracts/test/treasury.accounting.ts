@@ -27,6 +27,8 @@ describe("ReviewerRewardTreasuryV25 accounting", function () {
 
     await treasury.connect(owner).setDistributor(distributor.address, true);
     await treasury.connect(distributor).accrue(reviewer.address, 100n, hre.ethers.id("insufficient-liquidity"));
-    await expect(treasury.connect(reviewer).claim()).to.be.revertedWith("TRANSFER_FAIL");
+    await expect(treasury.connect(reviewer).claim())
+      .to.be.revertedWithCustomError(rewardToken, "ERC20InsufficientBalance")
+      .withArgs(await treasury.getAddress(), 0n, 100n);
   });
 });
