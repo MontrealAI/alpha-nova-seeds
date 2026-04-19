@@ -59,6 +59,19 @@ contract ExternalCaller {
     }
 }
 
+
+contract ReviewSubmitter {
+    function submit(
+        NovaSeedRegistryV25 registry,
+        bytes32 seedId,
+        uint96 weight,
+        NovaSeedRegistryV25.ReviewDecision decision,
+        bytes32 reasonHash
+    ) external {
+        registry.submitReview(seedId, weight, decision, reasonHash);
+    }
+}
+
 contract ContractsSecurityTest {
     function _expectRevert(address target, bytes memory data) internal returns (bool) {
         (bool ok,) = target.call(data);
@@ -102,8 +115,10 @@ contract ContractsSecurityTest {
         require(_expectRevert(address(registry), abi.encodeWithSelector(registry.openReview.selector, seedId)), "bad state");
         registry.sealSeed(seedId);
         registry.openReview(seedId);
-        registry.submitReview(seedId, 3, NovaSeedRegistryV25.ReviewDecision.GREENLIGHT, h);
-        registry.submitReview(seedId, 2, NovaSeedRegistryV25.ReviewDecision.APPROVE, h);
+        ReviewSubmitter reviewerA = new ReviewSubmitter();
+        ReviewSubmitter reviewerB = new ReviewSubmitter();
+        reviewerA.submit(registry, seedId, 3, NovaSeedRegistryV25.ReviewDecision.GREENLIGHT, h);
+        reviewerB.submit(registry, seedId, 2, NovaSeedRegistryV25.ReviewDecision.APPROVE, h);
         registry.finalizeReview(seedId);
 
         registry.registerSovereign(seedId, h, "ipfs://sovereign", address(this));

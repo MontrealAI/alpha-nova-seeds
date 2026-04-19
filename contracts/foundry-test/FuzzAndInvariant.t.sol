@@ -68,9 +68,17 @@ contract FuzzAndInvariantTest {
     }
 
     function testFuzz_governance_seat_count_coherence(uint32 seatId, uint96 weight) external {
-        seatId = uint32((seatId % 10) + 1);
-        governance.assignSeat(seatId, address(uint160(seatId + 100)), weight, true);
-        require(governance.seatCount() >= seatId, "seat count incoherent");
+        uint32 requestedSeatId = uint32((seatId % 10) + 1);
+        governance.assignSeat(requestedSeatId, address(uint160(requestedSeatId + 100)), weight, true);
+
+        uint32 expectedAssignedSeatId = requestedSeatId;
+        if (requestedSeatId == 0 || requestedSeatId > governance.seatCount()) {
+            expectedAssignedSeatId = uint32(governance.seatCount());
+        }
+
+        (address occupant,,) = governance.seats(expectedAssignedSeatId);
+        require(occupant != address(0), "seat assignment missing");
+        require(governance.seatCount() >= expectedAssignedSeatId, "seat count incoherent");
     }
 
     function invariant_treasury_no_negative_accounting() external view {

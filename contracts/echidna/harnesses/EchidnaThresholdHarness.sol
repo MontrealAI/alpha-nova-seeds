@@ -6,6 +6,7 @@ import "../../SignedAttestationVerifierV25.sol";
 
 contract EchidnaThresholdHarness {
     ThresholdNetworkAdapterV25 internal adapter;
+    bytes32 internal lastProfileId;
 
     constructor() {
         SignedAttestationVerifierV25 verifier = new SignedAttestationVerifierV25(address(this));
@@ -27,6 +28,7 @@ contract EchidnaThresholdHarness {
             active: true
         });
 
+        lastProfileId = p.profileId;
         (bool ok,) = address(adapter).call(abi.encodeWithSelector(adapter.setBindingProfile.selector, p));
         if (threshold == 0 || threshold > committeeSize) {
             require(!ok, "invalid threshold accepted");
@@ -36,6 +38,30 @@ contract EchidnaThresholdHarness {
     }
 
     function echidna_invalid_profile_never_persisted() external view returns (bool) {
-        return true;
+        if (lastProfileId == bytes32(0)) return true;
+
+        (
+            bytes32 profileId,
+            string memory provider,
+            string memory networkName,
+            bytes32 committeeRoot,
+            bytes32 relayerRoot,
+            uint16 committeeSize,
+            uint16 threshold,
+            uint64 timeoutSeconds,
+            bytes32 policyHash,
+            bool active
+        ) = adapter.profiles(lastProfileId);
+
+        provider;
+        networkName;
+        committeeRoot;
+        relayerRoot;
+        timeoutSeconds;
+        policyHash;
+        active;
+
+        if (profileId == bytes32(0)) return true;
+        return threshold > 0 && threshold <= committeeSize;
     }
 }
