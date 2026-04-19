@@ -3,9 +3,5 @@
   "solc_remaps": [
     "@openzeppelin/=node_modules/@openzeppelin/"
   ],
-  "exclude": [
-    "naming-convention"
-  ],
-  "checklist": true,
   "json": "slither-report.json"
 }

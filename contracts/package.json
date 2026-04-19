@@ -25,7 +25,7 @@
     "test:contracts:fuzz": "forge test --match-path foundry-test/FuzzAndInvariant.t.sol --match-test testFuzz_",
     "test:contracts:invariant": "forge test --match-path foundry-test/FuzzAndInvariant.t.sol --match-test invariant_",
     "test:contracts:echidna": "./scripts/security/run-echidna.sh",
-    "analyze:slither": "slither . --config-file slither.config.json --fail-high"
+    "analyze:slither": "slither . --compile-force-framework hardhat --config-file slither.config.json --fail-high"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2",

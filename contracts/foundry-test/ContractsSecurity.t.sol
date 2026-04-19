@@ -73,6 +73,32 @@ contract ReviewSubmitter {
 }
 
 contract ContractsSecurityTest {
+    struct RegistryGraph {
+        AlphaNovaSeedV25 nft;
+        SignedAttestationVerifierV25 verifier;
+        ThresholdNetworkAdapterV25 adapter;
+        ReviewerRewardTreasuryV25 treasury;
+        CouncilGovernanceV25 governance;
+        ChallengePolicyModuleV25 challenge;
+        NovaSeedRegistryV25 registry;
+    }
+
+    function _deployRegistryGraph() internal returns (RegistryGraph memory g) {
+        MockERC20 token = new MockERC20("R", "R", 1e24);
+        g.nft = new AlphaNovaSeedV25(address(this));
+        g.verifier = new SignedAttestationVerifierV25(address(this));
+        g.adapter = new ThresholdNetworkAdapterV25(address(this), g.verifier);
+        g.treasury = new ReviewerRewardTreasuryV25(address(this), token);
+        g.governance = new CouncilGovernanceV25(address(this));
+        g.challenge = new ChallengePolicyModuleV25(address(this));
+        g.registry = new NovaSeedRegistryV25(address(this), g.nft, g.adapter, g.treasury, g.governance, g.challenge);
+
+        g.nft.setRegistry(address(g.registry));
+        g.treasury.setDistributor(address(g.registry), true);
+        g.registry.setCreator(address(this), true);
+        g.governance.openTerm();
+    }
+
     function _expectRevert(address target, bytes memory data) internal returns (bool) {
         (bool ok,) = target.call(data);
         return !ok;
@@ -95,37 +121,25 @@ contract ContractsSecurityTest {
     }
 
     function test_registry_lifecycle_happy_and_revert_paths() external {
-        MockERC20 token = new MockERC20("R", "R", 1e24);
-        AlphaNovaSeedV25 nft = new AlphaNovaSeedV25(address(this));
-        SignedAttestationVerifierV25 verifier = new SignedAttestationVerifierV25(address(this));
-        ThresholdNetworkAdapterV25 adapter = new ThresholdNetworkAdapterV25(address(this), verifier);
-        ReviewerRewardTreasuryV25 treasury = new ReviewerRewardTreasuryV25(address(this), token);
-        CouncilGovernanceV25 gov = new CouncilGovernanceV25(address(this));
-        ChallengePolicyModuleV25 challenge = new ChallengePolicyModuleV25(address(this));
-        NovaSeedRegistryV25 registry = new NovaSeedRegistryV25(address(this), nft, adapter, treasury, gov, challenge);
-
-        nft.setRegistry(address(registry));
-        treasury.setDistributor(address(registry), true);
-        registry.setCreator(address(this), true);
-        gov.openTerm();
+        RegistryGraph memory g = _deployRegistryGraph();
 
         bytes32 seedId = keccak256("seed");
         bytes32 h = keccak256("h");
-        registry.draftSeed(seedId, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token");
-        require(_expectRevert(address(registry), abi.encodeWithSelector(registry.openReview.selector, seedId)), "bad state");
-        registry.sealSeed(seedId);
-        registry.openReview(seedId);
+        g.registry.draftSeed(seedId, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token");
+        require(_expectRevert(address(g.registry), abi.encodeWithSelector(g.registry.openReview.selector, seedId)), "bad state");
+        g.registry.sealSeed(seedId);
+        g.registry.openReview(seedId);
         ReviewSubmitter reviewerA = new ReviewSubmitter();
         ReviewSubmitter reviewerB = new ReviewSubmitter();
-        reviewerA.submit(registry, seedId, 3, NovaSeedRegistryV25.ReviewDecision.GREENLIGHT, h);
-        reviewerB.submit(registry, seedId, 2, NovaSeedRegistryV25.ReviewDecision.APPROVE, h);
-        registry.finalizeReview(seedId);
+        reviewerA.submit(g.registry, seedId, 3, NovaSeedRegistryV25.ReviewDecision.GREENLIGHT, h);
+        reviewerB.submit(g.registry, seedId, 2, NovaSeedRegistryV25.ReviewDecision.APPROVE, h);
+        g.registry.finalizeReview(seedId);
 
-        registry.registerSovereign(seedId, h, "ipfs://sovereign", address(this));
+        g.registry.registerSovereign(seedId, h, "ipfs://sovereign", address(this));
 
         ExternalCaller outsider = new ExternalCaller();
-        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetCreator.selector, registry, address(outsider), true)), "set creator auth");
-        require(_expectRevert(address(registry), abi.encodeWithSelector(registry.draftSeed.selector, seedId, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token")), "duplicate id");
+        require(_expectRevert(address(outsider), abi.encodeWithSelector(outsider.callSetCreator.selector, g.registry, address(outsider), true)), "set creator auth");
+        require(_expectRevert(address(g.registry), abi.encodeWithSelector(g.registry.draftSeed.selector, seedId, h, h, h, h, h, h, h, h, h, h, "payload", "summary", "fusion", "token")), "duplicate id");
     }
 
     function test_challenge_policy_math_and_finalization() external {
