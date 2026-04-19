@@ -6,8 +6,8 @@ async function main(): Promise<void> {
     throw new Error(`Refusing to run: expected --network mainnet, got ${hre.network.name}`);
   }
 
-  if (!process.argv.includes("--broadcast")) {
-    throw new Error("Mainnet script is fail-closed. Re-run with explicit --broadcast flag after operator review.");
+  if (process.env.CONFIRM_MAINNET_BROADCAST !== "true") {
+    throw new Error("Mainnet script is fail-closed. Re-run from repository root with: npm run deploy:mainnet -- --broadcast");
   }
 
   const result = await runDeployment("mainnet");

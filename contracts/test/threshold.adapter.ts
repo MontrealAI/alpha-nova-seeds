@@ -40,23 +40,24 @@ describe("ThresholdNetworkAdapterV25 fail-closed transitions", function () {
       .find((e) => e?.name === "DecryptionRequested");
 
     const requestId = event?.args.requestId as string;
+    const deadline = (await hre.ethers.provider.getBlock("latest"))!.timestamp + 60;
     const digest = await verifier.hashDecryptAttestation(
       requestId,
       hre.ethers.id("seed"),
       hre.ethers.id("plain"),
       hre.ethers.id("completion"),
       1,
-      (await hre.ethers.provider.getBlock("latest"))!.timestamp + 60
+      deadline
     );
     const untrustedSigner = hre.ethers.Wallet.createRandom();
     const sig = untrustedSigner.signingKey.sign(digest).serialized;
 
     await expect(
-      adapter.connect(requester).completeRequest(requestId, hre.ethers.id("plain"), hre.ethers.id("completion"), 1, 1, sig)
+      adapter.connect(requester).completeRequest(requestId, hre.ethers.id("plain"), hre.ethers.id("completion"), 1, deadline, sig)
     ).to.be.revertedWith("BAD_SIGNATURE");
 
     await verifier.connect(owner).setTrustedSigner(untrustedSigner.address, true);
-    await adapter.connect(requester).completeRequest(requestId, hre.ethers.id("plain"), hre.ethers.id("completion"), 1, 1, sig);
+    await adapter.connect(requester).completeRequest(requestId, hre.ethers.id("plain"), hre.ethers.id("completion"), 1, deadline, sig);
     const request = await adapter.requests(requestId);
     expect(request.status).to.equal(2n);
 
