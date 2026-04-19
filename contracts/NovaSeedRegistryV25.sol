@@ -118,10 +118,11 @@ contract NovaSeedRegistryV25 is Ownable {
         require(manifestHash != bytes32(0), "BAD_MANIFEST");
         require(ciphertextHash != bytes32(0), "BAD_CIPHERTEXT");
         require(seeds[seedId].seedId == bytes32(0), "SEED_EXISTS");
-        tokenId = seedNFT.mint(msg.sender, tokenURI);
+
+        uint256 reservedTokenId = seedNFT.nextTokenId();
         seeds[seedId] = SeedRecord({
             seedId: seedId,
-            tokenId: tokenId,
+            tokenId: reservedTokenId,
             parentSeedId: parentSeedId,
             state: SeedState.DRAFT,
             manifestHash: manifestHash,
@@ -141,6 +142,8 @@ contract NovaSeedRegistryV25 is Ownable {
             sovereignContract: address(0),
             createdAt: uint64(block.timestamp)
         });
+        tokenId = seedNFT.mint(msg.sender, tokenURI);
+        require(tokenId == reservedTokenId, "TOKEN_ID_DRIFT");
         emit SeedDrafted(seedId, tokenId, parentSeedId);
     }
 
@@ -176,10 +179,10 @@ contract NovaSeedRegistryV25 is Ownable {
         SeedRecord storage s = seeds[seedId];
         require(s.state == SeedState.UNDER_REVIEW, "BAD_STATE");
         Review[] memory rs = seedReviews[seedId];
-        uint256 approveWeight;
-        uint256 greenWeight;
-        bool prohibit;
-        bool quarantine;
+        uint256 approveWeight = 0;
+        uint256 greenWeight = 0;
+        bool prohibit = false;
+        bool quarantine = false;
         for (uint256 i = 0; i < rs.length; i++) {
             if (rs[i].decision == ReviewDecision.PROHIBIT) prohibit = true;
             if (rs[i].decision == ReviewDecision.QUARANTINE) quarantine = true;

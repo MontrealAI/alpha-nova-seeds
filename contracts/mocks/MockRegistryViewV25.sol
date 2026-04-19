@@ -13,6 +13,18 @@ contract MockRegistryViewV25 is INovaSeedRegistryV25View {
         states[seedId] = value;
     }
 
+    function setTokenId(bytes32 seedId, uint256 tokenId) external {
+        tokenIds[seedId] = tokenId;
+    }
+
+    function setParent(bytes32 seedId, bytes32 parentSeedId) external {
+        parents[seedId] = parentSeedId;
+    }
+
+    function setSovereignHash(bytes32 seedId, bytes32 packageHash) external {
+        sovereignHashes[seedId] = packageHash;
+    }
+
     function seedState(bytes32 seedId) external view returns (uint8) {
         return states[seedId];
     }
