@@ -55,6 +55,7 @@ Safety gates (all default `false`):
 ```bash
 npm --prefix contracts install
 npm run contracts:build
+npm --prefix contracts run test:unit
 npm run contracts:test
 npm run contracts:test:fork
 ```
@@ -90,13 +91,13 @@ npm run deploy:sepolia
 ## 6) Explicit mainnet deployment
 
 ```bash
-npm run deploy:mainnet
+npm run deploy:mainnet -- --broadcast
 ```
 
 This script is guarded and requires:
 
 - `ALLOW_DEPLOY_TO_MAINNET=true`
-- explicit `--broadcast` flag (already wired in the root script)
+- explicit `--broadcast` flag
 
 ## 7) Verify and postcheck
 
@@ -125,7 +126,7 @@ Behavior:
 npm --prefix contracts run deploy:ens
 ```
 
-Requires `ALLOW_ENS_PUBLISH=true`, `ENS_NAME`, and `ENS_REGISTRY_ADDRESS`.
+Requires `ALLOW_ENS_PUBLISH=true`, `ENS_NAME`, and `ENS_REGISTRY_ADDRESS` (`PUBLIC_RESOLVER_ADDRESS` / `NAMEWRAPPER_ADDRESS` are optional metadata hints).
 
 ## What remains closed by default
 
