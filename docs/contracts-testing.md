@@ -91,7 +91,7 @@ Contracts security gates fail loud on:
 - Slither high-severity findings,
 - malformed Echidna harness/config executions.
 
-Echidna runs on `workflow_dispatch` and nightly schedule to keep PR latency bounded while preserving recurring stateful fuzz pressure.
+Echidna smoke campaigns now run on PR/push (reduced `testLimit`) to fail fast on harness/config breakage, while full campaigns run on `workflow_dispatch` and nightly schedule for deeper sequence pressure.
 
 ## Contract-by-contract test targets
 
