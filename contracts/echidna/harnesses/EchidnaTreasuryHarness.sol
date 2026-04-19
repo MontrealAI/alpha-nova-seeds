@@ -9,8 +9,10 @@ contract EchidnaTreasuryHarness {
     ReviewerRewardTreasuryV25 internal treasury;
 
     address internal constant REVIEWER = address(0x1234);
-    uint256 internal totalAccrued;
-    uint256 internal totalSlashed;
+    uint256 internal reviewerAccruedTotal;
+    uint256 internal reviewerSlashedTotal;
+    uint256 internal selfAccruedTotal;
+    uint256 internal totalClaimed;
 
     constructor() {
         token = new MockERC20("R", "R", 1e24);
@@ -20,7 +22,7 @@ contract EchidnaTreasuryHarness {
 
     function accrue(uint128 amount) external {
         treasury.accrue(REVIEWER, amount, keccak256("accrue"));
-        totalAccrued += amount;
+        reviewerAccruedTotal += amount;
     }
 
     function slash(uint128 amount) external {
@@ -29,12 +31,29 @@ contract EchidnaTreasuryHarness {
         uint256 bounded = amount % (bal + 1);
         if (bounded == 0) return;
         treasury.clawback(REVIEWER, bounded, keccak256("slash"));
-        totalSlashed += bounded;
+        reviewerSlashedTotal += bounded;
+    }
+
+    function accrueSelf(uint128 amount) external {
+        treasury.accrue(address(this), amount, keccak256("self-accrue"));
+        selfAccruedTotal += amount;
+    }
+
+    function claimSelf() external {
+        uint256 claimable = treasury.accrued(address(this));
+        if (claimable == 0) return;
+        token.transfer(address(treasury), claimable);
+        treasury.claim();
+        totalClaimed += claimable;
     }
 
     function echidna_clawback_not_exceeding_accrued() external view returns (bool) {
         uint256 accruedNow = treasury.accrued(REVIEWER);
         uint256 clawedNow = treasury.clawedBack(REVIEWER);
-        return clawedNow == totalSlashed && accruedNow + clawedNow == totalAccrued;
+        return clawedNow == reviewerSlashedTotal && accruedNow + clawedNow == reviewerAccruedTotal;
+    }
+
+    function echidna_no_double_claim() external view returns (bool) {
+        return treasury.claimed(address(this)) <= selfAccruedTotal && treasury.claimed(address(this)) == totalClaimed;
     }
 }
