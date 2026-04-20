@@ -76,6 +76,9 @@ jobs:
           - harness: contracts/echidna/harnesses/EchidnaWorkflowHarness.sol
             contract: EchidnaWorkflowHarness
             smoke_config: contracts/echidna/config/workflow.smoke.yaml
+          - harness: contracts/echidna/harnesses/EchidnaAttestationHarness.sol
+            contract: EchidnaAttestationHarness
+            smoke_config: contracts/echidna/config/attestation.smoke.yaml
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -113,6 +116,9 @@ jobs:
           - harness: contracts/echidna/harnesses/EchidnaWorkflowHarness.sol
             contract: EchidnaWorkflowHarness
             config: contracts/echidna/config/workflow.yaml
+          - harness: contracts/echidna/harnesses/EchidnaAttestationHarness.sol
+            contract: EchidnaAttestationHarness
+            config: contracts/echidna/config/attestation.yaml
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
