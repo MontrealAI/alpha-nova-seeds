@@ -47,10 +47,15 @@ contract EchidnaGovernanceHarness {
     }
 
     function echidna_upheld_challenge_deactivates_seat() external returns (bool) {
-        if (lastChallengeId == bytes32(0) || lastSeatId == 0) return true;
+        if (lastChallengeId == bytes32(0)) return true;
+
+        (,, , uint32 challengedSeatId, , , bool alreadyResolved, ) = gov.challenges(lastChallengeId);
+        if (challengedSeatId == 0 || alreadyResolved) return true;
+
         (bool resolved,) = address(gov).call(abi.encodeWithSelector(gov.resolveSeatChallenge.selector, lastChallengeId, true));
-        if (!resolved) return true;
-        (,, bool active) = gov.seats(lastSeatId);
+        if (!resolved) return false;
+
+        (,, bool active) = gov.seats(challengedSeatId);
         return !active;
     }
 

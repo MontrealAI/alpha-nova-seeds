@@ -66,14 +66,22 @@ contract EchidnaAttestationHarness {
     function echidna_no_replay_unsafe_auto_trust() external view returns (bool) {
         if (lastManifestDigest == bytes32(0)) return true;
 
-        bytes memory emptySignature;
-        (bool ok, bytes memory data) = address(verifier).staticcall(
-            abi.encodeWithSelector(verifier.verify.selector, lastManifestDigest, emptySignature)
+        bytes memory canonicalSig = abi.encodePacked(bytes32(uint256(1)), bytes32(uint256(2)), bytes1(uint8(27)));
+
+        (bool ok1, bytes memory data1) = address(verifier).staticcall(
+            abi.encodeWithSelector(verifier.verify.selector, lastManifestDigest, canonicalSig)
         );
+        if (!ok1 || data1.length == 0) return false;
 
-        if (!ok || data.length == 0) return true;
+        (address signer1, bool trusted1) = abi.decode(data1, (address, bool));
 
-        (, bool trusted) = abi.decode(data, (address, bool));
-        return !trusted;
+        (bool ok2, bytes memory data2) = address(verifier).staticcall(
+            abi.encodeWithSelector(verifier.verify.selector, lastManifestDigest, canonicalSig)
+        );
+        if (!ok2 || data2.length == 0) return false;
+
+        (address signer2, bool trusted2) = abi.decode(data2, (address, bool));
+
+        return signer1 == signer2 && trusted1 == trusted2 && !trusted1;
     }
 }
