@@ -48,6 +48,7 @@ Coverage intent:
 - seat assignment and governance coherence edges
 - registry identity validation boundaries (`seedId`, `manifestHash`, `ciphertextHash`)
 - malformed signature rejection for attestation verification
+- replay-safe trust boundaries (no implicit trust escalation from digest reuse)
 
 ## Invariant tests (Foundry)
 
@@ -74,6 +75,7 @@ Harnesses:
 - `EchidnaThresholdHarness.sol`
 - `EchidnaRegistryHarness.sol`
 - `EchidnaWorkflowHarness.sol`
+- `EchidnaAttestationHarness.sol`
 
 ## Slither static analysis
 
