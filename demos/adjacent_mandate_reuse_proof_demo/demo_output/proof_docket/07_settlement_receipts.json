@@ -1,0 +1,128 @@
+{
+  "mandate_1": {
+    "job_id": "JOB-M1-001",
+    "mode": "mandate_1",
+    "lifecycle": [
+      {
+        "state": "REQUEST",
+        "at": "2026-04-20T19:46:10.510467Z"
+      },
+      {
+        "state": "ESCROW",
+        "at": "2026-04-20T19:46:10.510467Z",
+        "escrow_amount_agialpha": 1000
+      },
+      {
+        "state": "EXECUTE",
+        "at": "2026-04-20T19:46:10.510467Z"
+      },
+      {
+        "state": "PROOF",
+        "at": "2026-04-20T19:46:10.510467Z"
+      },
+      {
+        "state": "VALIDATE",
+        "at": "2026-04-20T19:46:10.510467Z"
+      },
+      {
+        "state": "SETTLE",
+        "at": "2026-04-20T19:46:10.510467Z"
+      },
+      {
+        "state": "CHRONICLE",
+        "at": "2026-04-20T19:46:10.510467Z"
+      }
+    ],
+    "receipt": {
+      "accepted_findings": 4,
+      "aoy": 0.25,
+      "package_hash": "467a32a99c0e16988e3085844b06f81f8fdf3e30815bb2aaf468155d1e85727b",
+      "validated": true,
+      "settled": true
+    }
+  },
+  "mandate_2_control": {
+    "job_id": "JOB-M2-CTRL-001",
+    "mode": "control",
+    "lifecycle": [
+      {
+        "state": "REQUEST",
+        "at": "2026-04-20T19:46:10.510499Z"
+      },
+      {
+        "state": "ESCROW",
+        "at": "2026-04-20T19:46:10.510499Z",
+        "escrow_amount_agialpha": 1000
+      },
+      {
+        "state": "EXECUTE",
+        "at": "2026-04-20T19:46:10.510499Z"
+      },
+      {
+        "state": "PROOF",
+        "at": "2026-04-20T19:46:10.510499Z"
+      },
+      {
+        "state": "VALIDATE",
+        "at": "2026-04-20T19:46:10.510499Z"
+      },
+      {
+        "state": "SETTLE",
+        "at": "2026-04-20T19:46:10.510499Z"
+      },
+      {
+        "state": "CHRONICLE",
+        "at": "2026-04-20T19:46:10.510499Z"
+      }
+    ],
+    "receipt": {
+      "accepted_findings": 1,
+      "aoy": 0.05,
+      "package_hash": null,
+      "validated": true,
+      "settled": true
+    }
+  },
+  "mandate_2_treatment": {
+    "job_id": "JOB-M2-TREAT-001",
+    "mode": "treatment",
+    "lifecycle": [
+      {
+        "state": "REQUEST",
+        "at": "2026-04-20T19:46:10.510510Z"
+      },
+      {
+        "state": "ESCROW",
+        "at": "2026-04-20T19:46:10.510510Z",
+        "escrow_amount_agialpha": 1000
+      },
+      {
+        "state": "EXECUTE",
+        "at": "2026-04-20T19:46:10.510510Z"
+      },
+      {
+        "state": "PROOF",
+        "at": "2026-04-20T19:46:10.510510Z"
+      },
+      {
+        "state": "VALIDATE",
+        "at": "2026-04-20T19:46:10.510510Z"
+      },
+      {
+        "state": "SETTLE",
+        "at": "2026-04-20T19:46:10.510510Z"
+      },
+      {
+        "state": "CHRONICLE",
+        "at": "2026-04-20T19:46:10.510510Z"
+      }
+    ],
+    "receipt": {
+      "accepted_findings": 5,
+      "aoy": 0.25,
+      "package_hash": "467a32a99c0e16988e3085844b06f81f8fdf3e30815bb2aaf468155d1e85727b",
+      "validated": true,
+      "settled": true
+    }
+  }
+}
