@@ -19,7 +19,8 @@ The contracts subsystem uses layered testing:
 - governance seat/challenge lifecycle misuse,
 - registry lifecycle ordering failures,
 - expired decryption attestation rejection,
-- policy-mismatch challenge voting rejection.
+- policy-mismatch challenge voting rejection,
+- attestation trust/replay boundary regressions.
 
 ## What this does not claim
 
@@ -34,6 +35,6 @@ Independent review and formal audit remain required for high-stakes deployment d
 
 ## CI gates
 
-`.github/workflows/contracts-security.yml` enforces compile + Foundry unit/fuzz/invariant + Slither on pushes/PRs touching contracts, runs Echidna smoke campaigns on PR/push to catch harness/config regressions, and runs full Echidna campaigns on schedule/dispatch for deeper sequence-level adversarial pressure (treasury, governance, threshold, registry, workflow).
+`.github/workflows/contracts-security.yml` enforces compile + Foundry unit/fuzz/invariant + Slither on pushes/PRs touching contracts, runs Echidna smoke campaigns on PR/push to catch harness/config regressions, and runs full Echidna campaigns on schedule/dispatch for deeper sequence-level adversarial pressure (treasury, governance, threshold, registry, workflow, attestation verifier trust boundaries).
 
 `docs/contracts-risk-matrix.md` is the contract-by-contract source of truth for covered invariants, mapped tests, and residual audit-only risk.
