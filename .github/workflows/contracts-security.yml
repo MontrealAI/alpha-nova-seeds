@@ -73,6 +73,9 @@ jobs:
           - harness: contracts/echidna/harnesses/EchidnaRegistryHarness.sol
             contract: EchidnaRegistryHarness
             smoke_config: contracts/echidna/config/registry.smoke.yaml
+          - harness: contracts/echidna/harnesses/EchidnaWorkflowHarness.sol
+            contract: EchidnaWorkflowHarness
+            smoke_config: contracts/echidna/config/workflow.smoke.yaml
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -107,6 +110,9 @@ jobs:
           - harness: contracts/echidna/harnesses/EchidnaRegistryHarness.sol
             contract: EchidnaRegistryHarness
             config: contracts/echidna/config/registry.yaml
+          - harness: contracts/echidna/harnesses/EchidnaWorkflowHarness.sol
+            contract: EchidnaWorkflowHarness
+            config: contracts/echidna/config/workflow.yaml
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

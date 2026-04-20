@@ -62,8 +62,10 @@ npm run test:contracts:echidna
 - **Hardhat tests**: integration wiring and deployment posture checks.
 - **Foundry unit tests**: revert-path and lifecycle guardrails for each contract.
 - **Foundry fuzz/invariant tests**: arithmetic, identity-validation, signature-shape, and state-coherence boundaries.
-- **Echidna harnesses**: adversarial transaction-sequence properties for treasury, governance, threshold, and registry interactions.
+- **Echidna harnesses**: adversarial transaction-sequence properties for treasury, governance, threshold, registry, and workflow interactions.
 - **Slither**: static detector sweep to catch common anti-patterns/regressions.
+
+Contract-by-contract risk classification, mapped invariants, and explicitly out-of-scope audit items are documented in `docs/contracts-risk-matrix.md`.
 
 ## Out of scope
 
