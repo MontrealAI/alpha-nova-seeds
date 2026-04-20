@@ -13,3 +13,4 @@ echidna "echidna/harnesses/EchidnaTreasuryHarness.sol" --config echidna/config/t
 echidna "echidna/harnesses/EchidnaGovernanceHarness.sol" --config echidna/config/governance.yaml
 echidna "echidna/harnesses/EchidnaThresholdHarness.sol" --config echidna/config/threshold.yaml
 echidna "echidna/harnesses/EchidnaRegistryHarness.sol" --config echidna/config/registry.yaml
+echidna "echidna/harnesses/EchidnaWorkflowHarness.sol" --config echidna/config/workflow.yaml

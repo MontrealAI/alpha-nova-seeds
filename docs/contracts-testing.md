@@ -73,6 +73,7 @@ Harnesses:
 - `EchidnaGovernanceHarness.sol`
 - `EchidnaThresholdHarness.sol`
 - `EchidnaRegistryHarness.sol`
+- `EchidnaWorkflowHarness.sol`
 
 ## Slither static analysis
 
@@ -106,3 +107,5 @@ Hardhat regression specs in `contracts/test/` now include:
 - `attestation.verifier.ts` for trusted signer gating, malformed signature rejection, and domain-separation assertions.
 - `threshold.adapter.ts` for threshold profile validation plus attestation-expiry and timeout fail-closed request completion behavior.
 - `workflow.adapter.ts` for owner-only workflow actions and greenlit/blooming state gates.
+
+Contract risk mapping (assets, failure modes, invariants, and residual audit-only gaps) is maintained in `docs/contracts-risk-matrix.md`.
