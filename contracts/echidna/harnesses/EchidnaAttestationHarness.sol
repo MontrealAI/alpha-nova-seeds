@@ -58,6 +58,9 @@ contract EchidnaAttestationHarness {
         lastManifestDigest = verifier.hashManifestAttestation(seedId, manifestHash, ciphertextHash, 1, block.timestamp + 1 days);
         lastDecryptDigest = verifier.hashDecryptAttestation(requestId, seedId, manifestHash, completionHash, 1, block.timestamp + 1 days);
         lastChallengeDigest = verifier.hashChallengeEvidence(requestId, seedId, manifestHash, 1, block.timestamp + 1 days);
+
+        // The canonical signature recovers to a digest-dependent signer; reset binding on digest changes.
+        replaySigner = address(0);
     }
 
     function echidna_signer_trust_is_owner_only() external returns (bool) {
