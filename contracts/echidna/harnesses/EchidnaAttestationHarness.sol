@@ -18,6 +18,7 @@ contract EchidnaAttestationHarness {
     bytes32 internal lastManifestDigest;
     bytes32 internal lastDecryptDigest;
     bytes32 internal lastChallengeDigest;
+    address internal replaySigner;
 
     constructor() {
         verifier = new SignedAttestationVerifierV25(address(this));
@@ -26,6 +27,24 @@ contract EchidnaAttestationHarness {
 
     function trustSigner(bool trusted) external {
         verifier.setTrustedSigner(SIGNER, trusted);
+    }
+
+    function bindReplaySignerTrust(bool trusted) external {
+        if (lastManifestDigest == bytes32(0)) {
+            return;
+        }
+
+        bytes memory canonicalSig = abi.encodePacked(bytes32(uint256(1)), bytes32(uint256(2)), bytes1(uint8(27)));
+        (bool ok, bytes memory data) = address(verifier).staticcall(
+            abi.encodeWithSelector(verifier.verify.selector, lastManifestDigest, canonicalSig)
+        );
+        if (!ok || data.length == 0) {
+            return;
+        }
+
+        (address signer,) = abi.decode(data, (address, bool));
+        replaySigner = signer;
+        verifier.setTrustedSigner(signer, trusted);
     }
 
     function hashAll(bytes32 seedId, bytes32 requestId, bytes32 manifestHash, bytes32 ciphertextHash, bytes32 completionHash) external {
@@ -81,7 +100,12 @@ contract EchidnaAttestationHarness {
         if (!ok2 || data2.length == 0) return false;
 
         (address signer2, bool trusted2) = abi.decode(data2, (address, bool));
+        bool expectedTrust = verifier.trustedSigners(signer1);
 
-        return signer1 == signer2 && trusted1 == trusted2 && !trusted1;
+        if (replaySigner != address(0) && signer1 != replaySigner) {
+            return false;
+        }
+
+        return signer1 == signer2 && trusted1 == trusted2 && trusted1 == expectedTrust;
     }
 }
