@@ -86,7 +86,10 @@ class Finding:
         active_checklist = checklist or EVIDENCE_CHECKLIST
         if not active_checklist:
             return 0.0
-        flags = [bool(getattr(self, field, "")) for field in active_checklist]
+        unknown = [field for field in active_checklist if field not in self.__dataclass_fields__]
+        if unknown:
+            raise ValueError(f"Unknown evidence checklist fields: {unknown}")
+        flags = [bool(getattr(self, field)) for field in active_checklist]
         return sum(flags) / len(flags)
 
 
