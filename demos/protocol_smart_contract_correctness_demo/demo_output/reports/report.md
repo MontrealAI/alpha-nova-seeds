@@ -51,12 +51,12 @@ Winner: **invariant_library**
 - Package dependence rate: 100.0%
 
 ## Threshold ruling (strict)
-- AOY uplift ≥ 35%
-- Speed uplift ≥ 30%
-- Repair/rework reduction ≥ 40%
-- Evidence completeness uplift ≥ 20%
+- AOY uplift ≥ 35.0%
+- Speed uplift ≥ 30.0%
+- Repair/rework reduction ≥ 40.0%
+- Evidence completeness uplift ≥ 20.0%
 - No safety regression
-- Package dependence rate ≥ 30%
+- Package dependence rate ≥ 30.0%
 - Adjacent-mandate proof: **PASS**
 
 ## Sovereign emission
