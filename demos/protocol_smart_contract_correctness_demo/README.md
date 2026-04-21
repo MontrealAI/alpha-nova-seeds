@@ -18,6 +18,17 @@ It demonstrates, end-to-end, a synthetic but replayable path:
 
 ---
 
+## 3-minute read map
+
+- **Why this sector first:** objective, replayable, fast to review, reusable, commercially understandable.
+- **What gets sold:** fixed-scope protocol assurance mandates (2–4 release-critical contracts) with replayable release-gate evidence.
+- **How seeds are screened:** harsh common assay on one mandate with shared rubric and evidence completeness checklist.
+- **What is promoted:** one frozen sub-pack, then a sector stepping stone.
+- **What counts as progress:** adjacent-mandate treatment must beat control under strict thresholds.
+- **What this is not:** audited production proof.
+
+---
+
 ## Why this sector is first
 
 Protocol correctness is the first wedge because it is:
@@ -29,6 +40,19 @@ Protocol correctness is the first wedge because it is:
 - commercially understandable for fixed-scope release-critical work
 
 The design-partner offer modeled here is narrow: 2–4 release-critical contracts, replayable evidence, failing tests/fuzz traces, and a release-gate packet.
+
+---
+
+## Adjacent-mandate thresholds (strict)
+
+A scorecard is a PASS only if all are true:
+
+- AOY uplift ≥ 35%
+- speed uplift ≥ 30%
+- repair/rework reduction ≥ 40%
+- evidence completeness uplift ≥ 20%
+- no safety regression
+- package dependence rate ≥ 30%
 
 ---
 
@@ -69,7 +93,7 @@ No third-party dependency is required. `requirements.txt` is intentionally empty
 
 ---
 
-## Outputs
+## Output map
 
 Primary outputs are written under `demo_output/`:
 
@@ -91,12 +115,5 @@ Primary outputs are written under `demo_output/`:
 
 - Constitutional order: **identity → proof → settlement → governance**
 - Invariant: **no value without evidence; no autonomy without authority; no settlement without validation**
-- Pass criteria are strict:
-  - AOY uplift ≥ 35%
-  - speed uplift ≥ 30%
-  - repair/rework reduction ≥ 40%
-  - evidence completeness uplift ≥ 20%
-  - no safety regression
-  - package dependence rate ≥ 30%
 
 If any threshold fails, the demo emits a fail-closed governance ruling artifact instead of a sovereign artifact.

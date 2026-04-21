@@ -7,6 +7,20 @@
 - Parent business: Protocol Assurance Studio
 - Why first wedge: objective, replayable, fast to review, reusable primitives, commercially legible.
 
+## First mandate and assay setup
+- Mandate 1 focus: governance/dispute correctness
+- Contract fixtures: `CouncilGovernanceV25Fixture.sol`, `ChallengePolicyModuleV25Fixture.sol`
+- Common harsh assay metrics: accepted usefulness points, time-to-first-accepted output, repair/rework, evidence completeness, unsupported claim rate, packageable artifact quality.
+
+## Five sibling Nova-Seeds
+| Seed | Mutation thesis | Operator workflow delta |
+|---|---|---|
+| audit_factory | Maximize breadth-first issue harvesting with strict triage templates. | Front-load contract surface enumeration and standardized triage queues. |
+| exploit_replay | Map known exploit families onto current contracts to rapidly test inherited failure modes. | Run exploit-pattern replay passes before bespoke analysis. |
+| fuzz_harness | Use seeded property fuzzing to find edge-case transition failures quickly. | Generate deterministic fuzz harnesses before manual deep-dive. |
+| governance_parameter_simulator | Stress governance outcomes under parameter shifts (quorum, challenge windows, role thresholds). | Run deterministic parameter sweep before line-level issue extraction. |
+| invariant_library | Start from reusable governance and settlement invariants, then map code paths against them. | Require each finding to link to broken invariant and state-transition path. |
+
 ## Nova-Seed assay (Mandate 1)
 Winner: **invariant_library**
 
@@ -22,8 +36,11 @@ Winner: **invariant_library**
 ## Frozen capability packages
 - Sub-pack: `GovernanceValidationPack-v1`
 - Sector stepping stone: `ProtocolAssurancePack-v1`
+- Distinction: sub-pack is first frozen reusable governance capability; stepping stone is promoted sector-level portability surface.
 
 ## Adjacent mandate (Mandate 2) control vs treatment
+- Mandate 2 focus: threshold / attestation correctness
+- Contract fixtures: `ThresholdNetworkAdapterV25Fixture.sol`, `SignedAttestationVerifierV25Fixture.sol`
 - Control AOY: 1.067
 - Treatment AOY: 1.667
 - AOY uplift: 56.2%
@@ -33,7 +50,13 @@ Winner: **invariant_library**
 - Safety regression: NO
 - Package dependence rate: 100.0%
 
-## Threshold ruling
+## Threshold ruling (strict)
+- AOY uplift ≥ 35%
+- Speed uplift ≥ 30%
+- Repair/rework reduction ≥ 40%
+- Evidence completeness uplift ≥ 20%
+- No safety regression
+- Package dependence rate ≥ 30%
 - Adjacent-mandate proof: **PASS**
 
 ## Sovereign emission
