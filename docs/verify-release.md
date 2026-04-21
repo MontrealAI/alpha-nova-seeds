@@ -23,7 +23,7 @@ pytest -q backend/tests
 
 Expected outputs:
 - ABI snapshots updated in `contracts/abi/`
-- OpenAPI document at `dist/openapi-v2.6.0-rc.1.json`
+- OpenAPI document at `dist/openapi-v2.6.0-rc.1.json` (current backend API surface filename)
 - Local provenance manifest at `/tmp/provenance-manifest-<TAG>.json`
 - Passing backend/schema regression tests
 
@@ -37,7 +37,7 @@ Expected files in `verify-dist/`:
 - `alpha-nova-seeds-<TAG>.tar.gz`
 - `provenance-manifest-<TAG>.json`
 - `sbom-<TAG>.spdx.json`
-- `openapi-v2.6.0-rc.1.json`
+- `openapi-v2.6.0-rc.1.json` (or the API-versioned filename emitted by the release workflow)
 - `SHA256SUMS`
 
 ## 3) Verify checksums
@@ -65,8 +65,9 @@ tar -tzf alpha-nova-seeds-<TAG>.tar.gz | head -n 20
 ## 6) Validate OpenAPI release surface
 
 ```bash
-jq -e '.info.version == "2.6.0-rc.1"' openapi-v2.6.0-rc.1.json
-jq -e '.paths["/ready"] and .paths["/metrics"] and .paths["/governance/reviewer-ledger"]' openapi-v2.6.0-rc.1.json
+OPENAPI_FILE=openapi-v2.6.0-rc.1.json
+jq -e '.info.version == "2.6.0-rc.1"' "$OPENAPI_FILE"
+jq -e '.paths["/ready"] and .paths["/metrics"] and .paths["/governance/reviewer-ledger"]' "$OPENAPI_FILE"
 ```
 
 ## 7) Verify GitHub attestation exists
@@ -86,6 +87,7 @@ This verification flow proves artifact integrity/provenance signals for an RC. I
 python3 demos/protocol_smart_contract_correctness_demo/run_demo.py --assert
 python3 demos/adjacent_mandate_reuse_proof_demo/run_demo.py
 python3 scripts/check_math_markdown.py
+python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py
 python3 scripts/check_doctrine_consistency.py
 ```
 
