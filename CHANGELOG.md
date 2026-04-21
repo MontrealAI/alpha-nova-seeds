@@ -9,6 +9,7 @@
 - Release readiness checklist at `release/v2.7.0-rc.1-demo-doctrine-checklist.md`.
 
 ### Changed
+- Added `demos/README.md` as a canonical demo ladder index and updated demo README cross-links to use valid relative Markdown links.
 - Flagship and adjacent demo integration language now consistently frames protocol correctness as the first wedge and distinguishes synthetic vs real-world proof surfaces.
 - Public-facing naming now prefers Protocol Cybersecurity labels while retaining legacy Protocol Assurance compatibility aliases where needed.
 - Root release posture and demo entry points updated to v2.7.0-rc.1 demo-and-doctrine framing.
