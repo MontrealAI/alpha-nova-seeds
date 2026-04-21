@@ -4,23 +4,9 @@ from pathlib import Path
 from .fixtures import function_bodies, line_for_function
 from .utils import load_json, write_json
 
-EVIDENCE_CHECKLIST = [
-    "code_pointer",
-    "issue_statement",
-    "broken_invariant_or_state_path",
-    "reproduction_artifact",
-    "severity_rationale",
-    "suggested_fix",
-    "traceability_to_scope",
-]
-
-RUBRIC = {
-    "accepted_high_with_repro": 5,
-    "accepted_medium_with_repro": 3,
-    "accepted_low": 1,
-    "accepted_invariant_or_fuzz_harness": 2,
-    "accepted_release_gate_recommendation": 2,
-}
+CONFIG_DIR = Path(__file__).resolve().parents[1] / "config"
+EVIDENCE_CHECKLIST = load_json(CONFIG_DIR / "evidence_completeness_checklist.json")
+RUBRIC = load_json(CONFIG_DIR / "accepted_usefulness_rubric.json")
 
 SEED_PROFILES = {
     "audit_factory": {
@@ -96,16 +82,14 @@ class Finding:
     severity_inflation: bool
     package_dependencies: list[str]
 
-    def completeness(self) -> float:
-        flags = [
-            bool(self.code_pointer),
-            bool(self.issue_statement),
-            bool(self.broken_invariant_or_state_path),
-            bool(self.reproduction_artifact),
-            bool(self.severity_rationale),
-            bool(self.suggested_fix),
-            bool(self.traceability_to_scope),
-        ]
+    def completeness(self, checklist: list[str] | None = None) -> float:
+        active_checklist = checklist or EVIDENCE_CHECKLIST
+        if not active_checklist:
+            return 0.0
+        unknown = [field for field in active_checklist if field not in self.__dataclass_fields__]
+        if unknown:
+            raise ValueError(f"Unknown evidence checklist fields: {unknown}")
+        flags = [bool(getattr(self, field)) for field in active_checklist]
         return sum(flags) / len(flags)
 
 
