@@ -88,7 +88,9 @@ Mandate 1 seed selection is deterministic. Each seed run emits a scored result f
 - unsupported claim rate (penalty),
 - package quality.
 
-The winner is the highest composite score after applying the same rubric to all five seeds.
+The winner is selected by a deterministic **lexicographic rank key** (not a single blended composite).
+Ordering follows: usefulness points, time-to-first-accepted output, repair/rework, evidence completeness,
+unsupported-claim rate, severity inflation count, then packageable artifact quality.
 In the current deterministic run, `invariant_library` wins and is frozen as:
 
 - first sub-pack: `GovernanceValidationPack-v1`
