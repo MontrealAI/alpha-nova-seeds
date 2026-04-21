@@ -1,0 +1,30 @@
+{
+  "id": "thermodynamic_model_summary_v1",
+  "formal_status": "governance analogy with measurable operational content; not literal physical law",
+  "state_vector": [
+    "K",
+    "C",
+    "D",
+    "A",
+    "Q",
+    "R",
+    "Sigma"
+  ],
+  "entropy_symbol": "S_org",
+  "control_symbol": "Sigma",
+  "viability_condition": "Phi >= Pi",
+  "efficiencies": [
+    "eta_sovereign",
+    "eta_archive"
+  ],
+  "validation": {
+    "doctrine_docs": [
+      "docs/DOCTRINE_STACK.md",
+      "docs/NATION_STATE_DOCTRINE.md",
+      "docs/THERMODYNAMIC_MODEL.md"
+    ],
+    "required_equation_count": 18,
+    "legacy_bracket_delimiters_present": false,
+    "validation": "pass"
+  }
+}

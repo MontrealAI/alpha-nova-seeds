@@ -1,16 +1,18 @@
 from __future__ import annotations
-from pathlib import Path
+
 import argparse
 import hashlib
+from pathlib import Path
 
-from .business import load_parent_business, emit_parent_business_artifact
-from .seeds import load_seed_packets, emit_seed_packets
-from .fixtures import read_contracts
 from .assay import run_mandate_1_competition, run_mandate_2
+from .business import emit_parent_business_artifact, load_parent_business
+from .doctrine import build_doctrine_artifacts
+from .fixtures import read_contracts
 from .package_builder import build_capability_packages
 from .scorecard import build_scorecard
+from .seeds import emit_seed_packets, load_seed_packets
 from .sovereign import emit_sovereign_or_ruling
-from .utils import reset_dir, write_json, write_text, demo_timestamp
+from .utils import demo_timestamp, reset_dir, write_json, write_text
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "demo_output"
@@ -21,9 +23,7 @@ def _pct(v: float) -> str:
 
 
 def _seed_summary_row(seed: dict) -> str:
-    return (
-        f"| {seed['id']} | {seed['mutation_thesis']} | {seed['operator_workflow_delta']} |"
-    )
+    return f"| {seed['id']} | {seed['mutation_thesis']} | {seed['operator_workflow_delta']} |"
 
 
 def _file_sha256(path: Path) -> str:
@@ -34,10 +34,11 @@ def _determinism_snapshot() -> dict[str, str]:
     tracked = [
         OUT / "mandate_1" / "assay_summary.json",
         OUT / "capability_package" / "GovernanceValidationPack-v1.json",
-        OUT / "capability_package" / "ProtocolAssurancePack-v1.json",
+        OUT / "capability_package" / "ProtocolCybersecurityPack-v1.json",
         OUT / "scorecard" / "adjacent_mandate_scorecard.json",
         OUT / "proof_docket" / "proof_docket.json",
-        OUT / "sovereign" / "ProtocolAssuranceSovereign-v1.synthetic.json",
+        OUT / "sovereign" / "ProtocolCybersecuritySovereign-v1.synthetic.json",
+        OUT / "doctrine" / "doctrine_stack.json",
     ]
     return {str(path.relative_to(OUT)): _file_sha256(path) for path in tracked}
 
@@ -45,10 +46,12 @@ def _determinism_snapshot() -> dict[str, str]:
 def run_demo(assert_mode: bool = False):
     reset_dir(OUT)
 
-    parent = load_parent_business(ROOT / "parent_business" / "protocol_assurance_studio.json")
+    parent = load_parent_business(ROOT / "parent_business" / "protocol_cybersecurity_studio.json")
     seeds = load_seed_packets(ROOT / "nova_seeds")
     emit_parent_business_artifact(parent, OUT / "parent_business")
     emit_seed_packets(seeds, OUT / "nova_seeds")
+
+    doctrine = build_doctrine_artifacts(ROOT, OUT / "doctrine")
 
     mandate_1_contracts = read_contracts(ROOT / "contracts" / "mandate_1")
     mandate_1_summary = run_mandate_1_competition(
@@ -64,15 +67,29 @@ def run_demo(assert_mode: bool = False):
 
     mandate_2_contracts = read_contracts(ROOT / "contracts" / "mandate_2")
     winner_seed = next(seed for seed in seeds if seed["id"] == winner_id)
-    control = run_mandate_2(winner_seed, mandate_2_contracts, ROOT / "ground_truth" / "mandate_2.json", False, OUT / "mandate_2_control")
-    treatment = run_mandate_2(winner_seed, mandate_2_contracts, ROOT / "ground_truth" / "mandate_2.json", True, OUT / "mandate_2_treatment")
+    control = run_mandate_2(
+        winner_seed,
+        mandate_2_contracts,
+        ROOT / "ground_truth" / "mandate_2.json",
+        False,
+        OUT / "mandate_2_control",
+    )
+    treatment = run_mandate_2(
+        winner_seed,
+        mandate_2_contracts,
+        ROOT / "ground_truth" / "mandate_2.json",
+        True,
+        OUT / "mandate_2_treatment",
+    )
 
     scorecard = build_scorecard(control["metrics"], treatment["metrics"], OUT / "scorecard")
     sovereign_or_ruling = emit_sovereign_or_ruling(scorecard, protocol_pack, OUT / "sovereign")
     governance_ruling = {
         "id": "governance_ruling.json",
         "status": "pass" if scorecard["passes"]["adjacent_mandate_proof"] else "fail_closed",
-        "decision": "emit_protocol_assurance_sovereign" if scorecard["passes"]["adjacent_mandate_proof"] else "block_protocol_assurance_sovereign",
+        "decision": "emit_protocol_cybersecurity_sovereign"
+        if scorecard["passes"]["adjacent_mandate_proof"]
+        else "block_protocol_cybersecurity_sovereign",
         "justification": "Threshold scorecard evaluated under deterministic control-vs-treatment adjacent mandate assay.",
         "linked_artifact": sovereign_or_ruling["id"],
         "timestamp": sovereign_or_ruling["timestamp"],
@@ -103,7 +120,7 @@ def run_demo(assert_mode: bool = False):
     write_json(OUT / "proof_docket" / "chronicle_entry.json", chronicle)
 
     proof_docket = {
-        "claim": "Synthetic flagship claim: frozen protocol assurance capability improved adjacent mandate performance under control-vs-treatment assay.",
+        "claim": "Synthetic flagship claim: frozen protocol cybersecurity capability improved adjacent mandate performance under control-vs-treatment assay.",
         "constitutional_frame": {
             "order": ["identity", "proof", "settlement", "governance"],
             "invariant": [
@@ -113,6 +130,7 @@ def run_demo(assert_mode: bool = False):
             ],
         },
         "parent_business": parent,
+        "doctrine": doctrine,
         "nova_seed_lineup": seeds,
         "mandate_1_summary": mandate_1_summary,
         "mandate_2_control_summary": control,
@@ -128,7 +146,7 @@ def run_demo(assert_mode: bool = False):
 
     write_text(
         OUT / "proof_docket" / "00_claim.md",
-        "# Claim\n\nSynthetic flagship claim: a frozen protocol assurance capability improved adjacent mandate performance under deterministic control-vs-treatment scoring.\n",
+        "# Claim\n\nSynthetic flagship claim: a frozen protocol cybersecurity capability improved adjacent mandate performance under deterministic control-vs-treatment scoring.\n",
     )
     write_text(
         OUT / "proof_docket" / "01_constitutional_frame.md",
@@ -139,10 +157,7 @@ def run_demo(assert_mode: bool = False):
         f"# Parent Business\n\n- Name: {parent['title']}\n- Scope: {parent['scope_type']}\n- Review posture: {parent['review_posture']}\n",
     )
     seed_lines = "\n".join([f"- {seed['title']} (`{seed['id']}`): {seed['mutation_thesis']}" for seed in seeds])
-    write_text(
-        OUT / "proof_docket" / "02b_nova_seed_lineup.md",
-        f"# Nova-Seed Lineup\n\n{seed_lines}\n",
-    )
+    write_text(OUT / "proof_docket" / "02b_nova_seed_lineup.md", f"# Nova-Seed Lineup\n\n{seed_lines}\n")
     write_text(
         OUT / "proof_docket" / "03_mandate_1_summary.md",
         f"# Mandate 1 Summary\n\n- Mandate: {mandate_1_summary['mandate']}\n- Winner seed: {winner_id}\n- Selection basis: {mandate_1_summary['selection_basis']}\n",
@@ -177,6 +192,12 @@ def run_demo(assert_mode: bool = False):
 - Parent business: {parent['title']}
 - Why first wedge: objective, replayable, fast to review, reusable primitives, commercially legible.
 
+## Full-stack economic organism framing
+- Canonical docs: `docs/DOCTRINE_STACK.md`, `docs/THERMODYNAMIC_MODEL.md`, `docs/NATION_STATE_DOCTRINE.md`
+- First narrow organ: 🌱💫 α-AGI Protocol Cybersecurity Sovereign 🔐
+- Future-facing seed: 👑 α-AGI Cybersecurity Sovereign 🔱✨
+- Honesty boundary: the broader cybersecurity sovereign remains future-facing and not yet proven.
+
 ## First mandate and assay setup
 - Mandate 1 focus: governance/dispute correctness
 - Contract fixtures: `CouncilGovernanceV25Fixture.sol`, `ChallengePolicyModuleV25Fixture.sol`
@@ -203,13 +224,14 @@ Winner: **{winner}**
     cmp = scorecard["comparison"]
     th = scorecard["thresholds"]
     md_sovereign_interpretation = (
-        "- PASS interpretation: this emits the first compounding correctness sovereign in synthetic demo form, i.e., the α-AGI Protocol Assurance Sovereign.\n"
-        "- PASS interpretation: this is also the seed of a future broader cybersecurity sovereign."
+        "- PASS interpretation: this emits the first compounding correctness sovereign in synthetic demo form, i.e., the 🌱💫 α-AGI Protocol Cybersecurity Sovereign 🔐.\n"
+        "- PASS interpretation: this is the seed of a future broader 👑 α-AGI Cybersecurity Sovereign 🔱✨.\n"
+        "- PASS interpretation: this does **not** claim the broader cybersecurity sovereign already exists."
         if scorecard["passes"]["adjacent_mandate_proof"]
         else "- FAIL-CLOSED interpretation: sovereign emission is blocked; no sovereign seed claim is made for this run."
     )
     html_sovereign_interpretation = (
-        "PASS indicates the α-AGI Protocol Assurance Sovereign in synthetic demo form, and a seed of a future broader cybersecurity sovereign."
+        "PASS indicates the first narrow production organ and compounding correctness sovereign form in synthetic context; it is not proof that the broader cybersecurity sovereign already exists."
         if scorecard["passes"]["adjacent_mandate_proof"]
         else "FAIL-CLOSED blocks sovereign emission for this run; no sovereign-seed claim is made."
     )
@@ -217,7 +239,7 @@ Winner: **{winner}**
 
 ## Frozen capability packages
 - Sub-pack: `GovernanceValidationPack-v1`
-- Sector stepping stone: `ProtocolAssurancePack-v1`
+- Sector stepping stone: `ProtocolCybersecurityPack-v1` (legacy alias: `ProtocolAssurancePack-v1`)
 - Distinction: sub-pack is first frozen reusable governance capability; stepping stone is promoted sector-level portability surface.
 
 ## Adjacent mandate (Mandate 2) control vs treatment
@@ -245,7 +267,7 @@ Winner: **{winner}**
 - Artifact: `{sovereign_or_ruling['id']}`
 - Status: `{sovereign_or_ruling['status']}`
 {md_sovereign_interpretation}
-- It does **not** claim a full cybersecurity sovereign already exists.
+- It does **not** claim cybersecurity is solved once and for all.
 """
     write_text(OUT / "reports" / "report.md", md)
 
@@ -261,12 +283,20 @@ table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #3341
 .kpi{{font-size:1.1rem;font-weight:700}}
 .badge{{display:inline-block;padding:4px 10px;border:1px solid #475569;border-radius:999px;background:#1f2937}}
 .grid{{display:grid;grid-template-columns:1fr 1fr;gap:12px}}
+pre{{white-space:pre-wrap;background:#0f172a;padding:10px;border-radius:10px;border:1px solid #334155;overflow:auto}}
 </style></head><body><div class='wrap'>
 <div class='card'>
 <span class='badge'>Synthetic flagship demo</span>
 <h1>Protocol + Smart-Contract Correctness</h1>
 <small>Front-door wedge explanation: sector → parent business → seeds → assay → stepping stone → sovereign candidate.</small>
 <p><strong>Disclaimer:</strong> synthetic, local, replayable, falsifiable; not a real-world proof pack.</p>
+</div>
+<div class='card'>
+<h2>Doctrine stack in one view</h2>
+<p><strong>First narrow organ:</strong> 🌱💫 α-AGI Protocol Cybersecurity Sovereign 🔐.</p>
+<p><strong>Future seed:</strong> 👑 α-AGI Cybersecurity Sovereign 🔱✨.</p>
+<p><strong>Not claimed:</strong> full cybersecurity sovereign already exists; cybersecurity is solved once and for all; thermodynamic framing is literal physical law.</p>
+<pre>X(t)=\\big(K,C,D,A,Q,R,\\Sigma\\big)\n\\mathcal G[X]=\\mathcal H[X]-T_{{eff}}\\mathcal S_{{org}}[X]\n\\Lambda=\\frac{{\\rho_{{reuse}}\\,\\rho_{{validation}}\\,\\rho_{{selection}}}}{{\\Pi}}</pre>
 </div>
 <div class='card'>
 <h2>Why this sector is first</h2>
@@ -300,7 +330,7 @@ table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #3341
         html += f"<tr><td>{result['seed']}</td><td>{m['accepted_usefulness_points']}</td><td>{m['time_to_first_accepted_output']}</td><td>{m['repair_rework']}</td><td>{m['evidence_completeness']}</td><td>{m['unsupported_claim_rate']}</td><td>{m['packageable_artifact_quality']}</td></tr>"
     html += f"""
 </table>
-<p>Frozen sub-pack: <code>GovernanceValidationPack-v1</code> → promoted stepping stone: <code>ProtocolAssurancePack-v1</code>.</p>
+<p>Frozen sub-pack: <code>GovernanceValidationPack-v1</code> → promoted stepping stone: <code>ProtocolCybersecurityPack-v1</code> (legacy alias: <code>ProtocolAssurancePack-v1</code>).</p>
 </div>
 <div class='card grid'>
 <div>
@@ -330,7 +360,7 @@ table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #3341
 <li>Package dependence rate: {_pct(cmp['package_dependence_rate'])} (threshold ≥ {_pct(th['package_dependence_rate'])})</li>
 </ul>
 <p>Ruling: <span class='{'pass' if scorecard['passes']['adjacent_mandate_proof'] else 'fail'}'>{'PASS' if scorecard['passes']['adjacent_mandate_proof'] else 'FAIL'}</span></p>
-<p>Sovereign artifact/ruling emitted: <code>{sovereign_or_ruling['id']}</code></p><p><strong>Interpretation:</strong> {html_sovereign_interpretation} Not proof of a full cybersecurity sovereign today.</p>
+<p>Sovereign artifact/ruling emitted: <code>{sovereign_or_ruling['id']}</code></p><p><strong>Interpretation:</strong> {html_sovereign_interpretation}</p>
 </div>
 </div></body></html>"""
     write_text(OUT / "reports" / "report.html", html)
@@ -338,10 +368,11 @@ table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #3341
     if assert_mode:
         assert winner_id == "invariant_library", "Expected deterministic winner invariant_library"
         assert (OUT / "capability_package" / "GovernanceValidationPack-v1.json").exists()
-        assert (OUT / "capability_package" / "ProtocolAssurancePack-v1.json").exists()
+        assert (OUT / "capability_package" / "ProtocolCybersecurityPack-v1.json").exists()
         assert (OUT / "scorecard" / "adjacent_mandate_scorecard.json").exists()
         assert (OUT / "proof_docket" / "governance_ruling.json").exists()
         assert (OUT / "proof_docket" / "07_settlement_release_packet.json").exists()
+        assert (OUT / "doctrine" / "doctrine_stack.json").exists()
 
     return {
         "winner": winner_id,

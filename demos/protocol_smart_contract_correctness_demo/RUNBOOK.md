@@ -12,10 +12,10 @@ Open:
 
 - `demo_output/reports/report.html`
 - `demo_output/reports/report.md`
+- `demo_output/doctrine/doctrine_stack.json`
+- `demo_output/doctrine/thermodynamic_model_summary.json`
 - `demo_output/scorecard/adjacent_mandate_scorecard.json`
 - `demo_output/proof_docket/proof_docket.json`
-- `demo_output/mandate_1/accepted_usefulness_rubric.json`
-- `demo_output/mandate_1/evidence_completeness_checklist.json`
 
 ## 3) Determinism check
 
@@ -27,28 +27,27 @@ python3 run_demo.py --assert
 
 The command performs two back-to-back runs and verifies tracked artifact hashes are identical.
 
-Manual mode:
+## 4) Doctrine math rendering check (GitHub markdown)
 
-```bash
-python3 run_demo.py
-sha256sum demo_output/scorecard/adjacent_mandate_scorecard.json
-python3 run_demo.py
-sha256sum demo_output/scorecard/adjacent_mandate_scorecard.json
-```
+Canonical equations are in:
 
-Manual hash should remain stable as well.
+- `docs/THERMODYNAMIC_MODEL.md`
 
-## 4) Scoring source of truth
+Validation is enforced during demo execution:
 
-The deterministic engine loads scoring/evidence thresholds from:
+- all doctrine files must exist
+- no legacy `\[ ... \]` delimiters are allowed
+- required equations must be present with corrected notation
 
-- `config/accepted_usefulness_rubric.json`
-- `config/evidence_completeness_checklist.json`
-- `config/adjacent_mandate_thresholds.json`
+## 5) Naming compatibility check
 
-This keeps thresholds operator-visible and reviewable without code edits.
+This demo now prefers **Protocol Cybersecurity** labels while retaining legacy aliases for replayability:
 
-## 5) Interpretation guardrails
+- `ProtocolCybersecurityPack-v1` + alias file `ProtocolAssurancePack-v1`
+- `ProtocolCybersecuritySovereign-v1.synthetic.json` + alias file `ProtocolAssuranceSovereign-v1.synthetic.json`
+- `protocol_cybersecurity_studio.json` + compatibility artifact `protocol_assurance_studio.json`
+
+## 6) Interpretation guardrails
 
 This is a synthetic replayable assay. It is suitable for:
 

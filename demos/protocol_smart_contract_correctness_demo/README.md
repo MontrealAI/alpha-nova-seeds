@@ -5,27 +5,32 @@ This demo is the **front door** for the protocol-correctness wedge in `alpha-nov
 It demonstrates, end-to-end, a synthetic but replayable path:
 
 1. **Sector:** Protocol and smart-contract correctness
-2. **Parent business:** Protocol Assurance Studio
+2. **Parent business:** Protocol Cybersecurity Studio (legacy alias: Protocol Assurance Studio)
 3. **Five Nova-Seeds:** audit-factory, invariant-library, fuzz-harness, exploit-replay, governance-parameter simulator
-4. **Mandate 1 assay:** Governance/dispute correctness across all five seeds
+4. **Mandate 1 assay:** governance/dispute correctness across all five seeds
 5. **First frozen sub-pack:** `GovernanceValidationPack-v1`
-6. **First sector stepping stone:** `ProtocolAssurancePack-v1`
+6. **First sector stepping stone:** `ProtocolCybersecurityPack-v1` (legacy alias: `ProtocolAssurancePack-v1`)
 7. **Mandate 2 adjacent test:** threshold/attestation correctness, control vs treatment
 8. **Threshold scorecard + ruling:** PASS/FAIL against explicit adjacent-mandate proof thresholds
-9. **Conditional synthetic Sovereign artifact:** `ProtocolAssuranceSovereign-v1.synthetic.json`
+9. **Conditional synthetic Sovereign artifact:** `ProtocolCybersecuritySovereign-v1.synthetic.json` (legacy alias retained)
 
 > This is a **synthetic local flagship demo**, not a real-world proof pack.
 
 ---
 
-## 3-minute read map
+## 3-minute doctrine map
 
-- **Why this sector first:** objective, replayable, fast to review, reusable, commercially understandable.
-- **What gets sold:** fixed-scope protocol assurance mandates (2–4 release-critical contracts) with replayable release-gate evidence.
-- **How seeds are screened:** harsh common assay on one mandate with shared rubric and evidence completeness checklist.
-- **What is promoted:** one frozen sub-pack, then a sector stepping stone.
-- **What counts as progress:** adjacent-mandate treatment must beat control under strict thresholds.
-- **What this is not:** audited production proof.
+- Why protocol correctness is still first: objective scoring + high replayability + archiveable primitives.
+- Why language now says **Protocol Cybersecurity**: clearer public framing with less ambiguity than “assurance.”
+- What the full-stack organism is: Insight → Nova-Seeds → MARK → AGI Jobs → Archive.
+- Where AGI Jobs sits: identity, proof, settlement, governance convert candidate work into validated output.
+- Why this is formal analogy: governance language with measurable proxies, not literal physics.
+
+Canonical doctrine docs:
+
+- [`docs/DOCTRINE_STACK.md`](./docs/DOCTRINE_STACK.md)
+- [`docs/THERMODYNAMIC_MODEL.md`](./docs/THERMODYNAMIC_MODEL.md)
+- [`docs/NATION_STATE_DOCTRINE.md`](./docs/NATION_STATE_DOCTRINE.md)
 
 ---
 
@@ -39,7 +44,28 @@ Protocol correctness is the first wedge because it is:
 - rich in reusable primitives (invariants, evidence templates, release-gate checklists)
 - commercially understandable for fixed-scope release-critical work
 
-The design-partner offer modeled here is narrow: 2–4 release-critical contracts, replayable evidence, failing tests/fuzz traces, and a release-gate packet.
+---
+
+## Full-stack economic organism (demo interpretation)
+
+The organism operates as a driven coordination loop:
+
+1. **Insight** narrows search.
+2. **Nova-Seeds** generate candidate fluctuations.
+3. **MARK** applies selection pressure.
+4. **AGI Jobs** validates and settles work (identity → proof → settlement → governance).
+5. **Archive** freezes successful packets into reusable capability and lowers organizational entropy pressure.
+
+In this flagship demo, 🌱💫 **α‑AGI Protocol Cybersecurity Sovereign 🔐** is the first narrow, high-verification production organ and compounding correctness wedge.
+
+If stable over repeated adjacent proofs, it becomes the seed of a future 👑 **α‑AGI Cybersecurity Sovereign 🔱✨**.
+
+### Explicitly not claimed
+
+- a full cybersecurity sovereign already exists
+- cybersecurity is solved once and for all
+- the thermodynamic framing is literal physical law
+- real-world proof is already complete
 
 ---
 
@@ -54,59 +80,6 @@ A scorecard is a PASS only if all are true:
 - no safety regression
 - package dependence rate ≥ 30%
 
-## Deterministic winner selection (Mandate 1)
-
-Nova-Seeds are ranked with a deterministic lexicographic order over shared assay metrics:
-
-1. accepted usefulness points (higher is better)
-2. time to first accepted output (lower is better)
-3. repair/rework (lower is better)
-4. evidence completeness (higher is better)
-5. unsupported-claim rate (lower is better)
-6. severity inflation count (lower is better)
-7. packageable artifact quality (higher is better)
-
-This keeps selection replayable and non-arbitrary: the same fixtures and seed packets always select the same winner.
-
----
-
-## What this demo proves vs does not prove
-
-### Proves (synthetically)
-
-- The compounding loop is computationally explicit and falsifiable.
-- Five Nova-Seeds can be screened under one harsh assay.
-- A winning seed can be frozen into a reusable package.
-- Adjacent-mandate control vs treatment can be scored against hard thresholds.
-- Sovereign emission can be fail-closed.
-
-### Does not prove
-
-- Real-world buyer outcomes
-- Audited production safety
-- Mainnet readiness
-- External legal/regulatory acceptance
-
-For adjacent proof references:
-
-- [`../adjacent_mandate_reuse_proof_demo/`](../adjacent_mandate_reuse_proof_demo/)
-- [`../adjacent_mandate_reuse_proof_real_v1/`](../adjacent_mandate_reuse_proof_real_v1/)
-
-This flagship demo is intentionally clearer and more operator-facing than those deeper proof packs.
-
-
-## Flagship conclusion (explicit)
-
-If protocol correctness compounds through frozen reusable capability packages, this demo supports a narrow synthetic claim:
-
-- 🌱💫 **α-AGI Protocol Assurance Sovereign 🔐** is the first plausible compounding correctness sovereign form (in demo form).
-- It is the seed of a future 👑 **α-AGI Cybersecurity Sovereign 🔱✨**.
-
-But this demo is explicit about boundaries:
-
-- It does **not** prove a full cybersecurity sovereign already exists.
-- It does **not** claim cybersecurity is solved once and for all.
-
 ---
 
 ## Run
@@ -118,16 +91,6 @@ python3 run_demo.py --assert
 
 `--assert` runs deterministic integrity checks, including a two-run artifact hash comparison.
 No third-party dependency is required. `requirements.txt` is intentionally empty.
-
-## Transparent scoring config (JSON + code)
-
-Scoring and evidence rules are explicit and versionable in `config/`:
-
-- `config/accepted_usefulness_rubric.json`
-- `config/evidence_completeness_checklist.json`
-- `config/adjacent_mandate_thresholds.json`
-
-The simulation engine loads these JSON files directly, then emits them into `demo_output/` for review traceability.
 
 ---
 
@@ -142,16 +105,22 @@ Primary outputs are written under `demo_output/`:
 - `mandate_2_control/`
 - `mandate_2_treatment/`
 - `scorecard/`
-- `proof_docket/` (includes compact sectioned markdown docket files `00_*` through `08_*` plus machine-readable JSON)
+- `proof_docket/`
+- `doctrine/`
 - `reports/report.md`
 - `reports/report.html`
 - `sovereign/`
 
 ---
 
-## Constitutional and safety framing
+## Flagship conclusion (explicit)
 
-- Constitutional order: **identity → proof → settlement → governance**
-- Invariant: **no value without evidence; no autonomy without authority; no settlement without validation**
+If protocol correctness compounds through frozen reusable capability packages, this demo supports a narrow synthetic claim:
 
-If any threshold fails, the demo emits a fail-closed governance ruling artifact instead of a sovereign artifact.
+- 🌱💫 **α-AGI Protocol Cybersecurity Sovereign 🔐** is the first plausible compounding correctness sovereign form (in demo form).
+- It is the seed of a future 👑 **α-AGI Cybersecurity Sovereign 🔱✨**.
+
+But the demo is explicit about boundaries:
+
+- It does **not** prove a full cybersecurity sovereign already exists.
+- It does **not** claim cybersecurity is solved once and for all.
