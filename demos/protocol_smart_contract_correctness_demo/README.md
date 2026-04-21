@@ -119,6 +119,16 @@ python3 run_demo.py --assert
 `--assert` runs deterministic integrity checks, including a two-run artifact hash comparison.
 No third-party dependency is required. `requirements.txt` is intentionally empty.
 
+## Transparent scoring config (JSON + code)
+
+Scoring and evidence rules are explicit and versionable in `config/`:
+
+- `config/accepted_usefulness_rubric.json`
+- `config/evidence_completeness_checklist.json`
+- `config/adjacent_mandate_thresholds.json`
+
+The simulation engine loads these JSON files directly, then emits them into `demo_output/` for review traceability.
+
 ---
 
 ## Output map
