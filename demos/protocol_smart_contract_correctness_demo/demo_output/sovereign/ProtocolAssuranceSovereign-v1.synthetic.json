@@ -1,5 +1,5 @@
 {
-  "id": "ProtocolAssuranceSovereign-v1.synthetic",
+  "id": "ProtocolAssuranceSovereign-v1.synthetic.json",
   "type": "synthetic_sovereign_artifact",
   "status": "emitted",
   "depends_on": "ProtocolAssurancePack-v1",
@@ -15,6 +15,6 @@
     "no autonomy without authority",
     "no settlement without validation"
   ],
-  "timestamp": "2026-04-21T02:32:09.116502Z",
+  "timestamp": "2026-01-01T00:00:00Z",
   "disclaimer": "Synthetic local demo artifact; not a real-world proof."
 }

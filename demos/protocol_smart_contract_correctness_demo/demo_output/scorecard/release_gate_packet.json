@@ -1,6 +1,6 @@
 {
   "id": "release_gate_packet",
-  "timestamp": "2026-04-21T02:32:09.116709Z",
+  "timestamp": "2026-01-01T00:00:00Z",
   "status": "pass",
   "requirements": [
     "accepted findings with repro",

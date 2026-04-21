@@ -1,7 +1,6 @@
 from __future__ import annotations
 from pathlib import Path
 import argparse
-from datetime import datetime, timezone
 
 from .business import load_parent_business, emit_parent_business_artifact
 from .seeds import load_seed_packets, emit_seed_packets
@@ -10,7 +9,7 @@ from .assay import run_mandate_1_competition, run_mandate_2
 from .package_builder import build_capability_packages
 from .scorecard import build_scorecard
 from .sovereign import emit_sovereign_or_ruling
-from .utils import reset_dir, write_json, write_text
+from .utils import reset_dir, write_json, write_text, demo_timestamp
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "demo_output"
@@ -47,8 +46,18 @@ def run_demo(assert_mode: bool = False):
 
     scorecard = build_scorecard(control["metrics"], treatment["metrics"], OUT / "scorecard")
     sovereign_or_ruling = emit_sovereign_or_ruling(scorecard, protocol_pack, OUT / "sovereign")
+    governance_ruling = {
+        "id": "governance_ruling.json",
+        "status": "pass" if scorecard["passes"]["adjacent_mandate_proof"] else "fail_closed",
+        "decision": "emit_protocol_assurance_sovereign" if scorecard["passes"]["adjacent_mandate_proof"] else "block_protocol_assurance_sovereign",
+        "justification": "Threshold scorecard evaluated under deterministic control-vs-treatment adjacent mandate assay.",
+        "linked_artifact": sovereign_or_ruling["id"],
+        "timestamp": sovereign_or_ruling["timestamp"],
+        "disclaimer": "Synthetic governance ruling for local replay; not a real-world governance decision."
+    }
+    write_json(OUT / "proof_docket" / governance_ruling["id"], governance_ruling)
 
-    now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    now = demo_timestamp()
     release_gate_packet = {
         "id": "release_gate_packet",
         "timestamp": now,
@@ -86,7 +95,8 @@ def run_demo(assert_mode: bool = False):
         "scorecard": scorecard,
         "settlement_release_packet": release_gate_packet,
         "chronicle_entry": chronicle,
-        "governance_ruling": sovereign_or_ruling,
+        "governance_ruling": governance_ruling,
+        "sovereign_or_fail_closed_artifact": sovereign_or_ruling,
         "synthetic_disclaimer": "This docket is synthetic, local, replayable, and falsifiable. It is not a real-world proof pack.",
     }
     write_json(OUT / "proof_docket" / "proof_docket.json", proof_docket)
@@ -211,6 +221,7 @@ table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #3341
         assert (OUT / "capability_package" / "GovernanceValidationPack-v1.json").exists()
         assert (OUT / "capability_package" / "ProtocolAssurancePack-v1.json").exists()
         assert (OUT / "scorecard" / "adjacent_mandate_scorecard.json").exists()
+        assert (OUT / "proof_docket" / "governance_ruling.json").exists()
 
     return {
         "winner": winner_id,

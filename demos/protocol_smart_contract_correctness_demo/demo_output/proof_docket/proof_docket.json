@@ -767,7 +767,7 @@
   },
   "settlement_release_packet": {
     "id": "release_gate_packet",
-    "timestamp": "2026-04-21T02:32:09.116709Z",
+    "timestamp": "2026-01-01T00:00:00Z",
     "status": "pass",
     "requirements": [
       "accepted findings with repro",
@@ -784,10 +784,19 @@
     "frozen_sub_pack": "GovernanceValidationPack-v1",
     "sector_stepping_stone": "ProtocolAssurancePack-v1",
     "adjacent_proof_passed": true,
-    "timestamp": "2026-04-21T02:32:09.116709Z"
+    "timestamp": "2026-01-01T00:00:00Z"
   },
   "governance_ruling": {
-    "id": "ProtocolAssuranceSovereign-v1.synthetic",
+    "id": "governance_ruling.json",
+    "status": "pass",
+    "decision": "emit_protocol_assurance_sovereign",
+    "justification": "Threshold scorecard evaluated under deterministic control-vs-treatment adjacent mandate assay.",
+    "linked_artifact": "ProtocolAssuranceSovereign-v1.synthetic.json",
+    "timestamp": "2026-01-01T00:00:00Z",
+    "disclaimer": "Synthetic governance ruling for local replay; not a real-world governance decision."
+  },
+  "sovereign_or_fail_closed_artifact": {
+    "id": "ProtocolAssuranceSovereign-v1.synthetic.json",
     "type": "synthetic_sovereign_artifact",
     "status": "emitted",
     "depends_on": "ProtocolAssurancePack-v1",
@@ -803,7 +812,7 @@
       "no autonomy without authority",
       "no settlement without validation"
     ],
-    "timestamp": "2026-04-21T02:32:09.116502Z",
+    "timestamp": "2026-01-01T00:00:00Z",
     "disclaimer": "Synthetic local demo artifact; not a real-world proof."
   },
   "synthetic_disclaimer": "This docket is synthetic, local, replayable, and falsifiable. It is not a real-world proof pack."

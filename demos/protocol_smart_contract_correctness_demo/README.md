@@ -51,8 +51,8 @@ The design-partner offer modeled here is narrow: 2–4 release-critical contract
 
 For adjacent proof references:
 
-- `../adjacent_mandate_reuse_proof_demo/`
-- `../adjacent_mandate_reuse_proof_real_v1/`
+- [`../adjacent_mandate_reuse_proof_demo/`](../adjacent_mandate_reuse_proof_demo/)
+- [`../adjacent_mandate_reuse_proof_real_v1/`](../adjacent_mandate_reuse_proof_real_v1/)
 
 This flagship demo is intentionally clearer and more operator-facing than those deeper proof packs.
 
@@ -80,6 +80,7 @@ Primary outputs are written under `demo_output/`:
 - `mandate_2_control/`
 - `mandate_2_treatment/`
 - `scorecard/`
+- `proof_docket/governance_ruling.json`
 - `proof_docket/`
 - `reports/report.md`
 - `reports/report.html`
