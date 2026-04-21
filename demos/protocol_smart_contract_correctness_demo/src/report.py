@@ -215,8 +215,7 @@ Winner: **{winner}**
 ## Sovereign emission
 - Artifact: `{sovereign_or_ruling['id']}`
 - Status: `{sovereign_or_ruling['status']}`
-- If PASS, this emits the first compounding correctness sovereign in synthetic demo form.
-- This is also the seed of a future broader cybersecurity sovereign.
+{"- PASS interpretation: this emits the first compounding correctness sovereign in synthetic demo form.\n- PASS interpretation: this is also the seed of a future broader cybersecurity sovereign." if scorecard['passes']['adjacent_mandate_proof'] else "- FAIL-CLOSED interpretation: sovereign emission is blocked; no sovereign seed claim is made for this run."}
 - It does **not** claim a full cybersecurity sovereign already exists.
 """
     write_text(OUT / "reports" / "report.md", md)
@@ -302,7 +301,7 @@ table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #3341
 <li>Package dependence rate: {_pct(cmp['package_dependence_rate'])} (threshold ≥ 30%)</li>
 </ul>
 <p>Ruling: <span class='{'pass' if scorecard['passes']['adjacent_mandate_proof'] else 'fail'}'>{'PASS' if scorecard['passes']['adjacent_mandate_proof'] else 'FAIL'}</span></p>
-<p>Sovereign artifact/ruling emitted: <code>{sovereign_or_ruling['id']}</code></p><p><strong>Interpretation:</strong> PASS indicates the first compounding correctness sovereign in synthetic demo form, and a seed of a future broader cybersecurity sovereign — not proof of a full cybersecurity sovereign today.</p>
+<p>Sovereign artifact/ruling emitted: <code>{sovereign_or_ruling['id']}</code></p><p><strong>Interpretation:</strong> {"PASS indicates the first compounding correctness sovereign in synthetic demo form, and a seed of a future broader cybersecurity sovereign." if scorecard['passes']['adjacent_mandate_proof'] else "FAIL-CLOSED blocks sovereign emission for this run; no sovereign-seed claim is made."} Not proof of a full cybersecurity sovereign today.</p>
 </div>
 </div></body></html>"""
     write_text(OUT / "reports" / "report.html", html)
