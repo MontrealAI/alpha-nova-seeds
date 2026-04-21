@@ -16,7 +16,7 @@ Use deterministic file names keyed by tag so operators can verify from a clean m
 - `alpha-nova-seeds-<TAG>.tar.gz`
 - `provenance-manifest-<TAG>.json`
 - `sbom-<TAG>.spdx.json`
-- `openapi-v2.6.0-rc.1.json`
+- `openapi-<API_VERSION>.json` (currently `openapi-v2.6.0-rc.1.json`)
 - `SHA256SUMS`
 
 Do not overwrite an existing release asset for the same `<TAG>`.
