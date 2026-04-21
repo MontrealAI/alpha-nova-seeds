@@ -35,9 +35,9 @@ All doctrine equations are canonical in `docs/THERMODYNAMIC_MODEL.md` and use Gi
 Runtime validation fails closed if legacy `\[ ... \]` or bare `[ ... ]` pseudo-equation delimiters are detected.
 
 
-- [`../../docs/DOCTRINE_STACK.md`](../../docs/DOCTRINE_STACK.md)
-- [`../../docs/THERMODYNAMIC_MODEL.md`](../../docs/THERMODYNAMIC_MODEL.md)
-- [`../../docs/NATION_STATE_DOCTRINE.md`](../../docs/NATION_STATE_DOCTRINE.md)
+- [`docs/DOCTRINE_STACK.md`](./docs/DOCTRINE_STACK.md)
+- [`docs/THERMODYNAMIC_MODEL.md`](./docs/THERMODYNAMIC_MODEL.md)
+- [`docs/NATION_STATE_DOCTRINE.md`](./docs/NATION_STATE_DOCTRINE.md)
 
 ---
 
