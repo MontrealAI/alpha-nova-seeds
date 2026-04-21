@@ -80,8 +80,7 @@ Primary outputs are written under `demo_output/`:
 - `mandate_2_control/`
 - `mandate_2_treatment/`
 - `scorecard/`
-- `proof_docket/governance_ruling.json`
-- `proof_docket/`
+- `proof_docket/` (includes compact sectioned markdown docket files `00_*` through `08_*` plus machine-readable JSON)
 - `reports/report.md`
 - `reports/report.html`
 - `sovereign/`

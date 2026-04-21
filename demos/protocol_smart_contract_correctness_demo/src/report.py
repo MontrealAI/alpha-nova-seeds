@@ -100,6 +100,42 @@ def run_demo(assert_mode: bool = False):
         "synthetic_disclaimer": "This docket is synthetic, local, replayable, and falsifiable. It is not a real-world proof pack.",
     }
     write_json(OUT / "proof_docket" / "proof_docket.json", proof_docket)
+    write_text(
+        OUT / "proof_docket" / "00_claim.md",
+        "# Claim\n\nSynthetic flagship claim: a frozen protocol assurance capability improved adjacent mandate performance under deterministic control-vs-treatment scoring.\n",
+    )
+    write_text(
+        OUT / "proof_docket" / "01_constitutional_frame.md",
+        "# Constitutional Frame\n\n- Order: identity → proof → settlement → governance\n- Invariant: no value without evidence; no autonomy without authority; no settlement without validation\n",
+    )
+    write_text(
+        OUT / "proof_docket" / "02_parent_business.md",
+        f"# Parent Business\n\n- Name: {parent['title']}\n- Scope: {parent['scope_type']}\n- Review posture: {parent['review_posture']}\n",
+    )
+    write_text(
+        OUT / "proof_docket" / "03_mandate_1_summary.md",
+        f"# Mandate 1 Summary\n\n- Mandate: {mandate_1_summary['mandate']}\n- Winner seed: {winner_id}\n- Selection basis: {mandate_1_summary['selection_basis']}\n",
+    )
+    write_text(
+        OUT / "proof_docket" / "04_mandate_2_control_summary.md",
+        f"# Mandate 2 Control Summary\n\n- Lane: control\n- AOY: {control['metrics']['aoy']}\n- Time to first accepted: {control['metrics']['time_to_first_accepted_output']}\n- Repair/Rework: {control['metrics']['repair_rework']}\n- Evidence completeness: {control['metrics']['evidence_completeness']}\n",
+    )
+    write_text(
+        OUT / "proof_docket" / "05_mandate_2_treatment_summary.md",
+        f"# Mandate 2 Treatment Summary\n\n- Lane: treatment\n- AOY: {treatment['metrics']['aoy']}\n- Time to first accepted: {treatment['metrics']['time_to_first_accepted_output']}\n- Repair/Rework: {treatment['metrics']['repair_rework']}\n- Evidence completeness: {treatment['metrics']['evidence_completeness']}\n- Package dependence rate: {treatment['metrics']['package_dependence_rate']}\n",
+    )
+    write_text(
+        OUT / "proof_docket" / "06_scorecard.md",
+        f"# Adjacent-Mandate Scorecard\n\n- AOY uplift: {_pct(scorecard['comparison']['aoy_uplift'])}\n- Speed uplift: {_pct(scorecard['comparison']['speed_uplift'])}\n- Repair/Rework reduction: {_pct(scorecard['comparison']['repair_rework_reduction'])}\n- Evidence completeness uplift: {_pct(scorecard['comparison']['evidence_completeness_uplift'])}\n- Safety regression: {'YES' if scorecard['comparison']['safety_regression'] else 'NO'}\n- Package dependence rate: {_pct(scorecard['comparison']['package_dependence_rate'])}\n- Ruling: {'PASS' if scorecard['passes']['adjacent_mandate_proof'] else 'FAIL'}\n",
+    )
+    write_text(
+        OUT / "proof_docket" / "07_settlement_release_packet.md",
+        f"# Settlement / Release Packet\n\n- Release-gate status: {release_gate_packet['status']}\n- Linked packet: scorecard/release_gate_packet.json\n",
+    )
+    write_text(
+        OUT / "proof_docket" / "08_governance_ruling.md",
+        f"# Governance Ruling\n\n- Decision: {governance_ruling['decision']}\n- Status: {governance_ruling['status']}\n- Linked artifact: {governance_ruling['linked_artifact']}\n",
+    )
 
     md = f"""# Protocol Smart-Contract Correctness Flagship Demo Report
 
