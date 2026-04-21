@@ -10,7 +10,8 @@ This is a **synthetic local demo** of the AGI ALPHA adjacent-mandate proof gate.
   - **treatment** with the frozen package
 
 ## Frozen capability package
-- Name: `ProtocolAssurancePack-v1`
+- Name: `ProtocolCybersecurityPack-v1`
+- Legacy alias: `ProtocolAssurancePack-v1`
 - Hash: `467a32a99c0e16988e3085844b06f81f8fdf3e30815bb2aaf468155d1e85727b`
 
 ## Mandate 2 results

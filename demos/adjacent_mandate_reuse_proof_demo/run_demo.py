@@ -1,10 +1,13 @@
 
 from pathlib import Path
-import json, hashlib, datetime, textwrap, shutil
+import json, hashlib, textwrap, shutil
 from src.engine import read_contracts, analyze_contracts, review_findings, discover_from_mandate1, compare_treatment_vs_control, package_hash
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "demo_output"
+DEMO_TIMESTAMP = "2026-01-01T00:00:00Z"
+PACKAGE_PRIMARY = "ProtocolCybersecurityPack-v1"
+PACKAGE_ALIAS = "ProtocolAssurancePack-v1"
 
 def write_json(path: Path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -15,7 +18,7 @@ def write_text(path: Path, data: str):
     path.write_text(data)
 
 def settlement_receipt(job_id, mode, accepted_count, aoy, package_hash_value=None):
-    now = datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00","Z")
+    now = DEMO_TIMESTAMP
     return {
         "job_id": job_id,
         "mode": mode,
@@ -67,11 +70,12 @@ def main():
     package = discover_from_mandate1(contracts1, accepted_findings_objs)
     pkg_hash = package_hash(package)
     package["package_hash"] = pkg_hash
-    package["frozen_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00","Z")
+    package["frozen_at"] = DEMO_TIMESTAMP
     package["source_mandate"] = "Mandate 1"
     write_json(OUT / "mandate_1" / "findings.json", [f.__dict__ for f in findings1])
     write_json(OUT / "mandate_1" / "review.json", review1)
-    write_json(OUT / "capability_package" / "ProtocolAssurancePack-v1.json", package)
+    write_json(OUT / "capability_package" / f"{PACKAGE_PRIMARY}.json", package)
+    write_json(OUT / "capability_package" / f"{PACKAGE_ALIAS}.json", package)
 
     # Mandate 2 control
     findings_control = analyze_contracts(contracts2, mode="control", package=None)
@@ -96,12 +100,13 @@ def main():
     }
     write_json(OUT / "proof_docket" / "07_settlement_receipts.json", receipts)
     write_json(OUT / "proof_docket" / "08_chronicle_entry.json", {
-        "lineage": "Protocol Assurance",
+        "lineage": "Protocol Cybersecurity",
         "parent_business": "Protocol and smart-contract correctness firm",
-        "mandate_1_package": "ProtocolAssurancePack-v1",
+        "mandate_1_package": PACKAGE_PRIMARY,
+        "legacy_package_alias": PACKAGE_ALIAS,
         "package_hash": pkg_hash,
         "adjacent_proof_passed": scorecard["passes"]["adjacent_mandate_proof"],
-        "archived_at": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00","Z")
+        "archived_at": DEMO_TIMESTAMP
     })
 
     claim = "Claim: one completed mandate created a frozen capability package that materially improved the next adjacent mandate under control conditions (synthetic local demo)."
@@ -125,7 +130,7 @@ def main():
     Sector: Protocol and smart-contract correctness
 
     Parent business:
-    A protocol assurance firm that sells exploit review, invariant design,
+    A Protocol Cybersecurity Studio that sells exploit review, invariant design,
     reviewer packets, and release gating for crypto systems.
 
     Goal of Mandate 1:
@@ -168,7 +173,8 @@ def main():
       - **treatment** with the frozen package
 
     ## Frozen capability package
-    - Name: `ProtocolAssurancePack-v1`
+    - Name: `ProtocolCybersecurityPack-v1`
+    - Legacy alias: `ProtocolAssurancePack-v1`
     - Hash: `{pkg_hash}`
 
     ## Mandate 2 results
@@ -260,7 +266,7 @@ td,th{{border-bottom:1px solid #334155;padding:8px;text-align:left}}
 </div>
 <div class='card'>
   <h2>Frozen capability package</h2>
-  <p><code>ProtocolAssurancePack-v1</code></p>
+  <p><code>ProtocolCybersecurityPack-v1</code> <small>(legacy alias: ProtocolAssurancePack-v1)</small></p>
   <p>Hash: <code>{pkg_hash}</code></p>
 </div>
 <div class='card'>
@@ -298,7 +304,7 @@ td,th{{border-bottom:1px solid #334155;padding:8px;text-align:left}}
     - Parent sector: **Protocol and smart-contract correctness**
     - Mandate 1: review a first batch of smart-contract mandates
     - Freeze the resulting reusable package as:
-      - `ProtocolAssurancePack-v1`
+      - `ProtocolCybersecurityPack-v1` (legacy alias: `ProtocolAssurancePack-v1`)
     - Mandate 2: review an **adjacent** batch twice:
       - **control** without the package
       - **treatment** with the frozen package
@@ -328,6 +334,12 @@ td,th{{border-bottom:1px solid #334155;padding:8px;text-align:left}}
 
     - Adjacent-mandate proof: **{'PASS' if scorecard['passes']['adjacent_mandate_proof'] else 'FAIL'}**
     - Package hash: `{pkg_hash}`
+
+    ## Demo ladder
+
+    - Flagship synthetic wedge demo: `demos/protocol_smart_contract_correctness_demo/`
+    - Adjacent synthetic proof demo: `demos/adjacent_mandate_reuse_proof_demo/`
+    - Real-world experiment pack: `demos/adjacent_mandate_reuse_proof_real_v1/`
     """).strip() + "\n"
     write_text(ROOT / "README.md", readme)
 

@@ -10,7 +10,7 @@ It is intentionally small, local, and reproducible.
 - Parent sector: **Protocol and smart-contract correctness**
 - Mandate 1: review a first batch of smart-contract mandates
 - Freeze the resulting reusable package as:
-  - `ProtocolAssurancePack-v1`
+  - `ProtocolCybersecurityPack-v1` (legacy alias: `ProtocolAssurancePack-v1`)
 - Mandate 2: review an **adjacent** batch twice:
   - **control** without the package
   - **treatment** with the frozen package
@@ -40,3 +40,9 @@ one completed mandate can create a frozen capability package that materially imp
 
 - Adjacent-mandate proof: **PASS**
 - Package hash: `467a32a99c0e16988e3085844b06f81f8fdf3e30815bb2aaf468155d1e85727b`
+
+## Demo ladder
+
+- Flagship synthetic wedge demo: `demos/protocol_smart_contract_correctness_demo/`
+- Adjacent synthetic proof demo: `demos/adjacent_mandate_reuse_proof_demo/`
+- Real-world experiment pack: `demos/adjacent_mandate_reuse_proof_real_v1/`

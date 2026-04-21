@@ -1,5 +1,21 @@
 # Changelog
 
+## [v2.7.0-rc.1] - 2026-04-21
+
+### Added
+- Root doctrine stack docs: `docs/DOCTRINE_STACK.md`, `docs/THERMODYNAMIC_MODEL.md`, `docs/NATION_STATE_DOCTRINE.md`, and `docs/DEMO_STRATEGY.md`.
+- Math validation helper `scripts/check_math_markdown.py` for canonical equation and delimiter checks.
+- Release readiness checklist at `release/v2.7.0-rc.1-demo-doctrine-checklist.md`.
+
+### Changed
+- Flagship and adjacent demo integration language now consistently frames protocol correctness as the first wedge and distinguishes synthetic vs real-world proof surfaces.
+- Public-facing naming now prefers Protocol Cybersecurity labels while retaining legacy Protocol Assurance compatibility aliases where needed.
+- Root release posture and demo entry points updated to v2.7.0-rc.1 demo-and-doctrine framing.
+
+### Notes
+- This release remains a **verifiable release candidate**, not an audited final deployment.
+- Broader cybersecurity sovereign claims remain future-facing and conditional on real adjacent-mandate controlled proof.
+
 ## [v2.6.0-rc.1] - 2026-04-18
 
 ### Added
