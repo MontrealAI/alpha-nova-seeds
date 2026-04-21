@@ -20,6 +20,8 @@ The doctrine stack is intentionally explicit and split into three markdown files
 - `docs/THERMODYNAMIC_MODEL.md`
 - `docs/NATION_STATE_DOCTRINE.md`
 
+These files are the canonical doctrinal surface for GitHub-rendered math and policy framing, including the explicit statement that the thermodynamic/statistical-physics model is a formal governance analogy (not literal physical law).
+
 Generated doctrine artifacts are emitted under:
 
 - `demo_output/doctrine/doctrine_stack.json`

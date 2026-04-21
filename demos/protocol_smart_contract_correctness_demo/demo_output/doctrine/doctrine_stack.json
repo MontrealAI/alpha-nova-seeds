@@ -4,6 +4,7 @@
   "positioning": "Protocol correctness is the first compounding correctness wedge under high-verification conditions.",
   "first_narrow_organ": "\ud83c\udf31\ud83d\udcab \u03b1-AGI Protocol Cybersecurity Sovereign \ud83d\udd10",
   "future_seed": "\ud83d\udc51 \u03b1-AGI Cybersecurity Sovereign \ud83d\udd31\u2728",
+  "nation_state_doctrine": "The Full-Stack Economic Organism is governed as a driven nonequilibrium system: capital, compute, and telemetry are converted into proof-bound reusable security capability faster than entropy pressure from uncertainty, adversaries, and coordination loss.",
   "not_claimed": [
     "A full cybersecurity sovereign already exists.",
     "Cybersecurity is solved once and for all.",
@@ -30,6 +31,7 @@
     ],
     "required_equation_count": 18,
     "legacy_bracket_delimiters_present": false,
+    "canonical_math_delimiters": "GitHub markdown $...$ and $$...$$",
     "validation": "pass"
   }
 }

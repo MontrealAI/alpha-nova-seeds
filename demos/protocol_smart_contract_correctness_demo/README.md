@@ -25,6 +25,7 @@ It demonstrates, end-to-end, a synthetic but replayable path:
 - What the full-stack organism is: Insight → Nova-Seeds → MARK → AGI Jobs → Archive.
 - Where AGI Jobs sits: identity, proof, settlement, governance convert candidate work into validated output.
 - Why this is formal analogy: governance language with measurable proxies, not literal physics.
+- Why this is nation-state legible: doctrine is explicit about what is proven now vs. still future-facing.
 
 Canonical doctrine docs:
 
