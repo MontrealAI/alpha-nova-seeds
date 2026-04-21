@@ -54,6 +54,20 @@ A scorecard is a PASS only if all are true:
 - no safety regression
 - package dependence rate ≥ 30%
 
+## Deterministic winner selection (Mandate 1)
+
+Nova-Seeds are ranked with a deterministic lexicographic order over shared assay metrics:
+
+1. accepted usefulness points (higher is better)
+2. time to first accepted output (lower is better)
+3. repair/rework (lower is better)
+4. evidence completeness (higher is better)
+5. unsupported-claim rate (lower is better)
+6. severity inflation count (lower is better)
+7. packageable artifact quality (higher is better)
+
+This keeps selection replayable and non-arbitrary: the same fixtures and seed packets always select the same winner.
+
 ---
 
 ## What this demo proves vs does not prove
