@@ -1,5 +1,5 @@
 {
-  "claim": "Synthetic flagship claim: frozen protocol assurance capability improved adjacent mandate performance under control-vs-treatment assay.",
+  "claim": "Synthetic flagship claim: frozen protocol cybersecurity capability improved adjacent mandate performance under control-vs-treatment assay.",
   "constitutional_frame": {
     "order": [
       "identity",
@@ -14,8 +14,12 @@
     ]
   },
   "parent_business": {
-    "id": "protocol_assurance_studio",
-    "title": "Protocol Assurance Studio",
+    "id": "protocol_cybersecurity_studio",
+    "title": "Protocol Cybersecurity Studio",
+    "legacy_aliases": [
+      "protocol_assurance_studio",
+      "Protocol Assurance Studio"
+    ],
     "sector": "protocol_and_smart_contract_correctness",
     "customer_type": [
       "protocol foundations",
@@ -48,8 +52,75 @@
       "commercially legible fixed-scope buying motion",
       "high reusable primitive density"
     ],
-    "sovereign_candidate_path": "When adjacent mandates repeatedly pass strict thresholds with explicit package dependence and no safety regression, the archive graduates toward Protocol Assurance Sovereign candidacy.",
+    "sovereign_candidate_path": "When adjacent mandates repeatedly pass strict thresholds with explicit package dependence and no safety regression, the archive graduates toward Protocol Cybersecurity Sovereign candidacy.",
     "synthetic_disclaimer": "This artifact is synthetic and illustrative for local replay."
+  },
+  "doctrine": {
+    "doctrine_stack": {
+      "id": "protocol_cybersecurity_doctrine_stack_v1",
+      "title": "Full-Stack Economic Organism Doctrine Stack",
+      "positioning": "Protocol correctness is the first compounding correctness wedge under high-verification conditions.",
+      "first_narrow_organ": "\ud83c\udf31\ud83d\udcab \u03b1-AGI Protocol Cybersecurity Sovereign \ud83d\udd10",
+      "future_seed": "\ud83d\udc51 \u03b1-AGI Cybersecurity Sovereign \ud83d\udd31\u2728",
+      "not_claimed": [
+        "A full cybersecurity sovereign already exists.",
+        "Cybersecurity is solved once and for all.",
+        "The thermodynamic framing is literal physical law.",
+        "Real-world proof is already complete."
+      ],
+      "organism_loop": [
+        "Insight reduces blind search.",
+        "Nova-Seeds generate structured fluctuations.",
+        "MARK applies economic selection pressure.",
+        "AGI Jobs converts candidate work into validated output through identity, proof, settlement, and governance.",
+        "Archive freezes successful fluctuations into reusable structure."
+      ],
+      "phase_transition": {
+        "order_parameter": "Lambda",
+        "consultancy_mode": "Lambda < Lambda_c",
+        "compounding_mode": "Lambda > Lambda_c"
+      },
+      "validation": {
+        "doctrine_docs": [
+          "docs/DOCTRINE_STACK.md",
+          "docs/NATION_STATE_DOCTRINE.md",
+          "docs/THERMODYNAMIC_MODEL.md"
+        ],
+        "required_equation_count": 18,
+        "legacy_bracket_delimiters_present": false,
+        "validation": "pass"
+      }
+    },
+    "thermodynamic_model_summary": {
+      "id": "thermodynamic_model_summary_v1",
+      "formal_status": "governance analogy with measurable operational content; not literal physical law",
+      "state_vector": [
+        "K",
+        "C",
+        "D",
+        "A",
+        "Q",
+        "R",
+        "Sigma"
+      ],
+      "entropy_symbol": "S_org",
+      "control_symbol": "Sigma",
+      "viability_condition": "Phi >= Pi",
+      "efficiencies": [
+        "eta_sovereign",
+        "eta_archive"
+      ],
+      "validation": {
+        "doctrine_docs": [
+          "docs/DOCTRINE_STACK.md",
+          "docs/NATION_STATE_DOCTRINE.md",
+          "docs/THERMODYNAMIC_MODEL.md"
+        ],
+        "required_equation_count": 18,
+        "legacy_bracket_delimiters_present": false,
+        "validation": "pass"
+      }
+    }
   },
   "nova_seed_lineup": [
     {
@@ -902,28 +973,31 @@
   "chronicle_entry": {
     "id": "chronicle_protocol_correctness_first_stepping_stone",
     "sector": "protocol_and_smart_contract_correctness",
-    "parent_business": "Protocol Assurance Studio",
+    "parent_business": "Protocol Cybersecurity Studio",
     "winning_seed": "invariant_library",
     "frozen_sub_pack": "GovernanceValidationPack-v1",
-    "sector_stepping_stone": "ProtocolAssurancePack-v1",
+    "sector_stepping_stone": "ProtocolCybersecurityPack-v1",
     "adjacent_proof_passed": true,
     "timestamp": "2026-01-01T00:00:00Z"
   },
   "governance_ruling": {
     "id": "governance_ruling.json",
     "status": "pass",
-    "decision": "emit_protocol_assurance_sovereign",
+    "decision": "emit_protocol_cybersecurity_sovereign",
     "justification": "Threshold scorecard evaluated under deterministic control-vs-treatment adjacent mandate assay.",
-    "linked_artifact": "ProtocolAssuranceSovereign-v1.synthetic.json",
+    "linked_artifact": "ProtocolCybersecuritySovereign-v1.synthetic.json",
     "timestamp": "2026-01-01T00:00:00Z",
     "disclaimer": "Synthetic governance ruling for local replay; not a real-world governance decision."
   },
   "sovereign_or_fail_closed_artifact": {
-    "id": "ProtocolAssuranceSovereign-v1.synthetic.json",
+    "id": "ProtocolCybersecuritySovereign-v1.synthetic.json",
+    "legacy_aliases": [
+      "ProtocolAssuranceSovereign-v1.synthetic.json"
+    ],
     "type": "synthetic_sovereign_artifact",
     "status": "emitted",
-    "depends_on": "ProtocolAssurancePack-v1",
-    "package_hash": "5c866ce82d0da4c56684cb6d2e8a4885ee19830e4866c141926bf60e4c4fade6",
+    "depends_on": "ProtocolCybersecurityPack-v1",
+    "package_hash": "6156b08893dbc919edde510f4feb541777194f302fac29ca9b8007ab6c8ffe5a",
     "constitutional_order": [
       "identity",
       "proof",
@@ -936,9 +1010,13 @@
       "no settlement without validation"
     ],
     "timestamp": "2026-01-01T00:00:00Z",
-    "positioning": "First compounding correctness sovereign in synthetic demo form.",
-    "future_seed": "Seed of a future broader cybersecurity sovereign.",
-    "not_claimed": "This does NOT prove that a full real-world cybersecurity sovereign already exists.",
+    "positioning": "First narrow, high-verification production organ and compounding correctness sovereign form in synthetic demo context.",
+    "future_seed": "Seed of a future broader \u03b1-AGI Cybersecurity Sovereign.",
+    "not_claimed": [
+      "This does NOT prove that a full cybersecurity sovereign already exists.",
+      "This does NOT claim cybersecurity is solved once and for all.",
+      "This does NOT claim thermodynamic framing is literal physical law."
+    ],
     "disclaimer": "Synthetic local demo artifact; not a real-world proof."
   },
   "synthetic_disclaimer": "This docket is synthetic, local, replayable, and falsifiable. It is not a real-world proof pack."
