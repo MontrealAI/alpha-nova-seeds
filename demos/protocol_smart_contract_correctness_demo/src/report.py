@@ -185,13 +185,13 @@ Winner: **{winner}**
 
     cmp = scorecard["comparison"]
     md_sovereign_interpretation = (
-        "- PASS interpretation: this emits the first compounding correctness sovereign in synthetic demo form.\n"
+        "- PASS interpretation: this emits the first compounding correctness sovereign in synthetic demo form, i.e., the α-AGI Protocol Assurance Sovereign.\n"
         "- PASS interpretation: this is also the seed of a future broader cybersecurity sovereign."
         if scorecard["passes"]["adjacent_mandate_proof"]
         else "- FAIL-CLOSED interpretation: sovereign emission is blocked; no sovereign seed claim is made for this run."
     )
     html_sovereign_interpretation = (
-        "PASS indicates the first compounding correctness sovereign in synthetic demo form, and a seed of a future broader cybersecurity sovereign."
+        "PASS indicates the α-AGI Protocol Assurance Sovereign in synthetic demo form, and a seed of a future broader cybersecurity sovereign."
         if scorecard["passes"]["adjacent_mandate_proof"]
         else "FAIL-CLOSED blocks sovereign emission for this run; no sovereign-seed claim is made."
     )
