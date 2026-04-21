@@ -42,7 +42,7 @@ def _read_doctrine_docs(root: Path) -> dict[str, str]:
         path = root / rel
         if not path.exists():
             raise DoctrineValidationError(f"Missing doctrine file: {rel}")
-        payload[rel] = path.read_text()
+        payload[rel] = path.read_text(encoding="utf-8")
     return payload
 
 
