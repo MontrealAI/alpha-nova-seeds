@@ -1,13 +1,9 @@
 from __future__ import annotations
-from .utils import write_json
+from pathlib import Path
+from .utils import load_json, write_json
 
-THRESHOLDS = {
-    "aoy_uplift": 0.35,
-    "speed_uplift": 0.30,
-    "repair_rework_reduction": 0.40,
-    "evidence_completeness_uplift": 0.20,
-    "package_dependence_rate": 0.30,
-}
+CONFIG_DIR = Path(__file__).resolve().parents[1] / "config"
+THRESHOLDS = load_json(CONFIG_DIR / "adjacent_mandate_thresholds.json")
 
 
 def _uplift(control: float, treatment: float, higher_is_better: bool = True) -> float:
