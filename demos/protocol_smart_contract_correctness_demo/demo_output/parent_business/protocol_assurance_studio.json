@@ -1,0 +1,35 @@
+{
+  "id": "protocol_assurance_studio",
+  "title": "Protocol Assurance Studio",
+  "sector": "protocol_and_smart_contract_correctness",
+  "customer_type": [
+    "protocol foundations",
+    "governance councils",
+    "release managers",
+    "security-conscious DAOs"
+  ],
+  "scope_type": "fixed-scope release-critical correctness mandates (2-4 contracts)",
+  "mandate_families": [
+    "governance_dispute_correctness",
+    "threshold_attestation_correctness",
+    "treasury_release_gate_correctness"
+  ],
+  "review_posture": "evidence-first adversarial review with replayable repro artifacts",
+  "release_gate_positioning": "block release until mandate packet meets declared evidence and safety thresholds",
+  "pricing_mode_illustrative": "fixed mandate fee + severity-weighted bonus for accepted replayable findings",
+  "what_gets_archived": [
+    "accepted finding packets",
+    "invariant templates",
+    "fuzz harness seeds",
+    "release-gate checklists",
+    "scope-to-evidence trace maps"
+  ],
+  "why_buyers_pay": [
+    "lower release risk on critical paths",
+    "faster governance decision confidence",
+    "verifiable evidence for sign-off"
+  ],
+  "why_archive_compounds": "Each accepted packet hardens ontology, query bundles, and evidence templates, reducing future time-to-first-accepted output while maintaining safety.",
+  "sovereign_candidate_path": "When adjacent mandates repeatedly pass strict thresholds with explicit package dependence and no safety regression, the archive graduates toward Protocol Assurance Sovereign candidacy.",
+  "synthetic_disclaimer": "This artifact is synthetic and illustrative for local replay."
+}
