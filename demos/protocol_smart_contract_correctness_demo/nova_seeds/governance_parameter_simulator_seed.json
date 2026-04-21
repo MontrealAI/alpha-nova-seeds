@@ -9,9 +9,15 @@
     "repair_rework": "moderate",
     "evidence_completeness": "medium_high"
   },
-  "likely_strengths": ["policy clarity", "governance explainability"],
-  "likely_weaknesses": ["can underperform on low-level contract anti-patterns"],
+  "likely_strengths": [
+    "policy clarity",
+    "governance explainability"
+  ],
+  "likely_weaknesses": [
+    "can underperform on low-level contract anti-patterns"
+  ],
   "admissible_risk": "medium",
   "evidence_strategy": "parameter trace + adjudication rationale",
-  "replayability_expectations": "high"
+  "replayability_expectations": "high",
+  "likely_archive_contribution": "parameter-sweep matrices, governance sensitivity traces, policy stress-test notebooks"
 }

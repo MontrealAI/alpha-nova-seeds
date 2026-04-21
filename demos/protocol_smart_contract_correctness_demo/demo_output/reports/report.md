@@ -62,3 +62,6 @@ Winner: **invariant_library**
 ## Sovereign emission
 - Artifact: `ProtocolAssuranceSovereign-v1.synthetic.json`
 - Status: `emitted`
+- If PASS, this emits the first compounding correctness sovereign in synthetic demo form.
+- This is also the seed of a future broader cybersecurity sovereign.
+- It does **not** claim a full cybersecurity sovereign already exists.

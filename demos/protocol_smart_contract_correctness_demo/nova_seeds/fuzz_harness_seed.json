@@ -9,9 +9,16 @@
     "repair_rework": "moderate",
     "evidence_completeness": "medium"
   },
-  "likely_strengths": ["edge-case discovery", "regression harness value"],
-  "likely_weaknesses": ["triage burden", "weaker narrative evidence if not curated"],
+  "likely_strengths": [
+    "edge-case discovery",
+    "regression harness value"
+  ],
+  "likely_weaknesses": [
+    "triage burden",
+    "weaker narrative evidence if not curated"
+  ],
   "admissible_risk": "medium",
   "evidence_strategy": "failing seed traces plus minimized repro",
-  "replayability_expectations": "high"
+  "replayability_expectations": "high",
+  "likely_archive_contribution": "deterministic failing seeds, minimization recipes, regression harness templates"
 }

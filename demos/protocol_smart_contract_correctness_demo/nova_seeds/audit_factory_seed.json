@@ -9,9 +9,15 @@
     "repair_rework": "moderate",
     "evidence_completeness": "medium"
   },
-  "likely_strengths": ["coverage breadth", "repeatable reviewer packets"],
-  "likely_weaknesses": ["can miss deep state-path edge cases"],
+  "likely_strengths": [
+    "coverage breadth",
+    "repeatable reviewer packets"
+  ],
+  "likely_weaknesses": [
+    "can miss deep state-path edge cases"
+  ],
   "admissible_risk": "medium false-positive risk if triage heuristics are over-broad",
   "evidence_strategy": "structured finding templates with reproducible pointers",
-  "replayability_expectations": "high"
+  "replayability_expectations": "high",
+  "likely_archive_contribution": "structured triage queues, severity calibration tables, reviewer packet templates"
 }

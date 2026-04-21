@@ -9,9 +9,16 @@
     "repair_rework": "low",
     "evidence_completeness": "high"
   },
-  "likely_strengths": ["high signal", "clean reproduction framing", "packageability"],
-  "likely_weaknesses": ["needs stronger ontology maintenance"],
+  "likely_strengths": [
+    "high signal",
+    "clean reproduction framing",
+    "packageability"
+  ],
+  "likely_weaknesses": [
+    "needs stronger ontology maintenance"
+  ],
   "admissible_risk": "low",
   "evidence_strategy": "invariant-to-code trace plus repro packet",
-  "replayability_expectations": "very_high"
+  "replayability_expectations": "very_high",
+  "likely_archive_contribution": "canonical invariant ontology, state-transition trace grammar, reusable verification clauses"
 }

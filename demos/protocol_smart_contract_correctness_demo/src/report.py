@@ -96,6 +96,7 @@ def run_demo(assert_mode: bool = False):
             ],
         },
         "parent_business": parent,
+        "nova_seed_lineup": seeds,
         "mandate_1_summary": mandate_1_summary,
         "mandate_2_control_summary": control,
         "mandate_2_treatment_summary": treatment,
@@ -119,6 +120,11 @@ def run_demo(assert_mode: bool = False):
     write_text(
         OUT / "proof_docket" / "02_parent_business.md",
         f"# Parent Business\n\n- Name: {parent['title']}\n- Scope: {parent['scope_type']}\n- Review posture: {parent['review_posture']}\n",
+    )
+    seed_lines = "\n".join([f"- {seed['title']} (`{seed['id']}`): {seed['mutation_thesis']}" for seed in seeds])
+    write_text(
+        OUT / "proof_docket" / "02b_nova_seed_lineup.md",
+        f"# Nova-Seed Lineup\n\n{seed_lines}\n",
     )
     write_text(
         OUT / "proof_docket" / "03_mandate_1_summary.md",
@@ -209,6 +215,9 @@ Winner: **{winner}**
 ## Sovereign emission
 - Artifact: `{sovereign_or_ruling['id']}`
 - Status: `{sovereign_or_ruling['status']}`
+- If PASS, this emits the first compounding correctness sovereign in synthetic demo form.
+- This is also the seed of a future broader cybersecurity sovereign.
+- It does **not** claim a full cybersecurity sovereign already exists.
 """
     write_text(OUT / "reports" / "report.md", md)
 
@@ -293,7 +302,7 @@ table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #3341
 <li>Package dependence rate: {_pct(cmp['package_dependence_rate'])} (threshold ≥ 30%)</li>
 </ul>
 <p>Ruling: <span class='{'pass' if scorecard['passes']['adjacent_mandate_proof'] else 'fail'}'>{'PASS' if scorecard['passes']['adjacent_mandate_proof'] else 'FAIL'}</span></p>
-<p>Sovereign artifact/ruling emitted: <code>{sovereign_or_ruling['id']}</code></p>
+<p>Sovereign artifact/ruling emitted: <code>{sovereign_or_ruling['id']}</code></p><p><strong>Interpretation:</strong> PASS indicates the first compounding correctness sovereign in synthetic demo form, and a seed of a future broader cybersecurity sovereign — not proof of a full cybersecurity sovereign today.</p>
 </div>
 </div></body></html>"""
     write_text(OUT / "reports" / "report.html", html)
