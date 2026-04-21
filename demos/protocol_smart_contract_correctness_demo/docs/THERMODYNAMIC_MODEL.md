@@ -2,6 +2,7 @@
 
 This demo uses a **formal governance analogy** to keep resource use, entropy pressure, and proof quality legible.
 It is not a claim of literal physical law.
+It is a formal analogy with measurable operational content for governance and operator review.
 
 ## State vector
 

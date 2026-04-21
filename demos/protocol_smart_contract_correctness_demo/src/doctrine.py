@@ -79,6 +79,8 @@ def validate_doctrine_markdown(root: Path) -> dict:
 def build_doctrine_artifacts(root: Path, out_dir: Path) -> dict:
     validation = validate_doctrine_markdown(root)
 
+    equation_catalog = {k: v for k, v in REQUIRED_EQUATIONS.items()}
+
     doctrine_stack = {
         "id": "protocol_cybersecurity_doctrine_stack_v1",
         "title": "Full-Stack Economic Organism Doctrine Stack",
@@ -108,12 +110,14 @@ def build_doctrine_artifacts(root: Path, out_dir: Path) -> dict:
             "consultancy_mode": "Lambda < Lambda_c",
             "compounding_mode": "Lambda > Lambda_c",
         },
+        "equation_catalog": equation_catalog,
         "validation": validation,
     }
 
     thermodynamic_summary = {
         "id": "thermodynamic_model_summary_v1",
         "formal_status": "governance analogy with measurable operational content; not literal physical law",
+        "boundary_statement": "Use thermodynamic/statistical-physics language as disciplined governance notation, not as a claim of settled empirical physical law for institutions.",
         "state_vector": ["K", "C", "D", "A", "Q", "R", "Sigma"],
         "state_vector_equation": "X(t)=\\big(K,C,D,A,Q,R,\\Sigma\\big)",
         "entropy_symbol": "S_org",
@@ -121,6 +125,7 @@ def build_doctrine_artifacts(root: Path, out_dir: Path) -> dict:
         "viability_condition": "Phi >= Pi",
         "order_parameter_equation": "\\Lambda=\\frac{\\rho_{\\text{reuse}}\\,\\rho_{\\text{validation}}\\,\\rho_{\\text{selection}}}{\\Pi}",
         "efficiencies": ["eta_sovereign", "eta_archive"],
+        "equation_catalog": equation_catalog,
         "validation": validation,
     }
 
