@@ -85,7 +85,7 @@ This flagship demo is intentionally clearer and more operator-facing than those 
 
 If protocol correctness compounds through frozen reusable capability packages, this demo supports a narrow synthetic claim:
 
-- 🌱💫 **α-AGI Protocol Assurance Sovereign 🔐** is the first plausible compounding correctness sovereign form (in demo form).
+- 🌱💫 **α-AGI Protocol Cybersecurity Sovereign 🔐** is the first plausible compounding correctness sovereign form (in demo form).
 - It is the seed of a future 👑 **α-AGI Cybersecurity Sovereign 🔱✨**.
 
 But this demo is explicit about boundaries:
