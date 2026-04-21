@@ -1,8 +1,9 @@
 {
-  "lineage": "Protocol Assurance",
+  "lineage": "Protocol Cybersecurity",
   "parent_business": "Protocol and smart-contract correctness firm",
-  "mandate_1_package": "ProtocolAssurancePack-v1",
-  "package_hash": "467a32a99c0e16988e3085844b06f81f8fdf3e30815bb2aaf468155d1e85727b",
+  "mandate_1_package": "ProtocolCybersecurityPack-v1",
+  "legacy_package_alias": "ProtocolAssurancePack-v1",
+  "package_hash": "b9365fcdaff0141af0c27aa20a458c20ea25582220887735438d645144accef0",
   "adjacent_proof_passed": true,
-  "archived_at": "2026-04-20T19:46:10.510954Z"
+  "archived_at": "2026-01-01T00:00:00Z"
 }

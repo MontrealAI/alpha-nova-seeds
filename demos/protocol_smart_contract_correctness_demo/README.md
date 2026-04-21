@@ -131,3 +131,10 @@ But the demo is explicit about boundaries:
 
 - It does **not** prove a full cybersecurity sovereign already exists.
 - It does **not** claim cybersecurity is solved once and for all.
+
+
+## Demo ladder
+
+- Flagship synthetic wedge demo: `demos/protocol_smart_contract_correctness_demo/`
+- Adjacent synthetic proof demo: `demos/adjacent_mandate_reuse_proof_demo/`
+- Real-world experiment pack: `demos/adjacent_mandate_reuse_proof_real_v1/`

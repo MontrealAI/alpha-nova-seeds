@@ -1,5 +1,5 @@
 {
-  "package_name": "ProtocolAssurancePack-v1",
+  "package_name": "ProtocolCybersecurityPack-v1",
   "package_version": "1.0.0",
   "ontology": [
     "proofless_settlement",
@@ -104,6 +104,5 @@
   ],
   "package_hash": "b9365fcdaff0141af0c27aa20a458c20ea25582220887735438d645144accef0",
   "frozen_at": "2026-01-01T00:00:00Z",
-  "source_mandate": "Mandate 1",
-  "alias_of": "ProtocolCybersecurityPack-v1"
+  "source_mandate": "Mandate 1"
 }
