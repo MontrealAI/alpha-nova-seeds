@@ -26,6 +26,18 @@ def _validate_checklist_fields(checklist: list[str]) -> None:
             + ", ".join(unknown)
             + ". Update config/evidence_completeness_checklist.json with valid fields only."
         )
+    seen = set()
+    duplicates = []
+    for field in checklist:
+        if field in seen and field not in duplicates:
+            duplicates.append(field)
+        seen.add(field)
+    if duplicates:
+        raise ValueError(
+            "Duplicate evidence checklist field(s): "
+            + ", ".join(sorted(duplicates))
+            + ". Remove duplicates from config/evidence_completeness_checklist.json."
+        )
 
 
 _validate_checklist_fields(EVIDENCE_CHECKLIST)
