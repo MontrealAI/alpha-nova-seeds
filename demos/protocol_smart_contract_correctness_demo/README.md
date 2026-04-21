@@ -118,6 +118,14 @@ python3 run_demo.py --assert
 
 No third-party dependency is required. `requirements.txt` is intentionally empty.
 
+Optional fail-closed rehearsal:
+
+```bash
+python3 run_demo.py --assert --force-fail
+```
+
+This path intentionally degrades treatment metrics to exercise the conditional governance block and emit `ProtocolAssuranceSovereign-v1.fail_closed.json`.
+
 ---
 
 ## Output map

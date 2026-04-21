@@ -6,6 +6,14 @@
 python3 run_demo.py --assert
 ```
 
+Optional fail-closed rehearsal:
+
+```bash
+python3 run_demo.py --assert --force-fail
+```
+
+This confirms conditional sovereign emission logic by forcing a threshold miss and producing `demo_output/sovereign/ProtocolAssuranceSovereign-v1.fail_closed.json`.
+
 ## 2) Inspect outputs
 
 Open:
