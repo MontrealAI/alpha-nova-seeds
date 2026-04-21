@@ -1,4 +1,4 @@
-# Verify a v2.6 release candidate
+# Verify a v2.7 release candidate
 
 This guide verifies that the release artifacts were produced from repository source and include provenance signals.
 
@@ -28,6 +28,8 @@ Expected outputs:
 - Passing backend/schema regression tests
 
 ## 2) Download provenance artifact bundle
+
+> Note: the workflow artifact name remains `v26-provenance-<TAG>` in `.github/workflows/release-provenance.yml`.
 
 ```bash
 gh run download <RUN_ID> --name v26-provenance-<TAG> --dir ./verify-dist
@@ -86,6 +88,7 @@ This verification flow proves artifact integrity/provenance signals for an RC. I
 python3 demos/protocol_smart_contract_correctness_demo/run_demo.py --assert
 python3 demos/adjacent_mandate_reuse_proof_demo/run_demo.py
 python3 scripts/check_math_markdown.py
+python3 scripts/check_doctrine_consistency.py
 ```
 
 These checks ensure demo determinism, cross-demo replayability, and canonical GitHub math rendering posture.

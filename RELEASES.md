@@ -44,4 +44,5 @@ For v2.7.0-rc.1, release publication additionally requires:
 - Cross-linked demo ladder (flagship synthetic, compact synthetic adjacent, real-world pack).
 - Doctrine stack docs linked from root README.
 - Math markdown validation helper run and passing.
+- Doctrine consistency checks run and passing (`scripts/check_doctrine_consistency.py`).
 - Explicit claim boundary: synthetic sovereign claim only; broader cybersecurity sovereign remains future-facing.

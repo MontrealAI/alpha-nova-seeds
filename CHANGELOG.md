@@ -3,11 +3,13 @@
 ## [v2.7.0-rc.1] - 2026-04-21
 
 ### Added
-- Root doctrine stack docs: `docs/DOCTRINE_STACK.md`, `docs/THERMODYNAMIC_MODEL.md`, `docs/NATION_STATE_DOCTRINE.md`, and `docs/DEMO_STRATEGY.md`.
+- Root doctrine stack docs: `docs/DOCTRINE_STACK.md`, `docs/THERMODYNAMIC_MODEL.md`, `docs/NATION_STATE_DOCTRINE.md`, `docs/DEMO_STRATEGY.md`, and `docs/RELEASE_POSITIONING.md`.
 - Math validation helper `scripts/check_math_markdown.py` for canonical equation and delimiter checks.
+- Doctrine consistency helper `scripts/check_doctrine_consistency.py` for README doctrine links and canonical equation drift checks between root and flagship docs.
 - Release readiness checklist at `release/v2.7.0-rc.1-demo-doctrine-checklist.md`.
 
 ### Changed
+- Fixed `docs/verify-release.md` artifact download command to match current workflow upload name (`v26-provenance-<TAG>`).
 - Flagship and adjacent demo integration language now consistently frames protocol correctness as the first wedge and distinguishes synthetic vs real-world proof surfaces.
 - Public-facing naming now prefers Protocol Cybersecurity labels while retaining legacy Protocol Assurance compatibility aliases where needed.
 - Root release posture and demo entry points updated to v2.7.0-rc.1 demo-and-doctrine framing.
