@@ -19,6 +19,12 @@ def _pct(v: float) -> str:
     return f"{v*100:.1f}%"
 
 
+def _seed_summary_row(seed: dict) -> str:
+    return (
+        f"| {seed['id']} | {seed['mutation_thesis']} | {seed['operator_workflow_delta']} |"
+    )
+
+
 def run_demo(assert_mode: bool = False):
     reset_dir(OUT)
 
@@ -53,7 +59,7 @@ def run_demo(assert_mode: bool = False):
         "justification": "Threshold scorecard evaluated under deterministic control-vs-treatment adjacent mandate assay.",
         "linked_artifact": sovereign_or_ruling["id"],
         "timestamp": sovereign_or_ruling["timestamp"],
-        "disclaimer": "Synthetic governance ruling for local replay; not a real-world governance decision."
+        "disclaimer": "Synthetic governance ruling for local replay; not a real-world governance decision.",
     }
     write_json(OUT / "proof_docket" / governance_ruling["id"], governance_ruling)
 
@@ -65,6 +71,7 @@ def run_demo(assert_mode: bool = False):
         "requirements": protocol_pack["portable_components"]["release_gate_packet"]["required"],
     }
     write_json(OUT / "scorecard" / "release_gate_packet.json", release_gate_packet)
+    write_json(OUT / "proof_docket" / "07_settlement_release_packet.json", release_gate_packet)
 
     chronicle = {
         "id": "chronicle_protocol_correctness_first_stepping_stone",
@@ -85,7 +92,7 @@ def run_demo(assert_mode: bool = False):
             "invariant": [
                 "no value without evidence",
                 "no autonomy without authority",
-                "no settlement without validation"
+                "no settlement without validation",
             ],
         },
         "parent_business": parent,
@@ -100,6 +107,7 @@ def run_demo(assert_mode: bool = False):
         "synthetic_disclaimer": "This docket is synthetic, local, replayable, and falsifiable. It is not a real-world proof pack.",
     }
     write_json(OUT / "proof_docket" / "proof_docket.json", proof_docket)
+
     write_text(
         OUT / "proof_docket" / "00_claim.md",
         "# Claim\n\nSynthetic flagship claim: a frozen protocol assurance capability improved adjacent mandate performance under deterministic control-vs-treatment scoring.\n",
@@ -146,12 +154,25 @@ def run_demo(assert_mode: bool = False):
 - Parent business: {parent['title']}
 - Why first wedge: objective, replayable, fast to review, reusable primitives, commercially legible.
 
+## First mandate and assay setup
+- Mandate 1 focus: governance/dispute correctness
+- Contract fixtures: `CouncilGovernanceV25Fixture.sol`, `ChallengePolicyModuleV25Fixture.sol`
+- Common harsh assay metrics: accepted usefulness points, time-to-first-accepted output, repair/rework, evidence completeness, unsupported claim rate, packageable artifact quality.
+
+## Five sibling Nova-Seeds
+| Seed | Mutation thesis | Operator workflow delta |
+|---|---|---|
+"""
+    for seed in seeds:
+        md += _seed_summary_row(seed) + "\n"
+
+    md += """
 ## Nova-Seed assay (Mandate 1)
-Winner: **{winner_id}**
+Winner: **{winner}**
 
 | Seed | AUP | First accepted step | Rework | Evidence | Unsupported claim rate | Package quality |
 |---|---:|---:|---:|---:|---:|---:|
-"""
+""".format(winner=winner_id)
     for result in mandate_1_summary["results"]:
         m = result["metrics"]
         md += f"| {result['seed']} | {m['accepted_usefulness_points']} | {m['time_to_first_accepted_output']} | {m['repair_rework']:.3f} | {m['evidence_completeness']:.3f} | {m['unsupported_claim_rate']:.3f} | {m['packageable_artifact_quality']:.3f} |\n"
@@ -162,8 +183,11 @@ Winner: **{winner_id}**
 ## Frozen capability packages
 - Sub-pack: `GovernanceValidationPack-v1`
 - Sector stepping stone: `ProtocolAssurancePack-v1`
+- Distinction: sub-pack is first frozen reusable governance capability; stepping stone is promoted sector-level portability surface.
 
 ## Adjacent mandate (Mandate 2) control vs treatment
+- Mandate 2 focus: threshold / attestation correctness
+- Contract fixtures: `ThresholdNetworkAdapterV25Fixture.sol`, `SignedAttestationVerifierV25Fixture.sol`
 - Control AOY: {control['metrics']['aoy']}
 - Treatment AOY: {treatment['metrics']['aoy']}
 - AOY uplift: {_pct(cmp['aoy_uplift'])}
@@ -173,7 +197,13 @@ Winner: **{winner_id}**
 - Safety regression: {'YES' if cmp['safety_regression'] else 'NO'}
 - Package dependence rate: {_pct(cmp['package_dependence_rate'])}
 
-## Threshold ruling
+## Threshold ruling (strict)
+- AOY uplift ≥ 35%
+- Speed uplift ≥ 30%
+- Repair/rework reduction ≥ 40%
+- Evidence completeness uplift ≥ 20%
+- No safety regression
+- Package dependence rate ≥ 30%
 - Adjacent-mandate proof: **{'PASS' if scorecard['passes']['adjacent_mandate_proof'] else 'FAIL'}**
 
 ## Sovereign emission
@@ -186,11 +216,10 @@ Winner: **{winner_id}**
 <html><head><meta charset='utf-8'><title>Protocol Correctness Flagship Demo</title>
 <style>
 body{{font-family:Inter,Arial,sans-serif;background:#0b1020;color:#e5e7eb;margin:0;padding:24px;line-height:1.5}}
-.wrap{{max-width:1100px;margin:0 auto}}
+.wrap{{max-width:1160px;margin:0 auto}}
 .card{{background:#111827;border:1px solid #334155;border-radius:14px;padding:18px;margin-bottom:16px}}
-h1,h2{{margin:0 0 12px 0}}
-small{{color:#94a3b8}}
-table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #334155;padding:8px;text-align:left}}
+h1,h2{{margin:0 0 12px 0}} small{{color:#94a3b8}}
+table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #334155;padding:8px;text-align:left;vertical-align:top}}
 .pass{{color:#34d399;font-weight:700}}.fail{{color:#f87171;font-weight:700}}
 .kpi{{font-size:1.1rem;font-weight:700}}
 .badge{{display:inline-block;padding:4px 10px;border:1px solid #475569;border-radius:999px;background:#1f2937}}
@@ -203,13 +232,30 @@ table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #3341
 <p><strong>Disclaimer:</strong> synthetic, local, replayable, falsifiable; not a real-world proof pack.</p>
 </div>
 <div class='card'>
-<h2>Parent business: {parent['title']}</h2>
-<p>{parent['review_posture']}</p>
+<h2>Why this sector is first</h2>
+<ul>
+<li>Objective and replayable failure classes</li>
+<li>Fast operator review cycles</li>
+<li>Reusable primitives (invariants, query bundles, release gates)</li>
+<li>Commercially legible fixed-scope mandate model</li>
+</ul>
+<p><strong>Parent business:</strong> {parent['title']}</p>
 <p><strong>Constitutional order:</strong> identity → proof → settlement → governance</p>
 <p><strong>Invariant:</strong> no value without evidence; no autonomy without authority; no settlement without validation.</p>
 </div>
 <div class='card'>
-<h2>Mandate 1 Nova-Seed assay winner: {winner_id}</h2>
+<h2>Five sibling Nova-Seeds</h2>
+<table><tr><th>Seed</th><th>Mutation thesis</th><th>Operator workflow delta</th></tr>
+"""
+    for seed in seeds:
+        html += f"<tr><td>{seed['id']}</td><td>{seed['mutation_thesis']}</td><td>{seed['operator_workflow_delta']}</td></tr>"
+
+    html += f"""
+</table>
+</div>
+<div class='card'>
+<h2>Mandate 1 (governance/dispute correctness) assay winner: {winner_id}</h2>
+<p>Fixtures: <code>CouncilGovernanceV25Fixture.sol</code>, <code>ChallengePolicyModuleV25Fixture.sol</code></p>
 <table><tr><th>Seed</th><th>AUP</th><th>First accepted</th><th>Rework</th><th>Evidence</th><th>Unsupported rate</th><th>Package quality</th></tr>
 """
     for result in mandate_1_summary["results"]:
@@ -237,14 +283,14 @@ table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #3341
 </div>
 </div>
 <div class='card'>
-<h2>Adjacent-mandate threshold scorecard</h2>
+<h2>Adjacent-mandate threshold scorecard (strict)</h2>
 <ul>
-<li>AOY uplift: {_pct(cmp['aoy_uplift'])}</li>
-<li>Speed uplift: {_pct(cmp['speed_uplift'])}</li>
-<li>Repair/rework reduction: {_pct(cmp['repair_rework_reduction'])}</li>
-<li>Evidence completeness uplift: {_pct(cmp['evidence_completeness_uplift'])}</li>
-<li>Safety regression: {'YES' if cmp['safety_regression'] else 'NO'}</li>
-<li>Package dependence rate: {_pct(cmp['package_dependence_rate'])}</li>
+<li>AOY uplift: {_pct(cmp['aoy_uplift'])} (threshold ≥ 35%)</li>
+<li>Speed uplift: {_pct(cmp['speed_uplift'])} (threshold ≥ 30%)</li>
+<li>Repair/rework reduction: {_pct(cmp['repair_rework_reduction'])} (threshold ≥ 40%)</li>
+<li>Evidence completeness uplift: {_pct(cmp['evidence_completeness_uplift'])} (threshold ≥ 20%)</li>
+<li>Safety regression: {'YES' if cmp['safety_regression'] else 'NO'} (must be NO)</li>
+<li>Package dependence rate: {_pct(cmp['package_dependence_rate'])} (threshold ≥ 30%)</li>
 </ul>
 <p>Ruling: <span class='{'pass' if scorecard['passes']['adjacent_mandate_proof'] else 'fail'}'>{'PASS' if scorecard['passes']['adjacent_mandate_proof'] else 'FAIL'}</span></p>
 <p>Sovereign artifact/ruling emitted: <code>{sovereign_or_ruling['id']}</code></p>
@@ -258,6 +304,7 @@ table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #3341
         assert (OUT / "capability_package" / "ProtocolAssurancePack-v1.json").exists()
         assert (OUT / "scorecard" / "adjacent_mandate_scorecard.json").exists()
         assert (OUT / "proof_docket" / "governance_ruling.json").exists()
+        assert (OUT / "proof_docket" / "07_settlement_release_packet.json").exists()
 
     return {
         "winner": winner_id,
