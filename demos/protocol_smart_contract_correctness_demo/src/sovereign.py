@@ -1,13 +1,12 @@
 from __future__ import annotations
-from datetime import datetime, timezone
-from .utils import write_json
+from .utils import write_json, demo_timestamp
 
 
 def emit_sovereign_or_ruling(scorecard: dict, protocol_pack: dict, out_dir):
-    now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    now = demo_timestamp()
     if scorecard["passes"]["adjacent_mandate_proof"]:
         artifact = {
-            "id": "ProtocolAssuranceSovereign-v1.synthetic",
+            "id": "ProtocolAssuranceSovereign-v1.synthetic.json",
             "type": "synthetic_sovereign_artifact",
             "status": "emitted",
             "depends_on": protocol_pack["id"],
@@ -21,11 +20,11 @@ def emit_sovereign_or_ruling(scorecard: dict, protocol_pack: dict, out_dir):
             "timestamp": now,
             "disclaimer": "Synthetic local demo artifact; not a real-world proof."
         }
-        write_json(out_dir / "ProtocolAssuranceSovereign-v1.synthetic.json", artifact)
+        write_json(out_dir / artifact["id"], artifact)
         return artifact
 
     ruling = {
-        "id": "ProtocolAssuranceSovereign-v1.fail_closed_ruling",
+        "id": "ProtocolAssuranceSovereign-v1.fail_closed.json",
         "type": "governance_ruling",
         "status": "blocked",
         "reason": "Adjacent-mandate proof thresholds not met.",
@@ -33,5 +32,5 @@ def emit_sovereign_or_ruling(scorecard: dict, protocol_pack: dict, out_dir):
         "timestamp": now,
         "disclaimer": "Fail-closed synthetic ruling for replayability."
     }
-    write_json(out_dir / "ProtocolAssuranceSovereign-v1.fail_closed.json", ruling)
+    write_json(out_dir / ruling["id"], ruling)
     return ruling

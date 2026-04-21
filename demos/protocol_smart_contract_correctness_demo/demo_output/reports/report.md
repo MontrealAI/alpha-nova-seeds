@@ -37,5 +37,5 @@ Winner: **invariant_library**
 - Adjacent-mandate proof: **PASS**
 
 ## Sovereign emission
-- Artifact: `ProtocolAssuranceSovereign-v1.synthetic`
+- Artifact: `ProtocolAssuranceSovereign-v1.synthetic.json`
 - Status: `emitted`
