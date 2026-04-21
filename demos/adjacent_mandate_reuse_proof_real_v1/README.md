@@ -1,3 +1,8 @@
+⚠️ This experiment is expected to FAIL before it succeeds.
+
+The purpose of this pack is not to demonstrate success,
+but to determine whether compounding actually occurs under real conditions.
+
 # Adjacent-Mandate Reuse Proof — Real v1 Pack
 
 This folder is a **repo-ready Q2 experiment pack** for proving the next milestone:
