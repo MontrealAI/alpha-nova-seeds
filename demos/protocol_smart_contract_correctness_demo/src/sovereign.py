@@ -1,12 +1,14 @@
 from __future__ import annotations
-from .utils import write_json, demo_timestamp
+
+from .utils import demo_timestamp, write_json
 
 
 def emit_sovereign_or_ruling(scorecard: dict, protocol_pack: dict, out_dir):
     now = demo_timestamp()
     if scorecard["passes"]["adjacent_mandate_proof"]:
         artifact = {
-            "id": "ProtocolAssuranceSovereign-v1.synthetic.json",
+            "id": "ProtocolCybersecuritySovereign-v1.synthetic.json",
+            "legacy_aliases": ["ProtocolAssuranceSovereign-v1.synthetic.json"],
             "type": "synthetic_sovereign_artifact",
             "status": "emitted",
             "depends_on": protocol_pack["id"],
@@ -15,25 +17,32 @@ def emit_sovereign_or_ruling(scorecard: dict, protocol_pack: dict, out_dir):
             "invariant": [
                 "no value without evidence",
                 "no autonomy without authority",
-                "no settlement without validation"
+                "no settlement without validation",
             ],
             "timestamp": now,
-            "positioning": "First compounding correctness sovereign in synthetic demo form.",
-            "future_seed": "Seed of a future broader cybersecurity sovereign.",
-            "not_claimed": "This does NOT prove that a full real-world cybersecurity sovereign already exists.",
-            "disclaimer": "Synthetic local demo artifact; not a real-world proof."
+            "positioning": "First narrow, high-verification production organ and compounding correctness sovereign form in synthetic demo context.",
+            "future_seed": "Seed of a future broader α-AGI Cybersecurity Sovereign.",
+            "not_claimed": [
+                "This does NOT prove that a full cybersecurity sovereign already exists.",
+                "This does NOT claim cybersecurity is solved once and for all.",
+                "This does NOT claim thermodynamic framing is literal physical law.",
+            ],
+            "disclaimer": "Synthetic local demo artifact; not a real-world proof.",
         }
         write_json(out_dir / artifact["id"], artifact)
+        write_json(out_dir / "ProtocolAssuranceSovereign-v1.synthetic.json", artifact)
         return artifact
 
     ruling = {
-        "id": "ProtocolAssuranceSovereign-v1.fail_closed.json",
+        "id": "ProtocolCybersecuritySovereign-v1.fail_closed.json",
+        "legacy_aliases": ["ProtocolAssuranceSovereign-v1.fail_closed.json"],
         "type": "governance_ruling",
         "status": "blocked",
         "reason": "Adjacent-mandate proof thresholds not met.",
         "failed_thresholds": [k for k, ok in scorecard["passes"].items() if not ok],
         "timestamp": now,
-        "disclaimer": "Fail-closed synthetic ruling for replayability."
+        "disclaimer": "Fail-closed synthetic ruling for replayability.",
     }
     write_json(out_dir / ruling["id"], ruling)
+    write_json(out_dir / "ProtocolAssuranceSovereign-v1.fail_closed.json", ruling)
     return ruling

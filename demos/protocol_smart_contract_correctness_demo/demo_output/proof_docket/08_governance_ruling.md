@@ -1,5 +1,5 @@
 # Governance Ruling
 
-- Decision: emit_protocol_assurance_sovereign
+- Decision: emit_protocol_cybersecurity_sovereign
 - Status: pass
-- Linked artifact: ProtocolAssuranceSovereign-v1.synthetic.json
+- Linked artifact: ProtocolCybersecuritySovereign-v1.synthetic.json

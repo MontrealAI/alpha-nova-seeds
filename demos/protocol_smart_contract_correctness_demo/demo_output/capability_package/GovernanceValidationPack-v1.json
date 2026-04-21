@@ -59,7 +59,7 @@
     "locked"
   ],
   "skill_wrapper": {
-    "name": "protocol_assurance_invariant_lane",
+    "name": "protocol_cybersecurity_invariant_lane",
     "mode": "deterministic",
     "notes": "Synthetic local wrapper for replayable mandate review"
   },
@@ -71,5 +71,5 @@
       "scope traceability"
     ]
   },
-  "package_hash": "5ddf3018d3ccec4d3320d9e8efd0e95b463372b32a892066f9a095f7568edf07"
+  "package_hash": "23f887f62622ce735fd10d4fce8e796d72ac92f9a6acc30d62e42d51d3b9e898"
 }
