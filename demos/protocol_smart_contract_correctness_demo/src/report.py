@@ -296,6 +296,7 @@ pre{{white-space:pre-wrap;background:#0f172a;padding:10px;border-radius:10px;bor
 <p><strong>First narrow organ:</strong> 🌱💫 α-AGI Protocol Cybersecurity Sovereign 🔐.</p>
 <p><strong>Future seed:</strong> 👑 α-AGI Cybersecurity Sovereign 🔱✨.</p>
 <p><strong>Not claimed:</strong> full cybersecurity sovereign already exists; cybersecurity is solved once and for all; thermodynamic framing is literal physical law.</p>
+<p><strong>Organism loop:</strong> Insight → Nova-Seeds → MARK → AGI Jobs (identity/proof/settlement/governance) → Archive (reusable capability and entropy pressure reduction).</p>
 <pre>X(t)=\\big(K,C,D,A,Q,R,\\Sigma\\big)\n\\mathcal G[X]=\\mathcal H[X]-T_{{eff}}\\mathcal S_{{org}}[X]\n\\Lambda=\\frac{{\\rho_{{reuse}}\\,\\rho_{{validation}}\\,\\rho_{{selection}}}}{{\\Pi}}</pre>
 </div>
 <div class='card'>

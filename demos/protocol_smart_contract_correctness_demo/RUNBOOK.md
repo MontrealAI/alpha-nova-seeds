@@ -37,6 +37,7 @@ Validation is enforced during demo execution:
 
 - all doctrine files must exist
 - no legacy `\[ ... \]` delimiters are allowed
+- no legacy bare `[ ... ]` pseudo-equation delimiters are allowed
 - required equations must be present with corrected notation
 
 ## 5) Naming compatibility check

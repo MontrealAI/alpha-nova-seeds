@@ -10,9 +10,11 @@
     "R",
     "Sigma"
   ],
+  "state_vector_equation": "X(t)=\\big(K,C,D,A,Q,R,\\Sigma\\big)",
   "entropy_symbol": "S_org",
   "control_symbol": "Sigma",
   "viability_condition": "Phi >= Pi",
+  "order_parameter_equation": "\\Lambda=\\frac{\\rho_{\\text{reuse}}\\,\\rho_{\\text{validation}}\\,\\rho_{\\text{selection}}}{\\Pi}",
   "efficiencies": [
     "eta_sovereign",
     "eta_archive"
@@ -25,6 +27,7 @@
     ],
     "required_equation_count": 18,
     "legacy_bracket_delimiters_present": false,
+    "canonical_math_delimiters": "GitHub markdown $...$ and $$...$$",
     "validation": "pass"
   }
 }

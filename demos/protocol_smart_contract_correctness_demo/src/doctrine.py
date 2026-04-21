@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 from .utils import write_json
@@ -36,6 +37,9 @@ class DoctrineValidationError(RuntimeError):
     pass
 
 
+LEGACY_BRACKET_EQUATION_PATTERN = re.compile(r"^\s*\[[^\]]*[\\_=^][^\]]*\]\s*$")
+
+
 def _read_doctrine_docs(root: Path) -> dict[str, str]:
     payload = {}
     for rel in DOCTRINE_DOCS:
@@ -52,6 +56,12 @@ def validate_doctrine_markdown(root: Path) -> dict:
 
     if "\\[" in joined or "\\]" in joined:
         raise DoctrineValidationError("Legacy \\[ ... \\] equation delimiters detected in doctrine markdown.")
+    for rel, text in docs.items():
+        for line in text.splitlines():
+            if LEGACY_BRACKET_EQUATION_PATTERN.match(line):
+                raise DoctrineValidationError(
+                    f"Legacy [ ... ] equation delimiter style detected in {rel}: `{line.strip()}`"
+                )
 
     missing = [name for name, snippet in REQUIRED_EQUATIONS.items() if snippet not in joined]
     if missing:
@@ -61,6 +71,7 @@ def validate_doctrine_markdown(root: Path) -> dict:
         "doctrine_docs": sorted(docs.keys()),
         "required_equation_count": len(REQUIRED_EQUATIONS),
         "legacy_bracket_delimiters_present": False,
+        "canonical_math_delimiters": "GitHub markdown $...$ and $$...$$",
         "validation": "pass",
     }
 
@@ -74,6 +85,11 @@ def build_doctrine_artifacts(root: Path, out_dir: Path) -> dict:
         "positioning": "Protocol correctness is the first compounding correctness wedge under high-verification conditions.",
         "first_narrow_organ": "🌱💫 α-AGI Protocol Cybersecurity Sovereign 🔐",
         "future_seed": "👑 α-AGI Cybersecurity Sovereign 🔱✨",
+        "nation_state_doctrine": (
+            "The Full-Stack Economic Organism is governed as a driven nonequilibrium system: capital, compute, and "
+            "telemetry are converted into proof-bound reusable security capability faster than entropy pressure "
+            "from uncertainty, adversaries, and coordination loss."
+        ),
         "not_claimed": [
             "A full cybersecurity sovereign already exists.",
             "Cybersecurity is solved once and for all.",
@@ -99,9 +115,11 @@ def build_doctrine_artifacts(root: Path, out_dir: Path) -> dict:
         "id": "thermodynamic_model_summary_v1",
         "formal_status": "governance analogy with measurable operational content; not literal physical law",
         "state_vector": ["K", "C", "D", "A", "Q", "R", "Sigma"],
+        "state_vector_equation": "X(t)=\\big(K,C,D,A,Q,R,\\Sigma\\big)",
         "entropy_symbol": "S_org",
         "control_symbol": "Sigma",
         "viability_condition": "Phi >= Pi",
+        "order_parameter_equation": "\\Lambda=\\frac{\\rho_{\\text{reuse}}\\,\\rho_{\\text{validation}}\\,\\rho_{\\text{selection}}}{\\Pi}",
         "efficiencies": ["eta_sovereign", "eta_archive"],
         "validation": validation,
     }
