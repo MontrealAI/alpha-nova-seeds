@@ -1,6 +1,7 @@
 from __future__ import annotations
 from pathlib import Path
 import argparse
+import hashlib
 
 from .business import load_parent_business, emit_parent_business_artifact
 from .seeds import load_seed_packets, emit_seed_packets
@@ -23,6 +24,22 @@ def _seed_summary_row(seed: dict) -> str:
     return (
         f"| {seed['id']} | {seed['mutation_thesis']} | {seed['operator_workflow_delta']} |"
     )
+
+
+def _file_sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _determinism_snapshot() -> dict[str, str]:
+    tracked = [
+        OUT / "mandate_1" / "assay_summary.json",
+        OUT / "capability_package" / "GovernanceValidationPack-v1.json",
+        OUT / "capability_package" / "ProtocolAssurancePack-v1.json",
+        OUT / "scorecard" / "adjacent_mandate_scorecard.json",
+        OUT / "proof_docket" / "proof_docket.json",
+        OUT / "sovereign" / "ProtocolAssuranceSovereign-v1.synthetic.json",
+    ]
+    return {str(path.relative_to(OUT)): _file_sha256(path) for path in tracked}
 
 
 def run_demo(assert_mode: bool = False):
@@ -337,6 +354,13 @@ def run_demo_cli():
     parser.add_argument("--assert", action="store_true", dest="assert_mode", help="Run with deterministic assertions")
     args = parser.parse_args()
     result = run_demo(assert_mode=args.assert_mode)
+    if args.assert_mode:
+        snapshot_1 = _determinism_snapshot()
+        result_2 = run_demo(assert_mode=False)
+        snapshot_2 = _determinism_snapshot()
+        assert result == result_2, "Result summary changed between deterministic runs"
+        assert snapshot_1 == snapshot_2, "Artifact hashes changed between deterministic runs"
+        print("Determinism: PASS (two consecutive runs produced identical tracked artifact hashes)")
     print(f"Winner seed: {result['winner']}")
     print(f"Adjacent proof: {'PASS' if result['adjacent_mandate_proof'] else 'FAIL'}")
     print(f"Sovereign artifact: {result['sovereign_artifact']}")
