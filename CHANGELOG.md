@@ -9,6 +9,7 @@
 - Release readiness checklist at `release/v2.7.0-rc.1-demo-doctrine-checklist.md`.
 
 ### Changed
+- Fixed `docs/verify-release.md` artifact download command to match current workflow upload name (`v26-provenance-<TAG>`).
 - Flagship and adjacent demo integration language now consistently frames protocol correctness as the first wedge and distinguishes synthetic vs real-world proof surfaces.
 - Public-facing naming now prefers Protocol Cybersecurity labels while retaining legacy Protocol Assurance compatibility aliases where needed.
 - Root release posture and demo entry points updated to v2.7.0-rc.1 demo-and-doctrine framing.

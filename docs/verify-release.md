@@ -29,8 +29,10 @@ Expected outputs:
 
 ## 2) Download provenance artifact bundle
 
+> Note: the workflow artifact name remains `v26-provenance-<TAG>` in `.github/workflows/release-provenance.yml`.
+
 ```bash
-gh run download <RUN_ID> --name v27-provenance-<TAG> --dir ./verify-dist
+gh run download <RUN_ID> --name v26-provenance-<TAG> --dir ./verify-dist
 ```
 
 Expected files in `verify-dist/`:
