@@ -1,4 +1,4 @@
-# α‑AGI Nova‑Seeds (v2.6.0-rc.1 posture)
+# α‑AGI Nova‑Seeds (v2.7.0-rc.1 posture)
 
 Nova‑Seeds are **sealed venture blueprints for sovereign opportunity formation**.
 
@@ -29,9 +29,9 @@ Operational doctrine:
 
 ---
 
-## Release posture (April 18, 2026)
+## Release posture (April 21, 2026)
 
-- Current target posture: **v2.6.0-rc.1 verifiable release candidate**.
+- Current target posture: **v2.7.0-rc.1 flagship demo + doctrine verifiable release candidate**.
 - Latest generally referenced milestone in earlier docs: **v2.5 foundational architecture release**.
 - This repo deliberately avoids claims such as “audited”, “final”, “mainnet-safe by default”, or “fully proven compounding substrate”.
 
@@ -50,13 +50,23 @@ What is not claimed as proven here:
 ---
 
 
-## Front-door flagship demo (protocol correctness wedge)
+## Front-door demo ladder (protocol correctness wedge)
 
 Start here for the public/operator walkthrough of the first wedge:
 
 - [`demos/protocol_smart_contract_correctness_demo/`](./demos/protocol_smart_contract_correctness_demo/)
 
-This flagship demo is synthetic, deterministic, and replayable. It explains how a protocol assurance business can freeze reusable capability packages and test adjacent-mandate uplift under strict control-vs-treatment thresholds.
+This flagship demo is synthetic, deterministic, and replayable. It explains how a Protocol Cybersecurity Studio can freeze reusable capability packages and test adjacent-mandate uplift under strict control-vs-treatment thresholds.
+
+Complementary demos:
+- [`demos/adjacent_mandate_reuse_proof_demo/`](./demos/adjacent_mandate_reuse_proof_demo/) — compact synthetic adjacent proof demo
+- [`demos/adjacent_mandate_reuse_proof_real_v1/`](./demos/adjacent_mandate_reuse_proof_real_v1/) — real-world controlled experiment pack
+
+Doctrine stack:
+- [`docs/DOCTRINE_STACK.md`](./docs/DOCTRINE_STACK.md)
+- [`docs/THERMODYNAMIC_MODEL.md`](./docs/THERMODYNAMIC_MODEL.md)
+- [`docs/NATION_STATE_DOCTRINE.md`](./docs/NATION_STATE_DOCTRINE.md)
+- [`docs/DEMO_STRATEGY.md`](./docs/DEMO_STRATEGY.md)
 
 ---
 

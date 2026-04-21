@@ -1,6 +1,6 @@
 # Releases
 
-## v2.6-rc release contract
+## v2.7 demo+doctrine RC release contract
 
 Each release candidate must include:
 
@@ -34,3 +34,14 @@ If regeneration is required, cut a new tag (for example, `v2.6.0-rc.2`) and prod
 3. Trigger `release-provenance.yml` workflow.
 4. Publish release notes referencing generated artifacts.
 5. Validate `docs/verify-release.md` commands against the release assets.
+
+
+## Demo-and-doctrine RC acceptance surfaces
+
+For v2.7.0-rc.1, release publication additionally requires:
+
+- Flagship demo replay command and assert mode passing.
+- Cross-linked demo ladder (flagship synthetic, compact synthetic adjacent, real-world pack).
+- Doctrine stack docs linked from root README.
+- Math markdown validation helper run and passing.
+- Explicit claim boundary: synthetic sovereign claim only; broader cybersecurity sovereign remains future-facing.
