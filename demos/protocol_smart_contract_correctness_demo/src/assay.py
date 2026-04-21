@@ -4,23 +4,9 @@ from pathlib import Path
 from .fixtures import function_bodies, line_for_function
 from .utils import load_json, write_json
 
-EVIDENCE_CHECKLIST = [
-    "code_pointer",
-    "issue_statement",
-    "broken_invariant_or_state_path",
-    "reproduction_artifact",
-    "severity_rationale",
-    "suggested_fix",
-    "traceability_to_scope",
-]
-
-RUBRIC = {
-    "accepted_high_with_repro": 5,
-    "accepted_medium_with_repro": 3,
-    "accepted_low": 1,
-    "accepted_invariant_or_fuzz_harness": 2,
-    "accepted_release_gate_recommendation": 2,
-}
+CONFIG_DIR = Path(__file__).resolve().parents[1] / "config"
+EVIDENCE_CHECKLIST = load_json(CONFIG_DIR / "evidence_completeness_checklist.json")
+RUBRIC = load_json(CONFIG_DIR / "accepted_usefulness_rubric.json")
 
 SEED_PROFILES = {
     "audit_factory": {
@@ -96,17 +82,11 @@ class Finding:
     severity_inflation: bool
     package_dependencies: list[str]
 
-    def completeness(self) -> float:
-        flags = [
-            bool(self.code_pointer),
-            bool(self.issue_statement),
-            bool(self.broken_invariant_or_state_path),
-            bool(self.reproduction_artifact),
-            bool(self.severity_rationale),
-            bool(self.suggested_fix),
-            bool(self.traceability_to_scope),
-        ]
-        return sum(flags) / len(flags)
+    def completeness(self, checklist: list[str]) -> float:
+        if not checklist:
+            return 0.0
+        flags = [bool(getattr(self, field_name, None)) for field_name in checklist]
+        return sum(flags) / len(checklist)
 
 
 def _detect_issues(contracts: dict[str, str]):
@@ -203,7 +183,7 @@ def run_seed_assay(seed_packet: dict, contracts: dict[str, str], ground_truth: d
     for finding in findings:
         key = (finding.contract, finding.function, finding.issue_type)
         matched = key in truth
-        complete = finding.completeness()
+        complete = finding.completeness(EVIDENCE_CHECKLIST)
         needs_rework = matched and complete < 0.96
         rework_count += 1 if needs_rework else 0
         (accepted if matched else rejected).append(finding)
@@ -221,7 +201,7 @@ def run_seed_assay(seed_packet: dict, contracts: dict[str, str], ground_truth: d
         if finding.uses_release_gate_recommendation:
             accepted_points += RUBRIC["accepted_release_gate_recommendation"]
 
-    evidence = sum(f.completeness() for f in accepted) / max(1, len(accepted))
+    evidence = sum(f.completeness(EVIDENCE_CHECKLIST) for f in accepted) / max(1, len(accepted))
     unsupported_claim_rate = sum(1 for f in findings if f.unsupported_claim) / max(1, len(findings))
     severity_inflation_count = sum(1 for f in findings if f.severity_inflation)
     first_step = min((f.discovery_step for f in accepted), default=999)

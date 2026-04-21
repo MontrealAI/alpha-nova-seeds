@@ -201,6 +201,7 @@ Winner: **{winner}**
         md += f"| {result['seed']} | {m['accepted_usefulness_points']} | {m['time_to_first_accepted_output']} | {m['repair_rework']:.3f} | {m['evidence_completeness']:.3f} | {m['unsupported_claim_rate']:.3f} | {m['packageable_artifact_quality']:.3f} |\n"
 
     cmp = scorecard["comparison"]
+    th = scorecard["thresholds"]
     md_sovereign_interpretation = (
         "- PASS interpretation: this emits the first compounding correctness sovereign in synthetic demo form, i.e., the α-AGI Protocol Assurance Sovereign.\n"
         "- PASS interpretation: this is also the seed of a future broader cybersecurity sovereign."
@@ -232,12 +233,12 @@ Winner: **{winner}**
 - Package dependence rate: {_pct(cmp['package_dependence_rate'])}
 
 ## Threshold ruling (strict)
-- AOY uplift ≥ 35%
-- Speed uplift ≥ 30%
-- Repair/rework reduction ≥ 40%
-- Evidence completeness uplift ≥ 20%
+- AOY uplift ≥ {_pct(th['aoy_uplift'])}
+- Speed uplift ≥ {_pct(th['speed_uplift'])}
+- Repair/rework reduction ≥ {_pct(th['repair_rework_reduction'])}
+- Evidence completeness uplift ≥ {_pct(th['evidence_completeness_uplift'])}
 - No safety regression
-- Package dependence rate ≥ 30%
+- Package dependence rate ≥ {_pct(th['package_dependence_rate'])}
 - Adjacent-mandate proof: **{'PASS' if scorecard['passes']['adjacent_mandate_proof'] else 'FAIL'}**
 
 ## Sovereign emission
@@ -321,12 +322,12 @@ table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #3341
 <div class='card'>
 <h2>Adjacent-mandate threshold scorecard (strict)</h2>
 <ul>
-<li>AOY uplift: {_pct(cmp['aoy_uplift'])} (threshold ≥ 35%)</li>
-<li>Speed uplift: {_pct(cmp['speed_uplift'])} (threshold ≥ 30%)</li>
-<li>Repair/rework reduction: {_pct(cmp['repair_rework_reduction'])} (threshold ≥ 40%)</li>
-<li>Evidence completeness uplift: {_pct(cmp['evidence_completeness_uplift'])} (threshold ≥ 20%)</li>
+<li>AOY uplift: {_pct(cmp['aoy_uplift'])} (threshold ≥ {_pct(th['aoy_uplift'])})</li>
+<li>Speed uplift: {_pct(cmp['speed_uplift'])} (threshold ≥ {_pct(th['speed_uplift'])})</li>
+<li>Repair/rework reduction: {_pct(cmp['repair_rework_reduction'])} (threshold ≥ {_pct(th['repair_rework_reduction'])})</li>
+<li>Evidence completeness uplift: {_pct(cmp['evidence_completeness_uplift'])} (threshold ≥ {_pct(th['evidence_completeness_uplift'])})</li>
 <li>Safety regression: {'YES' if cmp['safety_regression'] else 'NO'} (must be NO)</li>
-<li>Package dependence rate: {_pct(cmp['package_dependence_rate'])} (threshold ≥ 30%)</li>
+<li>Package dependence rate: {_pct(cmp['package_dependence_rate'])} (threshold ≥ {_pct(th['package_dependence_rate'])})</li>
 </ul>
 <p>Ruling: <span class='{'pass' if scorecard['passes']['adjacent_mandate_proof'] else 'fail'}'>{'PASS' if scorecard['passes']['adjacent_mandate_proof'] else 'FAIL'}</span></p>
 <p>Sovereign artifact/ruling emitted: <code>{sovereign_or_ruling['id']}</code></p><p><strong>Interpretation:</strong> {html_sovereign_interpretation} Not proof of a full cybersecurity sovereign today.</p>
