@@ -1,0 +1,36 @@
+{
+  "experiment_id": "adjacent-mandate-reuse-real-v1",
+  "repo": "MontrealAI/alpha-nova-seeds",
+  "repo_sha": "REPLACE_WITH_REPO_SHA",
+  "target_path": "demos/adjacent_mandate_reuse_proof_real_v1",
+  "vertical": "protocol-and-smart-contract-correctness",
+  "parent_business": "Protocol assurance and smart-contract correctness",
+  "mandate_1": {
+    "name": "Governance / dispute correctness",
+    "scope": [
+      "contracts/CouncilGovernanceV25.sol",
+      "contracts/ChallengePolicyModuleV25.sol"
+    ],
+    "goal": "Produce GovernanceValidationPack-v1"
+  },
+  "mandate_2": {
+    "name": "Threshold / attestation correctness",
+    "scope": [
+      "contracts/ThresholdNetworkAdapterV25.sol",
+      "contracts/SignedAttestationVerifierV25.sol"
+    ],
+    "goal": "Measure adjacent-mandate reuse under control vs treatment"
+  },
+  "freeze_time_utc": "REPLACE_WITH_ISO8601",
+  "reviewers_blinded": true,
+  "control_and_treatment_parallel": true,
+  "human_intervention_logging_required": true,
+  "pass_thresholds": {
+    "aoy_uplift_min_pct": 35,
+    "speed_uplift_min_pct": 30,
+    "rework_reduction_min_pct": 40,
+    "evidence_completeness_uplift_min_pct": 20,
+    "safety_regression_allowed": false,
+    "package_dependence_min_pct": 30
+  }
+}
