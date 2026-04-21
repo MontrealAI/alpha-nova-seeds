@@ -4,23 +4,9 @@ from pathlib import Path
 from .fixtures import function_bodies, line_for_function
 from .utils import load_json, write_json
 
-EVIDENCE_CHECKLIST = [
-    "code_pointer",
-    "issue_statement",
-    "broken_invariant_or_state_path",
-    "reproduction_artifact",
-    "severity_rationale",
-    "suggested_fix",
-    "traceability_to_scope",
-]
-
-RUBRIC = {
-    "accepted_high_with_repro": 5,
-    "accepted_medium_with_repro": 3,
-    "accepted_low": 1,
-    "accepted_invariant_or_fuzz_harness": 2,
-    "accepted_release_gate_recommendation": 2,
-}
+CONFIG_DIR = Path(__file__).resolve().parents[1] / "config"
+EVIDENCE_CHECKLIST = load_json(CONFIG_DIR / "evidence_completeness_checklist.json")
+RUBRIC = load_json(CONFIG_DIR / "accepted_usefulness_rubric.json")
 
 SEED_PROFILES = {
     "audit_factory": {
