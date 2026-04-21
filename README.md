@@ -67,6 +67,7 @@ Doctrine stack:
 - [`docs/THERMODYNAMIC_MODEL.md`](./docs/THERMODYNAMIC_MODEL.md)
 - [`docs/NATION_STATE_DOCTRINE.md`](./docs/NATION_STATE_DOCTRINE.md)
 - [`docs/DEMO_STRATEGY.md`](./docs/DEMO_STRATEGY.md)
+- [`docs/RELEASE_POSITIONING.md`](./docs/RELEASE_POSITIONING.md)
 
 ---
 
@@ -108,6 +109,10 @@ python backend/scripts/export_openapi.py
 
 # SDK typecheck/build
 cd sdk && npm run build --if-present && cd -
+
+# doctrine + equation consistency
+python scripts/check_math_markdown.py
+python scripts/check_doctrine_consistency.py
 ```
 
 For full RC artifact verification (checksums + attestation + SBOM), follow [`docs/verify-release.md`](./docs/verify-release.md).

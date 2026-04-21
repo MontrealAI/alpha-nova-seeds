@@ -27,3 +27,5 @@ This repository now presents a three-surface demo ladder for protocol correctnes
 - `docs/DOCTRINE_STACK.md`
 - `docs/THERMODYNAMIC_MODEL.md`
 - `docs/NATION_STATE_DOCTRINE.md`
+
+- `docs/RELEASE_POSITIONING.md`

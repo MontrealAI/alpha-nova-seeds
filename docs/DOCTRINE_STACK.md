@@ -31,4 +31,5 @@ Real-world proof still depends on adjacent-mandate reuse under controlled condit
 - Thermodynamic model: [`docs/THERMODYNAMIC_MODEL.md`](./THERMODYNAMIC_MODEL.md)
 - Nation-state framing: [`docs/NATION_STATE_DOCTRINE.md`](./NATION_STATE_DOCTRINE.md)
 - Demo strategy and mapping: [`docs/DEMO_STRATEGY.md`](./DEMO_STRATEGY.md)
+- Release positioning: [`docs/RELEASE_POSITIONING.md`](./RELEASE_POSITIONING.md)
 - Flagship demo: [`demos/protocol_smart_contract_correctness_demo/`](../demos/protocol_smart_contract_correctness_demo/)
