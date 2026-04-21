@@ -58,6 +58,8 @@ Start here for the public/operator walkthrough of the first wedge:
 
 This flagship demo is synthetic, deterministic, and replayable. It explains how a Protocol Cybersecurity Studio can freeze reusable capability packages and test adjacent-mandate uplift under strict control-vs-treatment thresholds.
 
+Demo ladder index: [`demos/README.md`](./demos/README.md)
+
 Complementary demos:
 - [`demos/adjacent_mandate_reuse_proof_demo/`](./demos/adjacent_mandate_reuse_proof_demo/) — compact synthetic adjacent proof demo
 - [`demos/adjacent_mandate_reuse_proof_real_v1/`](./demos/adjacent_mandate_reuse_proof_real_v1/) — real-world controlled experiment pack

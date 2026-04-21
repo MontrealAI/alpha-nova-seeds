@@ -114,6 +114,7 @@ Its job is to help you answer one question cleanly:
 
 ## Demo ladder
 
-- Flagship synthetic wedge demo: `demos/protocol_smart_contract_correctness_demo/`
-- Adjacent synthetic proof demo: `demos/adjacent_mandate_reuse_proof_demo/`
-- Real-world experiment pack: `demos/adjacent_mandate_reuse_proof_real_v1/`
+- Flagship synthetic wedge demo: [`../protocol_smart_contract_correctness_demo/`](../protocol_smart_contract_correctness_demo/)
+- Adjacent synthetic proof demo: [`../adjacent_mandate_reuse_proof_demo/`](../adjacent_mandate_reuse_proof_demo/)
+- Real-world experiment pack: [`../adjacent_mandate_reuse_proof_real_v1/`](../adjacent_mandate_reuse_proof_real_v1/)
+- Ladder index: [`../README.md`](../README.md)
