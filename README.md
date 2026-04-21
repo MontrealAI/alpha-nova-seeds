@@ -49,6 +49,17 @@ What is not claimed as proven here:
 
 ---
 
+
+## Front-door flagship demo (protocol correctness wedge)
+
+Start here for the public/operator walkthrough of the first wedge:
+
+- [`demos/protocol_smart_contract_correctness_demo/`](./demos/protocol_smart_contract_correctness_demo/)
+
+This flagship demo is synthetic, deterministic, and replayable. It explains how a protocol assurance business can freeze reusable capability packages and test adjacent-mandate uplift under strict control-vs-treatment thresholds.
+
+---
+
 ## Core operating docs
 
 - [AGENTS.md](./AGENTS.md) — repository operating contract for maintainers and agents

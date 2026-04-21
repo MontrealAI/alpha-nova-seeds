@@ -23,6 +23,7 @@
       "release managers",
       "security-conscious DAOs"
     ],
+    "problem_purchased": "Buyers purchase release-gate confidence on value-moving protocol paths before shipping governance and settlement changes.",
     "scope_type": "fixed-scope release-critical correctness mandates (2-4 contracts)",
     "mandate_families": [
       "governance_dispute_correctness",
@@ -30,8 +31,8 @@
       "treasury_release_gate_correctness"
     ],
     "review_posture": "evidence-first adversarial review with replayable repro artifacts",
-    "release_gate_positioning": "block release until mandate packet meets declared evidence and safety thresholds",
     "pricing_mode_illustrative": "fixed mandate fee + severity-weighted bonus for accepted replayable findings",
+    "release_gate_positioning": "block release until mandate packet meets declared evidence and safety thresholds",
     "what_gets_archived": [
       "accepted finding packets",
       "invariant templates",
@@ -39,15 +40,137 @@
       "release-gate checklists",
       "scope-to-evidence trace maps"
     ],
-    "why_buyers_pay": [
-      "lower release risk on critical paths",
-      "faster governance decision confidence",
-      "verifiable evidence for sign-off"
-    ],
     "why_archive_compounds": "Each accepted packet hardens ontology, query bundles, and evidence templates, reducing future time-to-first-accepted output while maintaining safety.",
+    "why_this_is_first_wedge": [
+      "objective failure classes",
+      "replayable review artifacts",
+      "fast operator adjudication",
+      "commercially legible fixed-scope buying motion",
+      "high reusable primitive density"
+    ],
     "sovereign_candidate_path": "When adjacent mandates repeatedly pass strict thresholds with explicit package dependence and no safety regression, the archive graduates toward Protocol Assurance Sovereign candidacy.",
     "synthetic_disclaimer": "This artifact is synthetic and illustrative for local replay."
   },
+  "nova_seed_lineup": [
+    {
+      "id": "audit_factory",
+      "title": "Audit Factory Seed",
+      "mutation_thesis": "Maximize breadth-first issue harvesting with strict triage templates.",
+      "operator_workflow_delta": "Front-load contract surface enumeration and standardized triage queues.",
+      "expected_metric_impact": {
+        "accepted_usefulness_points": "medium",
+        "time_to_first_accepted_output": "moderate",
+        "repair_rework": "moderate",
+        "evidence_completeness": "medium"
+      },
+      "likely_strengths": [
+        "coverage breadth",
+        "repeatable reviewer packets"
+      ],
+      "likely_weaknesses": [
+        "can miss deep state-path edge cases"
+      ],
+      "admissible_risk": "medium false-positive risk if triage heuristics are over-broad",
+      "evidence_strategy": "structured finding templates with reproducible pointers",
+      "replayability_expectations": "high",
+      "likely_archive_contribution": "structured triage queues, severity calibration tables, reviewer packet templates"
+    },
+    {
+      "id": "exploit_replay",
+      "title": "Exploit Replay Seed",
+      "mutation_thesis": "Map known exploit families onto current contracts to rapidly test inherited failure modes.",
+      "operator_workflow_delta": "Run exploit-pattern replay passes before bespoke analysis.",
+      "expected_metric_impact": {
+        "accepted_usefulness_points": "medium",
+        "time_to_first_accepted_output": "slow_to_moderate",
+        "repair_rework": "higher",
+        "evidence_completeness": "medium"
+      },
+      "likely_strengths": [
+        "known-attack coverage",
+        "buyer comprehension"
+      ],
+      "likely_weaknesses": [
+        "historical bias",
+        "less adaptable to novel governance semantics"
+      ],
+      "admissible_risk": "medium_high",
+      "evidence_strategy": "historical exploit class mapping with local replay traces",
+      "replayability_expectations": "high",
+      "likely_archive_contribution": "exploit-class replay scripts, adversarial scenario catalog, inherited failure checklists"
+    },
+    {
+      "id": "fuzz_harness",
+      "title": "Fuzz Harness Seed",
+      "mutation_thesis": "Use seeded property fuzzing to find edge-case transition failures quickly.",
+      "operator_workflow_delta": "Generate deterministic fuzz harnesses before manual deep-dive.",
+      "expected_metric_impact": {
+        "accepted_usefulness_points": "medium_high",
+        "time_to_first_accepted_output": "moderate",
+        "repair_rework": "moderate",
+        "evidence_completeness": "medium"
+      },
+      "likely_strengths": [
+        "edge-case discovery",
+        "regression harness value"
+      ],
+      "likely_weaknesses": [
+        "triage burden",
+        "weaker narrative evidence if not curated"
+      ],
+      "admissible_risk": "medium",
+      "evidence_strategy": "failing seed traces plus minimized repro",
+      "replayability_expectations": "high",
+      "likely_archive_contribution": "deterministic failing seeds, minimization recipes, regression harness templates"
+    },
+    {
+      "id": "governance_parameter_simulator",
+      "title": "Governance Parameter Simulator Seed",
+      "mutation_thesis": "Stress governance outcomes under parameter shifts (quorum, challenge windows, role thresholds).",
+      "operator_workflow_delta": "Run deterministic parameter sweep before line-level issue extraction.",
+      "expected_metric_impact": {
+        "accepted_usefulness_points": "medium",
+        "time_to_first_accepted_output": "slower",
+        "repair_rework": "moderate",
+        "evidence_completeness": "medium_high"
+      },
+      "likely_strengths": [
+        "policy clarity",
+        "governance explainability"
+      ],
+      "likely_weaknesses": [
+        "can underperform on low-level contract anti-patterns"
+      ],
+      "admissible_risk": "medium",
+      "evidence_strategy": "parameter trace + adjudication rationale",
+      "replayability_expectations": "high",
+      "likely_archive_contribution": "parameter-sweep matrices, governance sensitivity traces, policy stress-test notebooks"
+    },
+    {
+      "id": "invariant_library",
+      "title": "Invariant Library Seed",
+      "mutation_thesis": "Start from reusable governance and settlement invariants, then map code paths against them.",
+      "operator_workflow_delta": "Require each finding to link to broken invariant and state-transition path.",
+      "expected_metric_impact": {
+        "accepted_usefulness_points": "high",
+        "time_to_first_accepted_output": "fast",
+        "repair_rework": "low",
+        "evidence_completeness": "high"
+      },
+      "likely_strengths": [
+        "high signal",
+        "clean reproduction framing",
+        "packageability"
+      ],
+      "likely_weaknesses": [
+        "needs stronger ontology maintenance"
+      ],
+      "admissible_risk": "low",
+      "evidence_strategy": "invariant-to-code trace plus repro packet",
+      "replayability_expectations": "very_high",
+      "likely_archive_contribution": "canonical invariant ontology, state-transition trace grammar, reusable verification clauses"
+    }
+  ],
   "mandate_1_summary": {
     "mandate": "mandate_1_governance_dispute_correctness",
     "winner": "invariant_library",
@@ -813,6 +936,9 @@
       "no settlement without validation"
     ],
     "timestamp": "2026-01-01T00:00:00Z",
+    "positioning": "First compounding correctness sovereign in synthetic demo form.",
+    "future_seed": "Seed of a future broader cybersecurity sovereign.",
+    "not_claimed": "This does NOT prove that a full real-world cybersecurity sovereign already exists.",
     "disclaimer": "Synthetic local demo artifact; not a real-world proof."
   },
   "synthetic_disclaimer": "This docket is synthetic, local, replayable, and falsifiable. It is not a real-world proof pack."

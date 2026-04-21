@@ -96,6 +96,7 @@ def run_demo(assert_mode: bool = False):
             ],
         },
         "parent_business": parent,
+        "nova_seed_lineup": seeds,
         "mandate_1_summary": mandate_1_summary,
         "mandate_2_control_summary": control,
         "mandate_2_treatment_summary": treatment,
@@ -119,6 +120,11 @@ def run_demo(assert_mode: bool = False):
     write_text(
         OUT / "proof_docket" / "02_parent_business.md",
         f"# Parent Business\n\n- Name: {parent['title']}\n- Scope: {parent['scope_type']}\n- Review posture: {parent['review_posture']}\n",
+    )
+    seed_lines = "\n".join([f"- {seed['title']} (`{seed['id']}`): {seed['mutation_thesis']}" for seed in seeds])
+    write_text(
+        OUT / "proof_docket" / "02b_nova_seed_lineup.md",
+        f"# Nova-Seed Lineup\n\n{seed_lines}\n",
     )
     write_text(
         OUT / "proof_docket" / "03_mandate_1_summary.md",
@@ -178,6 +184,17 @@ Winner: **{winner}**
         md += f"| {result['seed']} | {m['accepted_usefulness_points']} | {m['time_to_first_accepted_output']} | {m['repair_rework']:.3f} | {m['evidence_completeness']:.3f} | {m['unsupported_claim_rate']:.3f} | {m['packageable_artifact_quality']:.3f} |\n"
 
     cmp = scorecard["comparison"]
+    md_sovereign_interpretation = (
+        "- PASS interpretation: this emits the first compounding correctness sovereign in synthetic demo form.\n"
+        "- PASS interpretation: this is also the seed of a future broader cybersecurity sovereign."
+        if scorecard["passes"]["adjacent_mandate_proof"]
+        else "- FAIL-CLOSED interpretation: sovereign emission is blocked; no sovereign seed claim is made for this run."
+    )
+    html_sovereign_interpretation = (
+        "PASS indicates the first compounding correctness sovereign in synthetic demo form, and a seed of a future broader cybersecurity sovereign."
+        if scorecard["passes"]["adjacent_mandate_proof"]
+        else "FAIL-CLOSED blocks sovereign emission for this run; no sovereign-seed claim is made."
+    )
     md += f"""
 
 ## Frozen capability packages
@@ -209,6 +226,8 @@ Winner: **{winner}**
 ## Sovereign emission
 - Artifact: `{sovereign_or_ruling['id']}`
 - Status: `{sovereign_or_ruling['status']}`
+{md_sovereign_interpretation}
+- It does **not** claim a full cybersecurity sovereign already exists.
 """
     write_text(OUT / "reports" / "report.md", md)
 
@@ -293,7 +312,7 @@ table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #3341
 <li>Package dependence rate: {_pct(cmp['package_dependence_rate'])} (threshold ≥ 30%)</li>
 </ul>
 <p>Ruling: <span class='{'pass' if scorecard['passes']['adjacent_mandate_proof'] else 'fail'}'>{'PASS' if scorecard['passes']['adjacent_mandate_proof'] else 'FAIL'}</span></p>
-<p>Sovereign artifact/ruling emitted: <code>{sovereign_or_ruling['id']}</code></p>
+<p>Sovereign artifact/ruling emitted: <code>{sovereign_or_ruling['id']}</code></p><p><strong>Interpretation:</strong> {html_sovereign_interpretation} Not proof of a full cybersecurity sovereign today.</p>
 </div>
 </div></body></html>"""
     write_text(OUT / "reports" / "report.html", html)

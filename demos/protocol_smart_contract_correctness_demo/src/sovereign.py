@@ -18,6 +18,9 @@ def emit_sovereign_or_ruling(scorecard: dict, protocol_pack: dict, out_dir):
                 "no settlement without validation"
             ],
             "timestamp": now,
+            "positioning": "First compounding correctness sovereign in synthetic demo form.",
+            "future_seed": "Seed of a future broader cybersecurity sovereign.",
+            "not_claimed": "This does NOT prove that a full real-world cybersecurity sovereign already exists.",
             "disclaimer": "Synthetic local demo artifact; not a real-world proof."
         }
         write_json(out_dir / artifact["id"], artifact)

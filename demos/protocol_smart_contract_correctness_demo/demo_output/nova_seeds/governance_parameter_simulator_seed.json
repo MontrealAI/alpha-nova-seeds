@@ -18,5 +18,6 @@
   ],
   "admissible_risk": "medium",
   "evidence_strategy": "parameter trace + adjudication rationale",
-  "replayability_expectations": "high"
+  "replayability_expectations": "high",
+  "likely_archive_contribution": "parameter-sweep matrices, governance sensitivity traces, policy stress-test notebooks"
 }

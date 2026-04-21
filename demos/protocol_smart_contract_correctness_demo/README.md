@@ -80,6 +80,19 @@ For adjacent proof references:
 
 This flagship demo is intentionally clearer and more operator-facing than those deeper proof packs.
 
+
+## Flagship conclusion (explicit)
+
+If protocol correctness compounds through frozen reusable capability packages, this demo supports a narrow synthetic claim:
+
+- 🌱💫 **α-AGI Protocol Assurance Sovereign 🔐** is the first plausible compounding correctness sovereign form (in demo form).
+- It is the seed of a future 👑 **α-AGI Cybersecurity Sovereign 🔱✨**.
+
+But this demo is explicit about boundaries:
+
+- It does **not** prove a full cybersecurity sovereign already exists.
+- It does **not** claim cybersecurity is solved once and for all.
+
 ---
 
 ## Run
