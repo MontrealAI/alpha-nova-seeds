@@ -17,16 +17,24 @@ Open:
 
 ## 3) Determinism check
 
-Run twice and compare hashes:
+Automatic mode:
 
 ```bash
 python3 run_demo.py --assert
+```
+
+The command performs two back-to-back runs and verifies tracked artifact hashes are identical.
+
+Manual mode:
+
+```bash
+python3 run_demo.py
 sha256sum demo_output/scorecard/adjacent_mandate_scorecard.json
-python3 run_demo.py --assert
+python3 run_demo.py
 sha256sum demo_output/scorecard/adjacent_mandate_scorecard.json
 ```
 
-Hash should remain stable.
+Manual hash should remain stable as well.
 
 ## 4) Interpretation guardrails
 

@@ -116,6 +116,7 @@ cd demos/protocol_smart_contract_correctness_demo
 python3 run_demo.py --assert
 ```
 
+`--assert` runs deterministic integrity checks, including a two-run artifact hash comparison.
 No third-party dependency is required. `requirements.txt` is intentionally empty.
 
 ---
