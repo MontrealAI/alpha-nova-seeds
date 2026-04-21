@@ -78,3 +78,14 @@ gh attestation verify alpha-nova-seeds-<TAG>.tar.gz --repo MontrealAI/alpha-nova
 ## Operator note
 
 This verification flow proves artifact integrity/provenance signals for an RC. It does **not** claim final audit coverage.
+
+
+## v2.7 demo-and-doctrine checks
+
+```bash
+python3 demos/protocol_smart_contract_correctness_demo/run_demo.py --assert
+python3 demos/adjacent_mandate_reuse_proof_demo/run_demo.py
+python3 scripts/check_math_markdown.py
+```
+
+These checks ensure demo determinism, cross-demo replayability, and canonical GitHub math rendering posture.

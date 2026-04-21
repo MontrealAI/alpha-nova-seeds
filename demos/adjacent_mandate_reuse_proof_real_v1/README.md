@@ -110,3 +110,10 @@ This pack is **for a real-world proof attempt**, not a synthetic demo.
 Its job is to help you answer one question cleanly:
 
 > **Did the frozen capability package improve the next adjacent mandate under control conditions?**
+
+
+## Demo ladder
+
+- Flagship synthetic wedge demo: `demos/protocol_smart_contract_correctness_demo/`
+- Adjacent synthetic proof demo: `demos/adjacent_mandate_reuse_proof_demo/`
+- Real-world experiment pack: `demos/adjacent_mandate_reuse_proof_real_v1/`

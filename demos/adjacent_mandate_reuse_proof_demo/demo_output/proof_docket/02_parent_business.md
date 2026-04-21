@@ -3,7 +3,7 @@
 Sector: Protocol and smart-contract correctness
 
 Parent business:
-A protocol assurance firm that sells exploit review, invariant design,
+A Protocol Cybersecurity Studio that sells exploit review, invariant design,
 reviewer packets, and release gating for crypto systems.
 
 Goal of Mandate 1:
