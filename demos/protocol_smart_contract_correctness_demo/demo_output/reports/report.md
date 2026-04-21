@@ -4,8 +4,14 @@
 
 ## Sector and parent business
 - Sector: protocol and smart-contract correctness
-- Parent business: Protocol Assurance Studio
+- Parent business: Protocol Cybersecurity Studio
 - Why first wedge: objective, replayable, fast to review, reusable primitives, commercially legible.
+
+## Full-stack economic organism framing
+- Canonical docs: `docs/DOCTRINE_STACK.md`, `docs/THERMODYNAMIC_MODEL.md`, `docs/NATION_STATE_DOCTRINE.md`
+- First narrow organ: 🌱💫 α-AGI Protocol Cybersecurity Sovereign 🔐
+- Future-facing seed: 👑 α-AGI Cybersecurity Sovereign 🔱✨
+- Honesty boundary: the broader cybersecurity sovereign remains future-facing and not yet proven.
 
 ## First mandate and assay setup
 - Mandate 1 focus: governance/dispute correctness
@@ -35,7 +41,7 @@ Winner: **invariant_library**
 
 ## Frozen capability packages
 - Sub-pack: `GovernanceValidationPack-v1`
-- Sector stepping stone: `ProtocolAssurancePack-v1`
+- Sector stepping stone: `ProtocolCybersecurityPack-v1` (legacy alias: `ProtocolAssurancePack-v1`)
 - Distinction: sub-pack is first frozen reusable governance capability; stepping stone is promoted sector-level portability surface.
 
 ## Adjacent mandate (Mandate 2) control vs treatment
@@ -60,8 +66,9 @@ Winner: **invariant_library**
 - Adjacent-mandate proof: **PASS**
 
 ## Sovereign emission
-- Artifact: `ProtocolAssuranceSovereign-v1.synthetic.json`
+- Artifact: `ProtocolCybersecuritySovereign-v1.synthetic.json`
 - Status: `emitted`
-- PASS interpretation: this emits the first compounding correctness sovereign in synthetic demo form, i.e., the α-AGI Protocol Assurance Sovereign.
-- PASS interpretation: this is also the seed of a future broader cybersecurity sovereign.
-- It does **not** claim a full cybersecurity sovereign already exists.
+- PASS interpretation: this emits the first compounding correctness sovereign in synthetic demo form, i.e., the 🌱💫 α-AGI Protocol Cybersecurity Sovereign 🔐.
+- PASS interpretation: this is the seed of a future broader 👑 α-AGI Cybersecurity Sovereign 🔱✨.
+- PASS interpretation: this does **not** claim the broader cybersecurity sovereign already exists.
+- It does **not** claim cybersecurity is solved once and for all.

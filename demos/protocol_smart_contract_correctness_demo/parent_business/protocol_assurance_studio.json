@@ -1,6 +1,10 @@
 {
-  "id": "protocol_assurance_studio",
-  "title": "Protocol Assurance Studio",
+  "id": "protocol_cybersecurity_studio",
+  "title": "Protocol Cybersecurity Studio",
+  "legacy_aliases": [
+    "protocol_assurance_studio",
+    "Protocol Assurance Studio"
+  ],
   "sector": "protocol_and_smart_contract_correctness",
   "customer_type": [
     "protocol foundations",
@@ -33,6 +37,6 @@
     "commercially legible fixed-scope buying motion",
     "high reusable primitive density"
   ],
-  "sovereign_candidate_path": "When adjacent mandates repeatedly pass strict thresholds with explicit package dependence and no safety regression, the archive graduates toward Protocol Assurance Sovereign candidacy.",
-  "synthetic_disclaimer": "This artifact is synthetic and illustrative for local replay."
+  "sovereign_candidate_path": "When adjacent mandates repeatedly pass strict thresholds with explicit package dependence and no safety regression, the archive graduates toward Protocol Cybersecurity Sovereign candidacy.",
+  "synthetic_disclaimer": "Legacy filename kept for compatibility. Artifact remains synthetic and illustrative for local replay."
 }

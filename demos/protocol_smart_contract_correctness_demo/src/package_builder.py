@@ -1,6 +1,8 @@
 from __future__ import annotations
-from pathlib import Path
+
 import hashlib
+from pathlib import Path
+
 from .utils import write_json
 
 
@@ -39,26 +41,26 @@ def build_capability_packages(winner_result: dict, out_dir: Path):
             "proofless_settlement": "Value release requires explicit validated proof and authority checks.",
             "instant_upgrade": "Upgrade authority requires delay/timelock and visible governance intent.",
             "treasury_drift": "Accounting state must reconcile prior to value movement.",
-            "no_challenge_window": "Post-approval settlement requires challenge window expiry."
+            "no_challenge_window": "Post-approval settlement requires challenge window expiry.",
         },
         "workflow_template": [
             "enumerate value-moving functions",
             "map authority and proof checks",
             "test challenge-window semantics",
             "trace accounting consistency",
-            "emit release-gate packet"
+            "emit release-gate packet",
         ],
         "scoring_rubric": {
             "high_with_repro": 5,
             "medium_with_repro": 3,
             "low": 1,
             "harness_bonus": 2,
-            "release_gate_bonus": 2
+            "release_gate_bonus": 2,
         },
         "safety_routing_rules": {
             "reject_unsupported_claims": True,
             "block_severity_inflation": True,
-            "escalate_if_false_positive_rate_above": 0.1
+            "escalate_if_false_positive_rate_above": 0.1,
         },
         "query_bundle": [
             "call{value:",
@@ -68,26 +70,27 @@ def build_capability_packages(winner_result: dict, out_dir: Path):
             "readyAt",
             "approvedAt",
             "challengePeriod",
-            "locked"
+            "locked",
         ],
         "skill_wrapper": {
-            "name": "protocol_assurance_invariant_lane",
+            "name": "protocol_cybersecurity_invariant_lane",
             "mode": "deterministic",
-            "notes": "Synthetic local wrapper for replayable mandate review"
+            "notes": "Synthetic local wrapper for replayable mandate review",
         },
         "release_gate_packet": {
             "required": [
                 "accepted findings with repro",
                 "evidence completeness >= 0.9",
                 "unsupported claim rate <= 0.1",
-                "scope traceability"
+                "scope traceability",
             ]
         },
     }
     governance_pack["package_hash"] = _hash(governance_pack)
 
     protocol_pack = {
-        "id": "ProtocolAssurancePack-v1",
+        "id": "ProtocolCybersecurityPack-v1",
+        "legacy_aliases": ["ProtocolAssurancePack-v1"],
         "type": "sector_level_stepping_stone",
         "contains_sub_pack": governance_pack["id"],
         "scope": ["governance_dispute_correctness", "threshold_attestation_correctness"],
@@ -105,5 +108,7 @@ def build_capability_packages(winner_result: dict, out_dir: Path):
     protocol_pack["package_hash"] = _hash(protocol_pack)
 
     write_json(out_dir / "GovernanceValidationPack-v1.json", governance_pack)
+    write_json(out_dir / "ProtocolCybersecurityPack-v1.json", protocol_pack)
+    # Compatibility alias for legacy docs/scripts.
     write_json(out_dir / "ProtocolAssurancePack-v1.json", protocol_pack)
     return governance_pack, protocol_pack
