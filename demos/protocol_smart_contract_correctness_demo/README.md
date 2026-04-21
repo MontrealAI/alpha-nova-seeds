@@ -76,6 +76,36 @@ If stable over repeated adjacent proofs, it becomes the seed of a future 👑 **
 
 ---
 
+
+## Winner selection and freeze logic (non-hand-wavy)
+
+Mandate 1 seed selection is deterministic. Each seed run emits a scored result file in `demo_output/mandate_1/` and the assay computes:
+
+- accepted usefulness points (AUP),
+- time to first accepted output,
+- repair/rework ratio,
+- evidence completeness,
+- unsupported claim rate (penalty),
+- package quality.
+
+The winner is the highest composite score after applying the same rubric to all five seeds.
+In the current deterministic run, `invariant_library` wins and is frozen as:
+
+- first sub-pack: `GovernanceValidationPack-v1`
+- promoted stepping-stone pack: `ProtocolCybersecurityPack-v1`
+
+That pack is then injected into Mandate 2 treatment-only execution while control remains unassisted.
+
+## Institutional evidence surfaces produced
+
+The flagship run emits the full evidence set required by this RC framing:
+
+- release-gate packet: `demo_output/scorecard/release_gate_packet.json`
+- scorecard: `demo_output/scorecard/adjacent_mandate_scorecard.json`
+- proof docket bundle: `demo_output/proof_docket/proof_docket.json` + supporting files
+- chronicle entry: `demo_output/proof_docket/chronicle_entry.json`
+- governance ruling: `demo_output/proof_docket/governance_ruling.json` and `08_governance_ruling.md`
+
 ## Adjacent-mandate thresholds (strict)
 
 A scorecard is a PASS only if all are true:
