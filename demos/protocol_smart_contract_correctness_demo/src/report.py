@@ -25,7 +25,7 @@ def _seed_summary_row(seed: dict) -> str:
     )
 
 
-def run_demo(assert_mode: bool = False):
+def run_demo(assert_mode: bool = False, force_fail: bool = False):
     reset_dir(OUT)
 
     parent = load_parent_business(ROOT / "parent_business" / "protocol_assurance_studio.json")
@@ -49,6 +49,22 @@ def run_demo(assert_mode: bool = False):
     winner_seed = next(seed for seed in seeds if seed["id"] == winner_id)
     control = run_mandate_2(winner_seed, mandate_2_contracts, ROOT / "ground_truth" / "mandate_2.json", False, OUT / "mandate_2_control")
     treatment = run_mandate_2(winner_seed, mandate_2_contracts, ROOT / "ground_truth" / "mandate_2.json", True, OUT / "mandate_2_treatment")
+    if force_fail:
+        treatment["metrics"].update(
+            {
+                "accepted_usefulness_points": max(1, control["metrics"]["accepted_usefulness_points"] - 1),
+                "accepted_count": max(1, control["metrics"]["accepted_count"] - 1),
+                "time_to_first_accepted_output": control["metrics"]["time_to_first_accepted_output"] + 1,
+                "repair_rework": min(1.0, control["metrics"]["repair_rework"] + 0.1),
+                "evidence_completeness": max(0.1, round(control["metrics"]["evidence_completeness"] - 0.15, 3)),
+                "unsupported_claim_rate": round(control["metrics"]["unsupported_claim_rate"] + 0.1, 3),
+                "severity_inflation_count": control["metrics"]["severity_inflation_count"] + 1,
+                "packageable_artifact_quality": max(0.1, round(control["metrics"]["packageable_artifact_quality"] - 0.1, 3)),
+                "aoy": max(0.1, round(control["metrics"]["aoy"] - 0.15, 3)),
+                "package_dependence_rate": 0.1,
+            }
+        )
+        write_json(OUT / "mandate_2_treatment" / "findings.json", treatment)
 
     scorecard = build_scorecard(control["metrics"], treatment["metrics"], OUT / "scorecard")
     sovereign_or_ruling = emit_sovereign_or_ruling(scorecard, protocol_pack, OUT / "sovereign")
@@ -324,6 +340,12 @@ table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #3341
         assert (OUT / "scorecard" / "adjacent_mandate_scorecard.json").exists()
         assert (OUT / "proof_docket" / "governance_ruling.json").exists()
         assert (OUT / "proof_docket" / "07_settlement_release_packet.json").exists()
+        if force_fail:
+            assert scorecard["passes"]["adjacent_mandate_proof"] is False
+            assert sovereign_or_ruling["id"] == "ProtocolAssuranceSovereign-v1.fail_closed.json"
+        else:
+            assert scorecard["passes"]["adjacent_mandate_proof"] is True
+            assert sovereign_or_ruling["id"] == "ProtocolAssuranceSovereign-v1.synthetic.json"
 
     return {
         "winner": winner_id,
@@ -335,8 +357,9 @@ table{{width:100%;border-collapse:collapse}}th,td{{border-bottom:1px solid #3341
 def run_demo_cli():
     parser = argparse.ArgumentParser(description="Run protocol correctness flagship demo")
     parser.add_argument("--assert", action="store_true", dest="assert_mode", help="Run with deterministic assertions")
+    parser.add_argument("--force-fail", action="store_true", help="Force a fail-closed scorecard path for governance-ruling rehearsal")
     args = parser.parse_args()
-    result = run_demo(assert_mode=args.assert_mode)
+    result = run_demo(assert_mode=args.assert_mode, force_fail=args.force_fail)
     print(f"Winner seed: {result['winner']}")
     print(f"Adjacent proof: {'PASS' if result['adjacent_mandate_proof'] else 'FAIL'}")
     print(f"Sovereign artifact: {result['sovereign_artifact']}")
