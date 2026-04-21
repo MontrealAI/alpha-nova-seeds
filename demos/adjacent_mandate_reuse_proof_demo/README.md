@@ -39,7 +39,7 @@ one completed mandate can create a frozen capability package that materially imp
 ## Current synthetic result
 
 - Adjacent-mandate proof: **PASS**
-- Package hash: `467a32a99c0e16988e3085844b06f81f8fdf3e30815bb2aaf468155d1e85727b`
+- Package hash: `ceed131cfbfd064ecf073da5a4514919a64df05d877549558a3ac6d26f5fea34`
 
 ## Demo ladder
 

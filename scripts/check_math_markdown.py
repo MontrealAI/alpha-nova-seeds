@@ -34,7 +34,6 @@ LEGACY_LINE = re.compile(r"^\s*\[[^]]*[\\_=^][^]]*\]\s*$")
 
 def main() -> int:
     bad = []
-    seen = []
     for path in TARGETS:
         if not path.exists():
             bad.append(f"missing: {path.relative_to(ROOT)}")
@@ -45,12 +44,11 @@ def main() -> int:
         for i, line in enumerate(text.splitlines(), start=1):
             if LEGACY_LINE.match(line):
                 bad.append(f"legacy [ ... ] pseudo-equation in {path.relative_to(ROOT)}:{i}")
-        seen.append(text)
-
-    joined = "\n".join(seen)
-    missing = [snippet for snippet in REQUIRED if snippet not in joined]
-    if missing:
-        bad.append(f"missing required equations: {len(missing)}")
+        missing = [snippet for snippet in REQUIRED if snippet not in text]
+        if missing:
+            bad.append(
+                f"missing required equations in {path.relative_to(ROOT)}: {len(missing)}"
+            )
 
     if bad:
         print("FAIL")

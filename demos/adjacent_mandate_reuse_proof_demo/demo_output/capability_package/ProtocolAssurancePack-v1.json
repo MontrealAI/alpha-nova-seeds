@@ -99,7 +99,8 @@
       "reserved"
     ]
   },
-  "package_hash": "467a32a99c0e16988e3085844b06f81f8fdf3e30815bb2aaf468155d1e85727b",
   "frozen_at": "2026-01-01T00:00:00Z",
-  "source_mandate": "Mandate 1"
+  "source_mandate": "Mandate 1",
+  "package_hash": "328819b05bef61a52d4d9295ce61b810fe1b8e80677e6842acc42747662e65ce",
+  "alias_of": "ProtocolCybersecurityPack-v1"
 }

@@ -1,6 +1,7 @@
 
 from pathlib import Path
 import json, hashlib, textwrap, shutil
+from copy import deepcopy
 from src.engine import read_contracts, analyze_contracts, review_findings, discover_from_mandate1, compare_treatment_vs_control, package_hash
 
 ROOT = Path(__file__).resolve().parent
@@ -67,15 +68,21 @@ def main():
     from src.engine import Finding
     for f in accepted1:
         accepted_findings_objs.append(Finding(**f))
-    package = discover_from_mandate1(contracts1, accepted_findings_objs)
-    pkg_hash = package_hash(package)
-    package["package_hash"] = pkg_hash
+    base_package = discover_from_mandate1(contracts1, accepted_findings_objs)
+    package = deepcopy(base_package)
+    package["package_name"] = PACKAGE_PRIMARY
     package["frozen_at"] = DEMO_TIMESTAMP
     package["source_mandate"] = "Mandate 1"
+    pkg_hash = package_hash(package)
+    package["package_hash"] = pkg_hash
+    alias_package = deepcopy(package)
+    alias_package["package_name"] = PACKAGE_ALIAS
+    alias_package["package_hash"] = package_hash(alias_package)
+    alias_package["alias_of"] = PACKAGE_PRIMARY
     write_json(OUT / "mandate_1" / "findings.json", [f.__dict__ for f in findings1])
     write_json(OUT / "mandate_1" / "review.json", review1)
     write_json(OUT / "capability_package" / f"{PACKAGE_PRIMARY}.json", package)
-    write_json(OUT / "capability_package" / f"{PACKAGE_ALIAS}.json", package)
+    write_json(OUT / "capability_package" / f"{PACKAGE_ALIAS}.json", alias_package)
 
     # Mandate 2 control
     findings_control = analyze_contracts(contracts2, mode="control", package=None)
