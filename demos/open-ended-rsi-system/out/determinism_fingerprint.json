@@ -1,0 +1,9 @@
+{
+  "release_target": "v2.8.0-rc.2",
+  "seed": 2802,
+  "candidate_pool_size": 48,
+  "selected_domain": "backend_api_correctness",
+  "frozen_package_manifest_hash": "56dfb240a9b6b73c91cb4bb7b06efba543956dea0d4760a0c3f8bd41c5da0f75",
+  "scorecard_hash": "37986b0484f8caa95890e35c701725c1f41c9be09978c2c2c441caedc0a89f99",
+  "lineage_hash": "634e0dbd96d3cc51cc6494a2b04a76cfe8eec022eb9cd862415f1c165ed6d9c6"
+}
