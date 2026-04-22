@@ -43,6 +43,7 @@ Primary machine-readable outputs in `out/`:
 - `intervention_log.json`
 - `scorecard.json`
 - `claim_boundary.json`
+- `safety_gates.json`
 - `summary.md`
 - `proof_docket.md`
 - `provenance_manifest.json`
@@ -81,6 +82,7 @@ python3 demos/open-ended-rsi-system/run_demo.py --assert
 
 - Domain selection from fixed whitelist only.
 - Selection scoring uses transfer, assay coverage, safety scope, evidence density.
+- Frontier selection is strictly whitelist-bounded from `config.json`.
 - Runs DISCO discovery then Arnold local evolution.
 - Emits `frontier_width`, `autonomy_delta`, `neighborhood_slope`, `archive_depth`.
 

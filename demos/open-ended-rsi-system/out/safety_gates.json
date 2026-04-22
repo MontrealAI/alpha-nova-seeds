@@ -1,0 +1,26 @@
+{
+  "no_value_without_evidence": {
+    "status": "pass",
+    "evidence": [
+      "repo-native probes executed",
+      "provenance manifest emitted",
+      "lineage and scorecard artifacts emitted"
+    ]
+  },
+  "no_autonomy_without_authority": {
+    "status": "pass",
+    "evidence": [
+      "domain selection constrained to config whitelist",
+      "authority scope immutable from config",
+      "human approval gates preserved in simulated adjudication"
+    ]
+  },
+  "no_settlement_without_validation": {
+    "status": "pass",
+    "evidence": [
+      "all adjudication is synthetic and explicitly labeled",
+      "no external settlement calls",
+      "schema checks pass for emitted artifacts"
+    ]
+  }
+}

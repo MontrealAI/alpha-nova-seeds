@@ -27,7 +27,7 @@
     "package_dependence": 0.61
   },
   "longitudinal": {
-    "frontier_width": 4,
+    "frontier_width": 6,
     "autonomy_delta": 0.75,
     "neighborhood_slope": -0.001,
     "archive_depth": 2

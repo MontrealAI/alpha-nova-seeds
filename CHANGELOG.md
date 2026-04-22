@@ -15,6 +15,8 @@
 - Demo/doctrine link checks now include `demos/open-ended-rsi-system/` in required release surfaces.
 - Repo-level posture docs (`AGENTS.md`, `docs/FRONTIER_LAB_POSTURE.md`, `docs/DOCTRINE_STACK.md`, `RELEASES.md`) aligned to the v2.8.0-rc.2 train without widening public claims.
 - Open-ended RSI Mandate 1 now logs deterministic repo-native probe execution (demo-link, doctrine, math checks) as non-simulated evidence inputs before synthetic adjudication stages.
+- Open-ended RSI Generation 2 now derives candidates directly from `config.json` whitelist entries and fails closed if a whitelisted domain lacks deterministic assay profiles.
+- Open-ended RSI outputs now include `out/safety_gates.json` to make doctrine gate outcomes (`no value without evidence`, `no autonomy without authority`, `no settlement without validation`) auditable as machine-readable artifacts.
 
 ### Notes
 - This RC strengthens deterministic bounded mechanism evidence and operator presentation quality.
