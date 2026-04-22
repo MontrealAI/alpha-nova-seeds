@@ -256,7 +256,11 @@ def _phase_c(package_hash: str) -> dict[str, Any]:
         c["file_digests"] = [_file_digest(f).__dict__ for f in c["files"]]
         c["files"] = [_rel_posix(f) for f in c["files"]]
 
-    selected = sorted(candidates, key=lambda item: item["selection_score"], reverse=True)[0]
+    ranked_candidates = sorted(
+        candidates,
+        key=lambda item: (-item["selection_score"], item["id"]),
+    )
+    selected = ranked_candidates[0]
 
     execution = {
         "mandate": "Mandate 3 autonomous adjacent expansion",
@@ -282,7 +286,33 @@ def _phase_c(package_hash: str) -> dict[str, Any]:
         ],
     }
 
-    return {"phase": "C", "label": "increasingly_autonomous", "candidate_set": candidates, "execution": execution}
+    selection_log = {
+        "policy": {
+            "fit_weight": 0.42,
+            "determinism_weight": 0.33,
+            "operator_noise_weight": 0.15,
+            "safety_risk_weight": 0.10,
+            "selection_rule": "highest_selection_score_wins",
+            "tiebreak": "lexicographic_id_order",
+        },
+        "ranked_candidates": [
+            {
+                "id": item["id"],
+                "domain": item["domain"],
+                "selection_score": item["selection_score"],
+            }
+            for item in ranked_candidates
+        ],
+        "selected": selected["id"],
+    }
+
+    return {
+        "phase": "C",
+        "label": "increasingly_autonomous",
+        "candidate_set": candidates,
+        "selection_log": selection_log,
+        "execution": execution,
+    }
 
 
 def _pct(v: float) -> str:
@@ -424,10 +454,14 @@ body{{font-family:Inter,Arial,sans-serif;background:#08111f;color:#dce7f7;margin
 .card{{background:#0e1b32;border:1px solid #29476d;border-radius:14px;padding:18px;margin-bottom:14px}}
 .hero{{background:linear-gradient(120deg,#10233e,#16314c)}}
 .grid{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}}
+.artifact-grid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
 .badge{{display:inline-block;border:1px solid #3b5f8f;border-radius:999px;padding:4px 10px;margin-right:8px;background:#152a46}}
 .good{{color:#73e6ae;font-weight:700}} .warn{{color:#ffcd84;font-weight:700}}
 .table{{width:100%;border-collapse:collapse}} .table td,.table th{{border-bottom:1px solid #2b4568;padding:8px;text-align:left}}
-@media(max-width:980px){{.grid{{grid-template-columns:1fr}}}}
+.timeline{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}}
+.timeline div{{border:1px solid #2f5178;border-radius:10px;padding:12px;background:#10213b}}
+code{{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}}
+@media(max-width:980px){{.grid,.timeline,.artifact-grid{{grid-template-columns:1fr}}}}
 </style></head><body><div class='wrap'>
 <div class='card hero'>
 <span class='badge'>Accelerating-loop demo</span>
@@ -442,6 +476,14 @@ body{{font-family:Inter,Arial,sans-serif;background:#08111f;color:#dce7f7;margin
 <div><h3>Phase C · Increasingly autonomous</h3><p>Rule-based candidate selection into second domain.</p><p>Selected: {phase_c['execution']['selected_candidate']}</p></div>
 </div>
 <div class='card'>
+<h2>Selection timeline</h2>
+<div class='timeline'>
+<div><h3>A · Bounded</h3><p>Run mandate-1 replay from contract correctness wedge with heavy human review.</p></div>
+<div><h3>B · Expanding</h3><p>Freeze package manifest/hash and run deterministic control-vs-treatment adjacent mandate.</p></div>
+<div><h3>C · Increasingly autonomous</h3><p>Score bounded candidates and select highest-scoring adjacent domain under explicit safety policy.</p></div>
+</div>
+</div>
+<div class='card'>
 <h2>Board scorecard</h2>
 <table class='table'>
 <tr><th>Metric</th><th>Observed</th><th>Threshold</th></tr>
@@ -451,6 +493,30 @@ body{{font-family:Inter,Arial,sans-serif;background:#08111f;color:#dce7f7;margin
 <tr><td>Evidence uplift</td><td>{_pct(scorecard['comparison']['evidence_uplift'])}</td><td>{_pct(THRESHOLDS['evidence_uplift'])}</td></tr>
 <tr><td>Package dependence</td><td>{_pct(scorecard['comparison']['package_dependence_rate'])}</td><td>{_pct(THRESHOLDS['package_dependence_rate'])}</td></tr>
 </table>
+</div>
+<div class='card artifact-grid'>
+<div>
+<h2>Artifact outputs</h2>
+<ul>
+<li><code>manifest.json</code></li>
+<li><code>package_manifest.json</code></li>
+<li><code>package_hash.txt</code></li>
+<li><code>provenance_log.json</code></li>
+<li><code>safety_gates.json</code></li>
+<li><code>governance_ruling.json</code></li>
+</ul>
+</div>
+<div>
+<h2>Board-ready surfaces</h2>
+<ul>
+<li><code>chronicle_entry.json</code></li>
+<li><code>board_scorecard.json</code></li>
+<li><code>board_scorecard.md</code></li>
+<li><code>mandate3_selection.json</code></li>
+<li><code>report.md</code></li>
+<li><code>report.html</code></li>
+</ul>
+</div>
 </div>
 <div class='card'>
 <h2>Proof boundary</h2>
@@ -500,6 +566,7 @@ It does not claim unrestricted autonomy, literal unbounded RSI, or a fully reali
         "governance_ruling.json": governance_ruling,
         "chronicle_entry.json": chronicle_entry,
         "board_scorecard.json": board_scorecard,
+        "mandate3_selection.json": phase_c["selection_log"],
     }
 
     for name, payload in artifact_payloads.items():
@@ -530,6 +597,7 @@ It does not claim unrestricted autonomy, literal unbounded RSI, or a fully reali
             "governance_ruling.json",
             "chronicle_entry.json",
             "board_scorecard.json",
+            "mandate3_selection.json",
             "board_scorecard.md",
             "report.html",
             "report.md",
