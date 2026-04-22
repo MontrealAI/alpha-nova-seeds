@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Lightweight doctrine consistency checks for v2.8.0-rc.1 surfaces."""
+"""Lightweight doctrine consistency checks for v2.8.x RC surfaces."""
 
 from __future__ import annotations
 
@@ -21,6 +21,7 @@ DEMO_LADDER_LINKS = [
     "demos/protocol_smart_contract_correctness_demo/",
     "demos/adjacent_mandate_reuse_proof_demo/",
     "demos/adjacent_mandate_reuse_proof_real_v1/",
+    "demos/open-ended-rsi-system/",
     "demos/unbounded-rsi-system/",
     "demos/README.md",
 ]

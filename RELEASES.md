@@ -1,6 +1,6 @@
 # Releases
 
-## v2.8 RC release contract
+## v2.8 RC release contract (active target: v2.8.0-rc.2)
 
 Each release candidate must include:
 
@@ -40,7 +40,8 @@ If regeneration is required, cut a new RC tag.
 For v2.8.x publication:
 
 - Flagship demo replay + assert mode passing.
-- Accelerating-loop demo replay (`demos/unbounded-rsi-system/run_demo.py --assert`) passing with required artifact emission.
+- Accelerating-loop demo replay (`demos/open-ended-rsi-system/run_demo.py --assert`) passing with required artifact emission.
+- Legacy replay compatibility: `demos/unbounded-rsi-system/run_demo.py --assert` remains supported for historical comparison.
 - Demo ladder cross-links and role labels passing validation.
 - Root README links to flagship, ladder, doctrine, and release posture docs.
 - Math markdown validation helper passing.

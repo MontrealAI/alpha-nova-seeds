@@ -1,0 +1,14 @@
+{
+  "demo": "open-ended-rsi-system",
+  "release_target": "v2.8.0-rc.2",
+  "timestamp": "2026-04-22T00:00:00+00:00",
+  "modes": [
+    "DISCO",
+    "Arnold"
+  ],
+  "phases": [
+    "bounded",
+    "expanding",
+    "increasingly_autonomous"
+  ]
+}

@@ -1,5 +1,23 @@
 # Changelog
 
+## [v2.8.0-rc.2] - 2026-04-22
+
+### Added
+- New deterministic accelerating-loop demo at `demos/open-ended-rsi-system/` with governed generation pipeline, DISCO/Arnold alternating modes, machine-readable artifact ladder, board-ready HTML scorecard, and `--assert` smoke mode.
+- New staged demo artifact directories under `demos/open-ended-rsi-system/` (`00_manifest` ... `08_proof_docket` + `out`) plus deterministic emission of `capability_genome.json`, `assay_bundle.json`, `lineage.json`, `frontier_queue.json`, `intervention_log.json`, `scorecard.json`, `summary.md`, `proof_docket.md`, and `provenance_manifest.json`.
+- New canonical v2.8 schemas for accelerating-loop artifacts: `schemas/v2.8/capability_genome.schema.json`, `schemas/v2.8/assay_bundle.schema.json`, and `schemas/v2.8/lineage.schema.json`.
+- New release checklist `release/v2.8.0-rc.2-open-ended-rsi-checklist.md` with acceptance criteria, smoke checks, provenance expectations, migration/rollback notes, and claim boundaries.
+
+### Changed
+- Root README posture updated to active target `v2.8.0-rc.2`, with the new open-ended demo as the accelerating-loop front door while retaining `demos/unbounded-rsi-system/` as a legacy compatibility surface.
+- Demo ladder index now designates `demos/open-ended-rsi-system/` as the accelerating-loop demo and preserves explicit demonstrated/simulated/unproven boundaries.
+- Demo/doctrine link checks now include `demos/open-ended-rsi-system/` in required release surfaces.
+- Repo-level posture docs (`AGENTS.md`, `docs/FRONTIER_LAB_POSTURE.md`, `docs/DOCTRINE_STACK.md`, `RELEASES.md`) aligned to the v2.8.0-rc.2 train without widening public claims.
+
+### Notes
+- This RC strengthens deterministic bounded mechanism evidence and operator presentation quality.
+- It does **not** claim unrestricted autonomy, literal unbounded RSI, or completed broad real-world sovereign operation.
+
 ## [v2.8.0-rc.1] - 2026-04-22
 
 ### Added
