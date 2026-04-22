@@ -48,6 +48,12 @@
   "real_mandate_inputs": {
     "repo_native_probes": [
       {
+        "id": "protocol_wedge_replay_assert",
+        "cmd": "python3 demos/protocol_smart_contract_correctness_demo/run_demo.py --assert",
+        "scope": "real mandate 1 wedge replay",
+        "returncode": 0
+      },
+      {
         "id": "demo_link_integrity",
         "cmd": "python3 scripts/check_demo_links.py",
         "scope": "demo ladder",

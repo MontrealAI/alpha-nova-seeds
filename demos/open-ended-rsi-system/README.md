@@ -17,7 +17,7 @@ It demonstrates controlled compounding under governance. **Claim boundary (one s
 
 ## Real Mandate 1 input policy
 
-Generation 0 includes deterministic repo-native probes over existing release/doctrine/demo validation helpers (`check_demo_links`, `check_doctrine_consistency`, `check_math_markdown`) so the starting wedge uses real local repo surfaces, while final adjudication values remain explicitly synthetic.
+Generation 0 includes deterministic repo-native probes that replay the flagship wedge (`demos/protocol_smart_contract_correctness_demo/run_demo.py --assert`) plus release/doctrine/demo validation helpers (`check_demo_links`, `check_doctrine_consistency`, `check_math_markdown`) so the starting wedge uses real local repo surfaces, while final adjudication values remain explicitly synthetic.
 
 ## Required folders and emitted artifacts
 

@@ -1,8 +1,8 @@
 {
   "release_target": "v2.8.0-rc.2",
-  "manifest_hash": "809d3448ac7486a1ff72b03031d355c41ca3cfe53f3eac34d4c4b3821649b1d2",
-  "config_hash": "4b91f271d797413f07357702b53ffc03761842706607d5f111ad717e385beb0e",
-  "scorecard_hash": "9dc78845948c5a850be03cb28dc787b06446fb5fb6454cfdc11fe63642460edb",
+  "manifest_hash": "175c04e48b498a0770617ca995571ab0a4e0d34ea2a85893b7a925778bec0b54",
+  "config_hash": "f4ed284d88169ef83648e33a285f32ebbd110946c7209579b4c0e1f0519e9d78",
+  "scorecard_hash": "37986b0484f8caa95890e35c701725c1f41c9be09978c2c2c441caedc0a89f99",
   "proof_docket_hash": "0ab9ac954ff90d3f8c80c2fc89cea93c411b24940fa82efbeabb1435ecc6b0d6",
   "frozen_package_manifest_hash": "56dfb240a9b6b73c91cb4bb7b06efba543956dea0d4760a0c3f8bd41c5da0f75",
   "determinism_guards": {
@@ -28,7 +28,7 @@
   "files": [
     {
       "path": "demos/open-ended-rsi-system/00_manifest/manifest.json",
-      "sha256": "d2213e2b0516e31e2e6bbd0bbcd2b17d3a5a883dd7805d821a5a4accca448cf5"
+      "sha256": "c129acf1b998aaf3f49897259dfed68aefc9c4902cf2f7e33d59c567eec1ae95"
     },
     {
       "path": "demos/open-ended-rsi-system/01_frontier_queue/frontier_queue.json",
@@ -36,11 +36,11 @@
     },
     {
       "path": "demos/open-ended-rsi-system/02_seed_genome/capability_genome.json",
-      "sha256": "7b1ea3deaa7aefcc89ae4a6fb1f4ba1423a6edfaa6ea68f9371d749253be38f7"
+      "sha256": "a2c714b547e891655c4b5e295aa993918da459c1d35f0e7cd7d345fd977bd8ed"
     },
     {
       "path": "demos/open-ended-rsi-system/03_generation/generation_0.json",
-      "sha256": "b0c4a8b0f7f52dc1fd98a233999289b172842fc36ca1673ca8c22bec0d575c67"
+      "sha256": "9cb76c5c995ae1c9f4d62c96da69d72bafd0d03cea6bc9e8a450eaa7f677fb2f"
     },
     {
       "path": "demos/open-ended-rsi-system/03_generation/generation_1.json",
@@ -48,11 +48,11 @@
     },
     {
       "path": "demos/open-ended-rsi-system/03_generation/generation_2.json",
-      "sha256": "1bf35b0f92e8564b825b9092efcb20c7e56112a0c50ba568fdfbd617b1148037"
+      "sha256": "d2a04801c943aa23d9b66dda0d40fdc70db905e6cb56264e37379c61b8d0cb16"
     },
     {
       "path": "demos/open-ended-rsi-system/04_assays/assay_bundle.json",
-      "sha256": "8b4ab5c7ac003f2b7ab2efebb68c90377a02ee2fe358e239dd3ae5af2078978c"
+      "sha256": "479dce614b18968e05e38165410f10056abf1a37375379d26e0a01855ed2223a"
     },
     {
       "path": "demos/open-ended-rsi-system/05_selection/lineage.json",
@@ -60,7 +60,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/06_archive/intervention_log.json",
-      "sha256": "6b0f0755b96bddd85388eabe948979757b051bbdd0804910a0773b3ffecb4fba"
+      "sha256": "4765ff9ef33eb5f6d75631bcb275f207ba7e5176fcdf37a2d768d820d8feb617"
     },
     {
       "path": "demos/open-ended-rsi-system/07_scorecard/safety_gates.json",
@@ -68,7 +68,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/07_scorecard/scorecard.json",
-      "sha256": "9dc78845948c5a850be03cb28dc787b06446fb5fb6454cfdc11fe63642460edb"
+      "sha256": "37986b0484f8caa95890e35c701725c1f41c9be09978c2c2c441caedc0a89f99"
     },
     {
       "path": "demos/open-ended-rsi-system/08_proof_docket/proof_docket.md",
@@ -80,15 +80,15 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/assay_bundle.json",
-      "sha256": "8b4ab5c7ac003f2b7ab2efebb68c90377a02ee2fe358e239dd3ae5af2078978c"
+      "sha256": "479dce614b18968e05e38165410f10056abf1a37375379d26e0a01855ed2223a"
     },
     {
       "path": "demos/open-ended-rsi-system/out/board_report.html",
-      "sha256": "9a623043cbdf69cc85f2cbf2bbba7c41b6dbab5e79cb2f3b32e8d55b58536600"
+      "sha256": "5d85363824813fc613633238d9f77ed4f1bb48b1ed42b879a867f732bbed2176"
     },
     {
       "path": "demos/open-ended-rsi-system/out/capability_genome.json",
-      "sha256": "7b1ea3deaa7aefcc89ae4a6fb1f4ba1423a6edfaa6ea68f9371d749253be38f7"
+      "sha256": "a2c714b547e891655c4b5e295aa993918da459c1d35f0e7cd7d345fd977bd8ed"
     },
     {
       "path": "demos/open-ended-rsi-system/out/claim_boundary.json",
@@ -100,7 +100,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/generation_0.json",
-      "sha256": "b0c4a8b0f7f52dc1fd98a233999289b172842fc36ca1673ca8c22bec0d575c67"
+      "sha256": "9cb76c5c995ae1c9f4d62c96da69d72bafd0d03cea6bc9e8a450eaa7f677fb2f"
     },
     {
       "path": "demos/open-ended-rsi-system/out/generation_1.json",
@@ -108,11 +108,11 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/generation_2.json",
-      "sha256": "1bf35b0f92e8564b825b9092efcb20c7e56112a0c50ba568fdfbd617b1148037"
+      "sha256": "d2a04801c943aa23d9b66dda0d40fdc70db905e6cb56264e37379c61b8d0cb16"
     },
     {
       "path": "demos/open-ended-rsi-system/out/intervention_log.json",
-      "sha256": "6b0f0755b96bddd85388eabe948979757b051bbdd0804910a0773b3ffecb4fba"
+      "sha256": "4765ff9ef33eb5f6d75631bcb275f207ba7e5176fcdf37a2d768d820d8feb617"
     },
     {
       "path": "demos/open-ended-rsi-system/out/lineage.json",
@@ -120,7 +120,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/manifest.json",
-      "sha256": "d2213e2b0516e31e2e6bbd0bbcd2b17d3a5a883dd7805d821a5a4accca448cf5"
+      "sha256": "c129acf1b998aaf3f49897259dfed68aefc9c4902cf2f7e33d59c567eec1ae95"
     },
     {
       "path": "demos/open-ended-rsi-system/out/proof_docket.md",
@@ -132,7 +132,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/scorecard.json",
-      "sha256": "9dc78845948c5a850be03cb28dc787b06446fb5fb6454cfdc11fe63642460edb"
+      "sha256": "37986b0484f8caa95890e35c701725c1f41c9be09978c2c2c441caedc0a89f99"
     },
     {
       "path": "demos/open-ended-rsi-system/out/summary.md",

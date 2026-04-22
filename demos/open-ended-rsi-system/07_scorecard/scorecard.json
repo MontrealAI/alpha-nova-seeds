@@ -6,7 +6,7 @@
     "increasingly_autonomous"
   ],
   "generation_summary": {
-    "g0_winner": "g0-candidate-26",
+    "g0_winner": "g0-candidate-04",
     "g1_treatment_win": true,
     "g2_selected_domain": "backend_api_correctness"
   },
@@ -29,7 +29,7 @@
   "longitudinal": {
     "frontier_width": 6,
     "autonomy_delta": 0.75,
-    "neighborhood_slope": -0.001,
+    "neighborhood_slope": 0.0004,
     "archive_depth": 2
   },
   "claim_boundary": {
