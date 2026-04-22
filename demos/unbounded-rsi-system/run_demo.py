@@ -544,6 +544,15 @@ It does not claim unrestricted autonomy, literal unbounded RSI, or a fully reali
         if rerun_hash != package_hash:
             raise SystemExit("assert failed: package hash mismatch")
 
+        if board_scorecard["governance_ruling"] != "pass_with_bounds":
+            raise SystemExit(
+                f"assert failed: governance gate regressed to {board_scorecard['governance_ruling']}"
+            )
+        if safety_gates["status"] != "pass":
+            raise SystemExit(
+                f"assert failed: safety gate regressed to {safety_gates['status']}"
+            )
+
     return run_bundle
 
 
