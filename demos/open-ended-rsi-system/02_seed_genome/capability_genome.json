@@ -29,12 +29,28 @@
       "sha256": "a0106204242e76d7e1c00568a42dc126495ae5a65fd02ec91dd46f85383d52cd"
     },
     {
+      "path": "demos/protocol_smart_contract_correctness_demo/run_demo.py",
+      "sha256": "d43b993f54e088837ec6474b7e998e16521ce5eca76858b5648e3f7c0776ff8b"
+    },
+    {
       "path": "backend/app/main.py",
       "sha256": "57735ed94fc4e2562d4fb1111e4a5c0e604cbf9559c53e758db5898144fe27cc"
     },
     {
+      "path": "backend/tests/test_contract_surfaces.py",
+      "sha256": "4d93de897c44613747b1e644b6e6bed339f9e6f12e11e1b6259e3e2d290e14f2"
+    },
+    {
       "path": "sdk/package.json",
       "sha256": "6ad2a845b30e5937e28008a2bd7560578c7870ce4fd459e210bbe947f868f5c9"
+    },
+    {
+      "path": "schemas/v2.8/capability_genome.schema.json",
+      "sha256": "89e0c5e7d1de0dda43c38c2c05d78ba4316433f424b99ecde73a1bc09a152f1e"
+    },
+    {
+      "path": "docs/proof-docket-template/README.md",
+      "sha256": "da66795d598ac2eefc80d9462ed32540595215ebdde2ca9bc817d111808dca94"
     },
     {
       "path": "docs/verify-release.md",
@@ -43,6 +59,10 @@
     {
       "path": "scripts/contracts/export_abi.py",
       "sha256": "c6b16bbb0dfba52db4d58fb4308e578adf31561bb222c4b5531458e3e666df14"
+    },
+    {
+      "path": "scripts/release/generate_provenance_manifest.py",
+      "sha256": "7f68cbebf1dae908c320e3e5d4ff716e6328ed8fd108788c3970c6edc72f865f"
     }
   ],
   "real_mandate_inputs": {

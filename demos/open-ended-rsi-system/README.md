@@ -47,6 +47,7 @@ Primary machine-readable outputs in `out/`:
 - `intervention_log.json`
 - `scorecard.json`
 - `claim_boundary.json`
+- `determinism_fingerprint.json`
 - `safety_gates.json`
 - `summary.md`
 - `proof_docket.md`
@@ -63,6 +64,15 @@ The run also performs deterministic local validation against:
 
 ```bash
 python3 demos/open-ended-rsi-system/run_demo.py --assert
+```
+
+Optional deterministic replay check (same machine, clean repo state):
+
+```bash
+python3 demos/open-ended-rsi-system/run_demo.py --assert
+cp demos/open-ended-rsi-system/out/determinism_fingerprint.json /tmp/rsi-fingerprint-a.json
+python3 demos/open-ended-rsi-system/run_demo.py --assert
+diff -u /tmp/rsi-fingerprint-a.json demos/open-ended-rsi-system/out/determinism_fingerprint.json
 ```
 
 ## Three generations

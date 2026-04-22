@@ -8,6 +8,7 @@
 - Added deterministic `claim_boundary.json` emission and schema-conformance checks for capability genome / assay bundle / lineage artifacts in `demos/open-ended-rsi-system/run_demo.py`.
 - New canonical v2.8 schemas for accelerating-loop artifacts: `schemas/v2.8/capability_genome.schema.json`, `schemas/v2.8/assay_bundle.schema.json`, and `schemas/v2.8/lineage.schema.json`.
 - New release checklist `release/v2.8.0-rc.2-open-ended-rsi-checklist.md` with acceptance criteria, smoke checks, provenance expectations, migration/rollback notes, and claim boundaries.
+- Added deterministic replay fingerprint artifact `demos/open-ended-rsi-system/out/determinism_fingerprint.json` and corresponding assert checks for fixed selection path + configuration contract.
 
 ### Changed
 - Root README posture updated to active target `v2.8.0-rc.2`, with the new open-ended demo as the accelerating-loop front door while retaining `demos/unbounded-rsi-system/` as a legacy compatibility surface.
@@ -19,6 +20,7 @@
 - Open-ended RSI outputs now include `out/safety_gates.json` to make doctrine gate outcomes (`no value without evidence`, `no autonomy without authority`, `no settlement without validation`) auditable as machine-readable artifacts.
 - Open-ended RSI safety-gate statuses are now computed from real run outcomes (probe return codes, threshold gates, schema validation, and authority-bound checks) rather than hardcoded pass labels.
 - Open-ended RSI output tree now mirrors generation artifacts in `out/` (`manifest.json`, `generation_0.json`, `generation_1.json`, `generation_2.json`) and logs a Generation 1 package-dependence ledger keyed to the frozen manifest hash.
+- Open-ended RSI real Mandate 1 seed genome now includes broader repo-native surfaces (flagship demo runner, backend tests, v2.8 schema artifact, proof-docket template, and provenance manifest script) so frozen package dependency is better rooted in code/test/schema/proof/release inputs.
 
 ### Notes
 - This RC strengthens deterministic bounded mechanism evidence and operator presentation quality.
