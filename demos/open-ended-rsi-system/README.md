@@ -75,6 +75,8 @@ python3 demos/open-ended-rsi-system/run_demo.py --assert
 diff -u /tmp/rsi-fingerprint-a.json demos/open-ended-rsi-system/out/determinism_fingerprint.json
 ```
 
+`determinism_fingerprint.json` uses file digests for `scorecard_hash` and `lineage_hash` so values align directly with provenance-manifest hash semantics.
+
 ## Three generations
 
 ### Generation 0 (bounded)

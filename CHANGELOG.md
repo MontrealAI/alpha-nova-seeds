@@ -21,6 +21,7 @@
 - Open-ended RSI safety-gate statuses are now computed from real run outcomes (probe return codes, threshold gates, schema validation, and authority-bound checks) rather than hardcoded pass labels.
 - Open-ended RSI output tree now mirrors generation artifacts in `out/` (`manifest.json`, `generation_0.json`, `generation_1.json`, `generation_2.json`) and logs a Generation 1 package-dependence ledger keyed to the frozen manifest hash.
 - Open-ended RSI real Mandate 1 seed genome now includes broader repo-native surfaces (flagship demo runner, backend tests, v2.8 schema artifact, proof-docket template, and provenance manifest script) so frozen package dependency is better rooted in code/test/schema/proof/release inputs.
+- Open-ended RSI determinism fingerprint now uses artifact file digests for `scorecard_hash` and `lineage_hash` to align with provenance-manifest hash semantics.
 
 ### Notes
 - This RC strengthens deterministic bounded mechanism evidence and operator presentation quality.

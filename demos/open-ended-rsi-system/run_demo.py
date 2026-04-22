@@ -613,15 +613,6 @@ def main() -> int:
         "selected": g2["selected_domain"],
     }
     claim_boundary = scorecard["claim_boundary"]
-    determinism_fingerprint = {
-        "release_target": cfg["release_target"],
-        "seed": cfg["seed"],
-        "candidate_pool_size": g0["candidate_count"],
-        "selected_domain": g2["selected_domain"]["domain"],
-        "manifest_hash": g0["frozen_package"]["manifest_hash"],
-        "scorecard_hash": jsha(scorecard),
-        "lineage_hash": jsha(lineage),
-    }
 
     proof_md = render_proof_docket(scorecard, g0, g1, g2)
     summary_md = render_summary(scorecard, g2)
@@ -650,7 +641,6 @@ def main() -> int:
         (OUT / "intervention_log.json", intervention_log, True),
         (OUT / "scorecard.json", scorecard, True),
         (OUT / "claim_boundary.json", claim_boundary, True),
-        (OUT / "determinism_fingerprint.json", determinism_fingerprint, True),
         (OUT / "summary.md", summary_md, False),
         (OUT / "proof_docket.md", proof_md, False),
     ]
@@ -659,6 +649,16 @@ def main() -> int:
         dump(p, payload) if is_json else write(p, str(payload))
 
     write(OUT / "board_report.html", render_html(scorecard, g0, g1, g2))
+    determinism_fingerprint = {
+        "release_target": cfg["release_target"],
+        "seed": cfg["seed"],
+        "candidate_pool_size": g0["candidate_count"],
+        "selected_domain": g2["selected_domain"]["domain"],
+        "frozen_package_manifest_hash": g0["frozen_package"]["manifest_hash"],
+        "scorecard_hash": fsha(OUT / "scorecard.json"),
+        "lineage_hash": fsha(OUT / "lineage.json"),
+    }
+    dump(OUT / "determinism_fingerprint.json", determinism_fingerprint)
 
     schema_payloads = {
         "capability_genome": {
@@ -744,7 +744,7 @@ def main() -> int:
             k: {"schema_id": v["schema"].get("$id", ""), "status": schema_validation_results[k]}
             for k, v in schema_payloads.items()
         },
-        "determinism_fingerprint_hash": jsha(determinism_fingerprint),
+        "determinism_fingerprint_hash": fsha(OUT / "determinism_fingerprint.json"),
         "files": [],
     }
     provenance_files = []
@@ -798,7 +798,9 @@ def main() -> int:
         assert g2["arnold_mode"]["neighborhood_size"] == cfg["neighborhood_size"]
         assert manifest["timestamp"] == cfg["deterministic_timestamp"]
         assert g2["selected_domain"]["domain"] == "backend_api_correctness"
-        assert re.fullmatch(r"^[a-f0-9]{64}$", determinism_fingerprint["manifest_hash"])
+        assert re.fullmatch(
+            r"^[a-f0-9]{64}$", determinism_fingerprint["frozen_package_manifest_hash"]
+        )
 
     print(f"PASS: {cfg['demo_id']} artifacts generated at {OUT}")
     return 0

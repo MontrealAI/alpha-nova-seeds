@@ -25,7 +25,7 @@
       "status": "pass"
     }
   },
-  "determinism_fingerprint_hash": "37a1108b1b1765545ed6af7b4759f6f7864947f774464d175b94a9f22928d389",
+  "determinism_fingerprint_hash": "fd5dc1cf4023a56284dee97362173f1fb2c55a89d6ef145edb6f19eac7a27697",
   "files": [
     {
       "path": "demos/open-ended-rsi-system/00_manifest/manifest.json",
@@ -97,7 +97,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/determinism_fingerprint.json",
-      "sha256": "60ae6fda9b86d5565e337c7aa974680d44c9956f41c7c64c11a0df43372514df"
+      "sha256": "fd5dc1cf4023a56284dee97362173f1fb2c55a89d6ef145edb6f19eac7a27697"
     },
     {
       "path": "demos/open-ended-rsi-system/out/frontier_queue.json",
