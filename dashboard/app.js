@@ -1,5 +1,6 @@
 const API = 'http://localhost:8000';
 let snapshot = {};
+const SNAPSHOT_VERSION = 'v2.7.0-rc.2';
 
 async function getJson(path, fallback) {
   try {
@@ -34,7 +35,7 @@ function bindExports() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `nova-seeds-v26-snapshot-${Date.now()}.json`;
+    a.download = `nova-seeds-${SNAPSHOT_VERSION}-snapshot-${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
   });
@@ -46,14 +47,14 @@ function bindExports() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = '#d2f8ff';
     ctx.font = '24px sans-serif';
-    ctx.fillText('Nova-Seeds v2.6 RC Snapshot', 30, 50);
+    ctx.fillText(`Nova-Seeds ${SNAPSHOT_VERSION} Snapshot`, 30, 50);
     ctx.font = '16px monospace';
     const lines = JSON.stringify(snapshot, null, 2).split('\n').slice(0, 30);
     lines.forEach((line, i) => ctx.fillText(line, 30, 90 + i * 20));
     const url = canvas.toDataURL('image/png');
     const a = document.createElement('a');
     a.href = url;
-    a.download = `nova-seeds-v26-snapshot-${Date.now()}.png`;
+    a.download = `nova-seeds-${SNAPSHOT_VERSION}-snapshot-${Date.now()}.png`;
     a.click();
   });
 }
@@ -77,6 +78,8 @@ async function load() {
   document.getElementById('councilSeats').textContent = JSON.stringify(council, null, 2);
 
   snapshot = {
+    version: SNAPSHOT_VERSION,
+    proofBoundary: 'Synthetic wedge proof only; broader cybersecurity sovereign remains future-facing.',
     capturedAt: new Date().toISOString(),
     summary,
     proof,

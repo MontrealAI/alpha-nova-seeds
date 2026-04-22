@@ -1,4 +1,4 @@
-# α‑AGI Nova‑Seeds (v2.7.0-rc.1 posture)
+# α‑AGI Nova‑Seeds (v2.7.0-rc.2 posture)
 
 Nova‑Seeds are **sealed venture blueprints for sovereign opportunity formation**.
 
@@ -31,8 +31,8 @@ Operational doctrine:
 
 ## Release posture (April 22, 2026)
 
-- Current target posture: **v2.7.0-rc.1 flagship demo + doctrine verifiable release candidate**.
-- SemVer target remains **v2.7.0-rc.1** because this batch is additive release-candidate hardening (demo + doctrine + verification surfaces), not a stable GA cut.
+- Current target posture: **v2.7.0-rc.2 flagship demo + operator UI + doctrine verifiable release candidate**.
+- SemVer target is **v2.7.0-rc.2** because `v2.7.0-rc.1` already exists and this batch adds new additive hardening surfaces (flagship UX polish, operator dashboard clarity, and release checklist refinement), not a stable GA cut.
 - Latest generally referenced milestone in earlier docs: **v2.5 foundational architecture release**.
 - This repo deliberately avoids claims such as “audited”, “final”, “mainnet-safe by default”, or “fully proven compounding substrate”.
 
@@ -116,6 +116,7 @@ cd sdk && npm run build --if-present && cd -
 # doctrine + equation consistency
 python scripts/check_math_markdown.py
 python scripts/check_doctrine_consistency.py
+python scripts/check_demo_links.py
 ```
 
 For full RC artifact verification (checksums + attestation + SBOM), follow [`docs/verify-release.md`](./docs/verify-release.md).

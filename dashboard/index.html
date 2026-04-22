@@ -3,81 +3,115 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Nova-Seeds v2.6 RC Operator Dashboard</title>
+  <title>Nova-Seeds v2.7 RC Operator Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="hero">
-    <div class="eyebrow">NOVA-SEEDS v2.6 RC</div>
-    <h1>Proof-first operations for seeds, governance accounting, lineage, and release provenance.</h1>
-    <p>Green path: identity intake → proof completeness → settlement accounting → governance lifecycle visibility.</p>
-    <div class="actions">
-      <button id="exportJson">Export JSON Snapshot</button>
-      <button id="exportPng">Export PNG Snapshot</button>
+  <div class="page">
+    <div class="hero">
+      <div class="eyebrow">NOVA-SEEDS v2.7.0-rc.2</div>
+      <h1>Operator Dashboard — Protocol Correctness Wedge</h1>
+      <p>Identity → proof → settlement → governance with explicit synthetic-vs-real boundaries and release verification pointers.</p>
+      <div class="status-row">
+        <span class="pill synthetic">Synthetic flagship wedge</span>
+        <span class="pill caution">Real-world sovereign remains future-facing</span>
+      </div>
+      <div class="actions">
+        <button id="exportJson">Export JSON Snapshot</button>
+        <button id="exportPng">Export PNG Snapshot</button>
+      </div>
     </div>
-  </div>
 
-  <div class="tabs">
-    <button data-tab="seeds" class="active">Seeds</button>
-    <button data-tab="rounds">Rounds</button>
-    <button data-tab="reviewer">Reviewer Ledger</button>
-    <button data-tab="council">Council Seats</button>
-    <button data-tab="lineage">Sovereign Lineage</button>
-    <button data-tab="provenance">Release Provenance</button>
-    <button data-tab="alerts">Alerts/Disputes</button>
-    <button data-tab="green">Green Path</button>
-  </div>
+    <section class="card ladder">
+      <h2>Demo Ladder</h2>
+      <div class="ladder-grid">
+        <a class="ladder-card" href="../demos/protocol_smart_contract_correctness_demo/README.md">
+          <strong>Flagship synthetic wedge demo</strong>
+          <span>Protocol correctness front door with deterministic PASS/FAIL gating.</span>
+        </a>
+        <a class="ladder-card" href="../demos/adjacent_mandate_reuse_proof_demo/README.md">
+          <strong>Compact synthetic adjacent proof demo</strong>
+          <span>Small replay surface for control-vs-treatment threshold checks.</span>
+        </a>
+        <a class="ladder-card" href="../demos/adjacent_mandate_reuse_proof_real_v1/README.md">
+          <strong>Real-world experiment pack</strong>
+          <span>Operator templates and runbook for blinded controlled experiments.</span>
+        </a>
+      </div>
+    </section>
 
-  <section id="seeds" class="panel active">
-    <div class="grid">
-      <div class="card"><h3>Total Seeds</h3><div id="seed_count" class="metric">—</div></div>
-      <div class="card"><h3>Greenlit</h3><div id="greenlit_count" class="metric">—</div></div>
-      <div class="card"><h3>Sovereigns</h3><div id="sovereign_count" class="metric">—</div></div>
-      <div class="card"><h3>Open Decryption</h3><div id="open_decryption_requests" class="metric">—</div></div>
+    <div class="tabs">
+      <button data-tab="seeds" class="active">Seeds</button>
+      <button data-tab="rounds">Rounds</button>
+      <button data-tab="reviewer">Reviewer Ledger</button>
+      <button data-tab="council">Council Seats</button>
+      <button data-tab="lineage">Sovereign Lineage</button>
+      <button data-tab="provenance">Release Provenance</button>
+      <button data-tab="alerts">Alerts/Disputes</button>
+      <button data-tab="green">Green Path</button>
     </div>
-  </section>
 
-  <section id="rounds" class="panel">
-    <div class="card"><h3>Delegations</h3><div id="total_delegations" class="metric">—</div></div>
-    <div class="card"><h3>Total Reward Events</h3><div id="total_reward_events" class="metric">—</div></div>
-    <div class="card"><h3>Proof Events Indexed</h3><div id="chain_event_count" class="metric">—</div></div>
-  </section>
+    <section id="seeds" class="panel active">
+      <div class="grid">
+        <div class="card"><h3>Total Seeds</h3><div id="seed_count" class="metric">—</div><small>Indexed seed entities</small></div>
+        <div class="card"><h3>Greenlit</h3><div id="greenlit_count" class="metric">—</div><small>Eligible for settlement</small></div>
+        <div class="card"><h3>Sovereigns</h3><div id="sovereign_count" class="metric">—</div><small>Materialized synthetic sovereign records</small></div>
+        <div class="card"><h3>Open Decryption</h3><div id="open_decryption_requests" class="metric">—</div><small>Pending threshold decryptions</small></div>
+      </div>
+    </section>
 
-  <section id="reviewer" class="panel">
-    <h3>Reviewer stake ledger</h3>
-    <pre id="reviewerLedger">[]</pre>
-  </section>
+    <section id="rounds" class="panel">
+      <div class="grid">
+        <div class="card"><h3>Delegations</h3><div id="total_delegations" class="metric">—</div></div>
+        <div class="card"><h3>Total Reward Events</h3><div id="total_reward_events" class="metric">—</div></div>
+        <div class="card"><h3>Proof Events Indexed</h3><div id="chain_event_count" class="metric">—</div></div>
+      </div>
+    </section>
 
-  <section id="council" class="panel">
-    <h3>Council seat lifecycle</h3>
-    <pre id="councilSeats">[]</pre>
-  </section>
+    <section id="reviewer" class="panel">
+      <h3>Reviewer stake ledger</h3>
+      <p class="muted">Operator view of reviewer settlement/accounting. Synthetic data must remain labeled as synthetic.</p>
+      <pre id="reviewerLedger">[]</pre>
+    </section>
 
-  <section id="lineage" class="panel">
-    <h3>Sovereign lineage</h3>
-    <p>Lineage data source schema: <code>sovereign_lineage_dashboard_schema_v25.json</code></p>
-  </section>
+    <section id="council" class="panel">
+      <h3>Council seat lifecycle</h3>
+      <p class="muted">Identity and challenge lifecycle visibility for governance audit trails.</p>
+      <pre id="councilSeats">[]</pre>
+    </section>
 
-  <section id="provenance" class="panel">
-    <h3>Release provenance</h3>
-    <p>Verification guide: <code>docs/verify-release.md</code></p>
-    <p>Attestation workflow: <code>.github/workflows/release-provenance.yml</code></p>
-  </section>
+    <section id="lineage" class="panel">
+      <h3>Sovereign lineage</h3>
+      <p>Lineage data source schema: <code>sovereign_lineage_dashboard_schema_v25.json</code></p>
+      <p class="muted">Use lineage as archive evidence, not as proof of broader sovereignty beyond release boundaries.</p>
+    </section>
 
-  <section id="alerts" class="panel">
-    <div class="card"><h3>Open Challenges</h3><div id="open_challenges" class="metric">—</div></div>
-    <div class="card"><h3>Unresolved proof alerts</h3><div id="proof_alerts" class="metric">—</div></div>
-  </section>
+    <section id="provenance" class="panel">
+      <h3>Release provenance</h3>
+      <ul>
+        <li>Verification guide: <code>docs/verify-release.md</code></li>
+        <li>Attestation workflow: <code>.github/workflows/release-provenance.yml</code></li>
+        <li>RC checklist: <code>release/v2.7.0-rc.2-ui-demo-release-checklist.md</code></li>
+      </ul>
+    </section>
 
-  <section id="green" class="panel">
-    <h3>Green path operator checks</h3>
-    <ol>
-      <li>Run migrations 001 + 002 in order.</li>
-      <li>Run deterministic backfill and confirm readiness.</li>
-      <li>Verify proof summary, reviewer ledger, and council lifecycle are non-erroring.</li>
-      <li>Verify release provenance bundle before promotion.</li>
-    </ol>
-  </section>
+    <section id="alerts" class="panel">
+      <div class="grid">
+        <div class="card"><h3>Open Challenges</h3><div id="open_challenges" class="metric">—</div></div>
+        <div class="card"><h3>Unresolved proof alerts</h3><div id="proof_alerts" class="metric">—</div></div>
+      </div>
+    </section>
+
+    <section id="green" class="panel">
+      <h3>Green path operator checks</h3>
+      <ol>
+        <li>Run migrations 001 + 002 in order.</li>
+        <li>Run deterministic backfill and confirm readiness.</li>
+        <li>Verify proof summary, reviewer ledger, and council lifecycle are non-erroring.</li>
+        <li>Verify release provenance bundle before promotion.</li>
+      </ol>
+    </section>
+  </div>
 
   <canvas id="snapshotCanvas" width="1200" height="700" class="hidden"></canvas>
   <script src="app.js"></script>
