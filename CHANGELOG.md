@@ -23,6 +23,7 @@
 - Open-ended RSI real Mandate 1 seed genome now includes broader repo-native surfaces (flagship demo runner, backend tests, v2.8 schema artifact, proof-docket template, and provenance manifest script) so frozen package dependency is better rooted in code/test/schema/proof/release inputs.
 - Open-ended RSI determinism fingerprint now uses artifact file digests for `scorecard_hash` and `lineage_hash` to align with provenance-manifest hash semantics.
 - Open-ended RSI assert-mode frontier selection check now derives expected domain from configured deterministic scoring output instead of hardcoding one domain label.
+- Open-ended RSI Generation 0 now tracks deterministic strategy-family diversity on the Pareto frontier before winner freeze, and Generation 2 now emits a deterministically ranked frontier queue for clearer autonomy auditability.
 
 ### Notes
 - This RC strengthens deterministic bounded mechanism evidence and operator presentation quality.

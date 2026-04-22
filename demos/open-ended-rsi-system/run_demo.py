@@ -168,6 +168,7 @@ def generation_zero(cfg: dict[str, Any], genome: dict[str, Any], probes: list[di
     probe_ok = all(p["returncode"] == 0 for p in probes)
     rng = random.Random(cfg["seed"])
     candidates = []
+    strategy_families = ["proof_first", "test_first", "schema_first", "docs_first"]
     for i in range(cfg["candidate_pool_size"]):
         cheap = 0.64 + rng.randint(0, 22) / 100
         mid = 0.58 + rng.randint(0, 18) / 100
@@ -192,6 +193,7 @@ def generation_zero(cfg: dict[str, Any], genome: dict[str, Any], probes: list[di
         candidates.append(
             {
                 "candidate_id": f"g0-candidate-{i:02d}",
+                "strategy_family": strategy_families[i % len(strategy_families)],
                 "mode": "DISCO" if i < cfg["candidate_pool_size"] // 2 else "Arnold",
                 "cheap_assay": round(cheap, 3),
                 "mid_assay": round(mid, 3),
@@ -205,6 +207,10 @@ def generation_zero(cfg: dict[str, Any], genome: dict[str, Any], probes: list[di
 
     front = pareto_front(candidates)
     winner = max(front, key=lambda c: c["composite"])
+    family_counts: dict[str, int] = {}
+    for c in front:
+        fam = c["strategy_family"]
+        family_counts[fam] = family_counts.get(fam, 0) + 1
     frozen = {
         "package_id": "capability-pack-g0-v1",
         "parentage": [genome["id"]],
@@ -224,6 +230,7 @@ def generation_zero(cfg: dict[str, Any], genome: dict[str, Any], probes: list[di
         "human_intervention_touches": 8,
         "candidate_count": len(candidates),
         "pareto_front_count": len(front),
+        "strategy_families_on_frontier": family_counts,
         "real_repo_probes": probes,
         "candidates": candidates,
         "winner": winner,
@@ -349,6 +356,7 @@ def generation_two(cfg: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any]) 
         )
 
     selected = max(frontier, key=lambda c: c["selection_score"])
+    ranked_frontier = sorted(frontier, key=lambda c: c["selection_score"], reverse=True)
     neighborhood = []
     base = selected["selection_score"]
     rng = random.Random(cfg["seed"] + 2)
@@ -366,7 +374,7 @@ def generation_two(cfg: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any]) 
         "mandate": "adjacent second domain with reduced intervention",
         "human_intervention_touches": 2,
         "selected_domain": selected,
-        "frontier_queue": frontier,
+        "frontier_queue": ranked_frontier,
         "disco_mode": {
             "reactive_intermediate": "missing proof-docket completeness crosswalk in selected domain",
             "first_workable_package": "g2-workable-pack-v1",
@@ -398,6 +406,7 @@ def build_scorecard(
         "phases": ["bounded", "expanding", "increasingly_autonomous"],
         "generation_summary": {
             "g0_winner": g0["winner"]["candidate_id"],
+            "g0_frontier_diversity": g0["strategy_families_on_frontier"],
             "g1_treatment_win": True,
             "g2_selected_domain": g2["selected_domain"]["domain"],
         },
