@@ -10,6 +10,7 @@ FILES = [
     ROOT / "demos" / "README.md",
     ROOT / "demos" / "protocol_smart_contract_correctness_demo" / "README.md",
     ROOT / "demos" / "adjacent_mandate_reuse_proof_demo" / "README.md",
+    ROOT / "demos" / "adjacent_mandate_reuse_proof_real_v1" / "README.md",
 ]
 
 REQUIRED_PATHS = [
