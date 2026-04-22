@@ -64,7 +64,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/07_scorecard/safety_gates.json",
-      "sha256": "6fad46bc33885de461d692580462b16aa9c3c008b24beb5e60d63beba8566bff"
+      "sha256": "689164f1a396d62d204824b3d7d5e6a7b82519bd32e30817cc68de313ad047c2"
     },
     {
       "path": "demos/open-ended-rsi-system/07_scorecard/scorecard.json",
@@ -112,7 +112,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/safety_gates.json",
-      "sha256": "6fad46bc33885de461d692580462b16aa9c3c008b24beb5e60d63beba8566bff"
+      "sha256": "689164f1a396d62d204824b3d7d5e6a7b82519bd32e30817cc68de313ad047c2"
     },
     {
       "path": "demos/open-ended-rsi-system/out/scorecard.json",
