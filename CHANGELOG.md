@@ -1,5 +1,20 @@
 # Changelog
 
+## [v2.8.0-rc.2] - 2026-04-22
+
+### Added
+- New flagship accelerating-loop demo: `demos/unbounded-rsi-system/` with deterministic phase A/B/C execution and board-ready artifacts (`manifest.json`, `package_manifest.json`, `package_hash.txt`, `provenance_log.json`, `safety_gates.json`, `governance_ruling.json`, `chronicle_entry.json`, `board_scorecard.json`, `board_scorecard.md`, `report.md`, `report.html`).
+- New release checklist: `release/v2.8.0-rc.2-unbounded-rsi-demo-checklist.md` for acceptance criteria, smoke checks, provenance expectations, migration/rollback notes, and claim boundaries.
+
+### Changed
+- Demo ladder now includes four explicit roles: flagship wedge demo, compact synthetic adjacent demo, real-world proof pack, and accelerating-loop demo.
+- Root front door and dashboard ladder surfaces now link the new accelerating-loop demo and promote v2.8.0-rc.2 checklist routing.
+- Demo/doctrine link validation scripts now enforce `demos/unbounded-rsi-system/` presence and the `Accelerating-loop demo` role label.
+
+### Notes
+- This release remains a **verifiable release candidate**, not an audited final deployment.
+- “Unbounded RSI” remains framed as a bounded proof-of-mechanism demonstration, not a literal unrestricted-autonomy claim.
+
 ## [v2.8.0-rc.1] - 2026-04-22
 
 ### Added

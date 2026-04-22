@@ -1,0 +1,48 @@
+{
+  "mandate_id": "M2-ADJACENT-CONTROL-VS-TREATMENT",
+  "phase": "expanding",
+  "control": {
+    "lane": "control",
+    "aoy": 0.41,
+    "time_to_first_accepted_output_minutes": 78,
+    "repair_rework_rate": 0.32,
+    "evidence_completeness": 0.71,
+    "severe_safety_events": 0,
+    "package_dependence_rate": 0.0
+  },
+  "treatment": {
+    "lane": "treatment",
+    "aoy": 0.6,
+    "time_to_first_accepted_output_minutes": 49,
+    "repair_rework_rate": 0.17,
+    "evidence_completeness": 0.9,
+    "severe_safety_events": 0,
+    "package_dependence_rate": 0.46,
+    "applied_package_hash": "489f018f2f7cab3ea098339a22476e19bc72d01debcf2b881d72e1981f1e1605"
+  },
+  "comparison": {
+    "aoy_uplift": 0.4634146341463415,
+    "speed_uplift": 0.3717948717948718,
+    "repair_rework_reduction": 0.46875,
+    "evidence_completeness_uplift": 0.267605633802817,
+    "no_safety_regression": true,
+    "package_dependence_rate": 0.46
+  },
+  "thresholds": {
+    "aoy_uplift": 0.35,
+    "speed_uplift": 0.3,
+    "repair_rework_reduction": 0.4,
+    "evidence_completeness_uplift": 0.2,
+    "package_dependence_rate": 0.3
+  },
+  "passes": {
+    "aoy_uplift": true,
+    "speed_uplift": true,
+    "repair_rework_reduction": true,
+    "evidence_completeness_uplift": true,
+    "no_safety_regression": true,
+    "package_dependence_rate": true,
+    "adjacent_mandate_proof": true
+  },
+  "determinism_note": "Both lanes are deterministic with fixed metrics and policy gates for replayability."
+}

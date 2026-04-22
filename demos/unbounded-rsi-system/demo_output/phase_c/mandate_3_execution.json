@@ -1,0 +1,51 @@
+{
+  "mandate_id": "M3-BROADER-ADJACENT-AUTONOMY",
+  "phase": "increasingly_autonomous",
+  "selection_mode": "bounded_candidate_set_rule_based_scoring",
+  "candidate_scores": [
+    {
+      "candidate": "backend_proof_governance_api_correctness",
+      "coverage": 0.6666666666666666,
+      "adjacency": 0.88,
+      "safety": 0.92,
+      "intervention": 0.3,
+      "score": 0.7953
+    },
+    {
+      "candidate": "sdk_typed_attestation_threshold_payload_correctness",
+      "coverage": 0.6666666666666666,
+      "adjacency": 0.8,
+      "safety": 0.95,
+      "intervention": 0.42,
+      "score": 0.7613
+    },
+    {
+      "candidate": "dashboard_provenance_evidence_surface_correctness",
+      "coverage": 0.5,
+      "adjacency": 0.64,
+      "safety": 0.89,
+      "intervention": 0.51,
+      "score": 0.626
+    }
+  ],
+  "chosen_candidate": "backend_proof_governance_api_correctness",
+  "execution": {
+    "human_intervention_ratio": 0.38,
+    "phase_a_ratio": 0.74,
+    "phase_b_ratio": 0.56,
+    "autonomy_uplift_vs_phase_a": 0.4865,
+    "autonomy_uplift_vs_phase_b": 0.3214,
+    "repo_native_evidence": [
+      "backend/tests/test_release_manifest.py",
+      "backend/tests/test_contract_surfaces.py",
+      "backend/scripts/export_openapi.py"
+    ]
+  },
+  "safety_gates": {
+    "policy_scope_bounded": true,
+    "no_external_execution": true,
+    "no_unreviewed_settlement": true,
+    "governance_override_available": true
+  },
+  "result": "selected and executed in bounded policy mode with lower intervention than phases A/B"
+}

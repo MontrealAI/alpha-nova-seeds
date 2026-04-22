@@ -1,0 +1,21 @@
+{
+  "demo": "unbounded-rsi-system",
+  "tag": "v2.8.0-rc.2",
+  "timestamp": "2026-04-22T00:00:00Z",
+  "phases": [
+    "bounded",
+    "expanding",
+    "increasingly_autonomous"
+  ],
+  "constitutional_order": [
+    "identity",
+    "proof",
+    "settlement",
+    "governance"
+  ],
+  "invariants": [
+    "no value without evidence",
+    "no autonomy without authority",
+    "no settlement without validation"
+  ]
+}

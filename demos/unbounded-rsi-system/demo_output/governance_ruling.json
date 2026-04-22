@@ -1,0 +1,14 @@
+{
+  "id": "governance_ruling.unbounded_rsi_rc.json",
+  "status": "pass_with_scope_limits",
+  "decision": "approve_minimum_viable_accelerating_loop_demo",
+  "scope_limits": [
+    "bounded proof-of-mechanism only",
+    "not unrestricted autonomy",
+    "not literal unbounded RSI claim",
+    "not a fully realized broad sovereign claim"
+  ],
+  "linked_package": "ProtocolCorrectnessPack-v1.promoted",
+  "linked_package_hash": "489f018f2f7cab3ea098339a22476e19bc72d01debcf2b881d72e1981f1e1605",
+  "timestamp": "2026-04-22T00:00:00Z"
+}
