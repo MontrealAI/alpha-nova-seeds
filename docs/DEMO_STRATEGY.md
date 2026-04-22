@@ -24,11 +24,10 @@ This repository now presents a three-surface demo ladder for protocol correctnes
 
 ## Doctrine cross-links
 
-- `docs/DOCTRINE_STACK.md`
-- `docs/THERMODYNAMIC_MODEL.md`
-- `docs/NATION_STATE_DOCTRINE.md`
-
-- `docs/RELEASE_POSITIONING.md`
+- [`docs/DOCTRINE_STACK.md`](./DOCTRINE_STACK.md)
+- [`docs/THERMODYNAMIC_MODEL.md`](./THERMODYNAMIC_MODEL.md)
+- [`docs/NATION_STATE_DOCTRINE.md`](./NATION_STATE_DOCTRINE.md)
+- [`docs/RELEASE_POSITIONING.md`](./RELEASE_POSITIONING.md)
 
 ## Smoke-run commands
 

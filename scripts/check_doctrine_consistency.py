@@ -16,6 +16,13 @@ README_DOCTRINE_LINKS = [
     "docs/RELEASE_POSITIONING.md",
 ]
 
+DEMO_LADDER_LINKS = [
+    "demos/protocol_smart_contract_correctness_demo/",
+    "demos/adjacent_mandate_reuse_proof_demo/",
+    "demos/adjacent_mandate_reuse_proof_real_v1/",
+    "demos/README.md",
+]
+
 THERMO_FILES = [
     ROOT / "docs" / "THERMODYNAMIC_MODEL.md",
     ROOT / "demos" / "protocol_smart_contract_correctness_demo" / "docs" / "THERMODYNAMIC_MODEL.md",
@@ -58,6 +65,25 @@ def main() -> int:
             errors.append(f"README missing doctrine link: {link}")
         if not (ROOT / link).exists():
             errors.append(f"README doctrine link target missing: {link}")
+    for link in DEMO_LADDER_LINKS:
+        if link not in readme:
+            errors.append(f"README missing demo ladder link: {link}")
+        if not (ROOT / link).exists():
+            errors.append(f"README demo ladder link target missing: {link}")
+
+    demos_readme = (ROOT / "demos" / "README.md").read_text(encoding="utf-8")
+    ladder_role_checks = [
+        "Flagship synthetic wedge demo",
+        "Adjacent synthetic proof demo",
+        "Real-world proof pack",
+    ]
+    for phrase in ladder_role_checks:
+        if phrase not in demos_readme:
+            errors.append(f"demos/README.md missing ladder role phrase: {phrase}")
+    for link in DEMO_LADDER_LINKS[:-1]:
+        rel_link = link.replace("demos/", "./")
+        if rel_link not in demos_readme:
+            errors.append(f"demos/README.md missing relative demo link: {rel_link}")
 
     seen_by_file: dict[str, set[str]] = {}
 

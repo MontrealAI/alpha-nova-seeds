@@ -12,9 +12,12 @@
 ### Changed
 - Added `demos/README.md` as a canonical demo ladder index and updated demo README cross-links to use valid relative Markdown links.
 - Adjacent synthetic proof README now explicitly states ladder role (supporting compact synthetic surface) and clarifies non-claims alongside cross-links.
+- Adjacent synthetic proof README demo ladder links now use clickable relative Markdown links and include explicit sovereign-boundary language.
 - Flagship and adjacent demo integration language now consistently frames protocol correctness as the first wedge and distinguishes synthetic vs real-world proof surfaces.
 - Public-facing naming now prefers Protocol Cybersecurity labels while retaining legacy Protocol Assurance compatibility aliases where needed.
 - Root release posture and demo entry points updated to v2.7.0-rc.1 demo-and-doctrine framing.
+- Doctrine consistency helper now validates root README demo-ladder links and required role labels in `demos/README.md`.
+- Demo strategy doctrine references now use direct Markdown links for cleaner operator navigation.
 - Release provenance workflow artifact upload name now matches v2.7 verification docs (`v27-provenance-<TAG>`), with legacy v2.6 naming noted for historical runs.
 
 ### Notes

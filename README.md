@@ -29,9 +29,10 @@ Operational doctrine:
 
 ---
 
-## Release posture (April 21, 2026)
+## Release posture (April 22, 2026)
 
 - Current target posture: **v2.7.0-rc.1 flagship demo + doctrine verifiable release candidate**.
+- SemVer target remains **v2.7.0-rc.1** because this batch is additive release-candidate hardening (demo + doctrine + verification surfaces), not a stable GA cut.
 - Latest generally referenced milestone in earlier docs: **v2.5 foundational architecture release**.
 - This repo deliberately avoids claims such as “audited”, “final”, “mainnet-safe by default”, or “fully proven compounding substrate”.
 
