@@ -66,6 +66,7 @@ Outputs are written to:
 - `chronicle_entry.json` — chronicle summary for release history.
 - `board_scorecard.json` — machine-readable board-facing scorecard.
 - `board_scorecard.md` — human-readable board-facing scorecard.
+- `mandate3_selection.json` — deterministic Phase C candidate scoring and winning selection log.
 - `report.md` — plain-English report with claim boundaries.
 - `report.html` — polished static report for operator/board audiences.
 
