@@ -37,6 +37,10 @@ This demo includes:
 Primary machine-readable outputs in `out/`:
 
 - `capability_genome.json`
+- `manifest.json`
+- `generation_0.json`
+- `generation_1.json`
+- `generation_2.json`
 - `assay_bundle.json`
 - `lineage.json`
 - `frontier_queue.json`
@@ -76,6 +80,7 @@ python3 demos/open-ended-rsi-system/run_demo.py --assert
 - Domain: adjacent mandate in wedge.
 - Runs explicit control vs treatment lanes.
 - Emits AOY/speed/rework/evidence/safety/package-dependence metrics.
+- Emits a package-dependence ledger tying treatment-lane reuse back to the frozen package manifest hash.
 - Treatment lane wins and is attributable to the frozen package.
 
 ### Generation 2 (increasingly autonomous)

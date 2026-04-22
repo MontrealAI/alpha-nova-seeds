@@ -263,6 +263,17 @@ def generation_one(g0: dict[str, Any]) -> dict[str, Any]:
         "no_safety_regression": True,
         "package_dependence": treatment["package_dependence_rate"],
     }
+    package_dependence_ledger = {
+        "frozen_package_id": g0["frozen_package"]["package_id"],
+        "frozen_manifest_hash": g0["frozen_package"]["manifest_hash"],
+        "lineage_anchor": g0["frozen_package"]["parentage"][0],
+        "treatment_assets_reused": [
+            "deterministic provenance/lineage artifact integration",
+            "protocol wedge replay + proof artifact completeness checks",
+            "operator steps and safety/authority declarations",
+        ],
+        "control_assets_reused": [],
+    }
     return {
         "generation": 1,
         "mandate": "adjacent control-vs-treatment in wedge",
@@ -271,6 +282,7 @@ def generation_one(g0: dict[str, Any]) -> dict[str, Any]:
         "control": control,
         "treatment": treatment,
         "metrics": metrics,
+        "package_dependence_ledger": package_dependence_ledger,
     }
 
 
@@ -603,6 +615,10 @@ def main() -> int:
         (DEMO / "08_proof_docket/summary.md", summary_md, False),
         (DEMO / "08_proof_docket/proof_docket.md", proof_md, False),
         (OUT / "capability_genome.json", genome, True),
+        (OUT / "manifest.json", manifest, True),
+        (OUT / "generation_0.json", g0, True),
+        (OUT / "generation_1.json", g1, True),
+        (OUT / "generation_2.json", g2, True),
         (OUT / "assay_bundle.json", assay_bundle, True),
         (OUT / "lineage.json", lineage, True),
         (OUT / "frontier_queue.json", frontier_queue, True),
@@ -714,6 +730,10 @@ def main() -> int:
     if args.assert_mode:
         required = [
             OUT / "capability_genome.json",
+            OUT / "manifest.json",
+            OUT / "generation_0.json",
+            OUT / "generation_1.json",
+            OUT / "generation_2.json",
             OUT / "assay_bundle.json",
             OUT / "lineage.json",
             OUT / "frontier_queue.json",

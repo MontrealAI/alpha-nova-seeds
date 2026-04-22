@@ -18,6 +18,7 @@
 - Open-ended RSI Generation 2 now derives candidates directly from `config.json` whitelist entries and fails closed if a whitelisted domain lacks deterministic assay profiles.
 - Open-ended RSI outputs now include `out/safety_gates.json` to make doctrine gate outcomes (`no value without evidence`, `no autonomy without authority`, `no settlement without validation`) auditable as machine-readable artifacts.
 - Open-ended RSI safety-gate statuses are now computed from real run outcomes (probe return codes, threshold gates, schema validation, and authority-bound checks) rather than hardcoded pass labels.
+- Open-ended RSI output tree now mirrors generation artifacts in `out/` (`manifest.json`, `generation_0.json`, `generation_1.json`, `generation_2.json`) and logs a Generation 1 package-dependence ledger keyed to the frozen manifest hash.
 
 ### Notes
 - This RC strengthens deterministic bounded mechanism evidence and operator presentation quality.
