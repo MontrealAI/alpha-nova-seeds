@@ -21,6 +21,7 @@ DEMO_LADDER_LINKS = [
     "demos/protocol_smart_contract_correctness_demo/",
     "demos/adjacent_mandate_reuse_proof_demo/",
     "demos/adjacent_mandate_reuse_proof_real_v1/",
+    "demos/unbounded-rsi-system/",
     "demos/README.md",
 ]
 
@@ -77,6 +78,7 @@ def main() -> int:
         "Flagship synthetic wedge demo",
         "Adjacent synthetic proof demo",
         "Real-world proof pack",
+        "Accelerating-loop demo",
     ]
     for phrase in ladder_role_checks:
         if phrase not in demos_readme:
