@@ -80,7 +80,7 @@ def _reset_out() -> None:
 
 
 def _file_digest(path: Path) -> FileDigest:
-    return FileDigest(path=str(path.relative_to(ROOT)), sha256=_sha256_file(path))
+    return FileDigest(path=path.relative_to(ROOT).as_posix(), sha256=_sha256_file(path))
 
 
 def _phase_a() -> dict[str, Any]:
@@ -243,14 +243,14 @@ def _phase_c(package_hash: str) -> dict[str, Any]:
     for c in candidates:
         missing_files = [f for f in c["files"] if not f.exists()]
         if missing_files:
-            missing = ", ".join(str(f.relative_to(ROOT)) for f in missing_files)
+            missing = ", ".join(f.relative_to(ROOT).as_posix() for f in missing_files)
             raise SystemExit(
                 f"fail-closed: phase-c candidate '{c['id']}' missing required evidence files: {missing}"
             )
 
         c["selection_score"] = round((0.42 * c["fit"]) + (0.33 * c["determinism"]) + (0.15 * (1 - c["operator_noise"])) + (0.10 * (1 - c["safety_risk"])), 4)
         c["file_digests"] = [_file_digest(f).__dict__ for f in c["files"]]
-        c["files"] = [str(f.relative_to(ROOT)) for f in c["files"]]
+        c["files"] = [f.relative_to(ROOT).as_posix() for f in c["files"]]
 
     selected = sorted(candidates, key=lambda item: item["selection_score"], reverse=True)[0]
 
