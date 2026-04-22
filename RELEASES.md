@@ -38,11 +38,12 @@ If regeneration is required, cut a new tag (for example, `v2.6.0-rc.2`) and prod
 
 ## Demo-and-doctrine RC acceptance surfaces
 
-For v2.7.0-rc.1, release publication additionally requires:
+For v2.7.x release candidates, publication additionally requires:
 
 - Flagship demo replay command and assert mode passing.
 - Cross-linked demo ladder (flagship synthetic, compact synthetic adjacent, real-world pack).
 - Doctrine stack docs linked from root README.
 - Math markdown validation helper run and passing.
 - Doctrine consistency checks run and passing (`scripts/check_doctrine_consistency.py`).
+- Demo ladder link/label checks run and passing (`scripts/check_demo_links.py`).
 - Explicit claim boundary: synthetic sovereign claim only; broader cybersecurity sovereign remains future-facing.

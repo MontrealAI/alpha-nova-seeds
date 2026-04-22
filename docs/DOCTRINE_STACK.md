@@ -1,4 +1,4 @@
-# Doctrine Stack — v2.7.0-rc.1 Flagship Demo & Doctrine RC
+# Doctrine Stack — v2.7.0-rc.2 Flagship Demo + Operator UI + Doctrine RC
 
 This repository now exposes a doctrine stack for the protocol-correctness wedge as a first-class review surface.
 

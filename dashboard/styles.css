@@ -1,20 +1,40 @@
 body {
   font-family: Inter, Arial, sans-serif;
   margin: 0;
-  background: #0a0f1e;
-  color: #e9f0ff;
+  background: #08101f;
+  color: #dfe9fb;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .hero {
   padding: 24px;
-  background: linear-gradient(120deg, #121b38, #0e2748);
+  background: linear-gradient(120deg, #111c36, #0d2844);
+  border: 1px solid #24385a;
+  border-radius: 14px;
+  margin-bottom: 14px;
 }
 
 .eyebrow { letter-spacing: 1.2px; color: #7dc2ff; font-size: 12px; }
+.status-row { display: flex; gap: 8px; margin: 10px 0 14px; flex-wrap: wrap; }
+.pill {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 12px;
+  border: 1px solid #36557f;
+  background: #112544;
+}
+.pill.synthetic { color: #8ce0ff; }
+.pill.caution { color: #ffd699; border-color: #795d32; background: #30230e; }
 
 .actions button {
   margin-right: 8px;
-  background: #1f7bd7;
+  background: #1f6fc2;
   color: white;
   border: none;
   border-radius: 6px;
@@ -26,21 +46,21 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  padding: 12px 24px;
+  padding: 12px 0;
 }
 
 .tabs button {
-  border: 1px solid #345;
-  background: #121d34;
+  border: 1px solid #2f486b;
+  background: #111b33;
   color: #d2e4ff;
   border-radius: 6px;
   padding: 8px 12px;
   cursor: pointer;
 }
 
-.tabs button.active { background: #235ca6; }
+.tabs button.active { background: #235ca6; border-color: #4f8ad7; }
 
-.panel { display: none; padding: 12px 24px 24px; }
+.panel { display: none; padding: 12px 0 24px; }
 .panel.active { display: block; }
 
 .grid {
@@ -50,10 +70,38 @@ body {
 }
 
 .card {
-  background: #111a30;
-  border: 1px solid #2c3c5d;
+  background: #0f1a30;
+  border: 1px solid #2a3f62;
   border-radius: 10px;
   padding: 14px;
+  margin-bottom: 10px;
+}
+
+.ladder .ladder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+}
+
+.ladder-card {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #0d1a32;
+  border: 1px solid #345383;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.ladder-card strong {
+  color: #d4e7ff;
+}
+
+.ladder-card span {
+  color: #a9bddf;
+  font-size: 14px;
 }
 
 .metric {
@@ -61,6 +109,8 @@ body {
   font-weight: 700;
   color: #74de9f;
 }
+
+.muted { color: #9ab0d5; }
 
 pre {
   white-space: pre-wrap;
