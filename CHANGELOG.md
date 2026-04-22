@@ -3,6 +3,19 @@
 ## [v2.8.0-rc.1] - 2026-04-22
 
 ### Added
+- New flagship-class accelerating-loop demo: `demos/unbounded-rsi-system/` with deterministic Phase A/B/C execution, package freeze/hash, bounded mandate-3 selector, and board-ready outputs (`board_scorecard.*`, `report.*`, governance/provenance/safety artifacts).
+- New release checklist: `release/v2.8.0-rc.1-unbounded-rsi-demo-checklist.md` covering acceptance criteria, smoke checks, provenance, migration/rollback notes, and claim boundaries.
+
+### Changed
+- Demo ladder index now includes four coherent roles: flagship synthetic wedge, compact adjacent synthetic replay, real-world proof pack, and accelerating-loop demo.
+- Root README front-door guidance now links directly to the new accelerating-loop demo and its bounded claim boundary.
+- Demo-link and doctrine-consistency validators now enforce presence of `demos/unbounded-rsi-system/` in ladder and root front-door surfaces.
+- Dashboard ladder cards and artifact/release pointers now include the accelerating-loop demo as a first-class operator surface.
+
+### Notes
+- This accelerating-loop surface is a bounded proof-of-mechanism; it does not claim unrestricted autonomy or literal unbounded recursive self-improvement.
+
+### Added
 - Frontier posture doctrine doc: `docs/FRONTIER_LAB_POSTURE.md`.
 - New RC release checklist: `release/v2.8.0-rc.1-frontier-ui-demo-release-checklist.md` with acceptance criteria, smoke checks, migration/rollback notes, and explicit claim boundaries.
 

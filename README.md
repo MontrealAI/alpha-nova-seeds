@@ -58,11 +58,19 @@ Invariant:
 - Clarifies role boundaries across:
   - [`demos/adjacent_mandate_reuse_proof_demo/`](./demos/adjacent_mandate_reuse_proof_demo/)
   - [`demos/adjacent_mandate_reuse_proof_real_v1/`](./demos/adjacent_mandate_reuse_proof_real_v1/)
+  - [`demos/unbounded-rsi-system/`](./demos/unbounded-rsi-system/)
   - flagship synthetic wedge demo
   - compact synthetic adjacent proof demo
   - real-world experiment pack
+  - accelerating-loop demo
 
-### 3) Doctrine stack
+### 3) Accelerating-loop demo
+
+- [`demos/unbounded-rsi-system/`](./demos/unbounded-rsi-system/)
+- Purpose: bounded proof-of-mechanism for bounded → expanding → increasingly autonomous loop.
+- Output: deterministic package freeze/hash, control-vs-treatment scorecard, bounded autonomous mandate-3 selection, board-ready report artifacts.
+
+### 4) Doctrine stack
 
 - [`docs/DOCTRINE_STACK.md`](./docs/DOCTRINE_STACK.md)
 - [`docs/THERMODYNAMIC_MODEL.md`](./docs/THERMODYNAMIC_MODEL.md)
@@ -136,6 +144,7 @@ python scripts/check_math_markdown.py
 python scripts/check_doctrine_consistency.py
 python scripts/check_demo_links.py
 python3 demos/protocol_smart_contract_correctness_demo/run_demo.py --assert
+python3 demos/unbounded-rsi-system/run_demo.py --assert
 ```
 
 For full provenance verification (checksums, SBOM, attestations), use [`docs/verify-release.md`](./docs/verify-release.md).
