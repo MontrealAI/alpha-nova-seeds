@@ -1,38 +1,54 @@
-# Demo Strategy — v2.7.0-rc.1
+# Demo Strategy — v2.8.0-rc.1
 
-This repository now presents a three-surface demo ladder for protocol correctness.
+This repository uses a three-surface demo ladder so proof boundaries stay explicit.
 
-## 1) Flagship synthetic wedge demo (front door)
+## Ladder structure
 
-- Path: [`demos/protocol_smart_contract_correctness_demo/`](../demos/protocol_smart_contract_correctness_demo/)
-- Role: public/operator flagship walkthrough
-- Proves: deterministic synthetic control-vs-treatment protocol-correctness assay mechanics
-- Does not prove: real-world compounding under live delivery conditions
+### 1) Flagship synthetic wedge demo
 
-## 2) Adjacent synthetic proof demo (compact)
-
-- Path: [`demos/adjacent_mandate_reuse_proof_demo/`](../demos/adjacent_mandate_reuse_proof_demo/)
-- Role: small proof-of-method replay
-- Proves: minimal adjacent-mandate threshold gate structure
+- Path: [`../demos/protocol_smart_contract_correctness_demo/`](../demos/protocol_smart_contract_correctness_demo/)
+- Role: primary public/operator walkthrough
+- Proves: deterministic protocol-correctness wedge mechanics
 - Does not prove: real-world external validity
 
-## 3) Real-world experiment pack
+### 2) Adjacent synthetic proof demo
 
-- Path: [`demos/adjacent_mandate_reuse_proof_real_v1/`](../demos/adjacent_mandate_reuse_proof_real_v1/)
-- Role: execution templates for real controlled experiment
-- Proves: only when operators run it with real blinded data and publish the proof docket
+- Path: [`../demos/adjacent_mandate_reuse_proof_demo/`](../demos/adjacent_mandate_reuse_proof_demo/)
+- Role: compact replay surface
+- Proves: minimal adjacent threshold gate structure
+- Does not prove: institutional deployment performance
 
-## Doctrine cross-links
+### 3) Real-world experiment pack
 
-- [`docs/DOCTRINE_STACK.md`](./DOCTRINE_STACK.md)
-- [`docs/THERMODYNAMIC_MODEL.md`](./THERMODYNAMIC_MODEL.md)
-- [`docs/NATION_STATE_DOCTRINE.md`](./NATION_STATE_DOCTRINE.md)
-- [`docs/RELEASE_POSITIONING.md`](./RELEASE_POSITIONING.md)
+- Path: [`../demos/adjacent_mandate_reuse_proof_real_v1/`](../demos/adjacent_mandate_reuse_proof_real_v1/)
+- Role: controlled experiment templates and scoring process
+- Proves: only when run with blinded real data and published docket evidence
+
+## Why protocol correctness is first
+
+The first wedge is protocol + smart-contract correctness because verification quality, replay fidelity, and evidence objectivity are strongest there.
+
+That allows Archive density to build early and gives operators a fast review cycle.
+
+## Naming policy
+
+Public-facing language now prefers:
+
+- **Protocol Cybersecurity Studio**
+- **ProtocolCybersecurityPack-v1**
+- **ProtocolCybersecuritySovereign-v1.synthetic.json**
+
+Legacy “Assurance” aliases remain for compatibility where deterministic replay references already depend on them.
 
 ## Smoke-run commands
 
 - `python3 demos/protocol_smart_contract_correctness_demo/run_demo.py --assert`
 - `python3 demos/adjacent_mandate_reuse_proof_demo/run_demo.py`
 - `python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py`
+- `python scripts/check_demo_links.py`
 
-These commands are intentionally lightweight and deterministic where synthetic data is used.
+## Explicit boundary
+
+This RC supports a narrow synthetic wedge claim for 🌱💫 α‑AGI Protocol Cybersecurity Sovereign 🔐.
+
+The broader 👑 α‑AGI Cybersecurity Sovereign 🔱✨ remains future-facing and not yet claimed as proven.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Lightweight doctrine consistency checks for v2.7.0-rc.1 surfaces."""
+"""Lightweight doctrine consistency checks for v2.8.0-rc.1 surfaces."""
 
 from __future__ import annotations
 
@@ -14,6 +14,7 @@ README_DOCTRINE_LINKS = [
     "docs/NATION_STATE_DOCTRINE.md",
     "docs/DEMO_STRATEGY.md",
     "docs/RELEASE_POSITIONING.md",
+    "docs/FRONTIER_LAB_POSTURE.md",
 ]
 
 DEMO_LADDER_LINKS = [

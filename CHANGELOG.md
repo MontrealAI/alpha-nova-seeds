@@ -1,5 +1,22 @@
 # Changelog
 
+## [v2.8.0-rc.1] - 2026-04-22
+
+### Added
+- Frontier posture doctrine doc: `docs/FRONTIER_LAB_POSTURE.md`.
+- New RC release checklist: `release/v2.8.0-rc.1-frontier-ui-demo-release-checklist.md` with acceptance criteria, smoke checks, migration/rollback notes, and explicit claim boundaries.
+
+### Changed
+- Root front door upgraded to v2.8.0-rc.1 posture with clearer proof ladder, doctrine map, and non-claim boundaries.
+- Demo ladder index (`demos/README.md`) tightened around three explicit roles: flagship synthetic wedge, compact synthetic adjacent replay, and real-world experiment pack.
+- Dashboard operator UI polished with clearer status badges, artifact cards, proof boundary section, doctrine links, and checklist pointers.
+- Flagship demo report UX (`run_demo.py` generated HTML) improved for operator readability and artifact discoverability while preserving deterministic behavior.
+- Doctrine/release positioning surfaces aligned to v2.8.0-rc.1 naming and publication posture.
+
+### Notes
+- This release remains a **verifiable release candidate**, not an audited final deployment.
+- Broader cybersecurity sovereign claims remain future-facing and conditional on controlled real-world adjacent-mandate proof.
+
 ## [v2.7.0-rc.2] - 2026-04-22
 
 ### Added
