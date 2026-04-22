@@ -7,7 +7,6 @@ import argparse
 import hashlib
 import json
 from dataclasses import dataclass
-from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -30,6 +29,9 @@ THRESHOLDS = {
     "package_dependence_rate": 0.30,
 }
 
+# Deterministic RC timestamp for reproducible artifact generation.
+DEMO_TIMESTAMP = "2026-04-22T00:00:00+00:00"
+
 
 @dataclass(frozen=True)
 class FileDigest:
@@ -38,7 +40,7 @@ class FileDigest:
 
 
 def _now() -> str:
-    return datetime.now(UTC).replace(microsecond=0).isoformat()
+    return DEMO_TIMESTAMP
 
 
 def _sha256_bytes(data: bytes) -> str:
@@ -315,13 +317,16 @@ def run_demo(assert_mode: bool = False) -> dict[str, Any]:
         "source_paths": sorted({a["path"] for a in phase_a["artifacts"]}),
     }
 
+    no_safety_regression = not scorecard["comparison"]["safety_regression"]
+    threshold_gate_passed = scorecard["passes"]["adjacent_mandate_proof"]
+
     safety_gates = {
-        "status": "pass",
+        "status": "pass" if (no_safety_regression and threshold_gate_passed) else "fail_closed",
         "policy_bounded_autonomy": True,
         "gates": phase_c["execution"]["safety_gates"],
         "regression_checks": {
-            "no_safety_regression": not scorecard["comparison"]["safety_regression"],
-            "threshold_gate_passed": scorecard["passes"]["adjacent_mandate_proof"],
+            "no_safety_regression": no_safety_regression,
+            "threshold_gate_passed": threshold_gate_passed,
         },
     }
 

@@ -1,7 +1,7 @@
 {
   "demo_id": "unbounded-rsi-system",
   "release_target": "v2.8.0-rc.1",
-  "timestamp": "2026-04-22T15:53:04+00:00",
+  "timestamp": "2026-04-22T00:00:00+00:00",
   "constitutional_order": [
     "identity",
     "proof",
