@@ -4,6 +4,7 @@
 
 ### Added
 - New deterministic accelerating-loop demo at `demos/open-ended-rsi-system/` with governed generation pipeline, DISCO/Arnold alternating modes, machine-readable artifact ladder, board-ready HTML scorecard, and `--assert` smoke mode.
+- Lightweight deterministic validator `scripts/check_open_ended_rsi_artifacts.py` to verify required `demos/open-ended-rsi-system/out/` artifacts, threshold contract outcomes, intervention-touch descent, and doctrine gate pass states.
 - New staged demo artifact directories under `demos/open-ended-rsi-system/` (`00_manifest` ... `08_proof_docket` + `out`) plus deterministic emission of `capability_genome.json`, `assay_bundle.json`, `lineage.json`, `frontier_queue.json`, `intervention_log.json`, `scorecard.json`, `summary.md`, `proof_docket.md`, and `provenance_manifest.json`.
 - Added deterministic `claim_boundary.json` emission and schema-conformance checks for capability genome / assay bundle / lineage artifacts in `demos/open-ended-rsi-system/run_demo.py`.
 - New canonical v2.8 schemas for accelerating-loop artifacts: `schemas/v2.8/capability_genome.schema.json`, `schemas/v2.8/assay_bundle.schema.json`, and `schemas/v2.8/lineage.schema.json`.
