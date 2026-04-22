@@ -44,7 +44,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/03_generation/generation_1.json",
-      "sha256": "69f1bdb8b0d18a33ee2e1424383584f29ca5dce4c6e494cb43c0233ebaee5055"
+      "sha256": "fd7150dc2148ed50944a80f7dd75c85ca54b7914732f98df4e864b228609fb53"
     },
     {
       "path": "demos/open-ended-rsi-system/03_generation/generation_2.json",
@@ -99,12 +99,28 @@
       "sha256": "a3371ecb4a49e5245e9e7b8a16b46b2f5a03314e3469b5046d405f0a576dbc74"
     },
     {
+      "path": "demos/open-ended-rsi-system/out/generation_0.json",
+      "sha256": "b0c4a8b0f7f52dc1fd98a233999289b172842fc36ca1673ca8c22bec0d575c67"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/generation_1.json",
+      "sha256": "fd7150dc2148ed50944a80f7dd75c85ca54b7914732f98df4e864b228609fb53"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/generation_2.json",
+      "sha256": "1bf35b0f92e8564b825b9092efcb20c7e56112a0c50ba568fdfbd617b1148037"
+    },
+    {
       "path": "demos/open-ended-rsi-system/out/intervention_log.json",
       "sha256": "6b0f0755b96bddd85388eabe948979757b051bbdd0804910a0773b3ffecb4fba"
     },
     {
       "path": "demos/open-ended-rsi-system/out/lineage.json",
       "sha256": "634e0dbd96d3cc51cc6494a2b04a76cfe8eec022eb9cd862415f1c165ed6d9c6"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/manifest.json",
+      "sha256": "d2213e2b0516e31e2e6bbd0bbcd2b17d3a5a883dd7805d821a5a4accca448cf5"
     },
     {
       "path": "demos/open-ended-rsi-system/out/proof_docket.md",
