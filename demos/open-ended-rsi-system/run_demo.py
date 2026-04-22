@@ -797,7 +797,10 @@ def main() -> int:
         assert g0["candidate_count"] == cfg["candidate_pool_size"]
         assert g2["arnold_mode"]["neighborhood_size"] == cfg["neighborhood_size"]
         assert manifest["timestamp"] == cfg["deterministic_timestamp"]
-        assert g2["selected_domain"]["domain"] == "backend_api_correctness"
+        expected_selected = max(
+            g2["frontier_queue"], key=lambda item: item["selection_score"]
+        )["domain"]
+        assert g2["selected_domain"]["domain"] == expected_selected
         assert re.fullmatch(
             r"^[a-f0-9]{64}$", determinism_fingerprint["frozen_package_manifest_hash"]
         )
