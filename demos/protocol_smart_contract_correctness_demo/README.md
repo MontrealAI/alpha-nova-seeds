@@ -92,5 +92,6 @@ Future-facing only (not proven by this release):
 - Flagship synthetic wedge demo: [`../protocol_smart_contract_correctness_demo/`](../protocol_smart_contract_correctness_demo/)
 - Adjacent synthetic proof demo: [`../adjacent_mandate_reuse_proof_demo/`](../adjacent_mandate_reuse_proof_demo/)
 - Real-world experiment pack: [`../adjacent_mandate_reuse_proof_real_v1/`](../adjacent_mandate_reuse_proof_real_v1/)
-- Accelerating-loop demo: [`../unbounded-rsi-system/`](../unbounded-rsi-system/)
+- Accelerating-loop demo: [`../open-ended-rsi-system/`](../open-ended-rsi-system/)
+- Compatibility accelerating-loop demo: [`../unbounded-rsi-system/`](../unbounded-rsi-system/)
 - Ladder index: [`../README.md`](../README.md)

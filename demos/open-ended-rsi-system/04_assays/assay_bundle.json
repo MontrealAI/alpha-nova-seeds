@@ -1,0 +1,39 @@
+{
+  "cheap_assays": [
+    "lint_static_checks",
+    "schema_validation",
+    "diff_sanity",
+    "proof_completeness",
+    "policy_compliance",
+    "template_consistency"
+  ],
+  "mid_assays": [
+    "targeted_integration_tests",
+    "openapi_abi_schema_consistency",
+    "operator_usability_rubric",
+    "cost_latency_proxy",
+    "proof_docket_completeness"
+  ],
+  "expensive_assays": [
+    "held_out_synthetic_mandate",
+    "blinded_rubric_emulation",
+    "canary_replay_pack"
+  ],
+  "lane_results": {
+    "control": {
+      "aoy": 108,
+      "time_to_first_accept_minutes": 149,
+      "repair_ratio": 0.29,
+      "evidence_completeness": 0.72,
+      "safety_regression": false
+    },
+    "treatment": {
+      "aoy": 162,
+      "time_to_first_accept_minutes": 97,
+      "repair_ratio": 0.16,
+      "evidence_completeness": 0.92,
+      "safety_regression": false,
+      "package_dependence": 0.63
+    }
+  }
+}

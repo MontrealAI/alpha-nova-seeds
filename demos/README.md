@@ -1,8 +1,8 @@
-# Demo Ladder (v2.8.0-rc.1)
+# Demo Ladder (v2.8.0-rc.2 target)
 
-This folder is the canonical demo ladder for the protocol-correctness wedge and its adjacent expansion surfaces.
+This folder is the canonical demo ladder for protocol-correctness evidence and adjacent expansion surfaces.
 
-The four surfaces are intentionally separated so reviewers can distinguish:
+The ladder is intentionally separated so reviewers can distinguish:
 - **what is flagship synthetic wedge evidence**
 - **what is compact adjacent synthetic replay**
 - **what is real-world experiment material**
@@ -31,13 +31,16 @@ The four surfaces are intentionally separated so reviewers can distinguish:
 - Run (scorecard helper): `python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py`
 - Proves: only when executed with blinded real-world data and published proof-docket artifacts
 
-## 4) Accelerating-loop demo (bounded-to-expanding-to-more-autonomous)
+## 4) Accelerating-loop demo (bounded → expanding → increasingly autonomous)
 
-- Path: [`./unbounded-rsi-system/`](./unbounded-rsi-system/)
-- Role: flagship-class accelerating-loop explanation with explicit demonstrated/simulated/unproven boundaries
-- Run: `python3 demos/unbounded-rsi-system/run_demo.py --assert`
-- Proves: deterministic three-phase loop mechanics with frozen package reuse and bounded autonomous adjacent selection
+- Path: [`./open-ended-rsi-system/`](./open-ended-rsi-system/)
+- Role: flagship-class accelerating-loop demonstration with explicit demonstrated/simulated/unproven boundaries
+- Run: `python3 demos/open-ended-rsi-system/run_demo.py --assert`
+- Proves: deterministic three-generation loop mechanics with package freeze/hash, control-vs-treatment transfer, and bounded autonomous mandate-3 selection
 - Does not prove: unrestricted autonomy, literal unbounded RSI, or full broad sovereign realization
+
+Compatibility surface:
+- Prior accelerating-loop artifact pack (kept for continuity): [`./unbounded-rsi-system/`](./unbounded-rsi-system/)
 
 ## Doctrine context
 
@@ -60,5 +63,3 @@ It does **not** claim:
 - final real-world external proof,
 - audited-final deployment posture,
 - unrestricted autonomy or literal unbounded recursive self-improvement.
-
-Compatibility label: Real-world experiment pack.

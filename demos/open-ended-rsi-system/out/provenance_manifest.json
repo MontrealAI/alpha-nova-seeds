@@ -1,0 +1,23 @@
+{
+  "demo_id": "open-ended-rsi-system",
+  "release_target": "v2.8.0-rc.2",
+  "timestamp": "2026-04-22T00:00:00+00:00",
+  "deterministic": true,
+  "artifact_hashes": {
+    "assay_bundle.json": "39aac28ae722e8797010feb58530c124e52377705977d28ea2ac2d583094d091",
+    "capability_genome.json": "a7b4739157d85703caf2f421e1176b8ffcb789c54390939daa30a456637e00cb",
+    "frontier_queue.json": "346464970e2e578ef1743bd08e1c059e7fd5241e3364af8e0938172e4f6a45e8",
+    "intervention_log.json": "cc8b9578017f39641744d7c5b6df143dac45375809f5fa5ff107249f1bb69e99",
+    "lineage.json": "a1aabcf37b54975020d5a3fa494b3e7cb1baf781842a52cab472493b230bcda3",
+    "proof_docket.md": "23a6d19de8078f8f3650783df8bc488e960accaa1039be97c14917afd8bb5dce",
+    "provenance_manifest.json": "32306ae5fb8f2a14081e7e3c8c058a136dbef49660830946e4c7e673994df86a",
+    "report.html": "54c4dca60f0727f148c8d06ef13d7217a60271d119156cfd78197e2ad94f3e2e",
+    "scorecard.json": "80f6d433e13828fa45d25c805b92eb6c76c64172406be7fb92085b27b958bb66",
+    "summary.md": "2c8de068d8df8c92cee1912e7205568ece249e6131994cea3624f2fa56cfd993"
+  },
+  "claim_boundary": {
+    "demonstrated": "bounded accelerating loop mechanics across three governed generations",
+    "simulated": "synthetic metrics, blinded rubric emulation, and mandate outputs",
+    "unproven": "unrestricted autonomy, external real-world broad cybersecurity sovereign operation, unbounded RSI"
+  }
+}

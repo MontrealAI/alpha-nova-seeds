@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>Open-Ended RSI System Demo</title>
+<style>
+body{margin:0;background:#f4f7fb;color:#0f172a;font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.55}
+.wrap{max-width:1200px;margin:0 auto;padding:36px 24px 48px}
+.hero{background:#0f2747;color:#e5eefb;border-radius:16px;padding:26px 28px;margin-bottom:16px}
+.hero h1{margin:0 0 8px;font-size:30px}
+.hero p{margin:8px 0}
+.badge{display:inline-block;background:#173863;border:1px solid #2f5485;color:#dce8fb;border-radius:999px;padding:3px 10px;margin-right:8px;font-size:12px;letter-spacing:.04em}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.card{background:white;border:1px solid #d7e1ef;border-radius:14px;padding:16px}
+.timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{border-bottom:1px solid #e5edf8;padding:8px;text-align:left}
+.ok{color:#0b7a48;font-weight:700}
+.note{background:#eef4ff;border:1px solid #c8d9f5;border-radius:12px;padding:14px;margin-top:14px}
+@media(max-width:980px){.grid,.timeline{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class='wrap'>
+<section class='hero'>
+<span class='badge'>Accelerating-loop demo</span><span class='badge'>v2.8.0-rc.2</span>
+<h1>Open-Ended RSI System (bounded proof-of-mechanism)</h1>
+<p>Progression: <strong>bounded → expanding → increasingly autonomous</strong> with explicit authority and safety gates.</p>
+<p><strong>Demonstrated</strong>: deterministic accelerating mechanism under governance. <strong>Not claimed</strong>: unrestricted autonomy or fully general unbounded RSI.</p>
+</section>
+<section class='grid'>
+<div class='card'><h3>Generation 0</h3><p>DISCO mode finds first workable package in protocol correctness wedge.</p><p>Winner: <code>g0-candidate-024</code></p></div>
+<div class='card'><h3>Generation 1</h3><p>Control-vs-treatment on adjacent mandate with frozen package reuse.</p><p>Gate: <span class='ok'>PASS</span></p></div>
+<div class='card'><h3>Generation 2</h3><p>Autonomous whitelist selection then Arnold neighborhood search.</p><p>Selected domain: <code>backend_api_correctness</code></p></div>
+</section>
+<section class='card'>
+<h2>Board scorecard</h2>
+<table class='table'>
+<tr><th>Metric</th><th>Observed</th><th>Threshold</th></tr>
+<tr><td>AOY uplift</td><td>50.0%</td><td>35.0%</td></tr>
+<tr><td>Speed uplift</td><td>34.9%</td><td>30.0%</td></tr>
+<tr><td>Rework reduction</td><td>44.8%</td><td>40.0%</td></tr>
+<tr><td>Evidence uplift</td><td>27.8%</td><td>20.0%</td></tr>
+<tr><td>Package dependence</td><td>63.0%</td><td>30.0%</td></tr>
+</table>
+</section>
+<section class='timeline'>
+<div class='card'><h3>Demonstrated</h3><p>Deterministic three-generation governed loop and package lineage reuse.</p></div>
+<div class='card'><h3>Simulated</h3><p>Synthetic mandate outcomes and blinded-rubric emulation.</p></div>
+<div class='card'><h3>Unproven</h3><p>Unrestricted autonomy and real-world broad sovereign completion.</p></div>
+</section>
+<div class='note'>Outputs written under <code>demos/open-ended-rsi-system/out/</code> including scorecard, proof docket, provenance manifest, and lineage artifacts.</div>
+</div>
+</body>
+</html>
