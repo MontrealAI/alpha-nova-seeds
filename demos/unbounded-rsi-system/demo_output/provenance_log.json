@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "phase": "A",
+      "event": "mandate_1_completed",
+      "at": "2026-04-22T00:00:00Z"
+    },
+    {
+      "phase": "B",
+      "event": "capability_package_frozen",
+      "hash": "489f018f2f7cab3ea098339a22476e19bc72d01debcf2b881d72e1981f1e1605",
+      "at": "2026-04-22T00:00:00Z"
+    },
+    {
+      "phase": "B",
+      "event": "mandate_2_control_treatment_compared",
+      "pass": true,
+      "at": "2026-04-22T00:00:00Z"
+    },
+    {
+      "phase": "C",
+      "event": "mandate_3_selected_and_executed",
+      "candidate": "backend_proof_governance_api_correctness",
+      "at": "2026-04-22T00:00:00Z"
+    }
+  ]
+}

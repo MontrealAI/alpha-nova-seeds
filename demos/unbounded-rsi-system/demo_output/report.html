@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Unbounded RSI System Demo</title>
+  <style>
+    :root { --bg:#0b1220; --panel:#121c30; --ink:#e6edf8; --muted:#9fb1cf; --line:#2c3e63; --good:#36d399; --warn:#fbbf24; --accent:#7dd3fc; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Inter,system-ui,Arial,sans-serif; background:var(--bg); color:var(--ink); line-height:1.55; }
+    .wrap { max-width:1160px; margin:0 auto; padding:28px; }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:18px; margin-bottom:14px; box-shadow:0 8px 24px rgba(2,6,23,.2); }
+    .pill { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:4px 10px; margin-right:8px; color:var(--accent); }
+    .muted { color:var(--muted); }
+    .grid3 { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; }
+    .grid2 { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
+    h1,h2,h3 { margin:0 0 8px; }
+    table { width:100%; border-collapse:collapse; }
+    th,td { border-bottom:1px solid var(--line); padding:8px; text-align:left; }
+    .good { color:var(--good); font-weight:700; }
+    .warn { color:var(--warn); font-weight:700; }
+    code { background:#0d182c; border:1px solid #223252; border-radius:8px; padding:2px 6px; }
+    @media (max-width: 900px) { .grid3,.grid2 { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+<div class='wrap'>
+  <div class='card'>
+    <span class='pill'>Flagship accelerating-loop demo</span>
+    <span class='pill'>Bounded proof-of-mechanism</span>
+    <h1>Unbounded RSI System — Minimum Viable Accelerating Loop</h1>
+    <p class='muted'>This report demonstrates bounded $\rightarrow$ expanding $\rightarrow$ increasingly autonomous progression with governance and safety gates.</p>
+  </div>
+
+  <div class='grid3'>
+    <div class='card'><h3>Phase A: Bounded</h3><p>Real protocol wedge review, heavy human intervention, explicit evidence packeting.</p><p><strong>Intervention ratio:</strong> 0.74</p></div>
+    <div class='card'><h3>Phase B: Expanding</h3><p>Frozen capability package with immutable manifest/hash and threshold-gated adjacent uplift.</p><p class='good'><strong>Mandate 2:</strong> PASS</p></div>
+    <div class='card'><h3>Phase C: Increasingly autonomous</h3><p>Rule-based candidate selection in a second domain with lower intervention.</p><p><strong>Intervention ratio:</strong> 0.38</p></div>
+  </div>
+
+  <div class='card'>
+    <h2>Board Scorecard</h2>
+    <table>
+      <tr><th>AOY uplift</th><td>46.34%</td></tr>
+      <tr><th>Speed uplift</th><td>37.18%</td></tr>
+      <tr><th>Repair/rework reduction</th><td>46.88%</td></tr>
+      <tr><th>Evidence completeness uplift</th><td>26.76%</td></tr>
+      <tr><th>Package dependence</th><td>46.00%</td></tr>
+      <tr><th>Safety regression</th><td>No</td></tr>
+      <tr><th>Mandate 3 selected domain</th><td><code>backend_proof_governance_api_correctness</code></td></tr>
+    </table>
+  </div>
+
+  <div class='grid2'>
+    <div class='card'>
+      <h3>Demonstrated</h3>
+      <ul>
+        <li>Repo-native wedge artifacts drive phase A evidence.</li>
+        <li>Frozen package manifest + hash emitted.</li>
+        <li>Control-vs-treatment gate passed deterministically.</li>
+        <li>Second-domain selection executed with lower intervention.</li>
+      </ul>
+    </div>
+    <div class='card'>
+      <h3>Simulated / Unproven boundaries</h3>
+      <ul>
+        <li class='warn'>Simulated: lane metrics and governance packet are deterministic demo outputs.</li>
+        <li class='warn'>Unproven: unrestricted autonomy, literal unbounded RSI, full broad sovereign realization.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class='card'>
+    <h3>Artifact Map</h3>
+    <p class='muted'>See <code>manifest.json</code>, <code>package_manifest.json</code>, <code>package_hash.txt</code>, <code>provenance_log.json</code>, <code>safety_gates.json</code>, <code>governance_ruling.json</code>, <code>chronicle_entry.json</code>, <code>board_scorecard.json</code>, <code>board_scorecard.md</code>, <code>report.md</code>.</p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "id": "ProtocolCorrectnessPack-v1.promoted",
+  "frozen_sub_pack": "GovernanceValidationPack-v1.subpack",
+  "promoted_at": "2026-04-22T00:00:00Z",
+  "source_mandate": "M1-PROTOCOL-CORRECTNESS",
+  "constitutional_order": [
+    "identity",
+    "proof",
+    "settlement",
+    "governance"
+  ],
+  "capabilities": [
+    "governance_challenge_path_checks",
+    "validator_threshold_attestation_checks",
+    "deterministic_evidence_packeting",
+    "repair_rework_reduction_templates"
+  ],
+  "safety_constraints": {
+    "no_unsafe_fastpath": true,
+    "no_policy_bypass": true,
+    "requires_explicit_validation_before_settlement": true
+  },
+  "provenance": {
+    "repo": "MontrealAI/alpha-nova-seeds",
+    "tag": "v2.8.0-rc.2",
+    "created_by": "demos/unbounded-rsi-system/run_demo.py"
+  }
+}

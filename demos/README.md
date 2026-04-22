@@ -1,4 +1,4 @@
-# Demo Ladder (v2.8.0-rc.1)
+# Demo Ladder (v2.8.0-rc.2)
 
 This folder is the canonical demo ladder for the protocol-correctness wedge.
 
@@ -29,6 +29,14 @@ The three surfaces are intentionally separated so reviewers can distinguish:
 - Role: controlled real-world experiment templates
 - Run (scorecard helper): `python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py`
 - Proves: only when executed with blinded real-world data and published proof-docket artifacts
+
+## 4) Accelerating-loop demo (bounded → expanding → increasingly autonomous)
+
+- Path: [`./unbounded-rsi-system/`](./unbounded-rsi-system/)
+- Role: flagship accelerating-loop demonstration for board/operator readability
+- Run: `python3 demos/unbounded-rsi-system/run_demo.py --assert`
+- Proves: bounded three-phase mechanism (Mandate 1 real wedge execution, frozen package reuse in Mandate 2, bounded autonomous Mandate 3 selection/execution)
+- Does not prove: unrestricted autonomy, literal unbounded RSI, or complete broad sovereign realization
 
 ## Doctrine context
 

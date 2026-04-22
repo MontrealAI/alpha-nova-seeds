@@ -40,6 +40,7 @@ If regeneration is required, cut a new RC tag.
 For v2.8.x publication:
 
 - Flagship demo replay + assert mode passing.
+- Accelerating-loop demo replay + assert mode passing.
 - Demo ladder cross-links and role labels passing validation.
 - Root README links to flagship, ladder, doctrine, and release posture docs.
 - Math markdown validation helper passing.

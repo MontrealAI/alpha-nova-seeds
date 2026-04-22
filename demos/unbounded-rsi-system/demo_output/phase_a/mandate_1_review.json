@@ -1,0 +1,74 @@
+{
+  "mandate_id": "M1-PROTOCOL-CORRECTNESS",
+  "phase": "bounded",
+  "scope": "Protocol and smart-contract correctness wedge",
+  "review_mode": "heavy_human_review",
+  "human_intervention_ratio": 0.74,
+  "review_minutes": 265,
+  "findings_accepted": 8,
+  "findings_rework": 3,
+  "evidence_completeness": 0.92,
+  "artifact_scan": [
+    {
+      "file": "demos/protocol_smart_contract_correctness_demo/contracts/mandate_1/ChallengePolicyModuleV25Fixture.sol",
+      "sha256": "316091e9f50f242a6e6f2d9e24fbedba5b397314a6856a2f5c23bd810eca5b9c",
+      "line_count": 30,
+      "marker_hits": {
+        "challenge": 11,
+        "governance": 0,
+        "review": 6,
+        "validator": 0,
+        "threshold": 0,
+        "attestation": 0
+      }
+    },
+    {
+      "file": "demos/protocol_smart_contract_correctness_demo/contracts/mandate_1/CouncilGovernanceV25Fixture.sol",
+      "sha256": "29b7342c8c0a4fb0df227c9c0fe3f48db0095080686ef31f1845a8eb1c1b4107",
+      "line_count": 28,
+      "marker_hits": {
+        "challenge": 2,
+        "governance": 2,
+        "review": 0,
+        "validator": 0,
+        "threshold": 0,
+        "attestation": 0
+      }
+    },
+    {
+      "file": "demos/protocol_smart_contract_correctness_demo/contracts/mandate_2/SignedAttestationVerifierV25Fixture.sol",
+      "sha256": "4e8b4c1697282babb66f0b015fcd4720ad6b2d074fba677ab664a255a47bc037",
+      "line_count": 26,
+      "marker_hits": {
+        "challenge": 1,
+        "governance": 0,
+        "review": 0,
+        "validator": 0,
+        "threshold": 0,
+        "attestation": 3
+      }
+    },
+    {
+      "file": "demos/protocol_smart_contract_correctness_demo/contracts/mandate_2/ThresholdNetworkAdapterV25Fixture.sol",
+      "sha256": "a0106204242e76d7e1c00568a42dc126495ae5a65fd02ec91dd46f85383d52cd",
+      "line_count": 22,
+      "marker_hits": {
+        "challenge": 0,
+        "governance": 0,
+        "review": 0,
+        "validator": 0,
+        "threshold": 2,
+        "attestation": 0
+      }
+    }
+  ],
+  "marker_totals": {
+    "challenge": 14,
+    "governance": 2,
+    "review": 6,
+    "validator": 0,
+    "threshold": 2,
+    "attestation": 3
+  },
+  "note": "Repo-native fixtures and deterministic static review metrics are used for bounded wedge replay."
+}

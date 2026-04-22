@@ -1,0 +1,23 @@
+{
+  "demo": "unbounded-rsi-system",
+  "verdict": "PASS (bounded accelerating loop demonstrated)",
+  "mandate_2_threshold_pass": true,
+  "mandate_3_candidate": "backend_proof_governance_api_correctness",
+  "autonomy_uplift_vs_phase_a": 0.4865,
+  "autonomy_uplift_vs_phase_b": 0.3214,
+  "demonstrated": [
+    "real repo-native protocol wedge artifacts were scanned and reviewed",
+    "governed capability package freeze with deterministic manifest/hash",
+    "control-vs-treatment adjacent gate surpassed declared thresholds",
+    "bounded autonomous adjacent selection/execution in second domain"
+  ],
+  "simulated": [
+    "lane-level productivity metrics are deterministic simulation constants",
+    "board ruling is demo governance simulation"
+  ],
+  "unproven": [
+    "unrestricted autonomy",
+    "open-ended compounding in wild environments",
+    "fully realized broad sovereign operation"
+  ]
+}

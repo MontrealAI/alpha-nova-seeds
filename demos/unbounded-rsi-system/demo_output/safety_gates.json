@@ -1,0 +1,6 @@
+{
+  "policy_scope_bounded": true,
+  "no_external_execution": true,
+  "no_unreviewed_settlement": true,
+  "governance_override_available": true
+}

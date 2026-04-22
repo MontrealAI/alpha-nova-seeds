@@ -1,0 +1,8 @@
+{
+  "entry_id": "chronicle-unbounded-rsi-system-v2.8.0-rc.2",
+  "summary": "Minimum viable accelerating loop shown across three bounded phases with explicit governance and safety gates.",
+  "phase_a": "M1-PROTOCOL-CORRECTNESS",
+  "phase_b": "M2-ADJACENT-CONTROL-VS-TREATMENT",
+  "phase_c": "M3-BROADER-ADJACENT-AUTONOMY",
+  "timestamp": "2026-04-22T00:00:00Z"
+}
