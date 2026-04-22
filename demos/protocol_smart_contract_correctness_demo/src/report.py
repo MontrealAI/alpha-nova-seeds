@@ -407,7 +407,7 @@ ul{{margin:0;padding-left:18px}}
 <li><code>demo_output/scorecard/release_gate_packet.json</code></li>
 <li><code>demo_output/proof_docket/proof_docket.json</code></li>
 <li><code>demo_output/proof_docket/governance_ruling.json</code></li>
-<li><code>demo_output/sovereign/ProtocolCybersecuritySovereign-v1.synthetic.json</code></li>
+<li><code>demo_output/sovereign/{sovereign_or_ruling['id']}</code></li>
 </ul>
 </div>
 </div></body></html>"""
