@@ -1,0 +1,34 @@
+{
+  "release_target": "v2.8.0-rc.2",
+  "mandate_2_adjacent_result": {
+    "aoy_uplift": 0.5,
+    "speed_uplift": 0.349,
+    "rework_reduction": 0.4483,
+    "evidence_completeness_uplift": 0.2778,
+    "safety_regression": false,
+    "package_dependence": 0.63
+  },
+  "thresholds": {
+    "aoy_uplift": 0.35,
+    "speed_uplift": 0.3,
+    "rework_reduction": 0.4,
+    "evidence_completeness_uplift": 0.2,
+    "package_dependence": 0.3,
+    "safety_regression": false
+  },
+  "passes": {
+    "aoy": true,
+    "speed": true,
+    "rework": true,
+    "evidence": true,
+    "package_dependence": true,
+    "safety": true,
+    "adjacent_gate": true
+  },
+  "longitudinal": {
+    "frontier_width": 6,
+    "autonomy_delta": 11,
+    "neighborhood_slope": 0.0075,
+    "archive_depth": 3
+  }
+}

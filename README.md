@@ -1,4 +1,4 @@
-# α‑AGI Nova‑Seeds (v2.8.0-rc.1 posture)
+# α‑AGI Nova‑Seeds (v2.8.0-rc.2 target posture)
 
 Nova‑Seeds are **sealed venture blueprints for sovereign opportunity formation**.
 
@@ -25,7 +25,7 @@ Invariant:
 
 ## Release posture (April 22, 2026)
 
-- Current RC target: **v2.8.0-rc.1**.
+- Current RC target: **v2.8.0-rc.2** (promoted from active unpublished v2.8.0-rc.1 after additive accelerating-loop hardening).
 - This is a **new release-candidate cut** after v2.7.0-rc.2, focused on front-door coherence, flagship/demo ladder polish, doctrine legibility, and operator UX hardening.
 - This RC remains proof-first and bounded: synthetic flagship evidence is strengthened; broader sovereign claims remain future-facing.
 
@@ -58,6 +58,7 @@ Invariant:
 - Clarifies role boundaries across:
   - [`demos/adjacent_mandate_reuse_proof_demo/`](./demos/adjacent_mandate_reuse_proof_demo/)
   - [`demos/adjacent_mandate_reuse_proof_real_v1/`](./demos/adjacent_mandate_reuse_proof_real_v1/)
+  - [`demos/open-ended-rsi-system/`](./demos/open-ended-rsi-system/)
   - [`demos/unbounded-rsi-system/`](./demos/unbounded-rsi-system/)
   - flagship synthetic wedge demo
   - compact synthetic adjacent proof demo
@@ -66,9 +67,10 @@ Invariant:
 
 ### 3) Accelerating-loop demo
 
-- [`demos/unbounded-rsi-system/`](./demos/unbounded-rsi-system/)
-- Purpose: bounded proof-of-mechanism for bounded → expanding → increasingly autonomous loop.
+- [`demos/open-ended-rsi-system/`](./demos/open-ended-rsi-system/)
+- Purpose: bounded proof-of-mechanism for bounded → expanding → increasingly autonomous loop with explicit DISCO/Arnold mode alternation.
 - Output: deterministic package freeze/hash, control-vs-treatment scorecard, bounded autonomous mandate-3 selection, board-ready report artifacts.
+- Compatibility: prior surface remains at [`demos/unbounded-rsi-system/`](./demos/unbounded-rsi-system/).
 
 ### 4) Doctrine stack
 
@@ -144,6 +146,7 @@ python scripts/check_math_markdown.py
 python scripts/check_doctrine_consistency.py
 python scripts/check_demo_links.py
 python3 demos/protocol_smart_contract_correctness_demo/run_demo.py --assert
+python3 demos/open-ended-rsi-system/run_demo.py --assert
 python3 demos/unbounded-rsi-system/run_demo.py --assert
 ```
 

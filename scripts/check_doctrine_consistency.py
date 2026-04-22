@@ -21,6 +21,7 @@ DEMO_LADDER_LINKS = [
     "demos/protocol_smart_contract_correctness_demo/",
     "demos/adjacent_mandate_reuse_proof_demo/",
     "demos/adjacent_mandate_reuse_proof_real_v1/",
+    "demos/open-ended-rsi-system/",
     "demos/unbounded-rsi-system/",
     "demos/README.md",
 ]

@@ -1,0 +1,14 @@
+{
+  "lineage_id": "lineage-open-ended-rsi-g0-g2",
+  "parentage": [
+    "protocol-smart-contract-correctness-wedge"
+  ],
+  "generation0_winner": "g0-candidate-024",
+  "strategy_families_seen": [
+    "operator-runbook",
+    "proof-surface",
+    "schema-lift",
+    "trace-fix"
+  ],
+  "archive_depth": 3
+}

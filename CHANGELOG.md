@@ -1,5 +1,21 @@
 # Changelog
 
+## [v2.8.0-rc.2] - 2026-04-22
+
+### Added
+- New deterministic accelerating-loop demo at `demos/open-ended-rsi-system/` with required staged directories, deterministic generation pipeline, governed package freeze/hash, DISCO/Arnold alternation, and board-ready outputs under `out/`.
+- New release checklist: `release/v2.8.0-rc.2-open-ended-rsi-checklist.md` with acceptance criteria, smoke checks, provenance, migration/rollback notes, and claim boundaries.
+
+### Changed
+- Root README front-door now points to `demos/open-ended-rsi-system/` as the active accelerating-loop demo while keeping `demos/unbounded-rsi-system/` as a compatibility surface.
+- Demo ladder index now treats `open-ended-rsi-system` as the canonical accelerating-loop surface and preserves explicit synthetic-vs-real claim boundaries.
+- Demo consistency helpers (`scripts/check_demo_links.py`, `scripts/check_doctrine_consistency.py`) now validate both the new and compatibility accelerating-loop surfaces.
+- Release and doctrine posture docs updated to align with v2.8.0-rc.2 target framing and explicit version-posture note for README/AGENTS/RELEASES mismatch handling.
+
+### Notes
+- This release remains a **verifiable release candidate** and bounded proof-of-mechanism.
+- It does not claim unrestricted autonomy, literal unbounded RSI, or completed real-world broad sovereign operation.
+
 ## [v2.8.0-rc.1] - 2026-04-22
 
 ### Added

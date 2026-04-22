@@ -96,4 +96,5 @@ Outputs are written to:
 - Flagship synthetic wedge demo: [`../protocol_smart_contract_correctness_demo/`](../protocol_smart_contract_correctness_demo/)
 - Compact synthetic adjacent proof demo: [`../adjacent_mandate_reuse_proof_demo/`](../adjacent_mandate_reuse_proof_demo/)
 - Real-world experiment pack: [`../adjacent_mandate_reuse_proof_real_v1/`](../adjacent_mandate_reuse_proof_real_v1/)
+- Active accelerating-loop demo: [`../open-ended-rsi-system/`](../open-ended-rsi-system/)
 - Demo ladder index: [`../README.md`](../README.md)

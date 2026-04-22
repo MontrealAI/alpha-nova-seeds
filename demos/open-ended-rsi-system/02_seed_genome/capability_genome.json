@@ -1,0 +1,63 @@
+{
+  "id": "ProtocolCorrectnessCapabilityPack-v1",
+  "manifest_version": "1.0",
+  "timestamp": "2026-04-22T00:00:00+00:00",
+  "winner": {
+    "id": "g0-candidate-024",
+    "family": "operator-runbook",
+    "mode": "DISCO",
+    "assays": {
+      "cheap": 0.71,
+      "mid": 0.637,
+      "expensive": 0.658
+    },
+    "off_target_penalties": {
+      "evidence_fabrication": 0.0,
+      "undeclared_privilege": 0.0,
+      "safety_regression": 0.0,
+      "schema_drift": 0.0,
+      "missing_docs_or_provenance": 0.0,
+      "governance_shortcut": 0.0
+    },
+    "pareto_vector": [
+      0.71,
+      0.637,
+      0.658
+    ],
+    "utility": 0.6637
+  },
+  "lineage": {
+    "lineage_id": "lineage-open-ended-rsi-g0-g2",
+    "parentage": [
+      "protocol-smart-contract-correctness-wedge"
+    ],
+    "generation0_winner": "g0-candidate-024",
+    "strategy_families_seen": [
+      "operator-runbook",
+      "proof-surface",
+      "schema-lift",
+      "trace-fix"
+    ],
+    "archive_depth": 3
+  },
+  "authority_scope": {
+    "can": [
+      "mutate_package_templates",
+      "run_preapproved_assays",
+      "select_frontier_from_whitelist"
+    ],
+    "cannot": [
+      "widen_authority_scope",
+      "settle_real_value",
+      "promote_to_production",
+      "rewrite_repo_claim_boundary"
+    ]
+  },
+  "reusable_assets": [
+    "contracts/NovaSeedRegistryV25.sol",
+    "backend/app/main.py",
+    "schemas/v2.6/threshold-binding-profile.schema.json",
+    "docs/verify-release.md",
+    "demos/protocol_smart_contract_correctness_demo/ground_truth/mandate_1.json"
+  ]
+}

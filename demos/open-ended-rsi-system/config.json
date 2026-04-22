@@ -1,0 +1,20 @@
+{
+  "demo_id": "open-ended-rsi-system",
+  "release_target": "v2.8.0-rc.2",
+  "deterministic_timestamp": "2026-04-22T00:00:00+00:00",
+  "candidate_pool_size": 48,
+  "neighborhood_size": 24,
+  "frontier_whitelist": [
+    "backend_api_correctness",
+    "sdk_typed_attestation_correctness",
+    "schema_migration_integrity",
+    "proof_docket_synthesis",
+    "release_provenance_automation",
+    "dashboard_provenance_surface"
+  ],
+  "assay_weights": {
+    "cheap": 0.25,
+    "mid": 0.35,
+    "expensive": 0.4
+  }
+}
