@@ -110,6 +110,16 @@ def _phase_a() -> dict[str, Any]:
         "phase": "A",
         "label": "bounded",
         "mandate": "Mandate 1 protocol governance/dispute correctness replay",
+        "parent_wedge": {
+            "wedge": "protocol_smart_contract_correctness",
+            "business_model": "protocol_cybersecurity_assurance_studio",
+            "why_first": [
+                "verification signal is strongest in protocol correctness",
+                "replay is deterministic with objective fixture evidence",
+                "archive density compounds quickly with reusable contract-finding structures",
+                "operator review cycles are comparatively fast and commercially legible",
+            ],
+        },
         "repo_native_surface": "contracts mandate_1 fixtures + parent business + mandate_1 ground truth",
         "review_posture": "heavy human review",
         "artifacts": [d.__dict__ for d in digests],
@@ -444,6 +454,16 @@ It does **not** prove unrestricted autonomy or literal unbounded recursive self-
 - Real-world unrestricted autonomy.
 - Full sovereign operation in open environments.
 - Literal unbounded RSI in the general case.
+
+## Parent wedge rationale
+
+- Wedge: **{phase_a['parent_wedge']['wedge']}**
+- Parent business model: **{phase_a['parent_wedge']['business_model']}**
+- Why first:
+  - {phase_a['parent_wedge']['why_first'][0]}
+  - {phase_a['parent_wedge']['why_first'][1]}
+  - {phase_a['parent_wedge']['why_first'][2]}
+  - {phase_a['parent_wedge']['why_first'][3]}
 """
 
     report_html = f"""<!doctype html>
@@ -558,6 +578,32 @@ This scorecard demonstrates an early accelerating mechanism under governance.
 It does not claim unrestricted autonomy, literal unbounded RSI, or a fully realized broader sovereign system.
 """
 
+    parent_wedge_brief_md = f"""# Parent Wedge Brief — Unbounded RSI System
+
+## Wedge selection
+
+- Wedge: **{phase_a['parent_wedge']['wedge']}**
+- Parent business model: **{phase_a['parent_wedge']['business_model']}**
+
+## Why this wedge is first
+
+1. {phase_a['parent_wedge']['why_first'][0]}
+2. {phase_a['parent_wedge']['why_first'][1]}
+3. {phase_a['parent_wedge']['why_first'][2]}
+4. {phase_a['parent_wedge']['why_first'][3]}
+
+## Constitutional framing
+
+The execution order remains:
+
+1. identity
+2. proof
+3. settlement
+4. governance
+
+This is a bounded release-candidate artifact. It does not claim unrestricted autonomy.
+"""
+
     artifact_payloads = {
         "manifest.json": manifest,
         "package_manifest.json": package_manifest,
@@ -573,6 +619,7 @@ It does not claim unrestricted autonomy, literal unbounded RSI, or a fully reali
         _write_json(OUT / name, payload)
     _write_text(OUT / "package_hash.txt", package_hash + "\n")
     _write_text(OUT / "board_scorecard.md", board_scorecard_md)
+    _write_text(OUT / "parent_wedge_brief.md", parent_wedge_brief_md)
     _write_text(OUT / "report.md", report_md)
     _write_text(OUT / "report.html", report_html)
 
@@ -583,7 +630,8 @@ It does not claim unrestricted autonomy, literal unbounded RSI, or a fully reali
         "phase_c": phase_c,
         "package_hash": package_hash,
         "board_scorecard": board_scorecard,
-        "artifacts": sorted(artifact_payloads.keys()) + ["package_hash.txt", "board_scorecard.md", "report.md", "report.html", "run_bundle.json"],
+        "artifacts": sorted(artifact_payloads.keys())
+        + ["package_hash.txt", "board_scorecard.md", "parent_wedge_brief.md", "report.md", "report.html", "run_bundle.json"],
     }
     _write_json(OUT / "run_bundle.json", run_bundle)
 
@@ -599,6 +647,7 @@ It does not claim unrestricted autonomy, literal unbounded RSI, or a fully reali
             "board_scorecard.json",
             "mandate3_selection.json",
             "board_scorecard.md",
+            "parent_wedge_brief.md",
             "report.html",
             "report.md",
             "run_bundle.json",

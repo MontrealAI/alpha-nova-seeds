@@ -5,9 +5,11 @@
 ### Added
 - New flagship-class accelerating-loop demo: `demos/unbounded-rsi-system/` with deterministic Phase A/B/C execution, package freeze/hash, bounded mandate-3 selector, and board-ready outputs (`board_scorecard.*`, `report.*`, governance/provenance/safety artifacts).
 - Deterministic Phase C selection artifact: `demos/unbounded-rsi-system/demo_output/mandate3_selection.json` capturing bounded-candidate scoring policy and ranked outcomes.
+- Parent wedge board artifact: `demos/unbounded-rsi-system/demo_output/parent_wedge_brief.md` generated from deterministic Phase A business/wedge rationale.
 - New release checklist: `release/v2.8.0-rc.1-unbounded-rsi-demo-checklist.md` covering acceptance criteria, smoke checks, provenance, migration/rollback notes, and claim boundaries.
 - Frontier posture doctrine doc: `docs/FRONTIER_LAB_POSTURE.md`.
 - New RC release checklist: `release/v2.8.0-rc.1-frontier-ui-demo-release-checklist.md` with acceptance criteria, smoke checks, migration/rollback notes, and explicit claim boundaries.
+- Demo-local doctrine appendix: `demos/unbounded-rsi-system/DOCTRINE_APPENDIX.md` with canonical GitHub-compatible math rendering and bounded claim framing.
 
 ### Changed
 - Demo ladder index now includes four coherent roles: flagship synthetic wedge, compact adjacent synthetic replay, real-world proof pack, and accelerating-loop demo.
