@@ -17,12 +17,14 @@ REQUIRED_PATHS = [
     "demos/protocol_smart_contract_correctness_demo/",
     "demos/adjacent_mandate_reuse_proof_demo/",
     "demos/adjacent_mandate_reuse_proof_real_v1/",
+    "demos/unbounded-rsi-system/",
 ]
 
 REQUIRED_PHRASES = [
     "Flagship synthetic wedge demo",
     "Adjacent synthetic proof demo",
-    "Real-world experiment pack",
+    "Real-world proof pack",
+    "Accelerating-loop demo",
 ]
 
 
