@@ -79,7 +79,7 @@ async function load() {
 
   snapshot = {
     version: SNAPSHOT_VERSION,
-    proofBoundary: 'Synthetic wedge proof only; broader cybersecurity sovereign remains future-facing and not yet proven by this RC.',
+    proofBoundary: 'Synthetic wedge proof + bounded accelerating-loop mechanism only; broader cybersecurity sovereign and unrestricted autonomy remain unproven in this RC.',
     capturedAt: new Date().toISOString(),
     summary,
     proof,
