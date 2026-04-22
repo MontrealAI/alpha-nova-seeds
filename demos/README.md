@@ -1,6 +1,11 @@
-# Demo Ladder (v2.7.0-rc.1)
+# Demo Ladder (v2.7.0-rc.2)
 
 This folder contains the three demo surfaces for the protocol-and-smart-contract correctness wedge.
+
+Use this ladder with explicit scope labels:
+- **Synthetic flagship wedge demo** (primary front door)
+- **Synthetic compact adjacent proof demo** (small replay)
+- **Real-world experiment pack** (operator templates requiring blinded execution data)
 
 ## 1) Flagship synthetic wedge demo
 

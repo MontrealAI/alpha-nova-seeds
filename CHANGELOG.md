@@ -1,5 +1,22 @@
 # Changelog
 
+## [v2.7.0-rc.2] - 2026-04-22
+
+### Added
+- New release checklist: `release/v2.7.0-rc.2-ui-demo-release-checklist.md` with acceptance criteria, smoke checks, migration/rollback notes, and explicit claim boundaries.
+- Demo ladder validator `scripts/check_demo_links.py` to catch broken ladder links and missing role labels.
+
+### Changed
+- Root posture moved from `v2.7.0-rc.1` to `v2.7.0-rc.2` as the next additive RC cut.
+- Dashboard UI polished for operator legibility: improved hierarchy, demo ladder cards, synthetic-vs-real labels, and RC2 snapshot naming.
+- Flagship demo HTML report (`run_demo.py` output) refreshed for institutional readability with clearer wedge flow, deterministic winner criteria visibility, and operator artifact map.
+- `RELEASES.md` acceptance surfaces generalized for v2.7.x RCs and now include demo ladder consistency checks.
+- `demos/README.md` labeling clarified for flagship synthetic vs compact synthetic vs real-world pack roles.
+
+### Notes
+- This release remains a **verifiable release candidate**, not an audited final deployment.
+- Broader cybersecurity sovereign claims remain future-facing; this RC only strengthens synthetic wedge proof surfaces and operator clarity.
+
 ## [v2.7.0-rc.1] - 2026-04-22
 
 ### Added
