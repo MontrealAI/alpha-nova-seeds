@@ -37,3 +37,13 @@ It does **not** prove unrestricted autonomy or literal unbounded recursive self-
 - Real-world unrestricted autonomy.
 - Full sovereign operation in open environments.
 - Literal unbounded RSI in the general case.
+
+## Parent wedge rationale
+
+- Wedge: **protocol_smart_contract_correctness**
+- Parent business model: **protocol_cybersecurity_assurance_studio**
+- Why first:
+  - verification signal is strongest in protocol correctness
+  - replay is deterministic with objective fixture evidence
+  - archive density compounds quickly with reusable contract-finding structures
+  - operator review cycles are comparatively fast and commercially legible

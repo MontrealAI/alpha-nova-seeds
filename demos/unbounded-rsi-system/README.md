@@ -54,6 +54,7 @@ python3 demos/unbounded-rsi-system/run_demo.py --assert
 Outputs are written to:
 
 - `demos/unbounded-rsi-system/demo_output/`
+- Doctrine appendix: [`./DOCTRINE_APPENDIX.md`](./DOCTRINE_APPENDIX.md)
 
 ## Artifact map
 
@@ -66,6 +67,7 @@ Outputs are written to:
 - `chronicle_entry.json` — chronicle summary for release history.
 - `board_scorecard.json` — machine-readable board-facing scorecard.
 - `board_scorecard.md` — human-readable board-facing scorecard.
+- `parent_wedge_brief.md` — board-facing wedge/business rationale artifact.
 - `mandate3_selection.json` — deterministic Phase C candidate scoring and winning selection log.
 - `report.md` — plain-English report with claim boundaries.
 - `report.html` — polished static report for operator/board audiences.

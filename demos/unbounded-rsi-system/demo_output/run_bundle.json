@@ -26,6 +26,16 @@
     "phase": "A",
     "label": "bounded",
     "mandate": "Mandate 1 protocol governance/dispute correctness replay",
+    "parent_wedge": {
+      "wedge": "protocol_smart_contract_correctness",
+      "business_model": "protocol_cybersecurity_assurance_studio",
+      "why_first": [
+        "verification signal is strongest in protocol correctness",
+        "replay is deterministic with objective fixture evidence",
+        "archive density compounds quickly with reusable contract-finding structures",
+        "operator review cycles are comparatively fast and commercially legible"
+      ]
+    },
     "repo_native_surface": "contracts mandate_1 fixtures + parent business + mandate_1 ground truth",
     "review_posture": "heavy human review",
     "artifacts": [
@@ -274,6 +284,7 @@
     "safety_gates.json",
     "package_hash.txt",
     "board_scorecard.md",
+    "parent_wedge_brief.md",
     "report.md",
     "report.html",
     "run_bundle.json"
