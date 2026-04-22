@@ -42,10 +42,17 @@ Primary machine-readable outputs in `out/`:
 - `frontier_queue.json`
 - `intervention_log.json`
 - `scorecard.json`
+- `claim_boundary.json`
 - `summary.md`
 - `proof_docket.md`
 - `provenance_manifest.json`
 - `board_report.html`
+
+The run also performs deterministic local validation against:
+
+- `schemas/v2.8/capability_genome.schema.json`
+- `schemas/v2.8/assay_bundle.schema.json`
+- `schemas/v2.8/lineage.schema.json`
 
 ## Run
 

@@ -1,10 +1,79 @@
 {
   "release_target": "v2.8.0-rc.2",
   "manifest_hash": "809d3448ac7486a1ff72b03031d355c41ca3cfe53f3eac34d4c4b3821649b1d2",
+  "config_hash": "3963919895106e5031b44e48d31566576b409018579a4c0e683a806d733aea2b",
   "scorecard_hash": "5c7cf79988d3ffb87e413059dee1592f674d0fb84b9969f19bb51b40937d4adc",
   "proof_docket_hash": "0ab9ac954ff90d3f8c80c2fc89cea93c411b24940fa82efbeabb1435ecc6b0d6",
   "frozen_package_manifest_hash": "56dfb240a9b6b73c91cb4bb7b06efba543956dea0d4760a0c3f8bd41c5da0f75",
+  "determinism_guards": {
+    "network_calls": "disabled",
+    "external_apis": "disabled",
+    "training": "disabled",
+    "synthetic_adjudication_labeled": true
+  },
+  "schema_validation": {
+    "capability_genome": {
+      "schema_id": "https://alpha-nova-seeds.local/schemas/v2.8/capability_genome.schema.json",
+      "status": "pass"
+    },
+    "assay_bundle": {
+      "schema_id": "https://alpha-nova-seeds.local/schemas/v2.8/assay_bundle.schema.json",
+      "status": "pass"
+    },
+    "lineage": {
+      "schema_id": "https://alpha-nova-seeds.local/schemas/v2.8/lineage.schema.json",
+      "status": "pass"
+    }
+  },
   "files": [
+    {
+      "path": "demos/open-ended-rsi-system/00_manifest/manifest.json",
+      "sha256": "d2213e2b0516e31e2e6bbd0bbcd2b17d3a5a883dd7805d821a5a4accca448cf5"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/01_frontier_queue/frontier_queue.json",
+      "sha256": "7a91787c94d7401f47b7fa6b05817fb98732e5961cde77499d69dcd05a76b297"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/02_seed_genome/capability_genome.json",
+      "sha256": "7b1ea3deaa7aefcc89ae4a6fb1f4ba1423a6edfaa6ea68f9371d749253be38f7"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/03_generation/generation_0.json",
+      "sha256": "b0c4a8b0f7f52dc1fd98a233999289b172842fc36ca1673ca8c22bec0d575c67"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/03_generation/generation_1.json",
+      "sha256": "69f1bdb8b0d18a33ee2e1424383584f29ca5dce4c6e494cb43c0233ebaee5055"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/03_generation/generation_2.json",
+      "sha256": "b99fd072c9e37e79e6477b1ca38578c73784e1499fda938f31bb772114d32c53"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/04_assays/assay_bundle.json",
+      "sha256": "8b4ab5c7ac003f2b7ab2efebb68c90377a02ee2fe358e239dd3ae5af2078978c"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/05_selection/lineage.json",
+      "sha256": "634e0dbd96d3cc51cc6494a2b04a76cfe8eec022eb9cd862415f1c165ed6d9c6"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/06_archive/intervention_log.json",
+      "sha256": "6b0f0755b96bddd85388eabe948979757b051bbdd0804910a0773b3ffecb4fba"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/07_scorecard/scorecard.json",
+      "sha256": "5c7cf79988d3ffb87e413059dee1592f674d0fb84b9969f19bb51b40937d4adc"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/08_proof_docket/proof_docket.md",
+      "sha256": "0ab9ac954ff90d3f8c80c2fc89cea93c411b24940fa82efbeabb1435ecc6b0d6"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/08_proof_docket/summary.md",
+      "sha256": "d41f1f51da22cea41554b47c8585171b504aa5e9e2e7340d84eff489d48e608c"
+    },
     {
       "path": "demos/open-ended-rsi-system/out/assay_bundle.json",
       "sha256": "8b4ab5c7ac003f2b7ab2efebb68c90377a02ee2fe358e239dd3ae5af2078978c"
@@ -16,6 +85,10 @@
     {
       "path": "demos/open-ended-rsi-system/out/capability_genome.json",
       "sha256": "7b1ea3deaa7aefcc89ae4a6fb1f4ba1423a6edfaa6ea68f9371d749253be38f7"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/claim_boundary.json",
+      "sha256": "6f2070d67c5286e8f7e762f9b76c5950233c81b580d9a84836dbc90fc7a8d247"
     },
     {
       "path": "demos/open-ended-rsi-system/out/frontier_queue.json",

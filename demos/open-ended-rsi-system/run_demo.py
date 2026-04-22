@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -13,6 +14,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 DEMO = Path(__file__).resolve().parent
 OUT = DEMO / "out"
+SCHEMA_DIR = ROOT / "schemas/v2.8"
 
 
 def load_config() -> dict[str, Any]:
@@ -49,6 +51,28 @@ def jsha(payload: Any) -> str:
 
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
+
+
+def schema_required(schema: dict[str, Any]) -> list[str]:
+    required = schema.get("required", [])
+    return required if isinstance(required, list) else []
+
+
+def validate_schema_minimal(name: str, payload: dict[str, Any], schema: dict[str, Any]) -> None:
+    required = schema_required(schema)
+    missing = [k for k in required if k not in payload]
+    if missing:
+        raise AssertionError(f"{name}: missing required keys: {missing}")
+
+    if name == "capability_genome":
+        for idx, asset in enumerate(payload.get("assets", [])):
+            digest = asset.get("sha256", "")
+            if not re.fullmatch(r"^[a-f0-9]{64}$", digest):
+                raise AssertionError(f"{name}: asset[{idx}] invalid sha256")
+    if name == "lineage":
+        for idx, item in enumerate(payload.get("lineage", [])):
+            if item.get("generation", -1) < 0:
+                raise AssertionError(f"{name}: lineage[{idx}] generation must be >= 0")
 
 
 def run_repo_native_probes(cfg: dict[str, Any]) -> list[dict[str, Any]]:
@@ -541,6 +565,7 @@ def main() -> int:
         "ranked": g2["frontier_queue"],
         "selected": g2["selected_domain"],
     }
+    claim_boundary = scorecard["claim_boundary"]
 
     proof_md = render_proof_docket(scorecard, g0, g1, g2)
     summary_md = render_summary(scorecard, g2)
@@ -564,6 +589,7 @@ def main() -> int:
         (OUT / "frontier_queue.json", frontier_queue, True),
         (OUT / "intervention_log.json", intervention_log, True),
         (OUT / "scorecard.json", scorecard, True),
+        (OUT / "claim_boundary.json", claim_boundary, True),
         (OUT / "summary.md", summary_md, False),
         (OUT / "proof_docket.md", proof_md, False),
     ]
@@ -573,15 +599,46 @@ def main() -> int:
 
     write(OUT / "board_report.html", render_html(scorecard, g0, g1, g2))
 
+    schema_payloads = {
+        "capability_genome": {
+            "schema": json.loads((SCHEMA_DIR / "capability_genome.schema.json").read_text(encoding="utf-8")),
+            "payload": genome,
+        },
+        "assay_bundle": {
+            "schema": json.loads((SCHEMA_DIR / "assay_bundle.schema.json").read_text(encoding="utf-8")),
+            "payload": assay_bundle,
+        },
+        "lineage": {
+            "schema": json.loads((SCHEMA_DIR / "lineage.schema.json").read_text(encoding="utf-8")),
+            "payload": lineage,
+        },
+    }
+    for name, entry in schema_payloads.items():
+        validate_schema_minimal(name, entry["payload"], entry["schema"])
+
     prov = {
         "release_target": cfg["release_target"],
         "manifest_hash": jsha(manifest),
+        "config_hash": fsha(DEMO / "config.json"),
         "scorecard_hash": fsha(OUT / "scorecard.json"),
         "proof_docket_hash": fsha(OUT / "proof_docket.md"),
         "frozen_package_manifest_hash": g0["frozen_package"]["manifest_hash"],
+        "determinism_guards": {
+            "network_calls": "disabled",
+            "external_apis": "disabled",
+            "training": "disabled",
+            "synthetic_adjudication_labeled": True,
+        },
+        "schema_validation": {
+            k: {"schema_id": v["schema"].get("$id", ""), "status": "pass"}
+            for k, v in schema_payloads.items()
+        },
         "files": [],
     }
-    for p in sorted([f for f in OUT.iterdir() if f.is_file()]):
+    provenance_files = []
+    for root in [OUT, DEMO / "00_manifest", DEMO / "01_frontier_queue", DEMO / "02_seed_genome", DEMO / "03_generation", DEMO / "04_assays", DEMO / "05_selection", DEMO / "06_archive", DEMO / "07_scorecard", DEMO / "08_proof_docket"]:
+        provenance_files.extend([f for f in root.iterdir() if f.is_file()])
+    for p in sorted(provenance_files):
         prov["files"].append({"path": rel(p), "sha256": fsha(p)})
     dump(OUT / "provenance_manifest.json", prov)
 
@@ -593,6 +650,7 @@ def main() -> int:
             OUT / "frontier_queue.json",
             OUT / "intervention_log.json",
             OUT / "scorecard.json",
+            OUT / "claim_boundary.json",
             OUT / "summary.md",
             OUT / "proof_docket.md",
             OUT / "provenance_manifest.json",
