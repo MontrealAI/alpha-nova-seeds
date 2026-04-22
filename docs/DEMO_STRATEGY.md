@@ -1,6 +1,6 @@
-# Demo Strategy — v2.8.0-rc.1
+# Demo Strategy — v2.8.0-rc.2
 
-This repository uses a three-surface demo ladder so proof boundaries stay explicit.
+This repository uses a four-surface demo ladder so proof boundaries stay explicit.
 
 ## Ladder structure
 
@@ -24,6 +24,14 @@ This repository uses a three-surface demo ladder so proof boundaries stay explic
 - Role: controlled experiment templates and scoring process
 - Proves: only when run with blinded real data and published docket evidence
 
+
+### 4) Accelerating-loop demo
+
+- Path: [`../demos/open-ended-rsi-system/`](../demos/open-ended-rsi-system/)
+- Role: bounded accelerating-loop demonstration (bounded → expanding → increasingly autonomous)
+- Proves: deterministic package heredity, adjacent treatment advantage, and whitelist-bounded mandate-3 selection
+- Does not prove: unrestricted autonomy or broad sovereign completion
+
 ## Why protocol correctness is first
 
 The first wedge is protocol + smart-contract correctness because verification quality, replay fidelity, and evidence objectivity are strongest there.
@@ -45,6 +53,7 @@ Legacy “Assurance” aliases remain for compatibility where deterministic repl
 - `python3 demos/protocol_smart_contract_correctness_demo/run_demo.py --assert`
 - `python3 demos/adjacent_mandate_reuse_proof_demo/run_demo.py`
 - `python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py`
+- `python3 demos/open-ended-rsi-system/run_demo.py --assert`
 - `python scripts/check_demo_links.py`
 
 ## Explicit boundary

@@ -1,0 +1,48 @@
+{
+  "id": "genome-protocol-correctness-v1",
+  "release_target": "v2.8.0-rc.2",
+  "reactive_intermediate": {
+    "type": "missing_provenance_surface",
+    "description": "Mandate 1 replay lacks a normalized cross-phase lineage/provenance artifact bundle."
+  },
+  "authority_scope": {
+    "may": [
+      "mutate packages",
+      "choose approved assays",
+      "select next mandate from whitelist",
+      "schedule bounded synthetic experiments"
+    ],
+    "may_not": [
+      "widen authority scope",
+      "settle real value",
+      "self-promote to production",
+      "rewrite repo claim boundary"
+    ]
+  },
+  "assets": [
+    {
+      "path": "demos/protocol_smart_contract_correctness_demo/contracts/mandate_1/CouncilGovernanceV25Fixture.sol",
+      "sha256": "29b7342c8c0a4fb0df227c9c0fe3f48db0095080686ef31f1845a8eb1c1b4107"
+    },
+    {
+      "path": "demos/protocol_smart_contract_correctness_demo/contracts/mandate_2/ThresholdNetworkAdapterV25Fixture.sol",
+      "sha256": "a0106204242e76d7e1c00568a42dc126495ae5a65fd02ec91dd46f85383d52cd"
+    },
+    {
+      "path": "backend/app/main.py",
+      "sha256": "57735ed94fc4e2562d4fb1111e4a5c0e604cbf9559c53e758db5898144fe27cc"
+    },
+    {
+      "path": "sdk/package.json",
+      "sha256": "6ad2a845b30e5937e28008a2bd7560578c7870ce4fd459e210bbe947f868f5c9"
+    },
+    {
+      "path": "docs/verify-release.md",
+      "sha256": "ab7d6b9ba13b5c8292e19378dbdfedfe3ff1eeb9e7de344181231cc5b1d4a31e"
+    },
+    {
+      "path": "scripts/contracts/export_abi.py",
+      "sha256": "c6b16bbb0dfba52db4d58fb4308e578adf31561bb222c4b5531458e3e666df14"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "release_target": "v2.8.0-rc.2",
+  "manifest_hash": "74b075e3f6ee4a005a74cfe9b8d9b8a89f8f5c5adc174ac8e597757afb11de40",
+  "scorecard_hash": "5c7cf79988d3ffb87e413059dee1592f674d0fb84b9969f19bb51b40937d4adc",
+  "proof_docket_hash": "676b4a930ab0b02997f20dee1c0039ad2933c42b30c9225974977e30c54bb325",
+  "files": [
+    {
+      "path": "demos/open-ended-rsi-system/out/assay_bundle.json",
+      "sha256": "404bd8e5cb7440c4fbc7c054f3dce5b85aa6b14eb2355590374ec48e34b7fa00"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/board_report.html",
+      "sha256": "8620a010d4f975eabe94ded7ca812129f8b409cabace18482b6896a993d25f9b"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/capability_genome.json",
+      "sha256": "3901126bfd6417498727f6d3310627b06e60d9d73c4b648d56bfa308ec334951"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/frontier_queue.json",
+      "sha256": "7a91787c94d7401f47b7fa6b05817fb98732e5961cde77499d69dcd05a76b297"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/intervention_log.json",
+      "sha256": "6b0f0755b96bddd85388eabe948979757b051bbdd0804910a0773b3ffecb4fba"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/lineage.json",
+      "sha256": "634e0dbd96d3cc51cc6494a2b04a76cfe8eec022eb9cd862415f1c165ed6d9c6"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/proof_docket.md",
+      "sha256": "676b4a930ab0b02997f20dee1c0039ad2933c42b30c9225974977e30c54bb325"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/scorecard.json",
+      "sha256": "5c7cf79988d3ffb87e413059dee1592f674d0fb84b9969f19bb51b40937d4adc"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/summary.md",
+      "sha256": "d41f1f51da22cea41554b47c8585171b504aa5e9e2e7340d84eff489d48e608c"
+    }
+  ]
+}

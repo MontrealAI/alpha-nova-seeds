@@ -1,4 +1,4 @@
-# Demo Ladder (v2.8.0-rc.1)
+# Demo Ladder (v2.8.0-rc.2 target)
 
 This folder is the canonical demo ladder for the protocol-correctness wedge and its adjacent expansion surfaces.
 
@@ -33,11 +33,14 @@ The four surfaces are intentionally separated so reviewers can distinguish:
 
 ## 4) Accelerating-loop demo (bounded-to-expanding-to-more-autonomous)
 
-- Path: [`./unbounded-rsi-system/`](./unbounded-rsi-system/)
-- Role: flagship-class accelerating-loop explanation with explicit demonstrated/simulated/unproven boundaries
-- Run: `python3 demos/unbounded-rsi-system/run_demo.py --assert`
-- Proves: deterministic three-phase loop mechanics with frozen package reuse and bounded autonomous adjacent selection
+- Path: [`./open-ended-rsi-system/`](./open-ended-rsi-system/)
+- Role: flagship-class accelerating-loop demonstration with governed package heredity, frontier queue autonomy, and board-ready proof outputs
+- Run: `python3 demos/open-ended-rsi-system/run_demo.py --assert`
+- Proves: deterministic three-generation loop mechanics with frozen package reuse and bounded autonomous adjacent selection
 - Does not prove: unrestricted autonomy, literal unbounded RSI, or full broad sovereign realization
+
+Legacy compatibility surface:
+- [`./unbounded-rsi-system/`](./unbounded-rsi-system/) remains available for historical replay.
 
 ## Doctrine context
 

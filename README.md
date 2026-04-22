@@ -1,4 +1,4 @@
-# α‑AGI Nova‑Seeds (v2.8.0-rc.1 posture)
+# α‑AGI Nova‑Seeds (v2.8.0-rc.2 posture)
 
 Nova‑Seeds are **sealed venture blueprints for sovereign opportunity formation**.
 
@@ -25,8 +25,8 @@ Invariant:
 
 ## Release posture (April 22, 2026)
 
-- Current RC target: **v2.8.0-rc.1**.
-- This is a **new release-candidate cut** after v2.7.0-rc.2, focused on front-door coherence, flagship/demo ladder polish, doctrine legibility, and operator UX hardening.
+- Current RC target: **v2.8.0-rc.2**.
+- This is a **additive release-candidate cut** after v2.7.0-rc.2, focused on front-door coherence, flagship/demo ladder polish, doctrine legibility, and operator UX hardening.
 - This RC remains proof-first and bounded: synthetic flagship evidence is strengthened; broader sovereign claims remain future-facing.
 
 ### What is represented as real today
@@ -58,7 +58,8 @@ Invariant:
 - Clarifies role boundaries across:
   - [`demos/adjacent_mandate_reuse_proof_demo/`](./demos/adjacent_mandate_reuse_proof_demo/)
   - [`demos/adjacent_mandate_reuse_proof_real_v1/`](./demos/adjacent_mandate_reuse_proof_real_v1/)
-  - [`demos/unbounded-rsi-system/`](./demos/unbounded-rsi-system/)
+  - [`demos/open-ended-rsi-system/`](./demos/open-ended-rsi-system/)
+  - [`demos/unbounded-rsi-system/`](./demos/unbounded-rsi-system/) *(legacy compatibility surface)*
   - flagship synthetic wedge demo
   - compact synthetic adjacent proof demo
   - real-world experiment pack
@@ -66,7 +67,7 @@ Invariant:
 
 ### 3) Accelerating-loop demo
 
-- [`demos/unbounded-rsi-system/`](./demos/unbounded-rsi-system/)
+- [`demos/open-ended-rsi-system/`](./demos/open-ended-rsi-system/)
 - Purpose: bounded proof-of-mechanism for bounded → expanding → increasingly autonomous loop.
 - Output: deterministic package freeze/hash, control-vs-treatment scorecard, bounded autonomous mandate-3 selection, board-ready report artifacts.
 
@@ -144,7 +145,8 @@ python scripts/check_math_markdown.py
 python scripts/check_doctrine_consistency.py
 python scripts/check_demo_links.py
 python3 demos/protocol_smart_contract_correctness_demo/run_demo.py --assert
-python3 demos/unbounded-rsi-system/run_demo.py --assert
+python3 demos/open-ended-rsi-system/run_demo.py --assert
+python3 demos/unbounded-rsi-system/run_demo.py --assert  # legacy compatibility
 ```
 
 For full provenance verification (checksums, SBOM, attestations), use [`docs/verify-release.md`](./docs/verify-release.md).

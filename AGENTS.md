@@ -1,7 +1,7 @@
 # AGENTS.md — alpha-nova-seeds
 
 ## Purpose
-This repository implements **α‑AGI Nova‑Seeds** as **sealed venture blueprints for sovereign opportunity formation**. The repo tracks **v2.6.0-rc.1**, a **verifiable release candidate** focused on proof surfaces, governance hardening, and release provenance. It is **not** represented as an audited final deployment.
+This repository implements **α‑AGI Nova‑Seeds** as **sealed venture blueprints for sovereign opportunity formation**. The repo currently tracks **v2.8.0-rc.2** as the active unpublished release-candidate target (with prior RC history preserved in `CHANGELOG.md`/`RELEASES.md`). It remains a **verifiable release candidate** focused on proof surfaces, governance hardening, and release provenance. It is **not** represented as an audited final deployment.
 
 System framing:
 
@@ -29,7 +29,7 @@ Treat these directories as canonical unless maintainers explicitly change the ar
 - root `example_*.json` / `*_spec.md` — examples and top-level architecture references; preserve unless superseded by versioned files
 
 ## Current release posture
-The repo has already moved beyond the original v2.5 “foundational architecture release” framing and now presents itself as **v2.6.0-rc.1**, a **verifiable release candidate**. All work should reinforce that posture.
+The repo has already moved beyond the original v2.5 “foundational architecture release” framing and now presents itself as a **v2.8.x verifiable release-candidate train**. All work should reinforce that posture.
 
 That means:
 
@@ -247,13 +247,13 @@ Use language like:
 Use the commands actually defined in the repo.
 If commands differ from assumptions here, update this file.
 
-Minimum command set for v2.6 RC hardening work:
+Minimum command set for current RC hardening work:
 
 - `pytest -q backend/tests`
 - `python backend/scripts/export_openapi.py`
 - `python scripts/contracts/export_abi.py`
 - `cd sdk && npm run build --if-present`
-- `python scripts/release/generate_provenance_manifest.py --tag v2.6.0-rc.1 --output /tmp/provenance-manifest.json`
+- `python scripts/release/generate_provenance_manifest.py --tag <TAG> --output /tmp/provenance-manifest.json`
 
 At minimum, contributors should run checks covering:
 - contracts tests / static analysis
