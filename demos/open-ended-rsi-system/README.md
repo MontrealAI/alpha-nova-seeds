@@ -60,6 +60,13 @@ The run also performs deterministic local validation against:
 - `schemas/v2.8/assay_bundle.schema.json`
 - `schemas/v2.8/lineage.schema.json`
 
+Additionally, `run_demo.py` now enforces a fail-closed config contract for:
+
+- minimum deterministic search sizes (`candidate_pool_size >= 32`, `neighborhood_size >= 16`)
+- minimum autonomy frontier breadth (`frontier_whitelist >= 3`)
+- authority boundary declarations (`whitelist-only selection` and `no authority widening`)
+- offline probe safety (repo-native probes are rejected if they include network/package-manager tokens)
+
 ## Run
 
 ```bash
