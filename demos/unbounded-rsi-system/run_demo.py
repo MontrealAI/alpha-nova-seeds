@@ -347,7 +347,9 @@ def run_demo(assert_mode: bool = False) -> dict[str, Any]:
         "id": "governance_ruling.json",
         "status": "pass_with_bounds" if scorecard["passes"]["adjacent_mandate_proof"] else "fail_closed",
         "constitutional_order": CONSTITUTIONAL_ORDER,
-        "decision": "promote_bounded_accelerating_loop_demo",
+        "decision": "promote_bounded_accelerating_loop_demo"
+        if scorecard["passes"]["adjacent_mandate_proof"]
+        else "block_promotion_fail_closed",
         "does_not_claim": [
             "unrestricted autonomy",
             "fully realized sovereign system",
