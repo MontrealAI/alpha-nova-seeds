@@ -1,6 +1,6 @@
 {
   "release_target": "v2.8.0-rc.2",
-  "manifest_hash": "175c04e48b498a0770617ca995571ab0a4e0d34ea2a85893b7a925778bec0b54",
+  "manifest_hash": "a00756bc612da4d51ccd7b0aef89a909636f0a0304b8656914eb8bd3ef48c34d",
   "config_hash": "f4ed284d88169ef83648e33a285f32ebbd110946c7209579b4c0e1f0519e9d78",
   "scorecard_hash": "37986b0484f8caa95890e35c701725c1f41c9be09978c2c2c441caedc0a89f99",
   "proof_docket_hash": "0ab9ac954ff90d3f8c80c2fc89cea93c411b24940fa82efbeabb1435ecc6b0d6",
@@ -25,10 +25,11 @@
       "status": "pass"
     }
   },
+  "determinism_fingerprint_hash": "fd5dc1cf4023a56284dee97362173f1fb2c55a89d6ef145edb6f19eac7a27697",
   "files": [
     {
       "path": "demos/open-ended-rsi-system/00_manifest/manifest.json",
-      "sha256": "c129acf1b998aaf3f49897259dfed68aefc9c4902cf2f7e33d59c567eec1ae95"
+      "sha256": "ce55c212f6da44bf8b4b6874f5887ab6ebf370cb0be4a08686e0ae1fddfd3b68"
     },
     {
       "path": "demos/open-ended-rsi-system/01_frontier_queue/frontier_queue.json",
@@ -36,7 +37,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/02_seed_genome/capability_genome.json",
-      "sha256": "a2c714b547e891655c4b5e295aa993918da459c1d35f0e7cd7d345fd977bd8ed"
+      "sha256": "611b48b6e4a5dd2ae491c95ff0ff02e2daba330eb6002185878d2123c455d953"
     },
     {
       "path": "demos/open-ended-rsi-system/03_generation/generation_0.json",
@@ -88,11 +89,15 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/capability_genome.json",
-      "sha256": "a2c714b547e891655c4b5e295aa993918da459c1d35f0e7cd7d345fd977bd8ed"
+      "sha256": "611b48b6e4a5dd2ae491c95ff0ff02e2daba330eb6002185878d2123c455d953"
     },
     {
       "path": "demos/open-ended-rsi-system/out/claim_boundary.json",
       "sha256": "6f2070d67c5286e8f7e762f9b76c5950233c81b580d9a84836dbc90fc7a8d247"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/determinism_fingerprint.json",
+      "sha256": "fd5dc1cf4023a56284dee97362173f1fb2c55a89d6ef145edb6f19eac7a27697"
     },
     {
       "path": "demos/open-ended-rsi-system/out/frontier_queue.json",
@@ -120,7 +125,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/manifest.json",
-      "sha256": "c129acf1b998aaf3f49897259dfed68aefc9c4902cf2f7e33d59c567eec1ae95"
+      "sha256": "ce55c212f6da44bf8b4b6874f5887ab6ebf370cb0be4a08686e0ae1fddfd3b68"
     },
     {
       "path": "demos/open-ended-rsi-system/out/proof_docket.md",

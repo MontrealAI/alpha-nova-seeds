@@ -108,10 +108,15 @@ def build_seed_genome(cfg: dict[str, Any], probes: list[dict[str, Any]]) -> dict
     assets = [
         ROOT / "demos/protocol_smart_contract_correctness_demo/contracts/mandate_1/CouncilGovernanceV25Fixture.sol",
         ROOT / "demos/protocol_smart_contract_correctness_demo/contracts/mandate_2/ThresholdNetworkAdapterV25Fixture.sol",
+        ROOT / "demos/protocol_smart_contract_correctness_demo/run_demo.py",
         ROOT / "backend/app/main.py",
+        ROOT / "backend/tests/test_contract_surfaces.py",
         ROOT / "sdk/package.json",
+        ROOT / "schemas/v2.8/capability_genome.schema.json",
+        ROOT / "docs/proof-docket-template/README.md",
         ROOT / "docs/verify-release.md",
         ROOT / "scripts/contracts/export_abi.py",
+        ROOT / "scripts/release/generate_provenance_manifest.py",
     ]
     for p in assets:
         if not p.exists():
@@ -541,6 +546,11 @@ def main() -> int:
             "definition": "repo-native code/docs/schema/proof surfaces with deterministic local probes; synthetic adjudication only where external validation is unavailable",
             "probe_count": len(probes),
         },
+        "determinism_contract": {
+            "candidate_pool_size": cfg["candidate_pool_size"],
+            "neighborhood_size": cfg["neighborhood_size"],
+            "frontier_whitelist_size": len(cfg["frontier_whitelist"]),
+        },
     }
     genome = build_seed_genome(cfg, probes)
     g0 = generation_zero(cfg, genome, probes)
@@ -639,6 +649,16 @@ def main() -> int:
         dump(p, payload) if is_json else write(p, str(payload))
 
     write(OUT / "board_report.html", render_html(scorecard, g0, g1, g2))
+    determinism_fingerprint = {
+        "release_target": cfg["release_target"],
+        "seed": cfg["seed"],
+        "candidate_pool_size": g0["candidate_count"],
+        "selected_domain": g2["selected_domain"]["domain"],
+        "frozen_package_manifest_hash": g0["frozen_package"]["manifest_hash"],
+        "scorecard_hash": fsha(OUT / "scorecard.json"),
+        "lineage_hash": fsha(OUT / "lineage.json"),
+    }
+    dump(OUT / "determinism_fingerprint.json", determinism_fingerprint)
 
     schema_payloads = {
         "capability_genome": {
@@ -724,6 +744,7 @@ def main() -> int:
             k: {"schema_id": v["schema"].get("$id", ""), "status": schema_validation_results[k]}
             for k, v in schema_payloads.items()
         },
+        "determinism_fingerprint_hash": fsha(OUT / "determinism_fingerprint.json"),
         "files": [],
     }
     provenance_files = []
@@ -746,6 +767,7 @@ def main() -> int:
             OUT / "intervention_log.json",
             OUT / "scorecard.json",
             OUT / "claim_boundary.json",
+            OUT / "determinism_fingerprint.json",
             OUT / "safety_gates.json",
             OUT / "summary.md",
             OUT / "proof_docket.md",
@@ -772,6 +794,16 @@ def main() -> int:
         assert g2["selected_domain"]["domain"] in cfg["frontier_whitelist"]
         assert g2["human_intervention_touches"] < g1["human_intervention_touches"] < g0["human_intervention_touches"]
         assert all(p["returncode"] == 0 for p in probes), "Repo-native probes must pass"
+        assert g0["candidate_count"] == cfg["candidate_pool_size"]
+        assert g2["arnold_mode"]["neighborhood_size"] == cfg["neighborhood_size"]
+        assert manifest["timestamp"] == cfg["deterministic_timestamp"]
+        expected_selected_domain = max(
+            g2["frontier_queue"], key=lambda c: c["selection_score"]
+        )["domain"]
+        assert g2["selected_domain"]["domain"] == expected_selected_domain
+        assert re.fullmatch(
+            r"^[a-f0-9]{64}$", determinism_fingerprint["frozen_package_manifest_hash"]
+        )
 
     print(f"PASS: {cfg['demo_id']} artifacts generated at {OUT}")
     return 0
