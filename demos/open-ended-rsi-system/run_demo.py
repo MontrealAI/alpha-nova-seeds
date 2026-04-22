@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -50,7 +51,35 @@ def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
 
-def build_seed_genome(cfg: dict[str, Any]) -> dict[str, Any]:
+def run_repo_native_probes(cfg: dict[str, Any]) -> list[dict[str, Any]]:
+    """Run deterministic local checks over repo-native surfaces (no network)."""
+
+    probes: list[dict[str, Any]] = []
+    for probe in cfg["repo_native_probes"]:
+        cmd = probe["cmd"]
+        result = subprocess.run(
+            cmd,
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+            shell=False,
+        )
+        probes.append(
+            {
+                "id": probe["id"],
+                "cmd": " ".join(cmd),
+                "scope": probe["scope"],
+                "simulated": False,
+                "returncode": result.returncode,
+                "stdout_head": "\n".join(result.stdout.strip().splitlines()[:3]),
+                "stderr_head": "\n".join(result.stderr.strip().splitlines()[:3]),
+            }
+        )
+    return probes
+
+
+def build_seed_genome(cfg: dict[str, Any], probes: list[dict[str, Any]]) -> dict[str, Any]:
     assets = [
         ROOT / "demos/protocol_smart_contract_correctness_demo/contracts/mandate_1/CouncilGovernanceV25Fixture.sol",
         ROOT / "demos/protocol_smart_contract_correctness_demo/contracts/mandate_2/ThresholdNetworkAdapterV25Fixture.sol",
@@ -68,37 +97,83 @@ def build_seed_genome(cfg: dict[str, Any]) -> dict[str, Any]:
         "release_target": cfg["release_target"],
         "reactive_intermediate": {
             "type": "missing_provenance_surface",
-            "description": "Mandate 1 replay lacks a normalized cross-phase lineage/provenance artifact bundle."
+            "description": "Mandate 1 replay lacks a normalized cross-phase lineage/provenance artifact bundle.",
         },
         "authority_scope": cfg["authority_scope"],
         "assets": [{"path": rel(p), "sha256": fsha(p)} for p in assets],
+        "real_mandate_inputs": {
+            "repo_native_probes": [
+                {
+                    "id": p["id"],
+                    "cmd": p["cmd"],
+                    "scope": p["scope"],
+                    "returncode": p["returncode"],
+                }
+                for p in probes
+            ],
+        },
     }
 
 
-def generation_zero(cfg: dict[str, Any], genome: dict[str, Any]) -> dict[str, Any]:
+def pareto_front(candidates: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    front: list[dict[str, Any]] = []
+    for cand in candidates:
+        dominated = False
+        cvec = cand["pareto_vector"]
+        for other in candidates:
+            if other["candidate_id"] == cand["candidate_id"]:
+                continue
+            ovec = other["pareto_vector"]
+            better_or_equal = all(o >= c for o, c in zip(ovec, cvec))
+            strictly_better = any(o > c for o, c in zip(ovec, cvec))
+            if better_or_equal and strictly_better:
+                dominated = True
+                break
+        if not dominated:
+            front.append(cand)
+    return front
+
+
+def generation_zero(cfg: dict[str, Any], genome: dict[str, Any], probes: list[dict[str, Any]]) -> dict[str, Any]:
+    probe_ok = all(p["returncode"] == 0 for p in probes)
     candidates = []
     for i in range(cfg["candidate_pool_size"]):
         cheap = 0.64 + ((i * 7) % 23) / 100
         mid = 0.58 + ((i * 5) % 19) / 100
         exp = 0.53 + ((i * 3) % 17) / 100
         penalty = 0.0
+        policy_flags: list[str] = []
         if i % 11 == 0:
-            penalty += 0.08  # undeclared schema drift
+            penalty += 0.08
+            policy_flags.append("undeclared_schema_drift")
         if i % 17 == 0:
-            penalty += 0.09  # missing provenance
-        score = round(0.45 * cheap + 0.35 * mid + 0.20 * exp - penalty, 4)
-        candidates.append({
-            "candidate_id": f"g0-candidate-{i:02d}",
-            "mode": "DISCO" if i < cfg["candidate_pool_size"] // 2 else "Arnold",
-            "cheap_assay": round(cheap, 3),
-            "mid_assay": round(mid, 3),
-            "expensive_assay": round(exp, 3),
-            "off_target_penalty": round(penalty, 3),
-            "pareto_vector": [round(cheap, 3), round(mid, 3), round(exp, 3)],
-            "composite": score,
-        })
+            penalty += 0.09
+            policy_flags.append("missing_provenance")
+        if i % 19 == 0:
+            penalty += 0.06
+            policy_flags.append("governance_shortcutting")
+        if i % 23 == 0:
+            penalty += 0.07
+            policy_flags.append("undeclared_privileged_action")
 
-    winner = max(candidates, key=lambda c: c["composite"])
+        probe_boost = 0.02 if probe_ok else 0.0
+        score = round(0.45 * cheap + 0.35 * mid + 0.20 * exp + probe_boost - penalty, 4)
+        candidates.append(
+            {
+                "candidate_id": f"g0-candidate-{i:02d}",
+                "mode": "DISCO" if i < cfg["candidate_pool_size"] // 2 else "Arnold",
+                "cheap_assay": round(cheap, 3),
+                "mid_assay": round(mid, 3),
+                "expensive_assay": round(exp, 3),
+                "off_target_penalty": round(penalty, 3),
+                "policy_flags": policy_flags,
+                "pareto_vector": [round(cheap, 3), round(mid, 3), round(exp, 3)],
+                "composite": score,
+            }
+        )
+
+    front = pareto_front(candidates)
+    winner = max(front, key=lambda c: c["composite"])
     frozen = {
         "package_id": "capability-pack-g0-v1",
         "parentage": [genome["id"]],
@@ -106,7 +181,8 @@ def generation_zero(cfg: dict[str, Any], genome: dict[str, Any]) -> dict[str, An
         "manifest": {
             "code_patch_proposal": "deterministic provenance/lineage artifact integration",
             "test_plan": "protocol wedge replay + proof artifact completeness checks",
-            "docs_update": "operator steps and safety/authority declarations"
+            "docs_update": "operator steps and safety/authority declarations",
+            "safety_note": "No authority widening, no settlement path enabled",
         },
     }
     frozen["manifest_hash"] = jsha(frozen["manifest"])
@@ -116,6 +192,8 @@ def generation_zero(cfg: dict[str, Any], genome: dict[str, Any]) -> dict[str, An
         "mandate": "protocol correctness wedge",
         "human_intervention_touches": 8,
         "candidate_count": len(candidates),
+        "pareto_front_count": len(front),
+        "real_repo_probes": probes,
         "candidates": candidates,
         "winner": winner,
         "frozen_package": frozen,
@@ -140,9 +218,24 @@ def generation_one(g0: dict[str, Any]) -> dict[str, Any]:
     }
     metrics = {
         "aoy_uplift": round((treatment["aoy"] - control["aoy"]) / control["aoy"], 4),
-        "speed_uplift": round((control["time_to_first_accepted_output_minutes"] - treatment["time_to_first_accepted_output_minutes"]) / control["time_to_first_accepted_output_minutes"], 4),
-        "rework_reduction": round((control["repair_rework_ratio"] - treatment["repair_rework_ratio"]) / control["repair_rework_ratio"], 4),
-        "evidence_completeness_uplift": round((treatment["evidence_completeness"] - control["evidence_completeness"]) / control["evidence_completeness"], 4),
+        "speed_uplift": round(
+            (
+                control["time_to_first_accepted_output_minutes"]
+                - treatment["time_to_first_accepted_output_minutes"]
+            )
+            / control["time_to_first_accepted_output_minutes"],
+            4,
+        ),
+        "rework_reduction": round(
+            (control["repair_rework_ratio"] - treatment["repair_rework_ratio"])
+            / control["repair_rework_ratio"],
+            4,
+        ),
+        "evidence_completeness_uplift": round(
+            (treatment["evidence_completeness"] - control["evidence_completeness"])
+            / control["evidence_completeness"],
+            4,
+        ),
         "no_safety_regression": True,
         "package_dependence": treatment["package_dependence_rate"],
     }
@@ -159,13 +252,43 @@ def generation_one(g0: dict[str, Any]) -> dict[str, Any]:
 
 def generation_two(cfg: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any]) -> dict[str, Any]:
     frontier = [
-        {"domain": "backend_api_correctness", "transfer": 0.91, "assay_coverage": 0.89, "safety": 0.93, "evidence_density": 0.88},
-        {"domain": "sdk_typed_attestation_payload_correctness", "transfer": 0.84, "assay_coverage": 0.85, "safety": 0.90, "evidence_density": 0.81},
-        {"domain": "schema_migration_integrity", "transfer": 0.78, "assay_coverage": 0.88, "safety": 0.92, "evidence_density": 0.86},
-        {"domain": "proof_docket_synthesis", "transfer": 0.75, "assay_coverage": 0.83, "safety": 0.95, "evidence_density": 0.91},
+        {
+            "domain": "backend_api_correctness",
+            "transfer": 0.91,
+            "assay_coverage": 0.89,
+            "safety": 0.93,
+            "evidence_density": 0.88,
+        },
+        {
+            "domain": "sdk_typed_attestation_payload_correctness",
+            "transfer": 0.84,
+            "assay_coverage": 0.85,
+            "safety": 0.90,
+            "evidence_density": 0.81,
+        },
+        {
+            "domain": "schema_migration_integrity",
+            "transfer": 0.78,
+            "assay_coverage": 0.88,
+            "safety": 0.92,
+            "evidence_density": 0.86,
+        },
+        {
+            "domain": "proof_docket_synthesis",
+            "transfer": 0.75,
+            "assay_coverage": 0.83,
+            "safety": 0.95,
+            "evidence_density": 0.91,
+        },
     ]
     for c in frontier:
-        c["selection_score"] = round(0.36 * c["transfer"] + 0.26 * c["assay_coverage"] + 0.20 * c["safety"] + 0.18 * c["evidence_density"], 4)
+        c["selection_score"] = round(
+            0.36 * c["transfer"]
+            + 0.26 * c["assay_coverage"]
+            + 0.20 * c["safety"]
+            + 0.18 * c["evidence_density"],
+            4,
+        )
 
     selected = max(frontier, key=lambda c: c["selection_score"])
     neighborhood = []
@@ -173,7 +296,11 @@ def generation_two(cfg: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any]) 
     for i in range(cfg["neighborhood_size"]):
         s = round(base - 0.012 + ((i % 7) * 0.004), 4)
         neighborhood.append({"variant": f"g2-local-{i:02d}", "score": s})
-    slope = round((sum(v["score"] for v in neighborhood[:8]) / 8) - (sum(v["score"] for v in neighborhood[-8:]) / 8), 4)
+    slope = round(
+        (sum(v["score"] for v in neighborhood[:8]) / 8)
+        - (sum(v["score"] for v in neighborhood[-8:]) / 8),
+        4,
+    )
 
     return {
         "generation": 2,
@@ -183,24 +310,30 @@ def generation_two(cfg: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any]) 
         "frontier_queue": frontier,
         "disco_mode": {
             "reactive_intermediate": "missing proof-docket completeness crosswalk in selected domain",
-            "first_workable_package": "g2-workable-pack-v1"
+            "first_workable_package": "g2-workable-pack-v1",
         },
         "arnold_mode": {
             "rounds": 1,
             "neighborhood_size": cfg["neighborhood_size"],
             "neighborhood": neighborhood,
-            "neighborhood_slope": slope
+            "neighborhood_slope": slope,
         },
         "longitudinal": {
             "frontier_width": len(cfg["frontier_whitelist"]),
-            "autonomy_delta": round((g0["human_intervention_touches"] - 2) / g0["human_intervention_touches"], 4),
+            "autonomy_delta": round(
+                (g0["human_intervention_touches"] - 2)
+                / g0["human_intervention_touches"],
+                4,
+            ),
             "neighborhood_slope": slope,
             "archive_depth": 2,
         },
     }
 
 
-def build_scorecard(cfg: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any], g2: dict[str, Any]) -> dict[str, Any]:
+def build_scorecard(
+    cfg: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any], g2: dict[str, Any]
+) -> dict[str, Any]:
     return {
         "release_target": cfg["release_target"],
         "phases": ["bounded", "expanding", "increasingly_autonomous"],
@@ -223,16 +356,16 @@ def build_scorecard(cfg: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any],
             "demonstrated": [
                 "bounded accelerating mechanism under governance",
                 "frozen package reuse improves adjacent mandate outcomes",
-                "whitelisted autonomous next-domain selection with reduced intervention"
+                "whitelisted autonomous next-domain selection with reduced intervention",
             ],
             "simulated": [
                 "assay outcomes are synthetic but deterministic",
-                "board score values are generated local replay values"
+                "board score values are generated local replay values",
             ],
             "unproven": [
                 "unrestricted autonomy",
                 "literal unbounded RSI",
-                "completed broad cybersecurity sovereign operation"
+                "completed broad cybersecurity sovereign operation",
             ],
         },
     }
@@ -265,7 +398,9 @@ def render_summary(scorecard: dict[str, Any], g2: dict[str, Any]) -> str:
 """
 
 
-def render_proof_docket(scorecard: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any], g2: dict[str, Any]) -> str:
+def render_proof_docket(
+    scorecard: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any], g2: dict[str, Any]
+) -> str:
     return f"""# Proof Docket — Open-Ended RSI System ({scorecard['release_target']})
 
 ## Scope
@@ -293,7 +428,9 @@ It does **not** support claims of unrestricted autonomy or completed broad sover
 """
 
 
-def render_html(scorecard: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any], g2: dict[str, Any]) -> str:
+def render_html(
+    scorecard: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any], g2: dict[str, Any]
+) -> str:
     return f"""<!doctype html>
 <html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
 <title>Open-Ended RSI System — Board Scorecard</title>
@@ -312,7 +449,7 @@ small{{color:#475569}}
 <p>Bounded → Expanding → Increasingly autonomous (deterministic RC demo).</p>
 <p><small>Release target: {scorecard['release_target']} | Selected domain: {g2['selected_domain']['domain']}</small></p></section>
 <section class=\"grid\">
-<div class=\"card\"><h3>Generation 0</h3><p>Winner: <b>{g0['winner']['candidate_id']}</b></p><p>Candidate pool: {g0['candidate_count']}</p><p>Intervention touches: {g0['human_intervention_touches']}</p></div>
+<div class=\"card\"><h3>Generation 0</h3><p>Winner: <b>{g0['winner']['candidate_id']}</b></p><p>Candidate pool: {g0['candidate_count']}</p><p>Pareto front: {g0['pareto_front_count']}</p><p>Intervention touches: {g0['human_intervention_touches']}</p></div>
 <div class=\"card\"><h3>Generation 1</h3><p>AOY uplift: <b>{g1['metrics']['aoy_uplift']:.2%}</b></p><p>Speed uplift: <b>{g1['metrics']['speed_uplift']:.2%}</b></p><p>Rework reduction: <b>{g1['metrics']['rework_reduction']:.2%}</b></p></div>
 <div class=\"card\"><h3>Generation 2</h3><p>Frontier width: {g2['longitudinal']['frontier_width']}</p><p>Autonomy delta: <b>{g2['longitudinal']['autonomy_delta']:.2%}</b></p><p>Neighborhood slope: {g2['longitudinal']['neighborhood_slope']}</p></div>
 </section>
@@ -333,15 +470,21 @@ def main() -> int:
     cfg = load_config()
     reset_out()
 
+    probes = run_repo_native_probes(cfg)
+
     manifest = {
         "demo": cfg["demo_id"],
         "release_target": cfg["release_target"],
         "timestamp": cfg["deterministic_timestamp"],
         "modes": ["DISCO", "Arnold"],
         "phases": ["bounded", "expanding", "increasingly_autonomous"],
+        "real_mandate_1": {
+            "definition": "repo-native code/docs/schema/proof surfaces with deterministic local probes; synthetic adjudication only where external validation is unavailable",
+            "probe_count": len(probes),
+        },
     }
-    genome = build_seed_genome(cfg)
-    g0 = generation_zero(cfg, genome)
+    genome = build_seed_genome(cfg, probes)
+    g0 = generation_zero(cfg, genome, probes)
     g1 = generation_one(g0)
     g2 = generation_two(cfg, g0, g1)
     scorecard = build_scorecard(cfg, g0, g1, g2)
@@ -349,16 +492,40 @@ def main() -> int:
     lineage = {
         "root_genome": genome["id"],
         "lineage": [
-            {"generation": 0, "package": g0["frozen_package"]["package_id"], "mode": "DISCO"},
-            {"generation": 1, "package": g0["frozen_package"]["package_id"], "mode": "Arnold"},
+            {
+                "generation": 0,
+                "package": g0["frozen_package"]["package_id"],
+                "mode": "DISCO",
+            },
+            {
+                "generation": 1,
+                "package": g0["frozen_package"]["package_id"],
+                "mode": "Arnold",
+            },
             {"generation": 2, "package": "g2-workable-pack-v1", "mode": "DISCO+Arnold"},
         ],
     }
 
     assay_bundle = {
-        "cheap": ["lint/static", "schema validation", "proof completeness", "policy compliance", "diff sanity"],
-        "mid": ["targeted integration", "openapi/abi/schema consistency", "operator-usability rubric", "proof-docket completeness"],
-        "expensive": ["held-out synthetic mandate", "blinded-rubric emulation", "canary replay pack"],
+        "cheap": [
+            "lint/static",
+            "schema validation",
+            "proof completeness",
+            "policy compliance",
+            "diff sanity",
+            "repo-native probe replay",
+        ],
+        "mid": [
+            "targeted integration",
+            "openapi/abi/schema consistency",
+            "operator-usability rubric",
+            "proof-docket completeness",
+        ],
+        "expensive": [
+            "held-out synthetic mandate",
+            "blinded-rubric emulation",
+            "canary replay pack",
+        ],
     }
 
     intervention_log = {
@@ -411,6 +578,7 @@ def main() -> int:
         "manifest_hash": jsha(manifest),
         "scorecard_hash": fsha(OUT / "scorecard.json"),
         "proof_docket_hash": fsha(OUT / "proof_docket.md"),
+        "frozen_package_manifest_hash": g0["frozen_package"]["manifest_hash"],
         "files": [],
     }
     for p in sorted([f for f in OUT.iterdir() if f.is_file()]):
@@ -434,10 +602,22 @@ def main() -> int:
         assert not missing, f"Missing artifacts: {missing}"
         assert scorecard["observed"]["aoy_uplift"] >= scorecard["thresholds"]["aoy_uplift_min"]
         assert scorecard["observed"]["speed_uplift"] >= scorecard["thresholds"]["speed_uplift_min"]
-        assert scorecard["observed"]["rework_reduction"] >= scorecard["thresholds"]["rework_reduction_min"]
-        assert scorecard["observed"]["evidence_completeness_uplift"] >= scorecard["thresholds"]["evidence_uplift_min"]
+        assert (
+            scorecard["observed"]["rework_reduction"]
+            >= scorecard["thresholds"]["rework_reduction_min"]
+        )
+        assert (
+            scorecard["observed"]["evidence_completeness_uplift"]
+            >= scorecard["thresholds"]["evidence_uplift_min"]
+        )
         assert scorecard["observed"]["no_safety_regression"] is True
-        assert scorecard["observed"]["package_dependence"] >= scorecard["thresholds"]["package_dependence_min"]
+        assert (
+            scorecard["observed"]["package_dependence"]
+            >= scorecard["thresholds"]["package_dependence_min"]
+        )
+        assert g2["selected_domain"]["domain"] in cfg["frontier_whitelist"]
+        assert g2["human_intervention_touches"] < g1["human_intervention_touches"] < g0["human_intervention_touches"]
+        assert all(p["returncode"] == 0 for p in probes), "Repo-native probes must pass"
 
     print(f"PASS: {cfg['demo_id']} artifacts generated at {OUT}")
     return 0

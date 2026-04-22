@@ -14,7 +14,7 @@ Bounded deterministic proof-of-mechanism across three generations.
 ## Key artifacts
 
 - Frozen package: `capability-pack-g0-v1`
-- Frozen manifest hash: `9c0b86bb70d3acb035a0b28637ce5ef1dd80afea2b2001944480dfe5db760f8b`
+- Frozen manifest hash: `56dfb240a9b6b73c91cb4bb7b06efba543956dea0d4760a0c3f8bd41c5da0f75`
 - Treatment package dependence: `0.61`
 - Generation 2 selected domain: `backend_api_correctness`
 

@@ -3,6 +3,36 @@
   "mandate": "protocol correctness wedge",
   "human_intervention_touches": 8,
   "candidate_count": 48,
+  "pareto_front_count": 7,
+  "real_repo_probes": [
+    {
+      "id": "demo_link_integrity",
+      "cmd": "python3 scripts/check_demo_links.py",
+      "scope": "demo ladder",
+      "simulated": false,
+      "returncode": 0,
+      "stdout_head": "PASS: demo ladder links and labels are coherent",
+      "stderr_head": ""
+    },
+    {
+      "id": "doctrine_consistency",
+      "cmd": "python3 scripts/check_doctrine_consistency.py",
+      "scope": "doctrine and claim boundary",
+      "simulated": false,
+      "returncode": 0,
+      "stdout_head": "PASS: doctrine consistency checks succeeded",
+      "stderr_head": ""
+    },
+    {
+      "id": "math_markdown_consistency",
+      "cmd": "python3 scripts/check_math_markdown.py",
+      "scope": "equation rendering checks",
+      "simulated": false,
+      "returncode": 0,
+      "stdout_head": "PASS: doctrine math markdown checks succeeded",
+      "stderr_head": ""
+    }
+  ],
   "candidates": [
     {
       "candidate_id": "g0-candidate-00",
@@ -10,13 +40,19 @@
       "cheap_assay": 0.64,
       "mid_assay": 0.58,
       "expensive_assay": 0.53,
-      "off_target_penalty": 0.17,
+      "off_target_penalty": 0.3,
+      "policy_flags": [
+        "undeclared_schema_drift",
+        "missing_provenance",
+        "governance_shortcutting",
+        "undeclared_privileged_action"
+      ],
       "pareto_vector": [
         0.64,
         0.58,
         0.53
       ],
-      "composite": 0.427
+      "composite": 0.317
     },
     {
       "candidate_id": "g0-candidate-01",
@@ -25,12 +61,13 @@
       "mid_assay": 0.63,
       "expensive_assay": 0.56,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.71,
         0.63,
         0.56
       ],
-      "composite": 0.652
+      "composite": 0.672
     },
     {
       "candidate_id": "g0-candidate-02",
@@ -39,12 +76,13 @@
       "mid_assay": 0.68,
       "expensive_assay": 0.59,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.78,
         0.68,
         0.59
       ],
-      "composite": 0.707
+      "composite": 0.727
     },
     {
       "candidate_id": "g0-candidate-03",
@@ -53,12 +91,13 @@
       "mid_assay": 0.73,
       "expensive_assay": 0.62,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.85,
         0.73,
         0.62
       ],
-      "composite": 0.762
+      "composite": 0.782
     },
     {
       "candidate_id": "g0-candidate-04",
@@ -67,12 +106,13 @@
       "mid_assay": 0.59,
       "expensive_assay": 0.65,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.69,
         0.59,
         0.65
       ],
-      "composite": 0.647
+      "composite": 0.667
     },
     {
       "candidate_id": "g0-candidate-05",
@@ -81,12 +121,13 @@
       "mid_assay": 0.64,
       "expensive_assay": 0.68,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.76,
         0.64,
         0.68
       ],
-      "composite": 0.702
+      "composite": 0.722
     },
     {
       "candidate_id": "g0-candidate-06",
@@ -95,12 +136,13 @@
       "mid_assay": 0.69,
       "expensive_assay": 0.54,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.83,
         0.69,
         0.54
       ],
-      "composite": 0.723
+      "composite": 0.743
     },
     {
       "candidate_id": "g0-candidate-07",
@@ -109,12 +151,13 @@
       "mid_assay": 0.74,
       "expensive_assay": 0.57,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.67,
         0.74,
         0.57
       ],
-      "composite": 0.6745
+      "composite": 0.6945
     },
     {
       "candidate_id": "g0-candidate-08",
@@ -123,12 +166,13 @@
       "mid_assay": 0.6,
       "expensive_assay": 0.6,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.74,
         0.6,
         0.6
       ],
-      "composite": 0.663
+      "composite": 0.683
     },
     {
       "candidate_id": "g0-candidate-09",
@@ -137,12 +181,13 @@
       "mid_assay": 0.65,
       "expensive_assay": 0.63,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.81,
         0.65,
         0.63
       ],
-      "composite": 0.718
+      "composite": 0.738
     },
     {
       "candidate_id": "g0-candidate-10",
@@ -151,12 +196,13 @@
       "mid_assay": 0.7,
       "expensive_assay": 0.66,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.65,
         0.7,
         0.66
       ],
-      "composite": 0.6695
+      "composite": 0.6895
     },
     {
       "candidate_id": "g0-candidate-11",
@@ -165,12 +211,15 @@
       "mid_assay": 0.75,
       "expensive_assay": 0.69,
       "off_target_penalty": 0.08,
+      "policy_flags": [
+        "undeclared_schema_drift"
+      ],
       "pareto_vector": [
         0.72,
         0.75,
         0.69
       ],
-      "composite": 0.6445
+      "composite": 0.6645
     },
     {
       "candidate_id": "g0-candidate-12",
@@ -179,12 +228,13 @@
       "mid_assay": 0.61,
       "expensive_assay": 0.55,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.79,
         0.61,
         0.55
       ],
-      "composite": 0.679
+      "composite": 0.699
     },
     {
       "candidate_id": "g0-candidate-13",
@@ -193,12 +243,13 @@
       "mid_assay": 0.66,
       "expensive_assay": 0.58,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.86,
         0.66,
         0.58
       ],
-      "composite": 0.734
+      "composite": 0.754
     },
     {
       "candidate_id": "g0-candidate-14",
@@ -207,12 +258,13 @@
       "mid_assay": 0.71,
       "expensive_assay": 0.61,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.7,
         0.71,
         0.61
       ],
-      "composite": 0.6855
+      "composite": 0.7055
     },
     {
       "candidate_id": "g0-candidate-15",
@@ -221,12 +273,13 @@
       "mid_assay": 0.76,
       "expensive_assay": 0.64,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.77,
         0.76,
         0.64
       ],
-      "composite": 0.7405
+      "composite": 0.7605
     },
     {
       "candidate_id": "g0-candidate-16",
@@ -235,12 +288,13 @@
       "mid_assay": 0.62,
       "expensive_assay": 0.67,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.84,
         0.62,
         0.67
       ],
-      "composite": 0.729
+      "composite": 0.749
     },
     {
       "candidate_id": "g0-candidate-17",
@@ -249,12 +303,15 @@
       "mid_assay": 0.67,
       "expensive_assay": 0.53,
       "off_target_penalty": 0.09,
+      "policy_flags": [
+        "missing_provenance"
+      ],
       "pareto_vector": [
         0.68,
         0.67,
         0.53
       ],
-      "composite": 0.5565
+      "composite": 0.5765
     },
     {
       "candidate_id": "g0-candidate-18",
@@ -263,12 +320,13 @@
       "mid_assay": 0.72,
       "expensive_assay": 0.56,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.75,
         0.72,
         0.56
       ],
-      "composite": 0.7015
+      "composite": 0.7215
     },
     {
       "candidate_id": "g0-candidate-19",
@@ -276,13 +334,16 @@
       "cheap_assay": 0.82,
       "mid_assay": 0.58,
       "expensive_assay": 0.59,
-      "off_target_penalty": 0.0,
+      "off_target_penalty": 0.06,
+      "policy_flags": [
+        "governance_shortcutting"
+      ],
       "pareto_vector": [
         0.82,
         0.58,
         0.59
       ],
-      "composite": 0.69
+      "composite": 0.65
     },
     {
       "candidate_id": "g0-candidate-20",
@@ -291,12 +352,13 @@
       "mid_assay": 0.63,
       "expensive_assay": 0.62,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.66,
         0.63,
         0.62
       ],
-      "composite": 0.6415
+      "composite": 0.6615
     },
     {
       "candidate_id": "g0-candidate-21",
@@ -305,12 +367,13 @@
       "mid_assay": 0.68,
       "expensive_assay": 0.65,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.73,
         0.68,
         0.65
       ],
-      "composite": 0.6965
+      "composite": 0.7165
     },
     {
       "candidate_id": "g0-candidate-22",
@@ -319,12 +382,15 @@
       "mid_assay": 0.73,
       "expensive_assay": 0.68,
       "off_target_penalty": 0.08,
+      "policy_flags": [
+        "undeclared_schema_drift"
+      ],
       "pareto_vector": [
         0.8,
         0.73,
         0.68
       ],
-      "composite": 0.6715
+      "composite": 0.6915
     },
     {
       "candidate_id": "g0-candidate-23",
@@ -332,13 +398,16 @@
       "cheap_assay": 0.64,
       "mid_assay": 0.59,
       "expensive_assay": 0.54,
-      "off_target_penalty": 0.0,
+      "off_target_penalty": 0.07,
+      "policy_flags": [
+        "undeclared_privileged_action"
+      ],
       "pareto_vector": [
         0.64,
         0.59,
         0.54
       ],
-      "composite": 0.6025
+      "composite": 0.5525
     },
     {
       "candidate_id": "g0-candidate-24",
@@ -347,12 +416,13 @@
       "mid_assay": 0.64,
       "expensive_assay": 0.57,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.71,
         0.64,
         0.57
       ],
-      "composite": 0.6575
+      "composite": 0.6775
     },
     {
       "candidate_id": "g0-candidate-25",
@@ -361,12 +431,13 @@
       "mid_assay": 0.69,
       "expensive_assay": 0.6,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.78,
         0.69,
         0.6
       ],
-      "composite": 0.7125
+      "composite": 0.7325
     },
     {
       "candidate_id": "g0-candidate-26",
@@ -375,12 +446,13 @@
       "mid_assay": 0.74,
       "expensive_assay": 0.63,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.85,
         0.74,
         0.63
       ],
-      "composite": 0.7675
+      "composite": 0.7875
     },
     {
       "candidate_id": "g0-candidate-27",
@@ -389,12 +461,13 @@
       "mid_assay": 0.6,
       "expensive_assay": 0.66,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.69,
         0.6,
         0.66
       ],
-      "composite": 0.6525
+      "composite": 0.6725
     },
     {
       "candidate_id": "g0-candidate-28",
@@ -403,12 +476,13 @@
       "mid_assay": 0.65,
       "expensive_assay": 0.69,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.76,
         0.65,
         0.69
       ],
-      "composite": 0.7075
+      "composite": 0.7275
     },
     {
       "candidate_id": "g0-candidate-29",
@@ -417,12 +491,13 @@
       "mid_assay": 0.7,
       "expensive_assay": 0.55,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.83,
         0.7,
         0.55
       ],
-      "composite": 0.7285
+      "composite": 0.7485
     },
     {
       "candidate_id": "g0-candidate-30",
@@ -431,12 +506,13 @@
       "mid_assay": 0.75,
       "expensive_assay": 0.58,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.67,
         0.75,
         0.58
       ],
-      "composite": 0.68
+      "composite": 0.7
     },
     {
       "candidate_id": "g0-candidate-31",
@@ -445,12 +521,13 @@
       "mid_assay": 0.61,
       "expensive_assay": 0.61,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.74,
         0.61,
         0.61
       ],
-      "composite": 0.6685
+      "composite": 0.6885
     },
     {
       "candidate_id": "g0-candidate-32",
@@ -459,12 +536,13 @@
       "mid_assay": 0.66,
       "expensive_assay": 0.64,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.81,
         0.66,
         0.64
       ],
-      "composite": 0.7235
+      "composite": 0.7435
     },
     {
       "candidate_id": "g0-candidate-33",
@@ -473,12 +551,15 @@
       "mid_assay": 0.71,
       "expensive_assay": 0.67,
       "off_target_penalty": 0.08,
+      "policy_flags": [
+        "undeclared_schema_drift"
+      ],
       "pareto_vector": [
         0.65,
         0.71,
         0.67
       ],
-      "composite": 0.595
+      "composite": 0.615
     },
     {
       "candidate_id": "g0-candidate-34",
@@ -487,12 +568,15 @@
       "mid_assay": 0.76,
       "expensive_assay": 0.53,
       "off_target_penalty": 0.09,
+      "policy_flags": [
+        "missing_provenance"
+      ],
       "pareto_vector": [
         0.72,
         0.76,
         0.53
       ],
-      "composite": 0.606
+      "composite": 0.626
     },
     {
       "candidate_id": "g0-candidate-35",
@@ -501,12 +585,13 @@
       "mid_assay": 0.62,
       "expensive_assay": 0.56,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.79,
         0.62,
         0.56
       ],
-      "composite": 0.6845
+      "composite": 0.7045
     },
     {
       "candidate_id": "g0-candidate-36",
@@ -515,12 +600,13 @@
       "mid_assay": 0.67,
       "expensive_assay": 0.59,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.86,
         0.67,
         0.59
       ],
-      "composite": 0.7395
+      "composite": 0.7595
     },
     {
       "candidate_id": "g0-candidate-37",
@@ -529,12 +615,13 @@
       "mid_assay": 0.72,
       "expensive_assay": 0.62,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.7,
         0.72,
         0.62
       ],
-      "composite": 0.691
+      "composite": 0.711
     },
     {
       "candidate_id": "g0-candidate-38",
@@ -542,13 +629,16 @@
       "cheap_assay": 0.77,
       "mid_assay": 0.58,
       "expensive_assay": 0.65,
-      "off_target_penalty": 0.0,
+      "off_target_penalty": 0.06,
+      "policy_flags": [
+        "governance_shortcutting"
+      ],
       "pareto_vector": [
         0.77,
         0.58,
         0.65
       ],
-      "composite": 0.6795
+      "composite": 0.6395
     },
     {
       "candidate_id": "g0-candidate-39",
@@ -557,12 +647,13 @@
       "mid_assay": 0.63,
       "expensive_assay": 0.68,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.84,
         0.63,
         0.68
       ],
-      "composite": 0.7345
+      "composite": 0.7545
     },
     {
       "candidate_id": "g0-candidate-40",
@@ -571,12 +662,13 @@
       "mid_assay": 0.68,
       "expensive_assay": 0.54,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.68,
         0.68,
         0.54
       ],
-      "composite": 0.652
+      "composite": 0.672
     },
     {
       "candidate_id": "g0-candidate-41",
@@ -585,12 +677,13 @@
       "mid_assay": 0.73,
       "expensive_assay": 0.57,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.75,
         0.73,
         0.57
       ],
-      "composite": 0.707
+      "composite": 0.727
     },
     {
       "candidate_id": "g0-candidate-42",
@@ -599,12 +692,13 @@
       "mid_assay": 0.59,
       "expensive_assay": 0.6,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.82,
         0.59,
         0.6
       ],
-      "composite": 0.6955
+      "composite": 0.7155
     },
     {
       "candidate_id": "g0-candidate-43",
@@ -613,12 +707,13 @@
       "mid_assay": 0.64,
       "expensive_assay": 0.63,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.66,
         0.64,
         0.63
       ],
-      "composite": 0.647
+      "composite": 0.667
     },
     {
       "candidate_id": "g0-candidate-44",
@@ -627,12 +722,15 @@
       "mid_assay": 0.69,
       "expensive_assay": 0.66,
       "off_target_penalty": 0.08,
+      "policy_flags": [
+        "undeclared_schema_drift"
+      ],
       "pareto_vector": [
         0.73,
         0.69,
         0.66
       ],
-      "composite": 0.622
+      "composite": 0.642
     },
     {
       "candidate_id": "g0-candidate-45",
@@ -641,12 +739,13 @@
       "mid_assay": 0.74,
       "expensive_assay": 0.69,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.8,
         0.74,
         0.69
       ],
-      "composite": 0.757
+      "composite": 0.777
     },
     {
       "candidate_id": "g0-candidate-46",
@@ -654,13 +753,16 @@
       "cheap_assay": 0.64,
       "mid_assay": 0.6,
       "expensive_assay": 0.55,
-      "off_target_penalty": 0.0,
+      "off_target_penalty": 0.07,
+      "policy_flags": [
+        "undeclared_privileged_action"
+      ],
       "pareto_vector": [
         0.64,
         0.6,
         0.55
       ],
-      "composite": 0.608
+      "composite": 0.558
     },
     {
       "candidate_id": "g0-candidate-47",
@@ -669,12 +771,13 @@
       "mid_assay": 0.65,
       "expensive_assay": 0.58,
       "off_target_penalty": 0.0,
+      "policy_flags": [],
       "pareto_vector": [
         0.71,
         0.65,
         0.58
       ],
-      "composite": 0.663
+      "composite": 0.683
     }
   ],
   "winner": {
@@ -684,12 +787,13 @@
     "mid_assay": 0.74,
     "expensive_assay": 0.63,
     "off_target_penalty": 0.0,
+    "policy_flags": [],
     "pareto_vector": [
       0.85,
       0.74,
       0.63
     ],
-    "composite": 0.7675
+    "composite": 0.7875
   },
   "frozen_package": {
     "package_id": "capability-pack-g0-v1",
@@ -700,8 +804,9 @@
     "manifest": {
       "code_patch_proposal": "deterministic provenance/lineage artifact integration",
       "test_plan": "protocol wedge replay + proof artifact completeness checks",
-      "docs_update": "operator steps and safety/authority declarations"
+      "docs_update": "operator steps and safety/authority declarations",
+      "safety_note": "No authority widening, no settlement path enabled"
     },
-    "manifest_hash": "9c0b86bb70d3acb035a0b28637ce5ef1dd80afea2b2001944480dfe5db760f8b"
+    "manifest_hash": "56dfb240a9b6b73c91cb4bb7b06efba543956dea0d4760a0c3f8bd41c5da0f75"
   }
 }

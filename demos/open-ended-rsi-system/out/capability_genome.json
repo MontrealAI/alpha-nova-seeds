@@ -44,5 +44,27 @@
       "path": "scripts/contracts/export_abi.py",
       "sha256": "c6b16bbb0dfba52db4d58fb4308e578adf31561bb222c4b5531458e3e666df14"
     }
-  ]
+  ],
+  "real_mandate_inputs": {
+    "repo_native_probes": [
+      {
+        "id": "demo_link_integrity",
+        "cmd": "python3 scripts/check_demo_links.py",
+        "scope": "demo ladder",
+        "returncode": 0
+      },
+      {
+        "id": "doctrine_consistency",
+        "cmd": "python3 scripts/check_doctrine_consistency.py",
+        "scope": "doctrine and claim boundary",
+        "returncode": 0
+      },
+      {
+        "id": "math_markdown_consistency",
+        "cmd": "python3 scripts/check_math_markdown.py",
+        "scope": "equation rendering checks",
+        "returncode": 0
+      }
+    ]
+  }
 }
