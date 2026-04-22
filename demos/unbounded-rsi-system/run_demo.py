@@ -55,9 +55,13 @@ def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _json_text(payload: Any) -> str:
+    return json.dumps(payload, indent=2) + "\n"
+
+
 def _write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    path.write_text(_json_text(payload), encoding="utf-8")
 
 
 def _write_text(path: Path, content: str) -> None:
@@ -144,7 +148,7 @@ def _phase_b(phase_a: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any], s
         "promoted_pack": promoted_pack,
         "source_contract_artifacts": [_file_digest(p).__dict__ for p in [*m2_contracts, ground_truth]],
     }
-    package_hash = _sha256_bytes(json.dumps(package_manifest, sort_keys=True).encode("utf-8"))
+    package_hash = _sha256_bytes(_json_text(package_manifest).encode("utf-8"))
 
     control = {
         "aoy": 104,
@@ -508,7 +512,7 @@ It does not claim unrestricted autonomy, literal unbounded RSI, or a fully reali
         "phase_c": phase_c,
         "package_hash": package_hash,
         "board_scorecard": board_scorecard,
-        "artifacts": sorted(artifact_payloads.keys()) + ["package_hash.txt", "board_scorecard.md", "report.md", "report.html"],
+        "artifacts": sorted(artifact_payloads.keys()) + ["package_hash.txt", "board_scorecard.md", "report.md", "report.html", "run_bundle.json"],
     }
     _write_json(OUT / "run_bundle.json", run_bundle)
 
@@ -532,8 +536,7 @@ It does not claim unrestricted autonomy, literal unbounded RSI, or a fully reali
         if missing:
             raise SystemExit(f"assert failed: missing artifacts: {missing}")
 
-        rerun_manifest = _read_json(OUT / "package_manifest.json")
-        rerun_hash = _sha256_bytes(json.dumps(rerun_manifest, sort_keys=True).encode("utf-8"))
+        rerun_hash = _sha256_file(OUT / "package_manifest.json")
         if rerun_hash != package_hash:
             raise SystemExit("assert failed: package hash mismatch")
 

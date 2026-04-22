@@ -198,7 +198,7 @@
       },
       "package_dependency": {
         "required_package": "ProtocolCybersecurityPack-v1",
-        "package_hash": "d7d04f10fb5af8b031e30e577fa65865568c20e1e168e547af0c2a376bf23529",
+        "package_hash": "5e5e1ceef141c9adec1df071e66f2c1b3827d1bf31272ae591d8ef2b7a876455",
         "dependency_mode": "selection_heuristics + evidence templates"
       },
       "second_domain_choice": "Backend proof/governance API correctness selected as strongest low-noise adjacent domain.",
@@ -208,7 +208,7 @@
       ]
     }
   },
-  "package_hash": "d7d04f10fb5af8b031e30e577fa65865568c20e1e168e547af0c2a376bf23529",
+  "package_hash": "5e5e1ceef141c9adec1df071e66f2c1b3827d1bf31272ae591d8ef2b7a876455",
   "board_scorecard": {
     "headline": "Minimum viable accelerating loop gate",
     "adjacent_gate_pass": true,
@@ -246,6 +246,7 @@
     "package_hash.txt",
     "board_scorecard.md",
     "report.md",
-    "report.html"
+    "report.html",
+    "run_bundle.json"
   ]
 }
