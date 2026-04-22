@@ -294,7 +294,7 @@ ul{{margin:0;padding-left:18px}}
 </style></head><body><div class='wrap'>
 <div class='card'>
 <span class='badge'>Flagship synthetic wedge demo</span>
-<span class='badge'>v2.7.0-rc.2 candidate surface</span>
+<span class='badge'>v2.8.0-rc.1 candidate surface</span>
 <h1>Protocol + Smart-Contract Correctness</h1>
 <small>Front-door wedge explanation: sector → parent business → seeds → assay → frozen package → adjacent scorecard → sovereign gate.</small>
 <p><strong>Status:</strong> synthetic, local, replayable, falsifiable; not a real-world proof pack and not an audited final deployment.</p>
@@ -401,14 +401,14 @@ ul{{margin:0;padding-left:18px}}
 <p>Sovereign artifact/ruling emitted: <code>{sovereign_or_ruling['id']}</code></p><p><strong>Interpretation:</strong> {html_sovereign_interpretation}</p>
 </div>
 <div class='card'>
-<h2>Operator artifact map</h2>
+<h2>Operator artifact map + next actions</h2>
 <ul>
 <li><code>demo_output/scorecard/adjacent_mandate_scorecard.json</code></li>
 <li><code>demo_output/scorecard/release_gate_packet.json</code></li>
 <li><code>demo_output/proof_docket/proof_docket.json</code></li>
 <li><code>demo_output/proof_docket/governance_ruling.json</code></li>
 <li><code>demo_output/sovereign/{sovereign_or_ruling['id']}</code></li>
-</ul>
+</ul><p><strong>Next:</strong> run real-world controlled experiment pack for external validity evidence.</p>
 </div>
 </div></body></html>"""
     write_text(OUT / "reports" / "report.html", html)

@@ -1,7 +1,6 @@
 # Adjacent-Mandate Reuse Proof Demo
 
-This is the **next milestone demo**:
-one adjacent-mandate reuse proof under control conditions.
+This is the **compact synthetic adjacent proof demo** in the ladder.
 
 It is intentionally small, local, and reproducible.
 

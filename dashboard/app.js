@@ -1,6 +1,6 @@
 const API = 'http://localhost:8000';
 let snapshot = {};
-const SNAPSHOT_VERSION = 'v2.7.0-rc.2';
+const SNAPSHOT_VERSION = 'v2.8.0-rc.1';
 
 async function getJson(path, fallback) {
   try {
@@ -79,7 +79,7 @@ async function load() {
 
   snapshot = {
     version: SNAPSHOT_VERSION,
-    proofBoundary: 'Synthetic wedge proof only; broader cybersecurity sovereign remains future-facing.',
+    proofBoundary: 'Synthetic wedge proof only; broader cybersecurity sovereign remains future-facing and not yet proven by this RC.',
     capturedAt: new Date().toISOString(),
     summary,
     proof,

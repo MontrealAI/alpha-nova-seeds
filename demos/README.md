@@ -1,34 +1,34 @@
-# Demo Ladder (v2.7.0-rc.2)
+# Demo Ladder (v2.8.0-rc.1)
 
-This folder contains the three demo surfaces for the protocol-and-smart-contract correctness wedge.
+This folder is the canonical demo ladder for the protocol-correctness wedge.
 
-Use this ladder with explicit scope labels:
-- **Synthetic flagship wedge demo** (primary front door)
-- **Synthetic compact adjacent proof demo** (small replay)
-- **Real-world experiment pack** (operator templates requiring blinded execution data)
+The three surfaces are intentionally separated so reviewers can distinguish:
+- **what is synthetic and deterministic**
+- **what is compact and replay-focused**
+- **what is real-world and experiment-dependent**
 
-## 1) Flagship synthetic wedge demo
+## 1) Flagship synthetic wedge demo (primary front door)
 
-- Path: [`protocol_smart_contract_correctness_demo/`](./protocol_smart_contract_correctness_demo/)
+- Path: [`./protocol_smart_contract_correctness_demo/`](./protocol_smart_contract_correctness_demo/)
 - Role: best public/operator entry point
 - Run: `python3 demos/protocol_smart_contract_correctness_demo/run_demo.py --assert`
-- Proves: deterministic synthetic wedge mechanics, winner selection, package freeze, adjacent control-vs-treatment scorecard, and synthetic sovereign gating
-- Does not prove: real-world compounding correctness under live delivery
+- Proves: deterministic wedge mechanics (winner selection, frozen package, adjacent control-vs-treatment gate, sovereign PASS/FAIL emission)
+- Does not prove: live external validity or broad cybersecurity sovereign realization
 
-## 2) Adjacent synthetic proof demo
+## 2) Adjacent synthetic proof demo (compact replay)
 
-- Path: [`adjacent_mandate_reuse_proof_demo/`](./adjacent_mandate_reuse_proof_demo/)
-- Role: compact synthetic replay
+- Path: [`./adjacent_mandate_reuse_proof_demo/`](./adjacent_mandate_reuse_proof_demo/)
+- Role: compact synthetic adjacent proof replay
 - Run: `python3 demos/adjacent_mandate_reuse_proof_demo/run_demo.py`
-- Proves: minimal adjacent-mandate threshold gate structure
-- Does not prove: real-world external validity
+- Proves: minimal threshold-gate structure and synthetic measurement pattern
+- Does not prove: real-world compounding correctness
 
-## 3) Real-world proof pack
+## 3) Real-world proof pack (operator execution)
 
-- Path: [`adjacent_mandate_reuse_proof_real_v1/`](./adjacent_mandate_reuse_proof_real_v1/)
-- Role: operator execution templates for controlled real-world proof
+- Path: [`./adjacent_mandate_reuse_proof_real_v1/`](./adjacent_mandate_reuse_proof_real_v1/)
+- Role: controlled real-world experiment templates
 - Run (scorecard helper): `python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py`
-- Proves: only when run with real blinded data and published proof-docket artifacts
+- Proves: only when executed with blinded real-world data and published proof-docket artifacts
 
 ## Doctrine context
 
@@ -36,9 +36,18 @@ Use this ladder with explicit scope labels:
 - [`../docs/THERMODYNAMIC_MODEL.md`](../docs/THERMODYNAMIC_MODEL.md)
 - [`../docs/NATION_STATE_DOCTRINE.md`](../docs/NATION_STATE_DOCTRINE.md)
 - [`../docs/DEMO_STRATEGY.md`](../docs/DEMO_STRATEGY.md)
+- [`../docs/FRONTIER_LAB_POSTURE.md`](../docs/FRONTIER_LAB_POSTURE.md)
 
-## Claim boundary (explicit)
+## Claim boundary
 
-This demo ladder supports a narrow claim for this RC: protocol correctness can be staged and tested as compounding reusable capability under controlled synthetic conditions.
+This ladder supports a narrow RC claim:
 
-It does **not** claim that the broader cybersecurity sovereign is already proven in real-world operation.
+- protocol correctness can be formalized, replayed, settled, and archived as compounding capability under controlled synthetic conditions.
+
+It does **not** claim:
+
+- a completed broad cybersecurity sovereign,
+- final real-world external proof,
+- audited-final deployment posture.
+
+Compatibility label: Real-world experiment pack.
