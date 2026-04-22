@@ -256,7 +256,11 @@ def _phase_c(package_hash: str) -> dict[str, Any]:
         c["file_digests"] = [_file_digest(f).__dict__ for f in c["files"]]
         c["files"] = [_rel_posix(f) for f in c["files"]]
 
-    selected = sorted(candidates, key=lambda item: item["selection_score"], reverse=True)[0]
+    ranked_candidates = sorted(
+        candidates,
+        key=lambda item: (-item["selection_score"], item["id"]),
+    )
+    selected = ranked_candidates[0]
 
     execution = {
         "mandate": "Mandate 3 autonomous adjacent expansion",
@@ -297,7 +301,7 @@ def _phase_c(package_hash: str) -> dict[str, Any]:
                 "domain": item["domain"],
                 "selection_score": item["selection_score"],
             }
-            for item in sorted(candidates, key=lambda item: item["selection_score"], reverse=True)
+            for item in ranked_candidates
         ],
         "selected": selected["id"],
     }
