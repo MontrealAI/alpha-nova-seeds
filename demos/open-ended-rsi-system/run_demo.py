@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import random
 import re
 import subprocess
 from pathlib import Path
@@ -160,11 +161,12 @@ def pareto_front(candidates: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def generation_zero(cfg: dict[str, Any], genome: dict[str, Any], probes: list[dict[str, Any]]) -> dict[str, Any]:
     probe_ok = all(p["returncode"] == 0 for p in probes)
+    rng = random.Random(cfg["seed"])
     candidates = []
     for i in range(cfg["candidate_pool_size"]):
-        cheap = 0.64 + ((i * 7) % 23) / 100
-        mid = 0.58 + ((i * 5) % 19) / 100
-        exp = 0.53 + ((i * 3) % 17) / 100
+        cheap = 0.64 + rng.randint(0, 22) / 100
+        mid = 0.58 + rng.randint(0, 18) / 100
+        exp = 0.53 + rng.randint(0, 16) / 100
         penalty = 0.0
         policy_flags: list[str] = []
         if i % 11 == 0:
@@ -344,8 +346,9 @@ def generation_two(cfg: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any]) 
     selected = max(frontier, key=lambda c: c["selection_score"])
     neighborhood = []
     base = selected["selection_score"]
+    rng = random.Random(cfg["seed"] + 2)
     for i in range(cfg["neighborhood_size"]):
-        s = round(base - 0.012 + ((i % 7) * 0.004), 4)
+        s = round(base - 0.018 + rng.randint(0, 12) / 1000, 4)
         neighborhood.append({"variant": f"g2-local-{i:02d}", "score": s})
     slope = round(
         (sum(v["score"] for v in neighborhood[:8]) / 8)
@@ -531,6 +534,7 @@ def main() -> int:
         "demo": cfg["demo_id"],
         "release_target": cfg["release_target"],
         "timestamp": cfg["deterministic_timestamp"],
+        "deterministic_seed": cfg["seed"],
         "modes": ["DISCO", "Arnold"],
         "phases": ["bounded", "expanding", "increasingly_autonomous"],
         "real_mandate_1": {
@@ -562,6 +566,7 @@ def main() -> int:
     }
 
     assay_bundle = {
+        "simulated": True,
         "cheap": [
             "lint/static",
             "schema validation",
@@ -584,6 +589,7 @@ def main() -> int:
     }
 
     intervention_log = {
+        "simulated": True,
         "generation_0_touches": g0["human_intervention_touches"],
         "generation_1_touches": g1["human_intervention_touches"],
         "generation_2_touches": g2["human_intervention_touches"],

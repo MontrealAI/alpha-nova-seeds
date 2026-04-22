@@ -15,6 +15,15 @@
   ],
   "repo_native_probes": [
     {
+      "id": "protocol_wedge_replay_assert",
+      "scope": "real mandate 1 wedge replay",
+      "cmd": [
+        "python3",
+        "demos/protocol_smart_contract_correctness_demo/run_demo.py",
+        "--assert"
+      ]
+    },
+    {
       "id": "demo_link_integrity",
       "scope": "demo ladder",
       "cmd": [

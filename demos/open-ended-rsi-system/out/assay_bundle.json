@@ -1,4 +1,5 @@
 {
+  "simulated": true,
   "cheap": [
     "lint/static",
     "schema validation",
