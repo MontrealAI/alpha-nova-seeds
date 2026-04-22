@@ -43,6 +43,13 @@ one completed mandate can create a frozen capability package that materially imp
 
 ## Demo ladder
 
-- Flagship synthetic wedge demo: `demos/protocol_smart_contract_correctness_demo/`
-- Adjacent synthetic proof demo: `demos/adjacent_mandate_reuse_proof_demo/`
-- Real-world experiment pack: `demos/adjacent_mandate_reuse_proof_real_v1/`
+- Flagship synthetic wedge demo: [`../protocol_smart_contract_correctness_demo/`](../protocol_smart_contract_correctness_demo/)
+- Adjacent synthetic proof demo: [`../adjacent_mandate_reuse_proof_demo/`](../adjacent_mandate_reuse_proof_demo/)
+- Real-world experiment pack: [`../adjacent_mandate_reuse_proof_real_v1/`](../adjacent_mandate_reuse_proof_real_v1/)
+- Ladder index: [`../README.md`](../README.md)
+
+## Claim boundary
+
+This compact synthetic demo supports only a narrow claim: frozen package reuse can be measured in an adjacent mandate under deterministic control-vs-treatment conditions.
+
+It does **not** claim that the broader 👑 α‑AGI Cybersecurity Sovereign 🔱✨ is already proven.
