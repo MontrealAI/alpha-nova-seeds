@@ -275,36 +275,51 @@ def generation_one(g0: dict[str, Any]) -> dict[str, Any]:
 
 
 def generation_two(cfg: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any]) -> dict[str, Any]:
-    frontier = [
-        {
-            "domain": "backend_api_correctness",
+    frontier_catalog = {
+        "backend_api_correctness": {
             "transfer": 0.91,
             "assay_coverage": 0.89,
             "safety": 0.93,
             "evidence_density": 0.88,
         },
-        {
-            "domain": "sdk_typed_attestation_payload_correctness",
+        "sdk_typed_attestation_payload_correctness": {
             "transfer": 0.84,
             "assay_coverage": 0.85,
             "safety": 0.90,
             "evidence_density": 0.81,
         },
-        {
-            "domain": "schema_migration_integrity",
+        "schema_migration_integrity": {
             "transfer": 0.78,
             "assay_coverage": 0.88,
             "safety": 0.92,
             "evidence_density": 0.86,
         },
-        {
-            "domain": "proof_docket_synthesis",
+        "proof_docket_synthesis": {
             "transfer": 0.75,
             "assay_coverage": 0.83,
             "safety": 0.95,
             "evidence_density": 0.91,
         },
-    ]
+        "release_provenance_operator_automation": {
+            "transfer": 0.73,
+            "assay_coverage": 0.80,
+            "safety": 0.96,
+            "evidence_density": 0.94,
+        },
+        "dashboard_provenance_evidence_surface_correctness": {
+            "transfer": 0.70,
+            "assay_coverage": 0.82,
+            "safety": 0.94,
+            "evidence_density": 0.89,
+        },
+    }
+    frontier = []
+    for domain in cfg["frontier_whitelist"]:
+        if domain not in frontier_catalog:
+            raise AssertionError(f"Whitelisted domain missing deterministic profile: {domain}")
+        profile = dict(frontier_catalog[domain])
+        profile["domain"] = domain
+        frontier.append(profile)
     for c in frontier:
         c["selection_score"] = round(
             0.36 * c["transfer"]
@@ -486,6 +501,10 @@ small{{color:#475569}}
 """
 
 
+def gate_status(ok: bool) -> str:
+    return "pass" if ok else "fail"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--assert", action="store_true", dest="assert_mode")
@@ -613,8 +632,58 @@ def main() -> int:
             "payload": lineage,
         },
     }
+    schema_validation_results: dict[str, str] = {}
     for name, entry in schema_payloads.items():
-        validate_schema_minimal(name, entry["payload"], entry["schema"])
+        try:
+            validate_schema_minimal(name, entry["payload"], entry["schema"])
+            schema_validation_results[name] = "pass"
+        except AssertionError:
+            schema_validation_results[name] = "fail"
+            raise
+
+    thresholds = scorecard["thresholds"]
+    observed = scorecard["observed"]
+    quality_gate_ok = (
+        observed["aoy_uplift"] >= thresholds["aoy_uplift_min"]
+        and observed["speed_uplift"] >= thresholds["speed_uplift_min"]
+        and observed["rework_reduction"] >= thresholds["rework_reduction_min"]
+        and observed["evidence_completeness_uplift"] >= thresholds["evidence_uplift_min"]
+        and observed["no_safety_regression"] is thresholds["no_safety_regression"]
+        and observed["package_dependence"] >= thresholds["package_dependence_min"]
+    )
+    probes_ok = all(p["returncode"] == 0 for p in probes)
+    schema_ok = all(v == "pass" for v in schema_validation_results.values())
+    authority_scope_ok = g2["selected_domain"]["domain"] in cfg["frontier_whitelist"]
+    no_authority_widening_ok = "widen authority scope" in cfg["authority_scope"]["may_not"]
+
+    safety_gates = {
+        "no_value_without_evidence": {
+            "status": gate_status(probes_ok and quality_gate_ok),
+            "evidence": [
+                f"repo-native probes passing={probes_ok}",
+                f"quality thresholds passing={quality_gate_ok}",
+                "lineage and scorecard artifacts emitted",
+            ],
+        },
+        "no_autonomy_without_authority": {
+            "status": gate_status(authority_scope_ok and no_authority_widening_ok),
+            "evidence": [
+                f"selected domain whitelist-constrained={authority_scope_ok}",
+                f"no authority widening declared={no_authority_widening_ok}",
+                "human approval gates preserved in simulated adjudication",
+            ],
+        },
+        "no_settlement_without_validation": {
+            "status": gate_status(schema_ok),
+            "evidence": [
+                "all adjudication is synthetic and explicitly labeled",
+                "no external settlement calls",
+                f"schema checks passing={schema_ok}",
+            ],
+        },
+    }
+    dump(DEMO / "07_scorecard/safety_gates.json", safety_gates)
+    dump(OUT / "safety_gates.json", safety_gates)
 
     prov = {
         "release_target": cfg["release_target"],
@@ -630,7 +699,7 @@ def main() -> int:
             "synthetic_adjudication_labeled": True,
         },
         "schema_validation": {
-            k: {"schema_id": v["schema"].get("$id", ""), "status": "pass"}
+            k: {"schema_id": v["schema"].get("$id", ""), "status": schema_validation_results[k]}
             for k, v in schema_payloads.items()
         },
         "files": [],
@@ -651,6 +720,7 @@ def main() -> int:
             OUT / "intervention_log.json",
             OUT / "scorecard.json",
             OUT / "claim_boundary.json",
+            OUT / "safety_gates.json",
             OUT / "summary.md",
             OUT / "proof_docket.md",
             OUT / "provenance_manifest.json",

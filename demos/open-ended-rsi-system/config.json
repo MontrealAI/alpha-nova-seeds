@@ -9,7 +9,9 @@
     "backend_api_correctness",
     "sdk_typed_attestation_payload_correctness",
     "schema_migration_integrity",
-    "proof_docket_synthesis"
+    "proof_docket_synthesis",
+    "release_provenance_operator_automation",
+    "dashboard_provenance_evidence_surface_correctness"
   ],
   "repo_native_probes": [
     {

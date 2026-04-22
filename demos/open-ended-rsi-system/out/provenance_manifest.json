@@ -1,8 +1,8 @@
 {
   "release_target": "v2.8.0-rc.2",
   "manifest_hash": "809d3448ac7486a1ff72b03031d355c41ca3cfe53f3eac34d4c4b3821649b1d2",
-  "config_hash": "3963919895106e5031b44e48d31566576b409018579a4c0e683a806d733aea2b",
-  "scorecard_hash": "5c7cf79988d3ffb87e413059dee1592f674d0fb84b9969f19bb51b40937d4adc",
+  "config_hash": "4b91f271d797413f07357702b53ffc03761842706607d5f111ad717e385beb0e",
+  "scorecard_hash": "9dc78845948c5a850be03cb28dc787b06446fb5fb6454cfdc11fe63642460edb",
   "proof_docket_hash": "0ab9ac954ff90d3f8c80c2fc89cea93c411b24940fa82efbeabb1435ecc6b0d6",
   "frozen_package_manifest_hash": "56dfb240a9b6b73c91cb4bb7b06efba543956dea0d4760a0c3f8bd41c5da0f75",
   "determinism_guards": {
@@ -32,7 +32,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/01_frontier_queue/frontier_queue.json",
-      "sha256": "7a91787c94d7401f47b7fa6b05817fb98732e5961cde77499d69dcd05a76b297"
+      "sha256": "a3371ecb4a49e5245e9e7b8a16b46b2f5a03314e3469b5046d405f0a576dbc74"
     },
     {
       "path": "demos/open-ended-rsi-system/02_seed_genome/capability_genome.json",
@@ -48,7 +48,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/03_generation/generation_2.json",
-      "sha256": "b99fd072c9e37e79e6477b1ca38578c73784e1499fda938f31bb772114d32c53"
+      "sha256": "1bf35b0f92e8564b825b9092efcb20c7e56112a0c50ba568fdfbd617b1148037"
     },
     {
       "path": "demos/open-ended-rsi-system/04_assays/assay_bundle.json",
@@ -63,8 +63,12 @@
       "sha256": "6b0f0755b96bddd85388eabe948979757b051bbdd0804910a0773b3ffecb4fba"
     },
     {
+      "path": "demos/open-ended-rsi-system/07_scorecard/safety_gates.json",
+      "sha256": "689164f1a396d62d204824b3d7d5e6a7b82519bd32e30817cc68de313ad047c2"
+    },
+    {
       "path": "demos/open-ended-rsi-system/07_scorecard/scorecard.json",
-      "sha256": "5c7cf79988d3ffb87e413059dee1592f674d0fb84b9969f19bb51b40937d4adc"
+      "sha256": "9dc78845948c5a850be03cb28dc787b06446fb5fb6454cfdc11fe63642460edb"
     },
     {
       "path": "demos/open-ended-rsi-system/08_proof_docket/proof_docket.md",
@@ -80,7 +84,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/board_report.html",
-      "sha256": "8a4c12950de3408d8b3b0ac97ef3a89076f79c975e5c4fdd82eb9be392689a70"
+      "sha256": "9a623043cbdf69cc85f2cbf2bbba7c41b6dbab5e79cb2f3b32e8d55b58536600"
     },
     {
       "path": "demos/open-ended-rsi-system/out/capability_genome.json",
@@ -92,7 +96,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/frontier_queue.json",
-      "sha256": "7a91787c94d7401f47b7fa6b05817fb98732e5961cde77499d69dcd05a76b297"
+      "sha256": "a3371ecb4a49e5245e9e7b8a16b46b2f5a03314e3469b5046d405f0a576dbc74"
     },
     {
       "path": "demos/open-ended-rsi-system/out/intervention_log.json",
@@ -107,8 +111,12 @@
       "sha256": "0ab9ac954ff90d3f8c80c2fc89cea93c411b24940fa82efbeabb1435ecc6b0d6"
     },
     {
+      "path": "demos/open-ended-rsi-system/out/safety_gates.json",
+      "sha256": "689164f1a396d62d204824b3d7d5e6a7b82519bd32e30817cc68de313ad047c2"
+    },
+    {
       "path": "demos/open-ended-rsi-system/out/scorecard.json",
-      "sha256": "5c7cf79988d3ffb87e413059dee1592f674d0fb84b9969f19bb51b40937d4adc"
+      "sha256": "9dc78845948c5a850be03cb28dc787b06446fb5fb6454cfdc11fe63642460edb"
     },
     {
       "path": "demos/open-ended-rsi-system/out/summary.md",
