@@ -238,8 +238,13 @@ def _phase_c(package_hash: str) -> dict[str, Any]:
 
     for c in candidates:
         c["selection_score"] = round((0.42 * c["fit"]) + (0.33 * c["determinism"]) + (0.15 * (1 - c["operator_noise"])) + (0.10 * (1 - c["safety_risk"])), 4)
-        c["file_digests"] = [_file_digest(f).__dict__ for f in c["files"] if f.exists()]
-        c["files"] = [str(f.relative_to(ROOT)) for f in c["files"] if f.exists()]
+        missing_files = [str(f.relative_to(ROOT)) for f in c["files"] if not f.exists()]
+        if missing_files:
+            raise FileNotFoundError(
+                f"phase-c fail-closed: candidate {c['id']} missing evidence files: {missing_files}"
+            )
+        c["file_digests"] = [_file_digest(f).__dict__ for f in c["files"]]
+        c["files"] = [str(f.relative_to(ROOT)) for f in c["files"]]
 
     selected = sorted(candidates, key=lambda item: item["selection_score"], reverse=True)[0]
 
@@ -305,7 +310,11 @@ def run_demo(assert_mode: bool = False) -> dict[str, Any]:
         "adjacent_metrics": scorecard["comparison"],
         "thresholds": scorecard["thresholds"],
         "governance_ruling": "pass_with_bounds" if scorecard["passes"]["adjacent_mandate_proof"] else "fail_closed",
-        "ruling_text": "PASS for bounded accelerating loop proof-of-mechanism; bounded policy gates remain mandatory.",
+        "ruling_text": (
+            "PASS for bounded accelerating loop proof-of-mechanism; bounded policy gates remain mandatory."
+            if scorecard["passes"]["adjacent_mandate_proof"]
+            else "FAIL-CLOSED: thresholds were not met; do not promote accelerating-loop claim for this run."
+        ),
     }
 
     provenance_log = {
