@@ -4,6 +4,12 @@
   "human_intervention_touches": 8,
   "candidate_count": 48,
   "pareto_front_count": 12,
+  "strategy_families_on_frontier": {
+    "proof_first": 3,
+    "docs_first": 4,
+    "test_first": 2,
+    "schema_first": 3
+  },
   "real_repo_probes": [
     {
       "id": "protocol_wedge_replay_assert",
@@ -45,6 +51,7 @@
   "candidates": [
     {
       "candidate_id": "g0-candidate-00",
+      "strategy_family": "proof_first",
       "mode": "DISCO",
       "cheap_assay": 0.74,
       "mid_assay": 0.67,
@@ -65,6 +72,7 @@
     },
     {
       "candidate_id": "g0-candidate-01",
+      "strategy_family": "test_first",
       "mode": "DISCO",
       "cheap_assay": 0.65,
       "mid_assay": 0.67,
@@ -80,6 +88,7 @@
     },
     {
       "candidate_id": "g0-candidate-02",
+      "strategy_family": "schema_first",
       "mode": "DISCO",
       "cheap_assay": 0.76,
       "mid_assay": 0.73,
@@ -95,6 +104,7 @@
     },
     {
       "candidate_id": "g0-candidate-03",
+      "strategy_family": "docs_first",
       "mode": "DISCO",
       "cheap_assay": 0.7,
       "mid_assay": 0.68,
@@ -110,6 +120,7 @@
     },
     {
       "candidate_id": "g0-candidate-04",
+      "strategy_family": "proof_first",
       "mode": "DISCO",
       "cheap_assay": 0.82,
       "mid_assay": 0.65,
@@ -125,6 +136,7 @@
     },
     {
       "candidate_id": "g0-candidate-05",
+      "strategy_family": "test_first",
       "mode": "DISCO",
       "cheap_assay": 0.65,
       "mid_assay": 0.7,
@@ -140,6 +152,7 @@
     },
     {
       "candidate_id": "g0-candidate-06",
+      "strategy_family": "schema_first",
       "mode": "DISCO",
       "cheap_assay": 0.83,
       "mid_assay": 0.58,
@@ -155,6 +168,7 @@
     },
     {
       "candidate_id": "g0-candidate-07",
+      "strategy_family": "docs_first",
       "mode": "DISCO",
       "cheap_assay": 0.81,
       "mid_assay": 0.6,
@@ -170,6 +184,7 @@
     },
     {
       "candidate_id": "g0-candidate-08",
+      "strategy_family": "proof_first",
       "mode": "DISCO",
       "cheap_assay": 0.67,
       "mid_assay": 0.76,
@@ -185,6 +200,7 @@
     },
     {
       "candidate_id": "g0-candidate-09",
+      "strategy_family": "test_first",
       "mode": "DISCO",
       "cheap_assay": 0.71,
       "mid_assay": 0.6,
@@ -200,6 +216,7 @@
     },
     {
       "candidate_id": "g0-candidate-10",
+      "strategy_family": "schema_first",
       "mode": "DISCO",
       "cheap_assay": 0.66,
       "mid_assay": 0.64,
@@ -215,6 +232,7 @@
     },
     {
       "candidate_id": "g0-candidate-11",
+      "strategy_family": "docs_first",
       "mode": "DISCO",
       "cheap_assay": 0.67,
       "mid_assay": 0.75,
@@ -232,6 +250,7 @@
     },
     {
       "candidate_id": "g0-candidate-12",
+      "strategy_family": "proof_first",
       "mode": "DISCO",
       "cheap_assay": 0.77,
       "mid_assay": 0.58,
@@ -247,6 +266,7 @@
     },
     {
       "candidate_id": "g0-candidate-13",
+      "strategy_family": "test_first",
       "mode": "DISCO",
       "cheap_assay": 0.73,
       "mid_assay": 0.73,
@@ -262,6 +282,7 @@
     },
     {
       "candidate_id": "g0-candidate-14",
+      "strategy_family": "schema_first",
       "mode": "DISCO",
       "cheap_assay": 0.8,
       "mid_assay": 0.58,
@@ -277,6 +298,7 @@
     },
     {
       "candidate_id": "g0-candidate-15",
+      "strategy_family": "docs_first",
       "mode": "DISCO",
       "cheap_assay": 0.66,
       "mid_assay": 0.61,
@@ -292,6 +314,7 @@
     },
     {
       "candidate_id": "g0-candidate-16",
+      "strategy_family": "proof_first",
       "mode": "DISCO",
       "cheap_assay": 0.85,
       "mid_assay": 0.64,
@@ -307,6 +330,7 @@
     },
     {
       "candidate_id": "g0-candidate-17",
+      "strategy_family": "test_first",
       "mode": "DISCO",
       "cheap_assay": 0.71,
       "mid_assay": 0.74,
@@ -324,6 +348,7 @@
     },
     {
       "candidate_id": "g0-candidate-18",
+      "strategy_family": "schema_first",
       "mode": "DISCO",
       "cheap_assay": 0.84,
       "mid_assay": 0.58,
@@ -339,6 +364,7 @@
     },
     {
       "candidate_id": "g0-candidate-19",
+      "strategy_family": "docs_first",
       "mode": "DISCO",
       "cheap_assay": 0.79,
       "mid_assay": 0.73,
@@ -356,6 +382,7 @@
     },
     {
       "candidate_id": "g0-candidate-20",
+      "strategy_family": "proof_first",
       "mode": "DISCO",
       "cheap_assay": 0.66,
       "mid_assay": 0.71,
@@ -371,6 +398,7 @@
     },
     {
       "candidate_id": "g0-candidate-21",
+      "strategy_family": "test_first",
       "mode": "DISCO",
       "cheap_assay": 0.82,
       "mid_assay": 0.58,
@@ -386,6 +414,7 @@
     },
     {
       "candidate_id": "g0-candidate-22",
+      "strategy_family": "schema_first",
       "mode": "DISCO",
       "cheap_assay": 0.65,
       "mid_assay": 0.72,
@@ -403,6 +432,7 @@
     },
     {
       "candidate_id": "g0-candidate-23",
+      "strategy_family": "docs_first",
       "mode": "DISCO",
       "cheap_assay": 0.68,
       "mid_assay": 0.73,
@@ -420,6 +450,7 @@
     },
     {
       "candidate_id": "g0-candidate-24",
+      "strategy_family": "proof_first",
       "mode": "Arnold",
       "cheap_assay": 0.71,
       "mid_assay": 0.7,
@@ -435,6 +466,7 @@
     },
     {
       "candidate_id": "g0-candidate-25",
+      "strategy_family": "test_first",
       "mode": "Arnold",
       "cheap_assay": 0.72,
       "mid_assay": 0.59,
@@ -450,6 +482,7 @@
     },
     {
       "candidate_id": "g0-candidate-26",
+      "strategy_family": "schema_first",
       "mode": "Arnold",
       "cheap_assay": 0.77,
       "mid_assay": 0.67,
@@ -465,6 +498,7 @@
     },
     {
       "candidate_id": "g0-candidate-27",
+      "strategy_family": "docs_first",
       "mode": "Arnold",
       "cheap_assay": 0.7,
       "mid_assay": 0.58,
@@ -480,6 +514,7 @@
     },
     {
       "candidate_id": "g0-candidate-28",
+      "strategy_family": "proof_first",
       "mode": "Arnold",
       "cheap_assay": 0.68,
       "mid_assay": 0.71,
@@ -495,6 +530,7 @@
     },
     {
       "candidate_id": "g0-candidate-29",
+      "strategy_family": "test_first",
       "mode": "Arnold",
       "cheap_assay": 0.77,
       "mid_assay": 0.6,
@@ -510,6 +546,7 @@
     },
     {
       "candidate_id": "g0-candidate-30",
+      "strategy_family": "schema_first",
       "mode": "Arnold",
       "cheap_assay": 0.82,
       "mid_assay": 0.61,
@@ -525,6 +562,7 @@
     },
     {
       "candidate_id": "g0-candidate-31",
+      "strategy_family": "docs_first",
       "mode": "Arnold",
       "cheap_assay": 0.73,
       "mid_assay": 0.74,
@@ -540,6 +578,7 @@
     },
     {
       "candidate_id": "g0-candidate-32",
+      "strategy_family": "proof_first",
       "mode": "Arnold",
       "cheap_assay": 0.69,
       "mid_assay": 0.72,
@@ -555,6 +594,7 @@
     },
     {
       "candidate_id": "g0-candidate-33",
+      "strategy_family": "test_first",
       "mode": "Arnold",
       "cheap_assay": 0.72,
       "mid_assay": 0.68,
@@ -572,6 +612,7 @@
     },
     {
       "candidate_id": "g0-candidate-34",
+      "strategy_family": "schema_first",
       "mode": "Arnold",
       "cheap_assay": 0.81,
       "mid_assay": 0.72,
@@ -589,6 +630,7 @@
     },
     {
       "candidate_id": "g0-candidate-35",
+      "strategy_family": "docs_first",
       "mode": "Arnold",
       "cheap_assay": 0.79,
       "mid_assay": 0.64,
@@ -604,6 +646,7 @@
     },
     {
       "candidate_id": "g0-candidate-36",
+      "strategy_family": "proof_first",
       "mode": "Arnold",
       "cheap_assay": 0.67,
       "mid_assay": 0.76,
@@ -619,6 +662,7 @@
     },
     {
       "candidate_id": "g0-candidate-37",
+      "strategy_family": "test_first",
       "mode": "Arnold",
       "cheap_assay": 0.79,
       "mid_assay": 0.69,
@@ -634,6 +678,7 @@
     },
     {
       "candidate_id": "g0-candidate-38",
+      "strategy_family": "schema_first",
       "mode": "Arnold",
       "cheap_assay": 0.76,
       "mid_assay": 0.65,
@@ -651,6 +696,7 @@
     },
     {
       "candidate_id": "g0-candidate-39",
+      "strategy_family": "docs_first",
       "mode": "Arnold",
       "cheap_assay": 0.78,
       "mid_assay": 0.67,
@@ -666,6 +712,7 @@
     },
     {
       "candidate_id": "g0-candidate-40",
+      "strategy_family": "proof_first",
       "mode": "Arnold",
       "cheap_assay": 0.73,
       "mid_assay": 0.67,
@@ -681,6 +728,7 @@
     },
     {
       "candidate_id": "g0-candidate-41",
+      "strategy_family": "test_first",
       "mode": "Arnold",
       "cheap_assay": 0.82,
       "mid_assay": 0.65,
@@ -696,6 +744,7 @@
     },
     {
       "candidate_id": "g0-candidate-42",
+      "strategy_family": "schema_first",
       "mode": "Arnold",
       "cheap_assay": 0.84,
       "mid_assay": 0.59,
@@ -711,6 +760,7 @@
     },
     {
       "candidate_id": "g0-candidate-43",
+      "strategy_family": "docs_first",
       "mode": "Arnold",
       "cheap_assay": 0.66,
       "mid_assay": 0.7,
@@ -726,6 +776,7 @@
     },
     {
       "candidate_id": "g0-candidate-44",
+      "strategy_family": "proof_first",
       "mode": "Arnold",
       "cheap_assay": 0.77,
       "mid_assay": 0.65,
@@ -743,6 +794,7 @@
     },
     {
       "candidate_id": "g0-candidate-45",
+      "strategy_family": "test_first",
       "mode": "Arnold",
       "cheap_assay": 0.77,
       "mid_assay": 0.66,
@@ -758,6 +810,7 @@
     },
     {
       "candidate_id": "g0-candidate-46",
+      "strategy_family": "schema_first",
       "mode": "Arnold",
       "cheap_assay": 0.74,
       "mid_assay": 0.7,
@@ -775,6 +828,7 @@
     },
     {
       "candidate_id": "g0-candidate-47",
+      "strategy_family": "docs_first",
       "mode": "Arnold",
       "cheap_assay": 0.76,
       "mid_assay": 0.69,
@@ -791,6 +845,7 @@
   ],
   "winner": {
     "candidate_id": "g0-candidate-04",
+    "strategy_family": "proof_first",
     "mode": "DISCO",
     "cheap_assay": 0.82,
     "mid_assay": 0.65,

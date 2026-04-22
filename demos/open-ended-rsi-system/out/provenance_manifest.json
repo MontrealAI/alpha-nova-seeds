@@ -2,7 +2,7 @@
   "release_target": "v2.8.0-rc.2",
   "manifest_hash": "a00756bc612da4d51ccd7b0aef89a909636f0a0304b8656914eb8bd3ef48c34d",
   "config_hash": "f4ed284d88169ef83648e33a285f32ebbd110946c7209579b4c0e1f0519e9d78",
-  "scorecard_hash": "37986b0484f8caa95890e35c701725c1f41c9be09978c2c2c441caedc0a89f99",
+  "scorecard_hash": "f3f2db44bb61b1e2880b21fc7ec6286fd7ae58cbe178c6eea938d0b893352d91",
   "proof_docket_hash": "0ab9ac954ff90d3f8c80c2fc89cea93c411b24940fa82efbeabb1435ecc6b0d6",
   "frozen_package_manifest_hash": "56dfb240a9b6b73c91cb4bb7b06efba543956dea0d4760a0c3f8bd41c5da0f75",
   "determinism_guards": {
@@ -25,7 +25,7 @@
       "status": "pass"
     }
   },
-  "determinism_fingerprint_hash": "fd5dc1cf4023a56284dee97362173f1fb2c55a89d6ef145edb6f19eac7a27697",
+  "determinism_fingerprint_hash": "c8f19d051133ea158227f37e6b5b15ea763e62b2c706527edd4c469f72e2e81e",
   "files": [
     {
       "path": "demos/open-ended-rsi-system/00_manifest/manifest.json",
@@ -41,7 +41,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/03_generation/generation_0.json",
-      "sha256": "9cb76c5c995ae1c9f4d62c96da69d72bafd0d03cea6bc9e8a450eaa7f677fb2f"
+      "sha256": "c6eeba0dab26cc8dccff45fcf6a2743119422770e92f38697eacb6d8960ef777"
     },
     {
       "path": "demos/open-ended-rsi-system/03_generation/generation_1.json",
@@ -69,7 +69,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/07_scorecard/scorecard.json",
-      "sha256": "37986b0484f8caa95890e35c701725c1f41c9be09978c2c2c441caedc0a89f99"
+      "sha256": "f3f2db44bb61b1e2880b21fc7ec6286fd7ae58cbe178c6eea938d0b893352d91"
     },
     {
       "path": "demos/open-ended-rsi-system/08_proof_docket/proof_docket.md",
@@ -97,7 +97,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/determinism_fingerprint.json",
-      "sha256": "fd5dc1cf4023a56284dee97362173f1fb2c55a89d6ef145edb6f19eac7a27697"
+      "sha256": "c8f19d051133ea158227f37e6b5b15ea763e62b2c706527edd4c469f72e2e81e"
     },
     {
       "path": "demos/open-ended-rsi-system/out/frontier_queue.json",
@@ -105,7 +105,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/generation_0.json",
-      "sha256": "9cb76c5c995ae1c9f4d62c96da69d72bafd0d03cea6bc9e8a450eaa7f677fb2f"
+      "sha256": "c6eeba0dab26cc8dccff45fcf6a2743119422770e92f38697eacb6d8960ef777"
     },
     {
       "path": "demos/open-ended-rsi-system/out/generation_1.json",
@@ -137,7 +137,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/scorecard.json",
-      "sha256": "37986b0484f8caa95890e35c701725c1f41c9be09978c2c2c441caedc0a89f99"
+      "sha256": "f3f2db44bb61b1e2880b21fc7ec6286fd7ae58cbe178c6eea938d0b893352d91"
     },
     {
       "path": "demos/open-ended-rsi-system/out/summary.md",

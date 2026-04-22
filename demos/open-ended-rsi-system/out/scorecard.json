@@ -7,6 +7,12 @@
   ],
   "generation_summary": {
     "g0_winner": "g0-candidate-04",
+    "g0_frontier_diversity": {
+      "proof_first": 3,
+      "docs_first": 4,
+      "test_first": 2,
+      "schema_first": 3
+    },
     "g1_treatment_win": true,
     "g2_selected_domain": "backend_api_correctness"
   },

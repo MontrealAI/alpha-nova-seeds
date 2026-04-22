@@ -85,6 +85,7 @@ diff -u /tmp/rsi-fingerprint-a.json demos/open-ended-rsi-system/out/determinism_
 - Uses a fixed reactive intermediate (`missing_provenance_surface`).
 - Deterministically generates 48 candidates across DISCO + Arnold modes.
 - Screens cheap → mid → expensive assays.
+- Preserves a small strategy-family population (`proof_first`, `test_first`, `schema_first`, `docs_first`) on the Pareto frontier before winner freeze.
 - Freezes winner as governed package with deterministic hash.
 
 ### Generation 1 (expanding)
@@ -98,7 +99,7 @@ diff -u /tmp/rsi-fingerprint-a.json demos/open-ended-rsi-system/out/determinism_
 ### Generation 2 (increasingly autonomous)
 
 - Domain selection from fixed whitelist only.
-- Selection scoring uses transfer, assay coverage, safety scope, evidence density.
+- Selection scoring uses transfer, assay coverage, safety scope, evidence density, and produces a deterministic ranked frontier queue.
 - Frontier selection is strictly whitelist-bounded from `config.json`.
 - Runs DISCO discovery then Arnold local evolution.
 - Emits `frontier_width`, `autonomy_delta`, `neighborhood_slope`, `archive_depth`.
