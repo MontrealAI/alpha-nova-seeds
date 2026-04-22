@@ -11,6 +11,32 @@
     "schema_migration_integrity",
     "proof_docket_synthesis"
   ],
+  "repo_native_probes": [
+    {
+      "id": "demo_link_integrity",
+      "scope": "demo ladder",
+      "cmd": [
+        "python3",
+        "scripts/check_demo_links.py"
+      ]
+    },
+    {
+      "id": "doctrine_consistency",
+      "scope": "doctrine and claim boundary",
+      "cmd": [
+        "python3",
+        "scripts/check_doctrine_consistency.py"
+      ]
+    },
+    {
+      "id": "math_markdown_consistency",
+      "scope": "equation rendering checks",
+      "cmd": [
+        "python3",
+        "scripts/check_math_markdown.py"
+      ]
+    }
+  ],
   "authority_scope": {
     "may": [
       "mutate packages",

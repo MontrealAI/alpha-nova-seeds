@@ -10,5 +10,9 @@
     "bounded",
     "expanding",
     "increasingly_autonomous"
-  ]
+  ],
+  "real_mandate_1": {
+    "definition": "repo-native code/docs/schema/proof surfaces with deterministic local probes; synthetic adjudication only where external validation is unavailable",
+    "probe_count": 3
+  }
 }

@@ -4,7 +4,8 @@
     "schema validation",
     "proof completeness",
     "policy compliance",
-    "diff sanity"
+    "diff sanity",
+    "repo-native probe replay"
   ],
   "mid": [
     "targeted integration",

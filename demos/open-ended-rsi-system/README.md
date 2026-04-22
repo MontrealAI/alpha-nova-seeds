@@ -4,7 +4,7 @@ This demo is a deterministic, repo-native **bounded proof-of-mechanism** for an 
 
 **bounded → expanding → increasingly autonomous**
 
-It demonstrates controlled compounding under governance. It does **not** claim unrestricted autonomy.
+It demonstrates controlled compounding under governance. **Claim boundary (one sentence): this demo demonstrates bounded, deterministic, local accelerating-loop mechanics only, and does not claim unrestricted autonomy, audited-final deployment, or external real-world validation.**
 
 ## What this demo does
 
@@ -13,6 +13,11 @@ It demonstrates controlled compounding under governance. It does **not** claim u
 3. Uses that package in an adjacent Mandate 2 treatment lane against a control lane.
 4. Selects and executes Mandate 3 from a bounded frontier whitelist with less human intervention.
 5. Emits board-ready scorecards, safety gates, provenance logs, and proof-docket outputs.
+
+
+## Real Mandate 1 input policy
+
+Generation 0 includes deterministic repo-native probes over existing release/doctrine/demo validation helpers (`check_demo_links`, `check_doctrine_consistency`, `check_math_markdown`) so the starting wedge uses real local repo surfaces, while final adjudication values remain explicitly synthetic.
 
 ## Required folders and emitted artifacts
 
