@@ -1,11 +1,12 @@
 # Demo Ladder (v2.8.0-rc.1)
 
-This folder is the canonical demo ladder for the protocol-correctness wedge.
+This folder is the canonical demo ladder for the protocol-correctness wedge and its adjacent expansion surfaces.
 
-The three surfaces are intentionally separated so reviewers can distinguish:
-- **what is synthetic and deterministic**
-- **what is compact and replay-focused**
-- **what is real-world and experiment-dependent**
+The four surfaces are intentionally separated so reviewers can distinguish:
+- **what is flagship synthetic wedge evidence**
+- **what is compact adjacent synthetic replay**
+- **what is real-world experiment material**
+- **what is accelerating-loop demonstration across bounded autonomy phases**
 
 ## 1) Flagship synthetic wedge demo (primary front door)
 
@@ -30,6 +31,14 @@ The three surfaces are intentionally separated so reviewers can distinguish:
 - Run (scorecard helper): `python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py`
 - Proves: only when executed with blinded real-world data and published proof-docket artifacts
 
+## 4) Accelerating-loop demo (bounded-to-expanding-to-more-autonomous)
+
+- Path: [`./unbounded-rsi-system/`](./unbounded-rsi-system/)
+- Role: flagship-class accelerating-loop explanation with explicit demonstrated/simulated/unproven boundaries
+- Run: `python3 demos/unbounded-rsi-system/run_demo.py --assert`
+- Proves: deterministic three-phase loop mechanics with frozen package reuse and bounded autonomous adjacent selection
+- Does not prove: unrestricted autonomy, literal unbounded RSI, or full broad sovereign realization
+
 ## Doctrine context
 
 - [`../docs/DOCTRINE_STACK.md`](../docs/DOCTRINE_STACK.md)
@@ -40,14 +49,16 @@ The three surfaces are intentionally separated so reviewers can distinguish:
 
 ## Claim boundary
 
-This ladder supports a narrow RC claim:
+This ladder supports narrow RC claims:
 
 - protocol correctness can be formalized, replayed, settled, and archived as compounding capability under controlled synthetic conditions.
+- an early accelerating loop can be demonstrated in bounded synthetic conditions with explicit governance gates.
 
 It does **not** claim:
 
 - a completed broad cybersecurity sovereign,
 - final real-world external proof,
-- audited-final deployment posture.
+- audited-final deployment posture,
+- unrestricted autonomy or literal unbounded recursive self-improvement.
 
 Compatibility label: Real-world experiment pack.
