@@ -90,6 +90,12 @@
         "cmd": "python3 scripts/check_math_markdown.py",
         "scope": "equation rendering checks",
         "returncode": 0
+      },
+      {
+        "id": "release_surface_posture",
+        "cmd": "python3 scripts/check_release_surface_posture.py",
+        "scope": "README/AGENTS/RELEASES active RC coherence",
+        "returncode": 0
       }
     ]
   }

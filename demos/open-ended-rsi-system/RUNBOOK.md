@@ -16,6 +16,7 @@ This runbook defines deterministic local execution for the accelerating-loop dem
 ```bash
 python3 demos/open-ended-rsi-system/run_demo.py --assert
 python3 scripts/check_open_ended_rsi_artifacts.py
+python3 scripts/check_release_surface_posture.py
 ```
 
 Expected result:

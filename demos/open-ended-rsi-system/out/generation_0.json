@@ -46,6 +46,15 @@
       "returncode": 0,
       "stdout_head": "PASS: doctrine math markdown checks succeeded",
       "stderr_head": ""
+    },
+    {
+      "id": "release_surface_posture",
+      "cmd": "python3 scripts/check_release_surface_posture.py",
+      "scope": "README/AGENTS/RELEASES active RC coherence",
+      "simulated": false,
+      "returncode": 0,
+      "stdout_head": "PASS: release-surface posture coherence is intact (README/AGENTS/RELEASES)",
+      "stderr_head": ""
     }
   ],
   "candidates": [
