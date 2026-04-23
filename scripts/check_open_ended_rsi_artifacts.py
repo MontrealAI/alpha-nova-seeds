@@ -36,6 +36,20 @@ def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def compare_board_scorecard(scorecard: dict, board_scorecard: dict) -> list[str]:
+    """Return top-level board_scorecard fields that diverge from scorecard.json."""
+
+    parity_fields = [
+        "release_target",
+        "selected_domain",
+        "winner",
+        "trajectory",
+        "thresholds",
+        "observed",
+    ]
+    return [field for field in parity_fields if board_scorecard.get(field) != scorecard.get(field)]
+
+
 def main() -> int:
     missing = [name for name in REQUIRED if not (OUT / name).exists()]
     if missing:
@@ -51,6 +65,7 @@ def main() -> int:
     score = load_json(OUT / "scorecard.json")
     gates = load_json(OUT / "safety_gates.json")
     provenance = load_json(OUT / "provenance_manifest.json")
+    board_scorecard_path = OUT / "board_scorecard.json"
 
     if not (g2["human_intervention_touches"] < g1["human_intervention_touches"] < g0["human_intervention_touches"]):
         print("FAIL: human intervention touches are not strictly descending g0 > g1 > g2")
@@ -70,6 +85,16 @@ def main() -> int:
     if failing:
         print(f"FAIL: threshold checks failed: {', '.join(failing)}")
         return 1
+
+    if board_scorecard_path.exists():
+        board_scorecard = load_json(board_scorecard_path)
+        mismatched = compare_board_scorecard(score, board_scorecard)
+        if mismatched:
+            print(
+                "FAIL: board_scorecard.json diverges from scorecard.json fields: "
+                + ", ".join(mismatched)
+            )
+            return 1
 
     bad_gates = [k for k, v in gates.items() if v.get("status") != "pass"]
     if bad_gates:
