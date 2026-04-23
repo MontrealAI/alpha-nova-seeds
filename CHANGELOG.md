@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Changed
+- `scripts/check_readme_badges.py` now validates that every `readme.rows` badge id exists in `readme.badges` and reports structured errors instead of uncaught `KeyError` traces during expected-block rendering.
 - `scripts/check_readme_badges.py` now enforces that `readme.rows` actually render every `required_badges` ID, preventing silent omission of mandatory trust-surface badges from README output.
 - Badge rail generation now supports explicit row groups from `release/badges.json` so root README renders a two-tier trust/navigation rail instead of a single long badge line.
 - `release/badges.json` upgraded to row-driven metadata (`version: 2`) and now requires doctrine-stack coverage while dropping the optional latest-pre-release badge from the default front-door rail to reduce noise and drift risk.

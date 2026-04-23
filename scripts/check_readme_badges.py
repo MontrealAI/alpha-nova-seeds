@@ -132,6 +132,11 @@ def main() -> int:
                 if not badge_id:
                     errors.append(f"readme row {idx} contains a badge entry with no id")
                     continue
+                if badge_id not in available:
+                    errors.append(
+                        f"readme row {idx} references unknown badge id: {badge_id}"
+                    )
+                    continue
                 rendered_badge_ids.add(badge_id)
 
         missing_from_rows = sorted(required - rendered_badge_ids)
@@ -198,12 +203,20 @@ def main() -> int:
     readme_rows = cfg["readme"].get("rows")
     if not readme_rows:
         readme_rows = [{"badges": [badge["id"] for badge in cfg["readme"]["badges"]]}]
-    expected_readme = _render_block(_render_rows(cfg, readme_rows, repo, style), *GEN_README_MARKERS)
+    try:
+        expected_readme = _render_block(_render_rows(cfg, readme_rows, repo, style), *GEN_README_MARKERS)
+    except KeyError as exc:
+        errors.append(f"unable to render README badge rows due to unknown badge id: {exc}")
+        expected_readme = ""
 
     demos_rows = cfg["demos_readme"].get("rows")
     if not demos_rows:
         demos_rows = [{"badges": cfg["demos_readme"].get("badges", [])}]
-    expected_demos = _render_block(_render_rows(cfg, demos_rows, repo, style), *GEN_DEMOS_MARKERS)
+    try:
+        expected_demos = _render_block(_render_rows(cfg, demos_rows, repo, style), *GEN_DEMOS_MARKERS)
+    except KeyError as exc:
+        errors.append(f"unable to render demos badge rows due to unknown badge id: {exc}")
+        expected_demos = ""
 
     try:
         actual_readme = _extract_marked_block(README.read_text(encoding="utf-8"), README_MARKERS)
