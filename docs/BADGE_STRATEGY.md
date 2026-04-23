@@ -1,4 +1,4 @@
-# Badge Strategy (v2.8.0-rc.4)
+# Badge Strategy (v2.8.0-rc.5)
 
 This document defines how badges are used in this repository so the front door stays useful, disciplined, and proof-first.
 

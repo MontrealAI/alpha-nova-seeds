@@ -1,7 +1,7 @@
 # AGENTS.md — alpha-nova-seeds
 
 ## Purpose
-This repository implements **α‑AGI Nova‑Seeds** as **sealed venture blueprints for sovereign opportunity formation**. The repo currently tracks **v2.8.0-rc.4** as the active unpublished release-candidate target (with prior RC history preserved in `CHANGELOG.md`/`RELEASES.md`). It remains a **verifiable release candidate** focused on proof surfaces, governance hardening, and release provenance. It is **not** represented as an audited final deployment.
+This repository implements **α‑AGI Nova‑Seeds** as **sealed venture blueprints for sovereign opportunity formation**. The repo currently tracks **v2.8.0-rc.5** as the active unpublished release-candidate target (with prior RC history preserved in `CHANGELOG.md`/`RELEASES.md`). It remains a **verifiable release candidate** focused on proof surfaces, governance hardening, and release provenance. It is **not** represented as an audited final deployment.
 
 System framing:
 
