@@ -93,6 +93,7 @@ Outputs are written to:
 
 ## Demo ladder links
 
+- Current accelerating-loop primary surface: [`../open-ended-rsi-system/`](../open-ended-rsi-system/)
 - Flagship synthetic wedge demo: [`../protocol_smart_contract_correctness_demo/`](../protocol_smart_contract_correctness_demo/)
 - Compact synthetic adjacent proof demo: [`../adjacent_mandate_reuse_proof_demo/`](../adjacent_mandate_reuse_proof_demo/)
 - Real-world experiment pack: [`../adjacent_mandate_reuse_proof_real_v1/`](../adjacent_mandate_reuse_proof_real_v1/)

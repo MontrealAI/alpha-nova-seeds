@@ -30,6 +30,19 @@ REQUIRED_PHRASES = [
     "Accelerating-loop demo",
 ]
 
+REQUIRED_CROSSLINKS = {
+    "demos/open-ended-rsi-system/README.md": [
+        "../protocol_smart_contract_correctness_demo/",
+        "../adjacent_mandate_reuse_proof_demo/",
+        "../adjacent_mandate_reuse_proof_real_v1/",
+        "../README.md",
+    ],
+    "demos/unbounded-rsi-system/README.md": [
+        "../open-ended-rsi-system/",
+        "../README.md",
+    ],
+}
+
 
 def main() -> int:
     errors: list[str] = []
@@ -54,6 +67,18 @@ def main() -> int:
         text = path.read_text(encoding="utf-8")
         if "../README.md" not in text:
             errors.append(f"missing ladder index link in {path.relative_to(ROOT)}")
+
+    for rel_path, required_links in REQUIRED_CROSSLINKS.items():
+        target = ROOT / rel_path
+        if not target.exists():
+            errors.append(f"missing cross-link target file: {rel_path}")
+            continue
+        text = target.read_text(encoding="utf-8")
+        for required_link in required_links:
+            if required_link not in text:
+                errors.append(
+                    f"{rel_path} missing required cross-link reference: {required_link}"
+                )
 
     if errors:
         print("FAIL")
