@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = "v2.8.0-rc.3"
-TARGET_RC_NUMBER = 3
+TARGET_VERSION = (2, 8, 0, 3)
 FILES = {
     "README": ROOT / "README.md",
     "AGENTS": ROOT / "AGENTS.md",
@@ -29,9 +29,13 @@ PATTERNS = {
     ],
 }
 
-# Reject known stale/future drift markers.
-FORBIDDEN = ["v2.8.0-rc.2", "v2.9.0-rc.1"]
-SAME_TRAIN_PATTERN = re.compile(r"v2\.8\.0-rc\.(\d+)")
+# Reject known stale drift markers.
+FORBIDDEN = ["v2.8.0-rc.2"]
+RC_MARKER_PATTERN = re.compile(r"v(\d+)\.(\d+)\.(\d+)-rc\.(\d+)")
+
+
+def _version_tuple(match: re.Match[str]) -> tuple[int, int, int, int]:
+    return tuple(int(match.group(i)) for i in range(1, 5))
 
 
 def main() -> int:
@@ -55,11 +59,12 @@ def main() -> int:
                     f"{path.relative_to(ROOT)} contains disallowed RC marker {disallowed}; expected active target {TARGET}"
                 )
 
-        for match in SAME_TRAIN_PATTERN.finditer(text):
-            rc_number = int(match.group(1))
-            if rc_number > TARGET_RC_NUMBER:
+        for match in RC_MARKER_PATTERN.finditer(text):
+            marker = match.group(0)
+            version = _version_tuple(match)
+            if version > TARGET_VERSION:
                 errors.append(
-                    f"{path.relative_to(ROOT)} contains premature same-train RC marker {match.group(0)}; expected active target {TARGET}"
+                    f"{path.relative_to(ROOT)} contains premature future RC marker {marker}; expected active target {TARGET}"
                 )
 
     if errors:

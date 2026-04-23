@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Changed
+- `scripts/check_release_surface_posture.py` now compares all discovered `vX.Y.Z-rc.N` markers against the active target and rejects any premature future RC marker (for example `v2.9.0-rc.2` or `v3.0.0-rc.1`).
 - Tightened demo-ladder coherence checks by extending `scripts/check_demo_links.py` with deterministic cross-link requirements between `demos/open-ended-rsi-system/README.md`, `demos/unbounded-rsi-system/README.md`, and the ladder index.
 - Updated `release/v2.8.0-rc.2-open-ended-rsi-checklist.md` smoke checks to include `scripts/check_open_ended_rsi_artifacts.py` and `scripts/check_release_surface_posture.py`, and added explicit runbook pointer for deterministic operator execution.
 - Added `scripts/check_release_surface_posture.py` and wired it into open-ended RSI repo-native probes/runbook/root verification commands to catch README/AGENTS/RELEASES active-RC drift deterministically.
@@ -19,6 +20,7 @@
 - Added `docs/BADGE_STRATEGY.md` documenting dynamic-vs-static badge policy, badge marker ownership, and release update workflow.
 
 ### Changed
+- `scripts/check_release_surface_posture.py` now compares all discovered `vX.Y.Z-rc.N` markers against the active target and rejects any premature future RC marker (for example `v2.9.0-rc.2` or `v3.0.0-rc.1`).
 - `scripts/check_release_surface_posture.py` now rejects same-train future markers (for example `v2.8.0-rc.4`) so premature RC posture strings cannot pass alongside required `v2.8.0-rc.3` markers.
 - `scripts/check_readme_badges.py` now enforces `release_target` parity with the `release-posture` badge metadata (`message` and `alt`) so front-door release badge drift cannot pass validation.
 - `scripts/check_release_surface_posture.py` now rejects stale active RC markers (including `v2.8.0-rc.2`) as disallowed drift while keeping `v2.9.0-rc.1` blocked as a future marker.
@@ -44,6 +46,7 @@
 - Added deterministic replay fingerprint artifact `demos/open-ended-rsi-system/out/determinism_fingerprint.json` and corresponding assert checks for fixed selection path + configuration contract.
 
 ### Changed
+- `scripts/check_release_surface_posture.py` now compares all discovered `vX.Y.Z-rc.N` markers against the active target and rejects any premature future RC marker (for example `v2.9.0-rc.2` or `v3.0.0-rc.1`).
 - `scripts/check_release_surface_posture.py` now rejects same-train future markers (for example `v2.8.0-rc.4`) so premature RC posture strings cannot pass alongside required `v2.8.0-rc.3` markers.
 - `scripts/check_readme_badges.py` now enforces `release_target` parity with the `release-posture` badge metadata (`message` and `alt`) so front-door release badge drift cannot pass validation.
 - Root README posture updated to active target `v2.8.0-rc.2`, with the new open-ended demo as the accelerating-loop front door while retaining `demos/unbounded-rsi-system/` as a legacy compatibility surface.
@@ -76,6 +79,7 @@
 - Demo-local doctrine appendix: `demos/unbounded-rsi-system/DOCTRINE_APPENDIX.md` with canonical GitHub-compatible math rendering and bounded claim framing.
 
 ### Changed
+- `scripts/check_release_surface_posture.py` now compares all discovered `vX.Y.Z-rc.N` markers against the active target and rejects any premature future RC marker (for example `v2.9.0-rc.2` or `v3.0.0-rc.1`).
 - `scripts/check_release_surface_posture.py` now rejects same-train future markers (for example `v2.8.0-rc.4`) so premature RC posture strings cannot pass alongside required `v2.8.0-rc.3` markers.
 - `scripts/check_readme_badges.py` now enforces `release_target` parity with the `release-posture` badge metadata (`message` and `alt`) so front-door release badge drift cannot pass validation.
 - Demo ladder index now includes four coherent roles: flagship synthetic wedge, compact adjacent synthetic replay, real-world proof pack, and accelerating-loop demo.
@@ -97,6 +101,7 @@
 - Demo ladder validator `scripts/check_demo_links.py` to catch broken ladder links and missing role labels.
 
 ### Changed
+- `scripts/check_release_surface_posture.py` now compares all discovered `vX.Y.Z-rc.N` markers against the active target and rejects any premature future RC marker (for example `v2.9.0-rc.2` or `v3.0.0-rc.1`).
 - `scripts/check_release_surface_posture.py` now rejects same-train future markers (for example `v2.8.0-rc.4`) so premature RC posture strings cannot pass alongside required `v2.8.0-rc.3` markers.
 - `scripts/check_readme_badges.py` now enforces `release_target` parity with the `release-posture` badge metadata (`message` and `alt`) so front-door release badge drift cannot pass validation.
 - Root posture moved from `v2.7.0-rc.1` to `v2.7.0-rc.2` as the next additive RC cut.
@@ -119,6 +124,7 @@
 - Demo strategy now uses direct Markdown links to all ladder surfaces and includes smoke-run command references for release operators.
 
 ### Changed
+- `scripts/check_release_surface_posture.py` now compares all discovered `vX.Y.Z-rc.N` markers against the active target and rejects any premature future RC marker (for example `v2.9.0-rc.2` or `v3.0.0-rc.1`).
 - `scripts/check_release_surface_posture.py` now rejects same-train future markers (for example `v2.8.0-rc.4`) so premature RC posture strings cannot pass alongside required `v2.8.0-rc.3` markers.
 - `scripts/check_readme_badges.py` now enforces `release_target` parity with the `release-posture` badge metadata (`message` and `alt`) so front-door release badge drift cannot pass validation.
 - Added `demos/README.md` as a canonical demo ladder index and updated demo README cross-links to use valid relative Markdown links.
@@ -148,6 +154,7 @@
 - Trust/proof docs and public proof docket template shell.
 
 ### Changed
+- `scripts/check_release_surface_posture.py` now compares all discovered `vX.Y.Z-rc.N` markers against the active target and rejects any premature future RC marker (for example `v2.9.0-rc.2` or `v3.0.0-rc.1`).
 - `scripts/check_release_surface_posture.py` now rejects same-train future markers (for example `v2.8.0-rc.4`) so premature RC posture strings cannot pass alongside required `v2.8.0-rc.3` markers.
 - `scripts/check_readme_badges.py` now enforces `release_target` parity with the `release-posture` badge metadata (`message` and `alt`) so front-door release badge drift cannot pass validation.
 - `README.md` updated for v2.6 RC verification and proof-first milestone framing.
