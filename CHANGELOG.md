@@ -3,10 +3,6 @@
 ## [Unreleased]
 
 ### Changed
-- `scripts/check_release_surface_posture.py` now rejects same-train future markers (for example `v2.8.0-rc.4`) so premature RC posture strings cannot pass alongside required `v2.8.0-rc.3` markers.
-- `scripts/check_readme_badges.py` now enforces `release_target` parity with the `release-posture` badge metadata (`message` and `alt`) so front-door release badge drift cannot pass validation.
-- `scripts/check_release_surface_posture.py` now rejects stale active RC markers (including `v2.8.0-rc.2`) as disallowed drift while keeping `v2.9.0-rc.1` blocked as a future marker.
-- `scripts/check_readme_badges.py` now validates all relative local badge links (including `../...` overrides used by `demos/README.md` badge entries), not only `./...` paths.
 - Tightened demo-ladder coherence checks by extending `scripts/check_demo_links.py` with deterministic cross-link requirements between `demos/open-ended-rsi-system/README.md`, `demos/unbounded-rsi-system/README.md`, and the ladder index.
 - Updated `release/v2.8.0-rc.2-open-ended-rsi-checklist.md` smoke checks to include `scripts/check_open_ended_rsi_artifacts.py` and `scripts/check_release_surface_posture.py`, and added explicit runbook pointer for deterministic operator execution.
 - Added `scripts/check_release_surface_posture.py` and wired it into open-ended RSI repo-native probes/runbook/root verification commands to catch README/AGENTS/RELEASES active-RC drift deterministically.

@@ -30,6 +30,14 @@ REQUIRED_PHRASES = [
     "Accelerating-loop demo",
 ]
 
+
+
+EXPECTED_RC_TARGET = "v2.8.0-rc.3"
+RC_TARGET_MARKERS = {
+    "demos/README.md": f"Demo Ladder ({EXPECTED_RC_TARGET} target)",
+    "demos/open-ended-rsi-system/README.md": f"Open-Ended RSI System Demo ({EXPECTED_RC_TARGET} target)",
+}
+
 REQUIRED_CROSSLINKS = {
     "demos/open-ended-rsi-system/README.md": [
         "../protocol_smart_contract_correctness_demo/",
@@ -67,6 +75,18 @@ def main() -> int:
         text = path.read_text(encoding="utf-8")
         if "../README.md" not in text:
             errors.append(f"missing ladder index link in {path.relative_to(ROOT)}")
+
+
+    for rel_path, marker in RC_TARGET_MARKERS.items():
+        target = ROOT / rel_path
+        if not target.exists():
+            errors.append(f"missing RC marker target file: {rel_path}")
+            continue
+        text = target.read_text(encoding="utf-8")
+        if marker not in text:
+            errors.append(
+                f"{rel_path} missing expected RC target marker: {marker}"
+            )
 
     for rel_path, required_links in REQUIRED_CROSSLINKS.items():
         target = ROOT / rel_path
