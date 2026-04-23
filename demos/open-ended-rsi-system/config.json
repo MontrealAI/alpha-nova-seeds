@@ -46,6 +46,14 @@
         "python3",
         "scripts/check_math_markdown.py"
       ]
+    },
+    {
+      "id": "release_surface_posture",
+      "scope": "README/AGENTS/RELEASES active RC coherence",
+      "cmd": [
+        "python3",
+        "scripts/check_release_surface_posture.py"
+      ]
     }
   ],
   "authority_scope": {

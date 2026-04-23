@@ -46,6 +46,7 @@ For v2.8.x publication:
 - Accelerating-loop artifact contract check (`python scripts/check_open_ended_rsi_artifacts.py`) passing, including board scorecard parity and governance/provenance machine-readable outputs.
 - Legacy replay compatibility: `demos/unbounded-rsi-system/run_demo.py --assert` remains supported for historical comparison.
 - Demo ladder cross-links and role labels passing validation.
+- Release-surface posture coherence check (`python scripts/check_release_surface_posture.py`) passing across README/AGENTS/RELEASES active RC markers.
 - Root README links to flagship, ladder, doctrine, and release posture docs.
 - Math markdown validation helper passing.
 - Doctrine consistency helper passing.

@@ -1,7 +1,7 @@
 {
   "release_target": "v2.8.0-rc.2",
-  "manifest_hash": "a00756bc612da4d51ccd7b0aef89a909636f0a0304b8656914eb8bd3ef48c34d",
-  "config_hash": "f4ed284d88169ef83648e33a285f32ebbd110946c7209579b4c0e1f0519e9d78",
+  "manifest_hash": "95dd1fea8ee5f0e829c601724e07f1dc4465dc246c8c7a88d9b6ecd3a42bf799",
+  "config_hash": "e1f2ffa2ee7b577a22367ce070349db47e02b373cd7a4b71add61a68c5dfe95f",
   "scorecard_hash": "f3f2db44bb61b1e2880b21fc7ec6286fd7ae58cbe178c6eea938d0b893352d91",
   "proof_docket_hash": "0ab9ac954ff90d3f8c80c2fc89cea93c411b24940fa82efbeabb1435ecc6b0d6",
   "frozen_package_manifest_hash": "56dfb240a9b6b73c91cb4bb7b06efba543956dea0d4760a0c3f8bd41c5da0f75",
@@ -29,7 +29,7 @@
   "files": [
     {
       "path": "demos/open-ended-rsi-system/00_manifest/manifest.json",
-      "sha256": "ce55c212f6da44bf8b4b6874f5887ab6ebf370cb0be4a08686e0ae1fddfd3b68"
+      "sha256": "2c3ae2cad2d9ee3143778ba6fa74e2405cdaa2f2d3f19a61e1ddf551be47edf9"
     },
     {
       "path": "demos/open-ended-rsi-system/01_frontier_queue/frontier_queue.json",
@@ -37,11 +37,11 @@
     },
     {
       "path": "demos/open-ended-rsi-system/02_seed_genome/capability_genome.json",
-      "sha256": "611b48b6e4a5dd2ae491c95ff0ff02e2daba330eb6002185878d2123c455d953"
+      "sha256": "1b25ba581e957b45687dfbbe205ed1d8d552bb2f2ee73cad8ac4b8f958239c17"
     },
     {
       "path": "demos/open-ended-rsi-system/03_generation/generation_0.json",
-      "sha256": "c6eeba0dab26cc8dccff45fcf6a2743119422770e92f38697eacb6d8960ef777"
+      "sha256": "f75a6f8f7cc1d42d05c2c0cac26159c21c85782cb8ae0b1afc5d88c5a604f19e"
     },
     {
       "path": "demos/open-ended-rsi-system/03_generation/generation_1.json",
@@ -117,7 +117,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/capability_genome.json",
-      "sha256": "611b48b6e4a5dd2ae491c95ff0ff02e2daba330eb6002185878d2123c455d953"
+      "sha256": "1b25ba581e957b45687dfbbe205ed1d8d552bb2f2ee73cad8ac4b8f958239c17"
     },
     {
       "path": "demos/open-ended-rsi-system/out/chronicle_entry.json",
@@ -137,7 +137,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/generation_0.json",
-      "sha256": "c6eeba0dab26cc8dccff45fcf6a2743119422770e92f38697eacb6d8960ef777"
+      "sha256": "f75a6f8f7cc1d42d05c2c0cac26159c21c85782cb8ae0b1afc5d88c5a604f19e"
     },
     {
       "path": "demos/open-ended-rsi-system/out/generation_1.json",
@@ -165,7 +165,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/manifest.json",
-      "sha256": "ce55c212f6da44bf8b4b6874f5887ab6ebf370cb0be4a08686e0ae1fddfd3b68"
+      "sha256": "2c3ae2cad2d9ee3143778ba6fa74e2405cdaa2f2d3f19a61e1ddf551be47edf9"
     },
     {
       "path": "demos/open-ended-rsi-system/out/proof_docket.md",

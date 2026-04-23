@@ -144,6 +144,7 @@ cd sdk && npm run build --if-present && cd -
 python scripts/check_math_markdown.py
 python scripts/check_doctrine_consistency.py
 python scripts/check_demo_links.py
+python scripts/check_release_surface_posture.py
 python scripts/check_open_ended_rsi_artifacts.py
 python3 demos/protocol_smart_contract_correctness_demo/run_demo.py --assert
 python3 demos/open-ended-rsi-system/run_demo.py --assert

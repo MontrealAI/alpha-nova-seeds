@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Changed
+- Added `scripts/check_release_surface_posture.py` and wired it into open-ended RSI repo-native probes/runbook/root verification commands to catch README/AGENTS/RELEASES active-RC drift deterministically.
 - Open-ended RSI demo now emits a dedicated `mandate3_execution.json` artifact capturing deterministic Mandate 3 execution details (selector policy, DISCO/Arnold execution steps, and offline-only constraints) for clearer auditability of autonomous execution behavior.
 - Open-ended RSI artifact checker now validates Mandate 3 execution logging, top-ranked frontier selection consistency, and provenance determinism guards for disabled network/external API paths.
 - Open-ended RSI demo now emits additional board/governance/provenance outputs (`board_scorecard.json`, `board_scorecard.md`, `governance_ruling.json`, `chronicle_entry.json`) and documents deterministic operator procedure in `demos/open-ended-rsi-system/RUNBOOK.md`.
