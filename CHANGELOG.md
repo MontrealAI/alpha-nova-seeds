@@ -6,6 +6,7 @@
 - Restored backward-compatible release-provenance artifact download behavior by uploading both `release-provenance-<TAG>` (forward default) and `v27-provenance-<TAG>` (legacy alias) in `.github/workflows/release-provenance.yml`.
 - Updated `docs/verify-release.md` to use `release-provenance-<TAG>` as the primary command and explicitly document the legacy `v27-provenance-<TAG>` fallback.
 - Hardened `scripts/check_release_surface_posture.py` to require both provenance artifact names so compatibility does not regress silently.
+- Added blinded adjacent-transfer execution scaffolding under `demos/adjacent_mandate_reuse_proof_real_v1/` with setup, private commitment hashing, and bundle validation helpers, plus a public-safe `results_blinded_adjacent_transfer_v1/` record and git-ignored local private blinding workspace.
 
 ## [v2.8.0-rc.7] - 2026-04-23
 

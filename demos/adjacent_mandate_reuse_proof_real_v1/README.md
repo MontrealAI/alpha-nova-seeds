@@ -90,6 +90,24 @@ This expects the filled CSVs to live in `04_scorecard/` and writes outputs to:
 04_scorecard/out/
 ```
 
+## Blinded adjacent-transfer operational harness (v1)
+
+This pack now includes an additive execution harness for a stricter blinded protocol run:
+
+- setup script: `07_scripts/setup_blinded_adjacent_transfer_v1.py`
+- private commitment hashing helper: `07_scripts/generate_private_commitment_hashes.py`
+- result bundle validator: `07_scripts/validate_blinded_results_bundle.py`
+- public-safe result path: `results_blinded_adjacent_transfer_v1/`
+- local private-only path (git-ignored): `local_private_blinding_materials/`
+
+Initialize from repo root:
+
+```bash
+python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/setup_blinded_adjacent_transfer_v1.py
+```
+
+This harness operationalizes Stage A and scaffolds Stage B, but does **not** fabricate missing human-blinded adjudication.
+
 ## File map
 
 ```text

@@ -1,0 +1,74 @@
+{
+  "manifest_type": "blinded_adjacent_transfer_public_safe_provenance",
+  "repo": "MontrealAI/alpha-nova-seeds",
+  "result_path": "demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1",
+  "file_hashes": [
+    {
+      "path": "README.md",
+      "sha256": "a7ea31747c985c46a85fd4891933f7ab75483310206300d1f2ce721b93111023"
+    },
+    {
+      "path": "HUMAN_ACTION_REQUIRED.md",
+      "sha256": "c5346f7f1ccd3812003fd8bbc0cf10ee3313e4d2c969cfe4a4ee70de52b1ddc8"
+    },
+    {
+      "path": "summary_metrics.json",
+      "sha256": "c142bbc6a699175b04ec470c92f7c6a5f9b8994c289eccb7673a7a830cac84db"
+    },
+    {
+      "path": "stage_a_scorecard.md",
+      "sha256": "96d2fe9fe9247b7a2916de4289919a4bdd9f145255a27454bf834918a55055fd"
+    },
+    {
+      "path": "proof_docket_public.md",
+      "sha256": "795b79448a4bd17c52313f644afba42e57fd855d44bb385f8bbf5e48d4d44939"
+    },
+    {
+      "path": "governance_ruling_public.md",
+      "sha256": "cbcac14cc7d84d345b0999afcdb7d1d73cbc154d1871002a6b02a54bf551ffdd"
+    },
+    {
+      "path": "prereg_experiment_manifest.json",
+      "sha256": "b7e6140ed4c1dc0674a9efde546aba6e214a1aefe3cd73370f3e6a38e51589a5"
+    },
+    {
+      "path": "environment_lock.json",
+      "sha256": "b21ca8652bf9e1055a82bc40ad916f7d5f4ed5f16c716728473e5b9b54dfa6d7"
+    },
+    {
+      "path": "run_register.csv",
+      "sha256": "6e91ee8bcaae9d07cb36d909d3cf4f2c261c131f0f9186ddde5b490062c8943b"
+    },
+    {
+      "path": "intervention_log.csv",
+      "sha256": "342f573c4efbc6a38be7a6c8db087cde82ab6d3a3458360b1e998951772343ce"
+    },
+    {
+      "path": "lane_blue_packet_public/README.md",
+      "sha256": "d7ace15cb633acca486a3f955feec0bb5b4fdd5cdb1f490608706344e3217fd6"
+    },
+    {
+      "path": "lane_gold_packet_public/README.md",
+      "sha256": "0f652cd1aa94ea3ccd7752cb6c8a9596bb4e24caa4d6b26edc84a78d64314aec"
+    },
+    {
+      "path": "scorecard_outputs/README.md",
+      "sha256": "2d842aaf5e877b5a33de6469115d43fa8ed581fd1900f9d5b36ca935e0791f07"
+    },
+    {
+      "path": "scorecard_outputs/run_costs.csv",
+      "sha256": "cb35e75a92ee31bd35ae502fa533c7d13afb8ccc79571a40f0f9d7305c5407a5"
+    },
+    {
+      "path": "scorecard_outputs/output_scoring.csv",
+      "sha256": "e5a87b88833e4866bd5b8f98f144c1b8b38925bc4f6e152ce33ac5947d41f2f9"
+    },
+    {
+      "path": "scorecard_outputs/package_dependence_ledger.csv",
+      "sha256": "0db04b2827f60d245703ff9b3309a11508f7933ecbc0f4001e63e22e31c34afc"
+    }
+  ],
+  "private_materials_location": "demos/adjacent_mandate_reuse_proof_real_v1/local_private_blinding_materials/results_blinded_adjacent_transfer_v1",
+  "private_materials_committed": false,
+  "notes": "Public-safe provenance only; private mappings withheld by design."
+}

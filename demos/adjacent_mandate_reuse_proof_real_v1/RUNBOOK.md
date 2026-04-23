@@ -1,5 +1,16 @@
 # Runbook
 
+For blinded adjacent-transfer execution scaffolding, initialize:
+
+```bash
+python3 07_scripts/setup_blinded_adjacent_transfer_v1.py
+```
+
+This creates:
+
+- public-safe result workspace: `results_blinded_adjacent_transfer_v1/`
+- private local-only workspace: `local_private_blinding_materials/results_blinded_adjacent_transfer_v1/`
+
 ## Phase 0 — Freeze
 Complete:
 - `00_manifest/experiment_manifest.template.json`
@@ -7,6 +18,7 @@ Complete:
 - `00_manifest/package_hash_record.template.json` (initial placeholders only)
 - `02_execution/run_register.template.csv`
 - private answer key + blinded assignment map
+- private commitment hashes (`07_scripts/generate_private_commitment_hashes.py`)
 
 ## Phase 1 — Mandate 1
 Use:
