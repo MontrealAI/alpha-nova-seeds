@@ -1,6 +1,14 @@
-# Badge Strategy (v2.8.0-rc.5)
+# Badge Strategy (v2.8.0-rc.6)
 
 This document defines how badges are used in this repository so the front door stays useful, disciplined, and proof-first.
+
+## Institutional design standards
+
+- Keep badge count low and grouped by function.
+- Keep a single style (`flat-square`) for visual composure.
+- Prefer workflow-state badges only where workflow files exist in `.github/workflows/`.
+- Use static badges for bounded claims and navigation (never for implied evidence inflation).
+- Link every badge to an immediately useful target (release contract, workflow page, doctrine, or runnable demo).
 
 ## Goals
 
