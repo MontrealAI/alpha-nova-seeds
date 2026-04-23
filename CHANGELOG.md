@@ -3,7 +3,9 @@
 ## [Unreleased]
 
 ### Changed
-- No unreleased changes recorded.
+- Restored backward-compatible release-provenance artifact download behavior by uploading both `release-provenance-<TAG>` (forward default) and `v27-provenance-<TAG>` (legacy alias) in `.github/workflows/release-provenance.yml`.
+- Updated `docs/verify-release.md` to use `release-provenance-<TAG>` as the primary command and explicitly document the legacy `v27-provenance-<TAG>` fallback.
+- Hardened `scripts/check_release_surface_posture.py` to require both provenance artifact names so compatibility does not regress silently.
 
 ## [v2.8.0-rc.7] - 2026-04-23
 

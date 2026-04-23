@@ -110,6 +110,11 @@ def main() -> int:
                 "release-provenance workflow artifact upload name must be tag-generic: "
                 "release-provenance-${{ inputs.release_tag }}"
             )
+        if "name: v27-provenance-${{ inputs.release_tag }}" not in workflow_text:
+            errors.append(
+                "release-provenance workflow must keep legacy alias for verify-release compatibility: "
+                "v27-provenance-${{ inputs.release_tag }}"
+            )
 
     if errors:
         print("FAIL: release-surface posture drift detected")

@@ -24,6 +24,10 @@ Use deterministic file names keyed by tag:
 - `openapi-<API_VERSION>.json` (currently `openapi-v2.6.0-rc.1.json`)
 - `SHA256SUMS`
 
+Workflow artifact bundle names (GitHub Actions upload artifacts):
+- `release-provenance-<TAG>` (forward default)
+- `v27-provenance-<TAG>` (legacy compatibility alias for existing verification runbooks)
+
 Do not overwrite assets for an existing `<TAG>`.
 If regeneration is required, cut a new RC tag.
 
