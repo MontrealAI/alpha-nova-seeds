@@ -23,7 +23,7 @@ Invariant:
 
 ---
 
-## Release posture (April 22, 2026)
+## Release posture (April 23, 2026)
 
 - Current RC target: **v2.8.0-rc.2**.
 - This is a **additive release-candidate cut** after v2.7.0-rc.2, focused on front-door coherence, flagship/demo ladder polish, doctrine legibility, and operator UX hardening.

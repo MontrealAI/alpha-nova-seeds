@@ -47,11 +47,15 @@ Primary machine-readable outputs in `out/`:
 - `frontier_queue.json`
 - `intervention_log.json`
 - `scorecard.json`
+- `board_scorecard.json`
+- `governance_ruling.json`
+- `chronicle_entry.json`
 - `claim_boundary.json`
 - `determinism_fingerprint.json`
 - `safety_gates.json`
 - `summary.md`
 - `proof_docket.md`
+- `board_scorecard.md`
 - `provenance_manifest.json`
 - `board_report.html`
 
@@ -66,6 +70,8 @@ The run also performs deterministic local validation against:
 ```bash
 python3 demos/open-ended-rsi-system/run_demo.py --assert
 ```
+
+For operator procedure, validation sequence, and troubleshooting, see [`./RUNBOOK.md`](./RUNBOOK.md).
 
 Optional deterministic replay check (same machine, clean repo state):
 

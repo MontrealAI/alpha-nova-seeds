@@ -2,6 +2,8 @@
 
 ## v2.8 RC release contract (active target: v2.8.0-rc.2)
 
+Posture coherence note (2026-04-23): README.md, AGENTS.md, and RELEASES.md all retain `v2.8.0-rc.2` as the active unpublished RC target. Any new demo/release hardening should preserve this target unless maintainers explicitly cut a new RC.
+
 Each release candidate must include:
 
 1. **Acceptance criteria** tied to shipped features.
@@ -41,6 +43,7 @@ For v2.8.x publication:
 
 - Flagship demo replay + assert mode passing.
 - Accelerating-loop demo replay (`demos/open-ended-rsi-system/run_demo.py --assert`) passing with required artifact emission.
+- Accelerating-loop artifact contract check (`python scripts/check_open_ended_rsi_artifacts.py`) passing, including board scorecard parity and governance/provenance machine-readable outputs.
 - Legacy replay compatibility: `demos/unbounded-rsi-system/run_demo.py --assert` remains supported for historical comparison.
 - Demo ladder cross-links and role labels passing validation.
 - Root README links to flagship, ladder, doctrine, and release posture docs.
