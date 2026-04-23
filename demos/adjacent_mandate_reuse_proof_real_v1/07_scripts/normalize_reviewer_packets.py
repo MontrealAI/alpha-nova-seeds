@@ -7,6 +7,7 @@ import argparse
 import json
 import shutil
 import hashlib
+import re
 from pathlib import Path
 
 PACK_ROOT = Path(__file__).resolve().parents[1]
@@ -32,9 +33,7 @@ DISALLOWED_PATTERNS = [
 def sanitize_text(text: str) -> str:
     output = text
     for pattern in DISALLOWED_PATTERNS:
-        output = output.replace(pattern, "[redacted]")
-        output = output.replace(pattern.title(), "[redacted]")
-        output = output.replace(pattern.upper(), "[redacted]")
+        output = re.sub(re.escape(pattern), "[redacted]", output, flags=re.IGNORECASE)
     return output
 
 
@@ -71,13 +70,25 @@ def refresh_public_provenance(results_dir: Path) -> None:
     if not manifest_path.exists():
         return
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    hashes = []
+    tracked_paths: set[str] = set()
     for item in manifest.get("file_hashes", []):
         rel = item.get("path")
-        if not rel:
-            continue
+        if rel:
+            tracked_paths.add(rel)
+
+    for lane in ["blue", "gold"]:
+        for stage in ["stage_a", "stage_b"]:
+            packet_dir = results_dir / f"lane_{lane}_packet_public" / stage
+            if not packet_dir.exists():
+                continue
+            for file_path in sorted(packet_dir.glob("*")):
+                if file_path.is_file():
+                    tracked_paths.add(str(file_path.relative_to(results_dir)))
+
+    hashes = []
+    for rel in sorted(tracked_paths):
         p = results_dir / rel
-        if p.exists():
+        if p.exists() and p.is_file():
             hashes.append({"path": rel, "sha256": sha256_file(p)})
     manifest["file_hashes"] = hashes
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")

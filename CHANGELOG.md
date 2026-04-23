@@ -10,6 +10,7 @@
 - Hardened blinded adjacent-transfer execution wiring so `calculate_q2_scorecard.py` can read either template scorecards or run-specific `scorecard_outputs/`, and updated setup scaffolding to regenerate complete public-safe result bundles (including provenance and human-boundary status docs) from a clean machine.
 - Extended the real-world blinded adjacent-transfer harness with matched private kit scaffolding (`Kit Blue`/`Kit Gold`), explicit Stage B placeholder scorecard status, and a reviewer packet normalization helper (`normalize_reviewer_packets.py`) so Stage A execution can proceed to the honest human boundary without leaking private assignment maps.
 - Hardened blinded packet/provenance integrity by adding stage-scoped normalized packet outputs (`stage_a`/`stage_b`), automatic provenance-manifest hash refresh after packet normalization, and commitment-hash coverage for private kit contents to prevent post-freeze drift.
+- Tightened `normalize_reviewer_packets.py` redaction and provenance behavior by using case-insensitive disallowed-label scrubbing and by appending hashes for newly normalized packet artifacts into `results_blinded_adjacent_transfer_v1/provenance_manifest.json`.
 
 ## [v2.8.0-rc.7] - 2026-04-23
 
