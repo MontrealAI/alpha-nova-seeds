@@ -1,11 +1,11 @@
 # Releases
 
-## v2.8 RC release contract (active target: v2.8.0-rc.6)
+## v2.8 RC release contract (active target: v2.8.0-rc.7)
 
-Posture coherence note (2026-04-23): README.md, AGENTS.md, and RELEASES.md all retain `v2.8.0-rc.6` as the active unpublished RC target. Any new demo/release hardening should preserve this target unless maintainers explicitly cut a new RC.
+Posture coherence note (2026-04-23): README.md, AGENTS.md, and RELEASES.md all retain `v2.8.0-rc.7` as the active unpublished RC target. Any new demo/release hardening should preserve this target unless maintainers explicitly cut a new RC.
 
 Current front-door coherence checklist:
-- `release/v2.8.0-rc.6-front-door-institutional-badge-checklist.md`
+- `release/v2.8.0-rc.7-front-door-institutional-badge-checklist.md`
 
 Each release candidate must include:
 
@@ -23,6 +23,10 @@ Use deterministic file names keyed by tag:
 - `sbom-<TAG>.spdx.json`
 - `openapi-<API_VERSION>.json` (currently `openapi-v2.6.0-rc.1.json`)
 - `SHA256SUMS`
+
+Workflow artifact bundle names (GitHub Actions upload artifacts):
+- `release-provenance-<TAG>` (forward default)
+- `v27-provenance-<TAG>` (legacy compatibility alias for existing verification runbooks)
 
 Do not overwrite assets for an existing `<TAG>`.
 If regeneration is required, cut a new RC tag.
@@ -46,7 +50,7 @@ If regeneration is required, cut a new RC tag.
 
 ## Badge rail publication contract
 
-For v2.8.0-rc.6 posture, root README badges are intentionally split into:
+For v2.8.0-rc.7 posture, root README badges are intentionally split into:
 
 - **Operational trust rail** (release + CI + contracts security + provenance)
 - **Orientation rail** (claim boundary + flagship/demo/doctrine entry points)

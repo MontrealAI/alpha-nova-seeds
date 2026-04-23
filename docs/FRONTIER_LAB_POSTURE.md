@@ -1,4 +1,4 @@
-# Frontier Lab Posture — v2.8.0-rc.6
+# Frontier Lab Posture — v2.8.0-rc.7
 
 ## Purpose
 

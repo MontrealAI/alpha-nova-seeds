@@ -66,5 +66,11 @@ jobs:
       - name: Upload release provenance bundle
         uses: actions/upload-artifact@v4
         with:
+          name: release-provenance-${{ inputs.release_tag }}
+          path: dist/
+
+      - name: Upload legacy provenance bundle alias
+        uses: actions/upload-artifact@v4
+        with:
           name: v27-provenance-${{ inputs.release_tag }}
           path: dist/

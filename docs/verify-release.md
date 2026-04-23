@@ -30,7 +30,7 @@ Expected outputs:
 ## 2) Download provenance artifact bundle
 
 ```bash
-gh run download <RUN_ID> --name v27-provenance-<TAG> --dir ./verify-dist
+gh run download <RUN_ID> --name release-provenance-<TAG> --dir ./verify-dist
 ```
 
 Expected files in `verify-dist/`:
@@ -39,6 +39,14 @@ Expected files in `verify-dist/`:
 - `sbom-<TAG>.spdx.json`
 - `openapi-v2.6.0-rc.1.json` (or the API-versioned filename emitted by the release workflow)
 - `SHA256SUMS`
+
+Legacy compatibility note:
+
+```bash
+gh run download <RUN_ID> --name v27-provenance-<TAG> --dir ./verify-dist
+```
+
+The workflow currently uploads both names so existing operator runbooks remain valid while `release-provenance-<TAG>` is the forward default.
 
 ## 3) Verify checksums
 

@@ -1,8 +1,8 @@
-# α‑AGI Nova‑Seeds (v2.8.0-rc.6 posture)
+# α‑AGI Nova‑Seeds (v2.8.0-rc.7 posture)
 
 <!-- BADGE_RAIL_START -->
 **Operational trust rail**
-[![Release posture: v2.8.0-rc.6](https://img.shields.io/badge/release-v2.8.0-rc.6-1f6feb?style=flat-square)](./RELEASES.md) [![CI workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml) [![Contracts security workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml) [![Release provenance workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml)
+[![Release posture: v2.8.0-rc.7](https://img.shields.io/badge/release-v2.8.0-rc.7-1f6feb?style=flat-square)](./RELEASES.md) [![CI workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml) [![Contracts security workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml) [![Release provenance workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml)
 **Orientation rail**
 [![Proof-first bounded release candidate posture](https://img.shields.io/badge/claim%20boundary-proof-first%20bounded%20RC-6f42c1?style=flat-square)](./docs/FRONTIER_LAB_POSTURE.md) [![Flagship protocol correctness demo](https://img.shields.io/badge/flagship%20demo-protocol%20correctness-0e8a16?style=flat-square)](./demos/protocol_smart_contract_correctness_demo/README.md) [![Demo ladder index](https://img.shields.io/badge/demo%20ladder-entry-0e8a16?style=flat-square)](./demos/README.md) [![Accelerating-loop demo](https://img.shields.io/badge/accelerating%20loop-open-ended%20RSI-0e8a16?style=flat-square)](./demos/open-ended-rsi-system/README.md) [![Doctrine stack](https://img.shields.io/badge/doctrine-stack-8250df?style=flat-square)](./docs/DOCTRINE_STACK.md)
 <!-- BADGE_RAIL_END -->
@@ -13,9 +13,9 @@ System framing: `α‑AGI Insight → Nova‑Seeds → MARK → Sovereigns`
 
 ## Front door (start in 90 seconds)
 
-This front door is intentionally proof-first: it gives serious reviewers a direct path to the flagship deterministic wedge, the full demo ladder, doctrine interpretation surfaces, and release verification artifacts for the active RC target **v2.8.0-rc.6**.
+This front door is intentionally proof-first: it gives serious reviewers a direct path to the flagship deterministic wedge, the full demo ladder, doctrine interpretation surfaces, and release verification artifacts for the active RC target **v2.8.0-rc.7**.
 
-**Current RC target:** **v2.8.0-rc.6** (institutional badge governance and front-door coherence hardening cut; prior RC history remains in `CHANGELOG.md` / `RELEASES.md`).
+**Current RC target:** **v2.8.0-rc.7** (institutional badge governance and front-door coherence hardening cut; prior RC history remains in `CHANGELOG.md` / `RELEASES.md`).
 
 ### What this is / what this is not
 
@@ -30,6 +30,7 @@ This front door is intentionally proof-first: it gives serious reviewers a direc
 3. **Accelerating-loop demo (bounded):** [`demos/open-ended-rsi-system/`](./demos/open-ended-rsi-system/)
 4. **Doctrine stack (interpretation layer):** [`docs/DOCTRINE_STACK.md`](./docs/DOCTRINE_STACK.md)
 5. **Release posture contract:** [`RELEASES.md`](./RELEASES.md)
+6. **Release verification guide:** [`docs/verify-release.md`](./docs/verify-release.md)
 
 ### First-screen navigation map
 
@@ -40,6 +41,7 @@ This front door is intentionally proof-first: it gives serious reviewers a direc
 | Accelerating-loop bounded replay | [`demos/open-ended-rsi-system/`](./demos/open-ended-rsi-system/) |
 | Doctrine interpretation surfaces | [`docs/DOCTRINE_STACK.md`](./docs/DOCTRINE_STACK.md) |
 | RC release contract + acceptance surfaces | [`RELEASES.md`](./RELEASES.md) |
+| Release verification commands | [`docs/verify-release.md`](./docs/verify-release.md) |
 
 Full ladder surfaces:
 - [`demos/adjacent_mandate_reuse_proof_demo/`](./demos/adjacent_mandate_reuse_proof_demo/)
@@ -64,7 +66,7 @@ Full ladder surfaces:
 ## Release posture (April 23, 2026)
 
 - Active release train: **v2.8.x verifiable release-candidate**.
-- Active target: **v2.8.0-rc.6**.
+- Active target: **v2.8.0-rc.7**.
 - This cut advances institutional badge discipline, front-door hierarchy, and release-surface drift prevention.
 - Proof remains bounded and explicit: synthetic deterministic evidence is strengthened; broad sovereign claims remain future-facing.
 

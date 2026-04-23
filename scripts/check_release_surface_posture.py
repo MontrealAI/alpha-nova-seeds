@@ -17,6 +17,7 @@ FILES = {
     "DOCTRINE_STACK": ROOT / "docs" / "DOCTRINE_STACK.md",
     "DEMOS_README": ROOT / "demos" / "README.md",
 }
+RELEASE_PROVENANCE_WORKFLOW = ROOT / ".github" / "workflows" / "release-provenance.yml"
 
 RC_MARKER_PATTERN = re.compile(r"v(\d+)\.(\d+)\.(\d+)-rc\.(\d+)")
 
@@ -97,6 +98,23 @@ def main() -> int:
                 errors.append(
                     f"{path.relative_to(ROOT)} contains disallowed stale RC marker {marker}; expected active target {target}"
                 )
+
+    if not RELEASE_PROVENANCE_WORKFLOW.exists():
+        errors.append(
+            f"missing file: {RELEASE_PROVENANCE_WORKFLOW.relative_to(ROOT)}"
+        )
+    else:
+        workflow_text = RELEASE_PROVENANCE_WORKFLOW.read_text(encoding="utf-8")
+        if "name: release-provenance-${{ inputs.release_tag }}" not in workflow_text:
+            errors.append(
+                "release-provenance workflow artifact upload name must be tag-generic: "
+                "release-provenance-${{ inputs.release_tag }}"
+            )
+        if "name: v27-provenance-${{ inputs.release_tag }}" not in workflow_text:
+            errors.append(
+                "release-provenance workflow must keep legacy alias for verify-release compatibility: "
+                "v27-provenance-${{ inputs.release_tag }}"
+            )
 
     if errors:
         print("FAIL: release-surface posture drift detected")
