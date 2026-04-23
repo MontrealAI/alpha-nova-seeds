@@ -15,6 +15,7 @@ No reviewer judgments, lane outcomes, or pass/fail results were fabricated.
 - Environment and in-scope file hashes: `environment_lock.json`
 - Stage A and Stage B lane budget symmetry and thresholds are locked in preregistration
 - Scorecard inputs are pre-wired under `scorecard_outputs/`
+- Leakage-check worksheet is pre-wired at `leakage_check.csv`
 
 ## 2) What was blinded
 
@@ -58,8 +59,9 @@ No reviewer judgments, lane outcomes, or pass/fail results were fabricated.
    ```bash
    python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py --scorecard-dir demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1/scorecard_outputs
    ```
-7. Lock scorecard and only then reveal blinded assignment map.
-8. Run bundle completeness check:
+7. Record reviewer leakage checks in `leakage_check.csv` before reveal.
+8. Lock scorecard and only then reveal blinded assignment map.
+9. Run bundle completeness check:
    ```bash
    python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/validate_blinded_results_bundle.py
    ```

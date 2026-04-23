@@ -3,6 +3,9 @@
 ## [Unreleased]
 
 ### Changed
+- Expanded the real-world blinded adjacent-transfer manifest templates to include full preregistration lock fields (Stage A + conditional Stage B scope, branch binding, budgets, intervention policy, publication/stopping rules, and allowed-tool boundaries) required for honest protocol execution.
+- Updated execution/review templates with stage-aware run-register rows and a dedicated reviewer leakage-check worksheet so reveal-time blinding integrity can be recorded explicitly.
+- Hardened `setup_blinded_adjacent_transfer_v1.py` and `validate_blinded_results_bundle.py` to scaffold and require `leakage_check.csv` in public-safe result bundles, then regenerated `results_blinded_adjacent_transfer_v1/` from a clean local setup run.
 - Restored backward-compatible release-provenance artifact download behavior by uploading both `release-provenance-<TAG>` (forward default) and `v27-provenance-<TAG>` (legacy alias) in `.github/workflows/release-provenance.yml`.
 - Updated `docs/verify-release.md` to use `release-provenance-<TAG>` as the primary command and explicitly document the legacy `v27-provenance-<TAG>` fallback.
 - Hardened `scripts/check_release_surface_posture.py` to require both provenance artifact names so compatibility does not regress silently.

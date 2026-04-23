@@ -5,15 +5,15 @@
   "file_hashes": [
     {
       "path": "HUMAN_ACTION_REQUIRED.md",
-      "sha256": "9d5eee8251bf43c04f4f586709420cc0defa401ee2343c53314977021c5aae5b"
+      "sha256": "9d88b280fb3e4fb18d79c0ad0ee44dcda8ba95c5c3c08ea8d8f215b0777806c4"
     },
     {
       "path": "README.md",
-      "sha256": "b7b5ba2ae6402a5f0a8a4c1d75fe6914ea6192fd080c5a0360bfd2e03908d931"
+      "sha256": "1e29342f338a5765d9e3e6889511104569079e9ff7b3ec66d85291558a8bedfd"
     },
     {
       "path": "environment_lock.json",
-      "sha256": "aadf20de2b676bff88e1945f7d0a40383f57321b12d5828107a715923e1db20b"
+      "sha256": "0b214daae1e0776c63603293c4b47c046959eae4aa8a3575348515c916ee11bd"
     },
     {
       "path": "governance_ruling_public.md",
@@ -48,8 +48,12 @@
       "sha256": "6f7d8386b2ed7ae4eb6cbff24b913016f1264b8371914139bcc557f9450bcee7"
     },
     {
+      "path": "leakage_check.csv",
+      "sha256": "23c3c75972568e348d64d01b64fc5dd486d9786c7200ebc0bae50699bf392c83"
+    },
+    {
       "path": "prereg_experiment_manifest.json",
-      "sha256": "4cde9680d2fecb10389760390a3c1e4c3657ebefecd754d662de271e4e8fac7f"
+      "sha256": "5362bd84e8b4436a53e522fdd13b1897d7be86103fc7c11d3ff00ce3dc28bc3d"
     },
     {
       "path": "proof_docket_public.md",
@@ -57,7 +61,7 @@
     },
     {
       "path": "run_register.csv",
-      "sha256": "6e91ee8bcaae9d07cb36d909d3cf4f2c261c131f0f9186ddde5b490062c8943b"
+      "sha256": "693296b2a358b13f21f6ad49c615533a47b0fa4fc90e1e0eecb4c72c9958ceb7"
     },
     {
       "path": "scorecard_outputs/README.md",
