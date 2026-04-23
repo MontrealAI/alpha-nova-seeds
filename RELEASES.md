@@ -1,11 +1,11 @@
 # Releases
 
-## v2.8 RC release contract (active target: v2.8.0-rc.5)
+## v2.8 RC release contract (active target: v2.8.0-rc.6)
 
-Posture coherence note (2026-04-23): README.md, AGENTS.md, and RELEASES.md all retain `v2.8.0-rc.5` as the active unpublished RC target. Any new demo/release hardening should preserve this target unless maintainers explicitly cut a new RC.
+Posture coherence note (2026-04-23): README.md, AGENTS.md, and RELEASES.md all retain `v2.8.0-rc.6` as the active unpublished RC target. Any new demo/release hardening should preserve this target unless maintainers explicitly cut a new RC.
 
 Current front-door coherence checklist:
-- `release/v2.8.0-rc.5-front-door-badge-coherence-checklist.md`
+- `release/v2.8.0-rc.6-front-door-institutional-badge-checklist.md`
 
 Each release candidate must include:
 
@@ -46,7 +46,7 @@ If regeneration is required, cut a new RC tag.
 
 ## Badge rail publication contract
 
-For v2.8.0-rc.5 posture, root README badges are intentionally split into:
+For v2.8.0-rc.6 posture, root README badges are intentionally split into:
 
 - **Operational trust rail** (release + CI + contracts security + provenance)
 - **Orientation rail** (claim boundary + flagship/demo/doctrine entry points)

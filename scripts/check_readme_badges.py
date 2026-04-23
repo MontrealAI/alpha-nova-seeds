@@ -141,11 +141,21 @@ def main() -> int:
     if not rows:
         errors.append("release/badges.json readme.rows is missing or empty")
     else:
+        expected_labels = {"Operational trust rail", "Orientation rail"}
+        present_labels = {row.get("label", "") for row in rows}
+        missing_labels = sorted(label for label in expected_labels if label not in present_labels)
+        if missing_labels:
+            errors.append(
+                "release/badges.json readme.rows missing required row labels: "
+                + ", ".join(missing_labels)
+            )
+
         rendered_badge_ids: set[str] = set()
         for idx, row in enumerate(rows, start=1):
             if not row.get("badges"):
                 errors.append(f"readme row {idx} has no badges")
                 continue
+            row_badge_ids: list[str] = []
             for entry in row["badges"]:
                 badge_id = entry if isinstance(entry, str) else entry.get("id")
                 if not badge_id:
@@ -156,7 +166,14 @@ def main() -> int:
                         f"readme row {idx} references unknown badge id: {badge_id}"
                     )
                     continue
+                row_badge_ids.append(badge_id)
                 rendered_badge_ids.add(badge_id)
+
+            duplicates = sorted({badge_id for badge_id in row_badge_ids if row_badge_ids.count(badge_id) > 1})
+            if duplicates:
+                errors.append(
+                    f"readme row {idx} contains duplicate badge ids: {', '.join(duplicates)}"
+                )
 
         missing_from_rows = sorted(required - rendered_badge_ids)
         if missing_from_rows:

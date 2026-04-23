@@ -5,6 +5,22 @@
 ### Changed
 - No unreleased changes recorded.
 
+## [v2.8.0-rc.6] - 2026-04-23
+
+### Added
+- Added `release/v2.8.0-rc.6-front-door-institutional-badge-checklist.md` to package this next additive RC cut with acceptance criteria, smoke checks, migration notes, rollback notes, and claim-boundary reminders.
+- Added an institutional badge design standards section to `docs/BADGE_STRATEGY.md` so maintainers can keep badge rails concise, useful, and non-vanity.
+
+### Changed
+- Promoted active RC posture from `v2.8.0-rc.5` to `v2.8.0-rc.6` across release-facing surfaces (`README.md`, `demos/README.md`, `AGENTS.md`, `RELEASES.md`, `docs/FRONTIER_LAB_POSTURE.md`, `docs/DOCTRINE_STACK.md`, and `docs/BADGE_STRATEGY.md`) without widening claims.
+- Updated `release/badges.json` release target and release-posture badge metadata to `v2.8.0-rc.6`, then regenerated marker-managed README badge rails.
+- Improved root README first-screen hierarchy with a compact “first-screen navigation map” table for faster serious-reviewer orientation.
+- Hardened `scripts/check_readme_badges.py` to enforce required two-row rail labels and detect duplicate badge IDs within a row.
+
+### Notes
+- This RC remains a coherence-and-presentation release cut.
+- It preserves the verifiable, proof-first, bounded release-candidate posture.
+
 ## [v2.8.0-rc.5] - 2026-04-23
 
 ### Added
