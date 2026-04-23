@@ -15,6 +15,7 @@
 - `normalize_reviewer_packets.py` now validates raw source packet directories before `--force` cleanup to avoid deleting prior normalized evidence on a bad source path, and fails `--refresh-only` when `provenance_manifest.json` is absent.
 - `validate_blinded_results_bundle.py` now requires stage-scoped reviewer packet directories (`lane_*_packet_public/stage_a` and `stage_b`) so incomplete stage layouts cannot pass bundle validation.
 - `normalize_reviewer_packets.py` redaction now matches standalone labels/phrases (for example `operator`, `kit blue`) instead of arbitrary substrings, avoiding corruption of identifiers like `AccessControl` or `OperatorRole`.
+- `setup_blinded_adjacent_transfer_v1.py` now randomizes which matched private kit (`Kit Blue`/`Kit Gold`) receives the real treatment payload by default (with optional explicit override), and records that assignment only in private local files to reduce deterministic blinding leakage.
 
 ## [v2.8.0-rc.7] - 2026-04-23
 

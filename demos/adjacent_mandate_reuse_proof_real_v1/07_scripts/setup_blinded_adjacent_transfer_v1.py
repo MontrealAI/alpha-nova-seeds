@@ -13,6 +13,7 @@ import csv
 import hashlib
 import json
 import platform
+import secrets
 import shutil
 import subprocess
 import sys
@@ -124,6 +125,12 @@ def main() -> int:
         help="private local-only directory under proof-pack root",
     )
     parser.add_argument("--force", action="store_true", help="overwrite existing results dir")
+    parser.add_argument(
+        "--treatment-kit",
+        choices=["Kit Blue", "Kit Gold"],
+        default=None,
+        help="optional fixed treatment kit assignment (default: randomized once and stored privately)",
+    )
     args = parser.parse_args()
 
     results_dir = PACK_ROOT / args.results_dir
@@ -180,6 +187,7 @@ def main() -> int:
             "reviewer_packet_labels": ["Lane Blue", "Lane Gold"],
             "blinding_officer_must_be_separate_from_review_and_scoring": True,
             "leakage_questions_required": True,
+            "kit_assignment_policy": "private_randomized_once_pre_execution",
         },
         "control_and_treatment_parallel": True,
         "human_intervention_logging_required": True,
@@ -504,16 +512,6 @@ python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_score
     )
 
     write_csv(
-        private_dir / "blinded_assignment_map.private.csv",
-        ["artifact_set", "blinded_lane_id", "actual_lane", "kit_variant", "revealed_after_score_lock"],
-        [
-            ["stage_a_mandate_2", "Lane Blue", "Lane Operator A", "Kit Blue", "false"],
-            ["stage_a_mandate_2", "Lane Gold", "Lane Operator B", "Kit Gold", "false"],
-            ["stage_b_mandate_3", "Lane Blue", "REPLACE", "REPLACE", "false"],
-            ["stage_b_mandate_3", "Lane Gold", "REPLACE", "REPLACE", "false"],
-        ],
-    )
-    write_csv(
         private_dir / "reviewer_identity_map.private.csv",
         ["reviewer_id", "legal_name_or_org", "contact", "role_constraints"],
         [["R1", "REPLACE", "REPLACE", "cannot_be_blinding_officer_or_scorecard_custodian"]],
@@ -531,6 +529,8 @@ python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_score
     kits_dir = private_dir / "kits"
     (kits_dir / "Kit Blue").mkdir(parents=True, exist_ok=True)
     (kits_dir / "Kit Gold").mkdir(parents=True, exist_ok=True)
+    treatment_kit = args.treatment_kit or ("Kit Blue" if secrets.randbelow(2) == 0 else "Kit Gold")
+    placebo_kit = "Kit Gold" if treatment_kit == "Kit Blue" else "Kit Blue"
 
     treatment_payloads = {
         "ontology.json": {
@@ -594,8 +594,8 @@ python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_score
     }
 
     for kit_name, json_payloads, text_payloads in [
-        ("Kit Blue", treatment_payloads, treatment_text),
-        ("Kit Gold", placebo_payloads, placebo_text),
+        (treatment_kit, treatment_payloads, treatment_text),
+        (placebo_kit, placebo_payloads, placebo_text),
     ]:
         kit_path = kits_dir / kit_name
         for filename in KIT_FILES:
@@ -607,6 +607,17 @@ python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_score
                 )
             else:
                 file_path.write_text(text_payloads[filename], encoding="utf-8")
+
+    write_csv(
+        private_dir / "blinded_assignment_map.private.csv",
+        ["artifact_set", "blinded_lane_id", "actual_lane", "kit_variant", "revealed_after_score_lock"],
+        [
+            ["stage_a_mandate_2", "Lane Blue", "Lane Operator A", treatment_kit, "false"],
+            ["stage_a_mandate_2", "Lane Gold", "Lane Operator B", placebo_kit, "false"],
+            ["stage_b_mandate_3", "Lane Blue", "REPLACE", "REPLACE", "false"],
+            ["stage_b_mandate_3", "Lane Gold", "REPLACE", "REPLACE", "false"],
+        ],
+    )
 
     (private_dir / "private_commitment_hashes.txt").write_text(
         "# Run 07_scripts/generate_private_commitment_hashes.py after private files are finalized.\n",
