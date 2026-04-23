@@ -1,9 +1,4 @@
-# Lane Blue Public Packet
+# Lane Blue packet (public-safe)
 
-Public-safe normalized packet placeholder for blinded reviewer materials.
-
-Do not include:
-- operator names
-- private assignment maps
-- explicit control/treatment labels
-- private commitment files
+This packet path is reserved for normalized blinded reviewer artifacts.
+Do not include operator identity, package identity, or private assignment metadata.

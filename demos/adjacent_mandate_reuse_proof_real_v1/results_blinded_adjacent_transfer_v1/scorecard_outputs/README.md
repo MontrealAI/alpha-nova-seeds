@@ -1,6 +1,6 @@
 # Scorecard outputs workspace
 
-Fill these CSVs from real blinded adjudication outputs:
+Populate these files from real blinded reviewer adjudication:
 
 - `run_costs.csv`
 - `output_scoring.csv`
@@ -9,10 +9,5 @@ Fill these CSVs from real blinded adjudication outputs:
 Then run:
 
 ```bash
-python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py
+python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py --scorecard-dir demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1/scorecard_outputs
 ```
-
-The helper writes score summaries to:
-
-- `demos/adjacent_mandate_reuse_proof_real_v1/04_scorecard/out/summary.json`
-- `demos/adjacent_mandate_reuse_proof_real_v1/04_scorecard/out/summary.md`

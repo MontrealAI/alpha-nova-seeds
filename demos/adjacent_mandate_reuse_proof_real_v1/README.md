@@ -82,13 +82,12 @@ From this folder:
 
 ```bash
 python3 07_scripts/calculate_q2_scorecard.py
+# optional: point to a results bundle
+python3 07_scripts/calculate_q2_scorecard.py --scorecard-dir results_blinded_adjacent_transfer_v1/scorecard_outputs
 ```
 
-This expects the filled CSVs to live in `04_scorecard/` and writes outputs to:
-
-```text
-04_scorecard/out/
-```
+By default this reads scorecards from `04_scorecard/` and writes outputs to `04_scorecard/out/`.
+When `--scorecard-dir` is provided, outputs default to `<scorecard-dir>/out`.
 
 ## Blinded adjacent-transfer operational harness (v1)
 

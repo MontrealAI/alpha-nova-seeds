@@ -1,7 +1,7 @@
 {
   "experiment_id": "adjacent-mandate-reuse-real-v1-blinded-adjacent-transfer",
   "repo": "MontrealAI/alpha-nova-seeds",
-  "repo_sha": "fc7a55301beb0a488fa39322119bee5cb2c52827",
+  "repo_sha": "93c70a8246d7489484906bc713402415177986c5",
   "branch": "work",
   "target_path": "demos/adjacent_mandate_reuse_proof_real_v1",
   "execution_results_path": "demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1",
@@ -34,7 +34,18 @@
     "goal": "Conditional Stage B cross-domain transfer test",
     "status": "conditional_on_real_stage_a_pass"
   },
-  "reviewers_blinded": true,
+  "reviewer_blinding": {
+    "operator_kits": [
+      "Kit Blue",
+      "Kit Gold"
+    ],
+    "reviewer_packet_labels": [
+      "Lane Blue",
+      "Lane Gold"
+    ],
+    "blinding_officer_must_be_separate_from_review_and_scoring": true,
+    "leakage_questions_required": true
+  },
   "control_and_treatment_parallel": true,
   "human_intervention_logging_required": true,
   "wall_clock_budget_per_lane_minutes": 180,
@@ -52,9 +63,10 @@
   "allowed_tools_and_commands": [
     "local shell tooling only",
     "repo-native scripts and tests",
-    "scorecard helper: python3 07_scripts/calculate_q2_scorecard.py"
+    "scorecard helper: python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py --scorecard-dir demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1/scorecard_outputs"
   ],
   "intervention_policy": "log all exceptions in intervention log; symmetry across lanes required",
+  "reviewer_rubric": "demos/adjacent_mandate_reuse_proof_real_v1/03_review/reviewer_form_mandate_2_control.template.md and reviewer_form_mandate_2_treatment.template.md (normalized blinded packets)",
   "pass_thresholds": {
     "aoy_uplift_min_pct": 35,
     "speed_uplift_min_pct": 30,
@@ -63,5 +75,5 @@
     "safety_regression_allowed": false,
     "package_dependence_min_pct": 30
   },
-  "freeze_time_utc": "2026-04-23T19:25:09+00:00"
+  "freeze_time_utc": "2026-04-23T19:44:54+00:00"
 }

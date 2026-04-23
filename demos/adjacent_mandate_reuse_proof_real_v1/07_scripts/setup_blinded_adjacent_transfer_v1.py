@@ -2,7 +2,8 @@
 """Initialize blinded adjacent-transfer result scaffolding with prereg freeze metadata.
 
 This script creates a public-safe results bundle and a local-private workspace
-for blinding materials. It does not fabricate reviewer inputs or scores.
+for blinding materials. It does not fabricate reviewer inputs or pass/fail
+outcomes.
 """
 
 from __future__ import annotations
@@ -57,6 +58,42 @@ def write_csv(path: Path, headers: list[str], rows: list[list[str]]) -> None:
         writer = csv.writer(f)
         writer.writerow(headers)
         writer.writerows(rows)
+
+
+def build_public_provenance(results_dir: Path) -> dict[str, object]:
+    tracked = [
+        "README.md",
+        "HUMAN_ACTION_REQUIRED.md",
+        "summary_metrics.json",
+        "stage_a_scorecard.md",
+        "proof_docket_public.md",
+        "governance_ruling_public.md",
+        "prereg_experiment_manifest.json",
+        "environment_lock.json",
+        "run_register.csv",
+        "intervention_log.csv",
+        "lane_blue_packet_public/README.md",
+        "lane_gold_packet_public/README.md",
+        "scorecard_outputs/README.md",
+        "scorecard_outputs/run_costs.csv",
+        "scorecard_outputs/output_scoring.csv",
+        "scorecard_outputs/package_dependence_ledger.csv",
+    ]
+    hashes = []
+    for rel in tracked:
+        p = results_dir / rel
+        if p.exists():
+            hashes.append({"path": rel, "sha256": sha256_file(p)})
+
+    return {
+        "manifest_type": "blinded_adjacent_transfer_public_safe_provenance",
+        "repo": "MontrealAI/alpha-nova-seeds",
+        "result_path": str(results_dir.relative_to(ROOT)),
+        "file_hashes": hashes,
+        "private_materials_location": "demos/adjacent_mandate_reuse_proof_real_v1/local_private_blinding_materials/results_blinded_adjacent_transfer_v1",
+        "private_materials_committed": False,
+        "notes": "Public-safe provenance only; private mappings withheld by design.",
+    }
 
 
 def main() -> int:
@@ -121,7 +158,12 @@ def main() -> int:
             "goal": "Conditional Stage B cross-domain transfer test",
             "status": "conditional_on_real_stage_a_pass",
         },
-        "reviewers_blinded": True,
+        "reviewer_blinding": {
+            "operator_kits": ["Kit Blue", "Kit Gold"],
+            "reviewer_packet_labels": ["Lane Blue", "Lane Gold"],
+            "blinding_officer_must_be_separate_from_review_and_scoring": True,
+            "leakage_questions_required": True,
+        },
         "control_and_treatment_parallel": True,
         "human_intervention_logging_required": True,
         "wall_clock_budget_per_lane_minutes": 180,
@@ -139,9 +181,10 @@ def main() -> int:
         "allowed_tools_and_commands": [
             "local shell tooling only",
             "repo-native scripts and tests",
-            "scorecard helper: python3 07_scripts/calculate_q2_scorecard.py",
+            "scorecard helper: python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py --scorecard-dir demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1/scorecard_outputs",
         ],
         "intervention_policy": "log all exceptions in intervention log; symmetry across lanes required",
+        "reviewer_rubric": "demos/adjacent_mandate_reuse_proof_real_v1/03_review/reviewer_form_mandate_2_control.template.md and reviewer_form_mandate_2_treatment.template.md (normalized blinded packets)",
         "pass_thresholds": {
             "aoy_uplift_min_pct": 35,
             "speed_uplift_min_pct": 30,
@@ -185,7 +228,10 @@ def main() -> int:
         results_dir / "intervention_log.csv",
     )
 
-    copy_text(PACK_ROOT / "04_scorecard" / "run_costs.template.csv", results_dir / "scorecard_outputs" / "run_costs.csv")
+    copy_text(
+        PACK_ROOT / "04_scorecard" / "run_costs.template.csv",
+        results_dir / "scorecard_outputs" / "run_costs.csv",
+    )
     copy_text(
         PACK_ROOT / "04_scorecard" / "output_scoring.template.csv",
         results_dir / "scorecard_outputs" / "output_scoring.csv",
@@ -193,6 +239,242 @@ def main() -> int:
     copy_text(
         PACK_ROOT / "04_scorecard" / "package_dependence_ledger.template.csv",
         results_dir / "scorecard_outputs" / "package_dependence_ledger.csv",
+    )
+
+    (results_dir / "README.md").write_text(
+        """# Blinded Adjacent-Transfer Experiment Record (v1)
+
+This folder operationalizes the blinded adjacent-transfer protocol for:
+
+- Stage A: adjacent transfer in the protocol-correctness wedge
+- Stage B: conditional cross-domain transfer into backend/API correctness
+
+Status today: **operationalized to the honest human boundary**.
+
+No reviewer judgments, lane outcomes, or pass/fail results were fabricated.
+
+## 1) What was frozen
+
+- Preregistration freeze: `prereg_experiment_manifest.json`
+- Environment and in-scope file hashes: `environment_lock.json`
+- Stage A and Stage B lane budget symmetry and thresholds are locked in preregistration
+- Scorecard inputs are pre-wired under `scorecard_outputs/`
+
+## 2) What was blinded
+
+- Public packets use lane IDs only: `lane_blue_packet_public/` and `lane_gold_packet_public/`
+- Private assignment and reviewer identity maps are moved to git-ignored local storage:
+  `../local_private_blinding_materials/results_blinded_adjacent_transfer_v1/`
+- Private commitment hashes are generated locally with
+  `../07_scripts/generate_private_commitment_hashes.py`
+
+## 3) What passed / failed
+
+- Stage A: **not yet adjudicated** (pending real human blinded execution)
+- Stage B: **not run** (strictly conditional on a real Stage A pass)
+- Scorecard status: calculator wiring verified; no real blinded inputs entered yet
+
+## 4) What this supports
+
+- A complete, reproducible execution harness for blinded adjacent transfer exists.
+- The repository can now produce a public-safe record and separate private blinding materials without leaking assignment maps.
+
+## 5) What this does not prove
+
+- It does not prove a Stage A pass.
+- It does not prove Stage B transfer.
+- It does not prove unrestricted autonomy, unbounded RSI, or broad sovereign proof.
+
+## Run sequence (honest execution)
+
+1. Initialize scaffolding (if re-running fresh):
+   ```bash
+   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/setup_blinded_adjacent_transfer_v1.py --force
+   ```
+2. Fill private-only files locally (outside git history).
+3. Freeze private commitments:
+   ```bash
+   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/generate_private_commitment_hashes.py --private-dir demos/adjacent_mandate_reuse_proof_real_v1/local_private_blinding_materials/results_blinded_adjacent_transfer_v1
+   ```
+4. Execute Stage A lane work under blinded kits and collect packets.
+5. Fill scorecard CSVs in `scorecard_outputs/` from real adjudication data.
+6. Run scorecard helper:
+   ```bash
+   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py --scorecard-dir demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1/scorecard_outputs
+   ```
+7. Lock scorecard and only then reveal blinded assignment map.
+8. Run bundle completeness check:
+   ```bash
+   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/validate_blinded_results_bundle.py
+   ```
+
+See `HUMAN_ACTION_REQUIRED.md` for unresolved role-separated steps.
+""",
+        encoding="utf-8",
+    )
+
+    (results_dir / "HUMAN_ACTION_REQUIRED.md").write_text(
+        """# HUMAN_ACTION_REQUIRED
+
+The following protocol-required steps remain human-only and are not automated here:
+
+1. Assign real people to Sponsor, Blinding Officer, Package Custodian, Lane Operators, Reviewers, and Scorecard Custodian.
+2. Keep Blinding Officer separate from reviewers and scoring.
+3. Fill private answer keys and assignment maps in the local private path.
+4. Conduct Stage A lane execution with real blinded operator kits.
+5. Normalize packets and run 3 independent blinded reviewer adjudications.
+6. Populate scorecard CSVs from real reviewer evidence.
+7. Lock scorecard outputs and then reveal assignment map.
+8. Run reviewer leakage checks before reveal and document confidence/leakage rationale.
+9. Decide Stage A pass/fail honestly from thresholds.
+10. Run Stage B only if Stage A passed with real blinded reviewer data.
+
+Until those steps complete, any pass/fail claim is out of bounds.
+""",
+        encoding="utf-8",
+    )
+
+    (results_dir / "summary_metrics.json").write_text(
+        json.dumps(
+            {
+                "status": "operationalized_to_honest_human_boundary",
+                "stage_a": {
+                    "execution_state": "pending_real_blinded_human_execution",
+                    "score_lock": "not_started",
+                    "result": "undetermined",
+                },
+                "stage_b": {
+                    "execution_state": "blocked_on_stage_a_real_pass",
+                    "result": "not_run",
+                },
+                "demonstrated": [
+                    "preregistration and environment freeze artifacts",
+                    "public-safe output structure",
+                    "private local-only blinding path",
+                    "scorecard input and calculation wiring",
+                ],
+                "pending_human_execution": [
+                    "role-separated assignment and blinding",
+                    "stage_a lane execution and packet normalization",
+                    "independent blinded adjudication",
+                    "score lock and reveal",
+                    "conditional stage_b execution",
+                ],
+                "simulated": [],
+                "unproven": [
+                    "stage_a pass criteria",
+                    "stage_b cross-domain transfer",
+                    "bounded recursive self-improvement claim",
+                ],
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    (results_dir / "stage_a_scorecard.md").write_text(
+        """# Stage A scorecard status
+
+Status: **PENDING HUMAN BLINDED EXECUTION**
+
+The scorecard computation path is wired:
+
+- Inputs expected in `scorecard_outputs/run_costs.csv`
+- Inputs expected in `scorecard_outputs/output_scoring.csv`
+- Optional dependence evidence in `scorecard_outputs/package_dependence_ledger.csv`
+- Compute helper: `../07_scripts/calculate_q2_scorecard.py`
+
+No real blinded reviewer outputs have been entered yet in this result pack.
+Therefore no Stage A pass/fail decision is recorded here.
+""",
+        encoding="utf-8",
+    )
+
+    (results_dir / "proof_docket_public.md").write_text(
+        """# Public-Safe Proof Docket (Blinded Adjacent Transfer v1)
+
+## Demonstrated
+
+- Preregistration and environment freeze records are present.
+- Public-safe packet separation and scorecard I/O wiring are present.
+- Private blinding files are routed to a git-ignored local directory.
+
+## Prepared but awaiting human execution
+
+- Real blinded operator lane runs for Stage A.
+- Reviewer packet normalization and independent reviewer adjudication.
+- Stage A score lock and reveal process.
+- Conditional Stage B freeze and execution.
+
+## Simulated
+
+- None in this public-safe results path.
+
+## Unproven
+
+- Stage A threshold pass under real blinded conditions.
+- Stage B cross-domain transfer pass.
+- Any claim beyond bounded protocol-correctness wedge evidence.
+""",
+        encoding="utf-8",
+    )
+
+    (results_dir / "governance_ruling_public.md").write_text(
+        """# Governance Ruling (Public)
+
+Ruling status: **DEFERRED — INSUFFICIENT BLINDED HUMAN ADJUDICATION DATA**
+
+Reason:
+- Required blinded reviewer adjudication artifacts are not yet complete.
+- Stage A thresholds cannot be evaluated honestly without those artifacts.
+
+Interim policy outcome:
+- Publish this incomplete status now (publish regardless of outcome policy).
+- Keep Stage B locked as conditional and unexecuted.
+- Resume only when role-separated human execution is available.
+""",
+        encoding="utf-8",
+    )
+
+    (results_dir / "lane_blue_packet_public" / "README.md").write_text(
+        """# Lane Blue packet (public-safe)
+
+This packet path is reserved for normalized blinded reviewer artifacts.
+Do not include operator identity, package identity, or private assignment metadata.
+""",
+        encoding="utf-8",
+    )
+    (results_dir / "lane_gold_packet_public" / "README.md").write_text(
+        """# Lane Gold packet (public-safe)
+
+This packet path is reserved for normalized blinded reviewer artifacts.
+Do not include operator identity, package identity, or private assignment metadata.
+""",
+        encoding="utf-8",
+    )
+
+    (results_dir / "scorecard_outputs" / "README.md").write_text(
+        """# Scorecard outputs workspace
+
+Populate these files from real blinded reviewer adjudication:
+
+- `run_costs.csv`
+- `output_scoring.csv`
+- `package_dependence_ledger.csv`
+
+Then run:
+
+```bash
+python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py --scorecard-dir demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1/scorecard_outputs
+```
+""",
+        encoding="utf-8",
+    )
+
+    (results_dir / "provenance_manifest.json").write_text(
+        json.dumps(build_public_provenance(results_dir), indent=2) + "\n",
+        encoding="utf-8",
     )
 
     write_csv(
