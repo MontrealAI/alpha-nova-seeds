@@ -93,14 +93,17 @@ def main() -> int:
                     f"{path.relative_to(ROOT)} missing required posture marker: {pattern.pattern}"
                 )
 
+        discovered_markers = {match.group(0) for match in RC_MARKER_PATTERN.finditer(text)}
         for disallowed in forbidden:
-            if disallowed in text:
+            if disallowed in discovered_markers:
                 errors.append(
                     f"{path.relative_to(ROOT)} contains disallowed stale RC marker {disallowed}; expected active target {target}"
                 )
 
-        for match in RC_MARKER_PATTERN.finditer(text):
-            marker = match.group(0)
+        for marker in sorted(discovered_markers):
+            match = RC_MARKER_PATTERN.fullmatch(marker)
+            if not match:
+                continue
             version = _version_tuple(match)
             if version > target_version:
                 errors.append(

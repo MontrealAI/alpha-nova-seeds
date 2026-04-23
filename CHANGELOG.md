@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Changed
+- `scripts/check_release_surface_posture.py` stale RC detection now matches discovered RC markers as full tokens, preventing false stale-marker failures when the active target reaches two-digit RC values (for example `v2.8.0-rc.10`).
 - `scripts/check_release_surface_posture.py` now reads the active RC target from `release/badges.json` and validates posture coherence across README/AGENTS/RELEASES plus `docs/FRONTIER_LAB_POSTURE.md`, `docs/DOCTRINE_STACK.md`, and `demos/README.md`.
 - `scripts/check_readme_badges.py` now validates that every `readme.rows` badge id exists in `readme.badges` and reports structured errors instead of uncaught `KeyError` traces during expected-block rendering.
 - `scripts/check_readme_badges.py` now enforces that `readme.rows` actually render every `required_badges` ID, preventing silent omission of mandatory trust-surface badges from README output.
