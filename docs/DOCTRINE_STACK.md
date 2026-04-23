@@ -1,4 +1,4 @@
-# Doctrine Stack — v2.8.0-rc.6
+# Doctrine Stack — v2.8.0-rc.7
 
 This doctrine stack defines how Nova-Seeds work as coordination objects that are verifiable, reviewable, and settlement-aware.
 

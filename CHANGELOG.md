@@ -5,6 +5,22 @@
 ### Changed
 - No unreleased changes recorded.
 
+## [v2.8.0-rc.7] - 2026-04-23
+
+### Added
+- Added `release/v2.8.0-rc.7-front-door-institutional-badge-checklist.md` for this additive RC cut, including acceptance criteria, smoke checks, migration notes, rollback notes, and claim-boundary reminders.
+
+### Changed
+- Promoted active RC posture from `v2.8.0-rc.6` to `v2.8.0-rc.7` across release-facing surfaces (`README.md`, `demos/README.md`, `AGENTS.md`, `RELEASES.md`, `docs/FRONTIER_LAB_POSTURE.md`, `docs/DOCTRINE_STACK.md`, and `docs/BADGE_STRATEGY.md`) without widening claims.
+- Updated `release/badges.json` release target and release-posture badge metadata to `v2.8.0-rc.7`, then regenerated marker-managed README badge rails.
+- Strengthened root README front-door orientation by adding direct first-screen links to `docs/verify-release.md` in both “Start here” and the navigation map.
+- Updated `.github/workflows/release-provenance.yml` upload artifact naming from stale `v27-provenance-<TAG>` to train-neutral `release-provenance-<TAG>`.
+- Extended `scripts/check_release_surface_posture.py` with a guardrail that fails if release-provenance artifact naming drifts from `release-provenance-${{ inputs.release_tag }}`.
+
+### Notes
+- This RC remains a coherence-and-presentation hardening cut.
+- It preserves the verifiable, proof-first, bounded release-candidate posture.
+
 ## [v2.8.0-rc.6] - 2026-04-23
 
 ### Added

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "release_target": "v2.8.0-rc.6",
+  "release_target": "v2.8.0-rc.7",
   "style": "flat-square",
   "readme": {
     "required_badges": [
@@ -40,10 +40,10 @@
         "id": "release-posture",
         "kind": "static",
         "label": "release",
-        "message": "v2.8.0-rc.6",
+        "message": "v2.8.0-rc.7",
         "color": "1f6feb",
         "link": "./RELEASES.md",
-        "alt": "Release posture: v2.8.0-rc.6"
+        "alt": "Release posture: v2.8.0-rc.7"
       },
       {
         "id": "ci",
