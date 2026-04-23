@@ -7,6 +7,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 BADGE_CONFIG = ROOT / "release" / "badges.json"
@@ -40,7 +41,12 @@ def _validate_local_link(errors: list[str], badge_id: str, base_dir: Path, link:
     if not _is_relative_link(link):
         return
 
-    target = (base_dir / link).resolve()
+    parsed = urlsplit(link)
+    local_path = parsed.path
+    if not local_path:
+        return
+
+    target = (base_dir / local_path).resolve()
     try:
         target.relative_to(ROOT)
     except ValueError:
