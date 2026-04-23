@@ -3,6 +3,8 @@
 ## [Unreleased]
 
 ### Changed
+- Tightened demo-ladder coherence checks by extending `scripts/check_demo_links.py` with deterministic cross-link requirements between `demos/open-ended-rsi-system/README.md`, `demos/unbounded-rsi-system/README.md`, and the ladder index.
+- Updated `release/v2.8.0-rc.2-open-ended-rsi-checklist.md` smoke checks to include `scripts/check_open_ended_rsi_artifacts.py` and `scripts/check_release_surface_posture.py`, and added explicit runbook pointer for deterministic operator execution.
 - Added `scripts/check_release_surface_posture.py` and wired it into open-ended RSI repo-native probes/runbook/root verification commands to catch README/AGENTS/RELEASES active-RC drift deterministically.
 - Open-ended RSI demo now emits a dedicated `mandate3_execution.json` artifact capturing deterministic Mandate 3 execution details (selector policy, DISCO/Arnold execution steps, and offline-only constraints) for clearer auditability of autonomous execution behavior.
 - Open-ended RSI artifact checker now validates Mandate 3 execution logging, top-ranked frontier selection consistency, and provenance determinism guards for disabled network/external API paths.
