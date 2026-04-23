@@ -83,6 +83,25 @@ def main() -> int:
     if missing:
         errors.append(f"release/badges.json missing required badge definitions: {', '.join(missing)}")
 
+    release_target = config["release_target"]
+    release_badge = next(
+        (badge for badge in config["readme"]["badges"] if badge.get("id") == "release-posture"),
+        None,
+    )
+    if not release_badge:
+        errors.append("release/badges.json missing release-posture badge definition")
+    else:
+        if release_badge.get("kind") != "static":
+            errors.append("release-posture badge must be static")
+        if release_badge.get("message") != release_target:
+            errors.append(
+                "release-posture badge message does not match release_target in release/badges.json"
+            )
+        if release_target not in release_badge.get("alt", ""):
+            errors.append(
+                "release-posture badge alt text does not include release_target in release/badges.json"
+            )
+
     for badge in config["readme"]["badges"]:
         link = badge.get("link", "")
         if not link:
@@ -139,10 +158,9 @@ def main() -> int:
     if actual_demos != expected_demos:
         errors.append("demos/README.md badge strip drift detected (run: python scripts/generate_readme_badges.py --write)")
 
-    rc_target = config["release_target"]
     readme_text = README.read_text(encoding="utf-8")
-    if rc_target not in readme_text:
-        errors.append(f"README.md missing active release target marker: {rc_target}")
+    if release_target not in readme_text:
+        errors.append(f"README.md missing active release target marker: {release_target}")
 
     if errors:
         print("FAIL: README badge validation failed")
