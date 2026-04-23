@@ -9,11 +9,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "86d2c8683678e133d077c552f2aa7460d41aa0448b2dcdf3834ecd2ad7b096b8"
+      "sha256": "1e29342f338a5765d9e3e6889511104569079e9ff7b3ec66d85291558a8bedfd"
     },
     {
       "path": "environment_lock.json",
-      "sha256": "4cf21db0decb6c209b423c61b2b63e796ab9c8fa66dff7d33afae53fe7fd23ee"
+      "sha256": "784bc6cf1f9bb65cf4259ad27ab909c1b6cbe8972334d7954e1e0dea7a66e1af"
     },
     {
       "path": "governance_ruling_public.md",
@@ -53,7 +53,7 @@
     },
     {
       "path": "prereg_experiment_manifest.json",
-      "sha256": "79430f0b119937507c095fa969aaad18cf79c1e893b661ee4f44540b84602eaa"
+      "sha256": "467636953ffdb320fb3588aede12ab461214314b52da8173b6516b7e666c20a2"
     },
     {
       "path": "proof_docket_public.md",
