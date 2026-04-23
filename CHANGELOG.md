@@ -3,6 +3,14 @@
 ## [Unreleased]
 
 ### Changed
+- `scripts/check_readme_badges.py` now validates that every `readme.rows` badge id exists in `readme.badges` and reports structured errors instead of uncaught `KeyError` traces during expected-block rendering.
+- `scripts/check_readme_badges.py` now enforces that `readme.rows` actually render every `required_badges` ID, preventing silent omission of mandatory trust-surface badges from README output.
+- Badge rail generation now supports explicit row groups from `release/badges.json` so root README renders a two-tier trust/navigation rail instead of a single long badge line.
+- `release/badges.json` upgraded to row-driven metadata (`version: 2`) and now requires doctrine-stack coverage while dropping the optional latest-pre-release badge from the default front-door rail to reduce noise and drift risk.
+- `scripts/check_readme_badges.py` now validates row presence and supports optional HTTP/HTTPS link verification (`--check-http-links`) in addition to local-link and workflow-file checks.
+- Root README and demo ladder badge markers were regenerated into calmer, grouped strips for faster first-screen scanning without changing claim boundaries.
+- Added `release/v2.8.0-rc.3-front-door-badge-checklist.md` with acceptance, smoke, migration, rollback, and provenance notes for this coherence cut.
+
 - `scripts/check_release_surface_posture.py` now compares all discovered `vX.Y.Z-rc.N` markers against the active target and rejects any premature future RC marker (for example `v2.9.0-rc.2` or `v3.0.0-rc.1`).
 - Tightened demo-ladder coherence checks by extending `scripts/check_demo_links.py` with deterministic cross-link requirements between `demos/open-ended-rsi-system/README.md`, `demos/unbounded-rsi-system/README.md`, and the ladder index.
 - Updated `release/v2.8.0-rc.2-open-ended-rsi-checklist.md` smoke checks to include `scripts/check_open_ended_rsi_artifacts.py` and `scripts/check_release_surface_posture.py`, and added explicit runbook pointer for deterministic operator execution.

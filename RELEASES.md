@@ -33,10 +33,21 @@ If regeneration is required, cut a new RC tag.
    - `python scripts/contracts/export_abi.py`
    - `cd sdk && npm run build --if-present`
    - `python scripts/check_readme_badges.py`
+   - `python scripts/check_readme_badges.py --check-http-links`
    - `python scripts/release/generate_provenance_manifest.py --tag <TAG> --output /tmp/provenance-manifest-<TAG>.json`
 3. Trigger `release-provenance.yml`.
 4. Publish release notes with generated artifacts.
 5. Validate `docs/verify-release.md` commands against published assets.
+
+
+## Badge rail publication contract
+
+For v2.8.0-rc.3 posture, root README badges are intentionally split into:
+
+- **Operational trust rail** (release + CI + contracts security + provenance)
+- **Orientation rail** (claim boundary + flagship/demo/doctrine entry points)
+
+Badge metadata must remain sourced from `release/badges.json` and rendered via marker-managed generation (`scripts/generate_readme_badges.py --write`).
 
 ## Demo-and-doctrine RC acceptance surfaces
 

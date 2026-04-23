@@ -54,7 +54,7 @@ def _badge_markdown(repo: str, style: str, badge: dict) -> str:
 
 
 def _render_block(lines: list[str], start: str, end: str) -> str:
-    return "\n".join([start, " ".join(lines), end])
+    return "\n".join([start, *lines, end])
 
 
 def _replace_marked_block(text: str, markers: tuple[str, str], block: str) -> str:
@@ -74,6 +74,30 @@ def _find_badge(config: dict, badge_id: str) -> dict:
     raise KeyError(f"unknown badge id: {badge_id}")
 
 
+def _expand_row_entries(config: dict, entries: list) -> list[dict]:
+    expanded: list[dict] = []
+    for entry in entries:
+        if isinstance(entry, str):
+            expanded.append(dict(_find_badge(config, entry)))
+            continue
+
+        badge = dict(_find_badge(config, entry["id"]))
+        if "link" in entry:
+            badge["link"] = entry["link"]
+        expanded.append(badge)
+    return expanded
+
+
+def _render_rows(config: dict, rows: list[dict], repo: str, style: str) -> list[str]:
+    rendered: list[str] = []
+    for row in rows:
+        if row.get("label"):
+            rendered.append(f"**{row['label']}**")
+        badges = _expand_row_entries(config, row["badges"])
+        rendered.append(" ".join(_badge_markdown(repo, style, badge) for badge in badges))
+    return rendered
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--write", action="store_true", help="write badge rails into README files")
@@ -83,22 +107,15 @@ def main() -> int:
     style = config["style"]
     repo = "MontrealAI/alpha-nova-seeds"
 
-    readme_lines = [
-        _badge_markdown(repo, style, badge)
-        for badge in config["readme"]["badges"]
-        if badge["id"] != "latest-rc"
-    ]
-    readme_lines.append(_badge_markdown(repo, style, _find_badge(config, "latest-rc")))
+    readme_rows = config["readme"].get("rows")
+    if not readme_rows:
+        readme_rows = [{"badges": [badge["id"] for badge in config["readme"]["badges"]]}]
+    readme_lines = _render_rows(config, readme_rows, repo, style)
 
-    demos_lines = []
-    for entry in config["demos_readme"]["badges"]:
-        if isinstance(entry, str):
-            badge = dict(_find_badge(config, entry))
-        else:
-            badge = dict(_find_badge(config, entry["id"]))
-            if "link" in entry:
-                badge["link"] = entry["link"]
-        demos_lines.append(_badge_markdown(repo, style, badge))
+    demos_rows = config["demos_readme"].get("rows")
+    if not demos_rows:
+        demos_rows = [{"badges": config["demos_readme"].get("badges", [])}]
+    demos_lines = _render_rows(config, demos_rows, repo, style)
 
     readme_block = _render_block(readme_lines, *README_MARKERS)
     demos_block = _render_block(demos_lines, *DEMOS_MARKERS)
