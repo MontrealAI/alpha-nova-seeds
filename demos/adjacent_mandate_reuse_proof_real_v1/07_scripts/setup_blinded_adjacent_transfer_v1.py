@@ -36,6 +36,16 @@ MANDATE_3_SCOPE = [
     "backend/app/schemas.py",
 ]
 
+KIT_FILES = [
+    "ontology.json",
+    "query_bundle.json",
+    "workflow_template.md",
+    "mechanism_library.json",
+    "safety_routing_rules.md",
+    "scoring_rubric.md",
+    "extraction_schema.json",
+]
+
 
 def run(cmd: list[str], cwd: Path | None = None) -> str:
     return subprocess.check_output(cmd, cwd=str(cwd or ROOT), text=True).strip()
@@ -66,6 +76,7 @@ def build_public_provenance(results_dir: Path) -> dict[str, object]:
         "HUMAN_ACTION_REQUIRED.md",
         "summary_metrics.json",
         "stage_a_scorecard.md",
+        "stage_b_scorecard.md",
         "proof_docket_public.md",
         "governance_ruling_public.md",
         "prereg_experiment_manifest.json",
@@ -73,7 +84,11 @@ def build_public_provenance(results_dir: Path) -> dict[str, object]:
         "run_register.csv",
         "intervention_log.csv",
         "lane_blue_packet_public/README.md",
+        "lane_blue_packet_public/stage_a/README.md",
+        "lane_blue_packet_public/stage_b/README.md",
         "lane_gold_packet_public/README.md",
+        "lane_gold_packet_public/stage_a/README.md",
+        "lane_gold_packet_public/stage_b/README.md",
         "scorecard_outputs/README.md",
         "scorecard_outputs/run_costs.csv",
         "scorecard_outputs/output_scoring.csv",
@@ -119,8 +134,10 @@ def main() -> int:
     if results_dir.exists() and args.force:
         shutil.rmtree(results_dir)
 
-    (results_dir / "lane_blue_packet_public").mkdir(parents=True)
-    (results_dir / "lane_gold_packet_public").mkdir(parents=True)
+    (results_dir / "lane_blue_packet_public" / "stage_a").mkdir(parents=True)
+    (results_dir / "lane_blue_packet_public" / "stage_b").mkdir(parents=True)
+    (results_dir / "lane_gold_packet_public" / "stage_a").mkdir(parents=True)
+    (results_dir / "lane_gold_packet_public" / "stage_b").mkdir(parents=True)
     (results_dir / "scorecard_outputs").mkdir(parents=True)
     private_dir.mkdir(parents=True, exist_ok=True)
 
@@ -390,6 +407,16 @@ Therefore no Stage A pass/fail decision is recorded here.
 """,
         encoding="utf-8",
     )
+    (results_dir / "stage_b_scorecard.md").write_text(
+        """# Stage B scorecard status
+
+Status: **NOT RUN**
+
+Stage B is conditional on a real Stage A pass with blinded reviewer adjudication.
+Do not execute Stage B lanes or adjudication until Stage A thresholds are honestly satisfied.
+""",
+        encoding="utf-8",
+    )
 
     (results_dir / "proof_docket_public.md").write_text(
         """# Public-Safe Proof Docket (Blinded Adjacent Transfer v1)
@@ -437,22 +464,21 @@ Interim policy outcome:
         encoding="utf-8",
     )
 
-    (results_dir / "lane_blue_packet_public" / "README.md").write_text(
-        """# Lane Blue packet (public-safe)
-
-This packet path is reserved for normalized blinded reviewer artifacts.
-Do not include operator identity, package identity, or private assignment metadata.
-""",
-        encoding="utf-8",
-    )
-    (results_dir / "lane_gold_packet_public" / "README.md").write_text(
-        """# Lane Gold packet (public-safe)
-
-This packet path is reserved for normalized blinded reviewer artifacts.
-Do not include operator identity, package identity, or private assignment metadata.
-""",
-        encoding="utf-8",
-    )
+    for lane in ["blue", "gold"]:
+        (results_dir / f"lane_{lane}_packet_public" / "README.md").write_text(
+            f"# Lane {lane.title()} packet (public-safe)\n\n"
+            "Stage-scoped normalized reviewer packets are stored under:\n\n"
+            "- `stage_a/`\n"
+            "- `stage_b/`\n",
+            encoding="utf-8",
+        )
+        for stage in ["stage_a", "stage_b"]:
+            (results_dir / f"lane_{lane}_packet_public" / stage / "README.md").write_text(
+                "# Normalized blinded reviewer packet\n\n"
+                "This packet path is reserved for normalized blinded reviewer artifacts.\n"
+                "Do not include operator identity, package identity, explicit lane type labels, or private assignment metadata.\n",
+                encoding="utf-8",
+            )
 
     (results_dir / "scorecard_outputs" / "README.md").write_text(
         """# Scorecard outputs workspace
@@ -480,7 +506,12 @@ python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_score
     write_csv(
         private_dir / "blinded_assignment_map.private.csv",
         ["artifact_set", "blinded_lane_id", "actual_lane", "kit_variant", "revealed_after_score_lock"],
-        [["stage_a_mandate_2", "Lane Blue", "REPLACE", "REPLACE", "false"]],
+        [
+            ["stage_a_mandate_2", "Lane Blue", "Lane Operator A", "Kit Blue", "false"],
+            ["stage_a_mandate_2", "Lane Gold", "Lane Operator B", "Kit Gold", "false"],
+            ["stage_b_mandate_3", "Lane Blue", "REPLACE", "REPLACE", "false"],
+            ["stage_b_mandate_3", "Lane Gold", "REPLACE", "REPLACE", "false"],
+        ],
     )
     write_csv(
         private_dir / "reviewer_identity_map.private.csv",
@@ -496,6 +527,86 @@ python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_score
     )
     for name in ["answer_key_m1.private.md", "answer_key_m2.private.md", "answer_key_m3.private.md"]:
         (private_dir / name).write_text(private_answer, encoding="utf-8")
+
+    kits_dir = private_dir / "kits"
+    (kits_dir / "Kit Blue").mkdir(parents=True, exist_ok=True)
+    (kits_dir / "Kit Gold").mkdir(parents=True, exist_ok=True)
+
+    treatment_payloads = {
+        "ontology.json": {
+            "pack_name": "GovernanceValidationPack-v1",
+            "source_scope": MANDATE_1_SCOPE,
+            "entities": ["governance role", "challenge lifecycle", "evidence path", "settlement precondition"],
+        },
+        "query_bundle.json": {
+            "queries": [
+                "Trace authority checks before state transition.",
+                "Enumerate challenge-policy negative paths and revert semantics.",
+                "Locate settlement validation gates and invariant assumptions.",
+            ]
+        },
+        "mechanism_library.json": {
+            "mechanisms": [
+                "state-transition guard matrix",
+                "challenge escalation and deactivation integrity checklist",
+                "cross-contract authority delegation review template",
+            ]
+        },
+        "extraction_schema.json": {
+            "required_fields": [
+                "finding_id",
+                "severity",
+                "code_location",
+                "proof_artifact",
+                "negative_path_test",
+                "proposed_fix",
+            ]
+        },
+    }
+    placebo_payloads = {
+        "ontology.json": {
+            "pack_name": "GenericProtocolReviewPlacebo-v1",
+            "source_scope": ["generic protocol review guidance only"],
+            "entities": ["role", "state", "input", "output"],
+        },
+        "query_bundle.json": {
+            "queries": [
+                "List observed assumptions.",
+                "List possible edge cases.",
+                "Capture open questions for reviewers.",
+            ]
+        },
+        "mechanism_library.json": {"mechanisms": ["generic input validation checklist", "generic logging checklist"]},
+        "extraction_schema.json": {
+            "required_fields": ["finding_id", "severity", "code_location", "notes"]
+        },
+    }
+
+    treatment_text = {
+        "workflow_template.md": "# Workflow template (treatment)\n\n1. Map role authority boundaries.\n2. Execute negative-path test planning.\n3. Build evidence packet with repro steps.\n",
+        "safety_routing_rules.md": "# Safety routing rules (treatment)\n\n- Block acceptance if authority checks are missing.\n- Block settlement claims without explicit validation proof.\n",
+        "scoring_rubric.md": "# Scoring rubric (treatment)\n\nUse the Stage A rubric with explicit checks for governance/challenge semantics reuse.\n",
+    }
+    placebo_text = {
+        "workflow_template.md": "# Workflow template (placebo)\n\n1. Read code.\n2. Record observations.\n3. Share summary.\n",
+        "safety_routing_rules.md": "# Safety routing rules (placebo)\n\n- Keep safety comments explicit.\n- Escalate uncertainty to reviewers.\n",
+        "scoring_rubric.md": "# Scoring rubric (placebo)\n\nApply generic review quality scoring only.\n",
+    }
+
+    for kit_name, json_payloads, text_payloads in [
+        ("Kit Blue", treatment_payloads, treatment_text),
+        ("Kit Gold", placebo_payloads, placebo_text),
+    ]:
+        kit_path = kits_dir / kit_name
+        for filename in KIT_FILES:
+            file_path = kit_path / filename
+            if filename.endswith(".json"):
+                file_path.write_text(
+                    json.dumps(json_payloads[filename], indent=2) + "\n",
+                    encoding="utf-8",
+                )
+            else:
+                file_path.write_text(text_payloads[filename], encoding="utf-8")
 
     (private_dir / "private_commitment_hashes.txt").write_text(
         "# Run 07_scripts/generate_private_commitment_hashes.py after private files are finalized.\n",
