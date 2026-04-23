@@ -79,7 +79,7 @@ def validate_source_packet_dir(src: Path) -> None:
 def refresh_public_provenance(results_dir: Path) -> None:
     manifest_path = results_dir / "provenance_manifest.json"
     if not manifest_path.exists():
-        return
+        raise SystemExit(f"Missing provenance manifest: {manifest_path}")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     tracked_paths: set[str] = set()
     for item in manifest.get("file_hashes", []):
@@ -140,13 +140,13 @@ def main() -> int:
     dst_blue = results_dir / "lane_blue_packet_public" / args.stage
     dst_gold = results_dir / "lane_gold_packet_public" / args.stage
 
+    validate_source_packet_dir(src_blue)
+    validate_source_packet_dir(src_gold)
+
     if args.force:
         for dst in [dst_blue, dst_gold]:
             if dst.exists():
                 shutil.rmtree(dst)
-
-    validate_source_packet_dir(src_blue)
-    validate_source_packet_dir(src_gold)
 
     normalize_lane(src_blue, dst_blue)
     normalize_lane(src_gold, dst_gold)

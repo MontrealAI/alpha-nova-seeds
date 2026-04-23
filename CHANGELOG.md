@@ -12,6 +12,7 @@
 - Hardened blinded packet/provenance integrity by adding stage-scoped normalized packet outputs (`stage_a`/`stage_b`), automatic provenance-manifest hash refresh after packet normalization, and commitment-hash coverage for private kit contents to prevent post-freeze drift.
 - Tightened `normalize_reviewer_packets.py` redaction and provenance behavior by using case-insensitive disallowed-label scrubbing and by appending hashes for newly normalized packet artifacts into `results_blinded_adjacent_transfer_v1/provenance_manifest.json`.
 - `normalize_reviewer_packets.py` now fails closed when raw reviewer packet source directories/artifacts are missing, and adds a `--refresh-only` mode for provenance hash refreshes (including `scorecard_outputs/out/summary.{json,md}`) without pretending packet normalization occurred.
+- `normalize_reviewer_packets.py` now validates raw packet sources before any `--force` deletion of existing staged packet outputs, and `--refresh-only` now fails if `provenance_manifest.json` is missing instead of exiting silently.
 
 ## [v2.8.0-rc.7] - 2026-04-23
 
