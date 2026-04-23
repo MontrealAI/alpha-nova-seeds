@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = "v2.8.0-rc.3"
+TARGET_RC_NUMBER = 3
 FILES = {
     "README": ROOT / "README.md",
     "AGENTS": ROOT / "AGENTS.md",
@@ -28,8 +29,9 @@ PATTERNS = {
     ],
 }
 
-# Reject future and stale active-target drift markers in release posture surfaces.
+# Reject known stale/future drift markers.
 FORBIDDEN = ["v2.8.0-rc.2", "v2.9.0-rc.1"]
+SAME_TRAIN_PATTERN = re.compile(r"v2\.8\.0-rc\.(\d+)")
 
 
 def main() -> int:
@@ -51,6 +53,13 @@ def main() -> int:
             if disallowed in text:
                 errors.append(
                     f"{path.relative_to(ROOT)} contains disallowed RC marker {disallowed}; expected active target {TARGET}"
+                )
+
+        for match in SAME_TRAIN_PATTERN.finditer(text):
+            rc_number = int(match.group(1))
+            if rc_number > TARGET_RC_NUMBER:
+                errors.append(
+                    f"{path.relative_to(ROOT)} contains premature same-train RC marker {match.group(0)}; expected active target {TARGET}"
                 )
 
     if errors:
