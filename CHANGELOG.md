@@ -5,6 +5,20 @@
 ### Changed
 - No unreleased changes recorded.
 
+## [v2.8.0-rc.6] - 2026-04-23
+
+### Added
+- Added `release/v2.8.0-rc.6-front-door-badge-coherence-checklist.md` to package the next additive RC cut with badge-rail acceptance criteria, smoke checks, migration notes, rollback notes, and claim-boundary reminders.
+
+### Changed
+- Promoted active RC posture from `v2.8.0-rc.5` to `v2.8.0-rc.6` across release-facing surfaces (`README.md`, `demos/README.md`, `AGENTS.md`, `RELEASES.md`, `docs/FRONTIER_LAB_POSTURE.md`, `docs/DOCTRINE_STACK.md`, and `docs/BADGE_STRATEGY.md`) without widening claims.
+- Updated `release/badges.json` release target and release-posture badge metadata to `v2.8.0-rc.6`, then regenerated marker-managed badge rails.
+- Refined the root README first-screen posture marker to keep RC target and badge rail aligned for institutional front-door scanability.
+
+### Notes
+- This RC is a coherence-and-presentation release cut for front-door trust clarity and release-surface consistency.
+- It preserves the verifiable, proof-first, bounded release-candidate posture.
+
 ## [v2.8.0-rc.5] - 2026-04-23
 
 ### Added
