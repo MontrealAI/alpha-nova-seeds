@@ -22,6 +22,10 @@ REQUIRED = [
     "frontier_queue.json",
     "intervention_log.json",
     "scorecard.json",
+    "board_scorecard.json",
+    "board_scorecard.md",
+    "governance_ruling.json",
+    "chronicle_entry.json",
     "claim_boundary.json",
     "determinism_fingerprint.json",
     "safety_gates.json",
@@ -49,6 +53,8 @@ def main() -> int:
     g2 = load_json(OUT / "generation_2.json")
     execution = load_json(OUT / "mandate3_execution.json")
     score = load_json(OUT / "scorecard.json")
+    board = load_json(OUT / "board_scorecard.json")
+    governance_ruling = load_json(OUT / "governance_ruling.json")
     gates = load_json(OUT / "safety_gates.json")
     provenance = load_json(OUT / "provenance_manifest.json")
 
@@ -100,6 +106,62 @@ def main() -> int:
     guards = provenance.get("determinism_guards", {})
     if guards.get("network_calls") != "disabled" or guards.get("external_apis") != "disabled":
         print("FAIL: provenance determinism guards must disable network and external APIs")
+        return 1
+
+    board_observed = board.get("observed", {})
+    observed_keys = [
+        "aoy_uplift",
+        "speed_uplift",
+        "rework_reduction",
+        "evidence_completeness_uplift",
+        "no_safety_regression",
+        "package_dependence",
+    ]
+    mismatched_observed = [
+        key for key in observed_keys if board_observed.get(key) != observed.get(key)
+    ]
+    if mismatched_observed:
+        print(
+            "FAIL: board_scorecard observed metrics mismatch scorecard observed metrics:"
+            f" {', '.join(mismatched_observed)}"
+        )
+        return 1
+
+    expected_gates = [
+        "no_value_without_evidence",
+        "no_autonomy_without_authority",
+        "no_settlement_without_validation",
+    ]
+    config = load_json(DEMO / "config.json")
+    forbidden_from_config = config.get("authority_scope", {}).get("may_not", [])
+    ruling_release = governance_ruling.get("release_target")
+    score_release = score.get("release_target")
+    if ruling_release != score_release:
+        print("FAIL: governance_ruling release_target must match scorecard release_target")
+        return 1
+    if governance_ruling.get("decision") != "approved_for_rc_demo_surface":
+        print("FAIL: governance_ruling decision must be approved_for_rc_demo_surface")
+        return 1
+    if governance_ruling.get("authority_scope_validated") is not True:
+        print("FAIL: governance_ruling authority_scope_validated must be true")
+        return 1
+    gates_required = governance_ruling.get("safety_gates_required", [])
+    if sorted(gates_required) != sorted(expected_gates):
+        print("FAIL: governance_ruling safety_gates_required must match doctrine gate contract")
+        return 1
+    missing_gate_artifacts = [gate for gate in expected_gates if gate not in gates]
+    if missing_gate_artifacts:
+        print(
+            "FAIL: governance_ruling references doctrine gates missing from safety_gates.json:"
+            f" {', '.join(missing_gate_artifacts)}"
+        )
+        return 1
+    forbidden_actions = governance_ruling.get("forbidden_actions", [])
+    if sorted(forbidden_actions) != sorted(forbidden_from_config):
+        print("FAIL: governance_ruling forbidden_actions must match config authority_scope.may_not")
+        return 1
+    if not str(governance_ruling.get("notes", "")).strip():
+        print("FAIL: governance_ruling notes must be non-empty")
         return 1
 
     print("PASS: open-ended-rsi artifact contract validated")

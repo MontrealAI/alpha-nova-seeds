@@ -1,0 +1,18 @@
+{
+  "ruling_id": "gov-ruling-open-ended-rsi-v1",
+  "release_target": "v2.8.0-rc.2",
+  "decision": "approved_for_rc_demo_surface",
+  "authority_scope_validated": true,
+  "safety_gates_required": [
+    "no_value_without_evidence",
+    "no_autonomy_without_authority",
+    "no_settlement_without_validation"
+  ],
+  "forbidden_actions": [
+    "widen authority scope",
+    "settle real value",
+    "self-promote to production",
+    "rewrite repo claim boundary"
+  ],
+  "notes": "Approval covers deterministic local replay only and does not authorize production settlement."
+}

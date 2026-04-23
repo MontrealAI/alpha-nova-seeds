@@ -1,0 +1,17 @@
+{
+  "entry_id": "chronicle-open-ended-rsi-g0-g1-g2-v1",
+  "release_target": "v2.8.0-rc.2",
+  "summary": "Completed deterministic three-generation bounded-to-expanding-to-increasingly-autonomous replay.",
+  "generation_highlights": {
+    "g0": "g0-candidate-04",
+    "g1_treatment_win": true,
+    "g2_domain": "backend_api_correctness"
+  },
+  "deterministic": true,
+  "simulated_components": true,
+  "unproven_boundary": [
+    "unrestricted autonomy",
+    "literal unbounded RSI",
+    "completed broad cybersecurity sovereign operation"
+  ]
+}
