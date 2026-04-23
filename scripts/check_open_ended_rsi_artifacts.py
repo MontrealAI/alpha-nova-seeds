@@ -108,8 +108,23 @@ def main() -> int:
         print("FAIL: provenance determinism guards must disable network and external APIs")
         return 1
 
-    if board.get("observed", {}).get("aoy_uplift") != observed.get("aoy_uplift"):
-        print("FAIL: board_scorecard observed metrics must match scorecard observed metrics")
+    board_observed = board.get("observed", {})
+    observed_keys = [
+        "aoy_uplift",
+        "speed_uplift",
+        "rework_reduction",
+        "evidence_completeness_uplift",
+        "no_safety_regression",
+        "package_dependence",
+    ]
+    mismatched_observed = [
+        key for key in observed_keys if board_observed.get(key) != observed.get(key)
+    ]
+    if mismatched_observed:
+        print(
+            "FAIL: board_scorecard observed metrics mismatch scorecard observed metrics:"
+            f" {', '.join(mismatched_observed)}"
+        )
         return 1
 
     if governance_ruling.get("authority_scope_validated") is not True:
