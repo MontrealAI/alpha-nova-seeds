@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TARGET = "v2.8.0-rc.2"
+TARGET = "v2.8.0-rc.3"
 FILES = {
     "README": ROOT / "README.md",
     "AGENTS": ROOT / "AGENTS.md",
@@ -16,19 +16,20 @@ FILES = {
 
 PATTERNS = {
     "README": [
-        re.compile(r"v2\.8\.0-rc\.2 posture"),
-        re.compile(r"Current RC target:\s*\*\*v2\.8\.0-rc\.2\*\*"),
+        re.compile(r"v2\.8\.0-rc\.3 posture"),
+        re.compile(r"Current RC target.*\*\*v2\.8\.0-rc\.3\*\*"),
     ],
     "AGENTS": [
-        re.compile(r"tracks\s*\*\*v2\.8\.0-rc\.2\*\*"),
+        re.compile(r"tracks\s*\*\*v2\.8\.0-rc\.3\*\*"),
     ],
     "RELEASES": [
-        re.compile(r"active target:\s*v2\.8\.0-rc\.2"),
-        re.compile(r"retain `v2\.8\.0-rc\.2` as the active unpublished RC target"),
+        re.compile(r"active target:\s*v2\.8\.0-rc\.3"),
+        re.compile(r"retain `v2\.8\.0-rc\.3` as the active unpublished RC target"),
     ],
 }
 
-FORBIDDEN = ["v2.8.0-rc.3", "v2.9.0-rc.1"]
+RC_MARKER_PATTERN = re.compile(r"v2\.8\.0-rc\.\d+")
+FORBIDDEN = ["v2.9.0-rc.1"]
 
 
 def main() -> int:
@@ -38,6 +39,7 @@ def main() -> int:
         if not path.exists():
             errors.append(f"missing file: {path.relative_to(ROOT)}")
             continue
+
         text = path.read_text(encoding="utf-8")
 
         for pattern in PATTERNS[label]:
@@ -45,6 +47,16 @@ def main() -> int:
                 errors.append(
                     f"{path.relative_to(ROOT)} missing required posture marker: {pattern.pattern}"
                 )
+
+        stale_markers = sorted({
+            match.group(0)
+            for match in RC_MARKER_PATTERN.finditer(text)
+            if match.group(0) != TARGET
+        })
+        if stale_markers:
+            errors.append(
+                f"{path.relative_to(ROOT)} contains stale RC markers: {', '.join(stale_markers)}; expected active target {TARGET}"
+            )
 
         for disallowed in FORBIDDEN:
             if disallowed in text:
