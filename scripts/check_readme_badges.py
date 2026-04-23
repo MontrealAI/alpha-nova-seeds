@@ -122,9 +122,24 @@ def main() -> int:
     if not rows:
         errors.append("release/badges.json readme.rows is missing or empty")
     else:
+        rendered_badge_ids: set[str] = set()
         for idx, row in enumerate(rows, start=1):
             if not row.get("badges"):
                 errors.append(f"readme row {idx} has no badges")
+                continue
+            for entry in row["badges"]:
+                badge_id = entry if isinstance(entry, str) else entry.get("id")
+                if not badge_id:
+                    errors.append(f"readme row {idx} contains a badge entry with no id")
+                    continue
+                rendered_badge_ids.add(badge_id)
+
+        missing_from_rows = sorted(required - rendered_badge_ids)
+        if missing_from_rows:
+            errors.append(
+                "release/badges.json readme.rows does not render all required_badges: "
+                + ", ".join(missing_from_rows)
+            )
 
     release_target = config["release_target"]
     release_badge = next(
