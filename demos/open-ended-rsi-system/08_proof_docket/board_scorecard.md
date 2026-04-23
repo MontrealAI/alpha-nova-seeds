@@ -13,7 +13,7 @@
 - Rework reduction: `0.4194` (min `0.4`)
 - Evidence uplift: `0.25` (min `0.2`)
 - Package dependence: `0.61` (min `0.3`)
-- Safety regression: `True`
+- No safety regression: `True`
 
 ## Longitudinal
 

@@ -89,7 +89,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/08_proof_docket/board_scorecard.md",
-      "sha256": "4f08b4b5dfa3ad29baf3e8d6460e4ee5a3a89967034f1b361b054c5cd808cc4a"
+      "sha256": "00c63c8bc264a75f8eabe758a9a283c935156ad7ce1108567f65a69eb5fe0146"
     },
     {
       "path": "demos/open-ended-rsi-system/08_proof_docket/proof_docket.md",
@@ -113,7 +113,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/board_scorecard.md",
-      "sha256": "4f08b4b5dfa3ad29baf3e8d6460e4ee5a3a89967034f1b361b054c5cd808cc4a"
+      "sha256": "00c63c8bc264a75f8eabe758a9a283c935156ad7ce1108567f65a69eb5fe0146"
     },
     {
       "path": "demos/open-ended-rsi-system/out/capability_genome.json",

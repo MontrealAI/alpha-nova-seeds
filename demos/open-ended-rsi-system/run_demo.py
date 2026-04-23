@@ -543,7 +543,7 @@ def render_board_scorecard_md(scorecard: dict[str, Any], g2: dict[str, Any]) -> 
 - Rework reduction: `{observed['rework_reduction']}` (min `{scorecard['thresholds']['rework_reduction_min']}`)
 - Evidence uplift: `{observed['evidence_completeness_uplift']}` (min `{scorecard['thresholds']['evidence_uplift_min']}`)
 - Package dependence: `{observed['package_dependence']}` (min `{scorecard['thresholds']['package_dependence_min']}`)
-- Safety regression: `{observed['no_safety_regression']}`
+- No safety regression: `{observed['no_safety_regression']}`
 
 ## Longitudinal
 
