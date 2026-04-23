@@ -1,22 +1,18 @@
 {
-  "python_version": "3.12.12",
-  "os": "Linux-6.12.47-x86_64-with-glibc2.39",
+  "python_version": "3.13.5",
+  "os": "Linux 4.4.0",
   "tool_versions": {
     "slither": "NA",
     "foundry": "NA",
-    "hardhat": "NA",
-    "node": "v20.19.6"
+    "hardhat": "package-lock-present-not-executed",
+    "node": "v22.16.0"
   },
-  "repo_sha": "b7ec8a40847e616621cc1fc6cfa67139c55609ad",
-  "branch": "work",
+  "repo_sha": "97907b70d86f44a5a3f31f71828a9360fd1f6744",
   "scope_hashes": {
     "contracts/CouncilGovernanceV25.sol": "d84e35039bb318b9ada1b77eb9135022948aef3bb356d8c10536c46a605cffe3",
     "contracts/ChallengePolicyModuleV25.sol": "59d75d889005e1e061aa63244e7fa94a8d7ece16ba3489e67a5659787b84a386",
     "contracts/ThresholdNetworkAdapterV25.sol": "3d9cd7a6373d704d2e261d2cdc5d038068eb9960a8fa63ed84ff1e554def5e0e",
-    "contracts/SignedAttestationVerifierV25.sol": "c117ec03c1d9044ebbde152d6c29c83a2c0a1bf9ad3c01144bee51aaf27b096f",
-    "backend/app/main.py": "57735ed94fc4e2562d4fb1111e4a5c0e604cbf9559c53e758db5898144fe27cc",
-    "backend/app/indexer.py": "ba9ab531b3cd977b118f6908f5996623ee467a22240648be6576cc857159134a",
-    "backend/app/schemas.py": "34423a3eef6b2057bd5f8464e04c2c5354238e862d64300ce2efa737488d8d18"
+    "contracts/SignedAttestationVerifierV25.sol": "c117ec03c1d9044ebbde152d6c29c83a2c0a1bf9ad3c01144bee51aaf27b096f"
   },
   "allowed_human_interventions": [
     "budget approval",
