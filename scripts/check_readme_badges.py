@@ -7,6 +7,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 BADGE_CONFIG = ROOT / "release" / "badges.json"
@@ -27,6 +28,31 @@ def _extract_marked_block(text: str, markers: tuple[str, str]) -> str:
     return f"{start}{match.group(1)}{end}"
 
 
+def _is_relative_link(link: str) -> bool:
+    parsed = urlparse(link)
+    return not parsed.scheme and not link.startswith("#")
+
+
+def _validate_relative_link(link: str, base_dir: Path) -> bool:
+    return (base_dir / link).resolve().exists()
+
+
+def _iter_demos_badges(cfg: dict) -> list[dict]:
+    from scripts.generate_readme_badges import _find_badge
+
+    badges: list[dict] = []
+    for entry in cfg["demos_readme"]["badges"]:
+        if isinstance(entry, str):
+            badges.append(dict(_find_badge(cfg, entry)))
+            continue
+
+        badge = dict(_find_badge(cfg, entry["id"]))
+        if "link" in entry:
+            badge["link"] = entry["link"]
+        badges.append(badge)
+    return badges
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -43,20 +69,29 @@ def main() -> int:
         if not link:
             errors.append(f"badge {badge['id']} missing link")
             continue
-        if link.startswith("./") and not (ROOT / link[2:]).exists():
+        if _is_relative_link(link) and not _validate_relative_link(link, ROOT):
             errors.append(f"badge {badge['id']} has missing local link target: {link}")
         if badge["kind"] == "workflow":
             workflow = badge["workflow"]
             if not (WORKFLOW_DIR / workflow).exists():
                 errors.append(f"badge {badge['id']} references missing workflow file: {workflow}")
 
+    demos_badges = _iter_demos_badges(config)
+    for badge in demos_badges:
+        link = badge.get("link", "")
+        if not link:
+            errors.append(f"demos badge {badge['id']} missing link")
+            continue
+        if _is_relative_link(link) and not _validate_relative_link(link, ROOT / "demos"):
+            errors.append(f"demos badge {badge['id']} has missing local link target: {link}")
+
     from scripts.generate_readme_badges import (
         DEMOS_MARKERS as GEN_DEMOS_MARKERS,
         README_MARKERS as GEN_README_MARKERS,
-        _load_config,
-        _render_block,
         _badge_markdown,
         _find_badge,
+        _load_config,
+        _render_block,
     )
 
     repo = "MontrealAI/alpha-nova-seeds"
@@ -71,15 +106,7 @@ def main() -> int:
     readme_lines.append(_badge_markdown(repo, style, _find_badge(cfg, "latest-rc")))
     expected_readme = _render_block(readme_lines, *GEN_README_MARKERS)
 
-    demos_lines = []
-    for entry in cfg["demos_readme"]["badges"]:
-        if isinstance(entry, str):
-            badge = dict(_find_badge(cfg, entry))
-        else:
-            badge = dict(_find_badge(cfg, entry["id"]))
-            if "link" in entry:
-                badge["link"] = entry["link"]
-        demos_lines.append(_badge_markdown(repo, style, badge))
+    demos_lines = [_badge_markdown(repo, style, badge) for badge in demos_badges]
     expected_demos = _render_block(demos_lines, *GEN_DEMOS_MARKERS)
 
     try:

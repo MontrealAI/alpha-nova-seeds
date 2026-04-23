@@ -28,6 +28,7 @@ PATTERNS = {
     ],
 }
 
+RC_MARKER_PATTERN = re.compile(r"v2\.8\.0-rc\.\d+")
 FORBIDDEN = ["v2.9.0-rc.1"]
 
 
@@ -38,6 +39,7 @@ def main() -> int:
         if not path.exists():
             errors.append(f"missing file: {path.relative_to(ROOT)}")
             continue
+
         text = path.read_text(encoding="utf-8")
 
         for pattern in PATTERNS[label]:
@@ -45,6 +47,16 @@ def main() -> int:
                 errors.append(
                     f"{path.relative_to(ROOT)} missing required posture marker: {pattern.pattern}"
                 )
+
+        stale_markers = sorted({
+            match.group(0)
+            for match in RC_MARKER_PATTERN.finditer(text)
+            if match.group(0) != TARGET
+        })
+        if stale_markers:
+            errors.append(
+                f"{path.relative_to(ROOT)} contains stale RC markers: {', '.join(stale_markers)}; expected active target {TARGET}"
+            )
 
         for disallowed in FORBIDDEN:
             if disallowed in text:
