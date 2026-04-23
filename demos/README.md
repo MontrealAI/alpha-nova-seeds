@@ -36,6 +36,7 @@ The four surfaces are intentionally separated so reviewers can distinguish:
 - Path: [`./open-ended-rsi-system/`](./open-ended-rsi-system/)
 - Role: flagship-class accelerating-loop demonstration with governed package heredity, frontier queue autonomy, and board-ready proof outputs
 - Run: `python3 demos/open-ended-rsi-system/run_demo.py --assert`
+- Operate: [`./open-ended-rsi-system/RUNBOOK.md`](./open-ended-rsi-system/RUNBOOK.md)
 - Proves: deterministic three-generation loop mechanics with frozen package reuse and bounded autonomous adjacent selection
 - Does not prove: unrestricted autonomy, literal unbounded RSI, or full broad sovereign realization
 

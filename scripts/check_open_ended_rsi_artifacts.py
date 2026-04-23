@@ -23,6 +23,10 @@ REQUIRED = [
     "frontier_queue.json",
     "intervention_log.json",
     "scorecard.json",
+    "board_scorecard.json",
+    "board_scorecard.md",
+    "governance_ruling.json",
+    "chronicle_entry.json",
     "claim_boundary.json",
     "determinism_fingerprint.json",
     "safety_gates.json",
@@ -99,34 +103,33 @@ def main() -> int:
         print(f"FAIL: threshold checks failed: {', '.join(failing)}")
         return 1
 
-    if board_score_path.exists():
-        board_score = load_json(board_score_path)
-        required_board_fields = [
-            "release_target",
-            "generation_summary",
-            "thresholds",
-            "observed",
-            "longitudinal",
-            "claim_boundary",
-        ]
-        missing_board_fields = [key for key in required_board_fields if key not in board_score]
-        if missing_board_fields:
-            print(
-                "FAIL: board_scorecard is missing required contract fields: "
-                + ", ".join(missing_board_fields)
-            )
-            return 1
-
-        mismatches = _collect_mismatches(
-            {key: board_score[key] for key in required_board_fields},
-            {key: score[key] for key in required_board_fields},
-            path="",
+    board_score = load_json(board_score_path)
+    required_board_fields = [
+        "release_target",
+        "generation_summary",
+        "thresholds",
+        "observed",
+        "longitudinal",
+        "claim_boundary",
+    ]
+    missing_board_fields = [key for key in required_board_fields if key not in board_score]
+    if missing_board_fields:
+        print(
+            "FAIL: board_scorecard is missing required contract fields: "
+            + ", ".join(missing_board_fields)
         )
-        if mismatches:
-            mismatch_preview = "; ".join(mismatches[:6])
-            extra = "" if len(mismatches) <= 6 else f" (+{len(mismatches) - 6} more)"
-            print(f"FAIL: board_scorecard contract drift detected: {mismatch_preview}{extra}")
-            return 1
+        return 1
+
+    mismatches = _collect_mismatches(
+        {key: board_score[key] for key in required_board_fields},
+        {key: score[key] for key in required_board_fields},
+        path="",
+    )
+    if mismatches:
+        mismatch_preview = "; ".join(mismatches[:6])
+        extra = "" if len(mismatches) <= 6 else f" (+{len(mismatches) - 6} more)"
+        print(f"FAIL: board_scorecard contract drift detected: {mismatch_preview}{extra}")
+        return 1
 
     bad_gates = [k for k, v in gates.items() if v.get("status") != "pass"]
     if bad_gates:
