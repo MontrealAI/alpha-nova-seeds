@@ -5,6 +5,8 @@
 ### Changed
 - Open-ended RSI demo now emits a dedicated `mandate3_execution.json` artifact capturing deterministic Mandate 3 execution details (selector policy, DISCO/Arnold execution steps, and offline-only constraints) for clearer auditability of autonomous execution behavior.
 - Open-ended RSI artifact checker now validates Mandate 3 execution logging, top-ranked frontier selection consistency, and provenance determinism guards for disabled network/external API paths.
+- Open-ended RSI demo now emits additional governance and board-facing artifacts (`governance_ruling.json`, `board_scorecard.json`, `board_scorecard.md`, `chronicle_entry.json`) to make authority gates and executive reporting auditable from machine-readable outputs.
+- Open-ended RSI documentation now includes a dedicated operator runbook at `demos/open-ended-rsi-system/RUNBOOK.md`, and the artifact checker enforces the expanded output contract.
 
 ## [v2.8.0-rc.2] - 2026-04-22
 

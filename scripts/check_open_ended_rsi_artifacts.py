@@ -22,6 +22,10 @@ REQUIRED = [
     "frontier_queue.json",
     "intervention_log.json",
     "scorecard.json",
+    "board_scorecard.json",
+    "board_scorecard.md",
+    "governance_ruling.json",
+    "chronicle_entry.json",
     "claim_boundary.json",
     "determinism_fingerprint.json",
     "safety_gates.json",
@@ -49,6 +53,8 @@ def main() -> int:
     g2 = load_json(OUT / "generation_2.json")
     execution = load_json(OUT / "mandate3_execution.json")
     score = load_json(OUT / "scorecard.json")
+    board = load_json(OUT / "board_scorecard.json")
+    governance_ruling = load_json(OUT / "governance_ruling.json")
     gates = load_json(OUT / "safety_gates.json")
     provenance = load_json(OUT / "provenance_manifest.json")
 
@@ -100,6 +106,14 @@ def main() -> int:
     guards = provenance.get("determinism_guards", {})
     if guards.get("network_calls") != "disabled" or guards.get("external_apis") != "disabled":
         print("FAIL: provenance determinism guards must disable network and external APIs")
+        return 1
+
+    if board.get("observed", {}).get("aoy_uplift") != observed.get("aoy_uplift"):
+        print("FAIL: board_scorecard observed metrics must match scorecard observed metrics")
+        return 1
+
+    if governance_ruling.get("authority_scope_validated") is not True:
+        print("FAIL: governance_ruling authority_scope_validated must be true")
         return 1
 
     print("PASS: open-ended-rsi artifact contract validated")

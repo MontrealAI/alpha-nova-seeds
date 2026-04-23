@@ -41,6 +41,7 @@ For v2.8.x publication:
 
 - Flagship demo replay + assert mode passing.
 - Accelerating-loop demo replay (`demos/open-ended-rsi-system/run_demo.py --assert`) passing with required artifact emission.
+- Accelerating-loop artifact contract includes governance and board surfaces (`governance_ruling.json`, `board_scorecard.json/.md`, `chronicle_entry.json`) plus provenance/safety outputs.
 - Legacy replay compatibility: `demos/unbounded-rsi-system/run_demo.py --assert` remains supported for historical comparison.
 - Demo ladder cross-links and role labels passing validation.
 - Root README links to flagship, ladder, doctrine, and release posture docs.

@@ -6,6 +6,8 @@ This demo is a deterministic, repo-native **bounded proof-of-mechanism** for an 
 
 It demonstrates controlled compounding under governance. **Claim boundary (one sentence): this demo demonstrates bounded, deterministic, local accelerating-loop mechanics only, and does not claim unrestricted autonomy, audited-final deployment, or external real-world validation.**
 
+Operational run instructions and verification checks are in [`./RUNBOOK.md`](./RUNBOOK.md).
+
 ## What this demo does
 
 1. Runs a real Mandate 1 starting point in the protocol-correctness wedge.
@@ -50,6 +52,10 @@ Primary machine-readable outputs in `out/`:
 - `claim_boundary.json`
 - `determinism_fingerprint.json`
 - `safety_gates.json`
+- `governance_ruling.json`
+- `board_scorecard.json`
+- `board_scorecard.md`
+- `chronicle_entry.json`
 - `summary.md`
 - `proof_docket.md`
 - `provenance_manifest.json`

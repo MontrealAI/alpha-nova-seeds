@@ -68,12 +68,28 @@
       "sha256": "4765ff9ef33eb5f6d75631bcb275f207ba7e5176fcdf37a2d768d820d8feb617"
     },
     {
+      "path": "demos/open-ended-rsi-system/07_scorecard/board_scorecard.json",
+      "sha256": "3f49dfbe2e54df39c1733806c461d2298395ede69dcfe76afb006ca28d31357e"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/07_scorecard/governance_ruling.json",
+      "sha256": "655d5b2f746fedc0b940025eb4e3263aab2cab52758fce76d69cb1867151fb55"
+    },
+    {
       "path": "demos/open-ended-rsi-system/07_scorecard/safety_gates.json",
       "sha256": "689164f1a396d62d204824b3d7d5e6a7b82519bd32e30817cc68de313ad047c2"
     },
     {
       "path": "demos/open-ended-rsi-system/07_scorecard/scorecard.json",
       "sha256": "f3f2db44bb61b1e2880b21fc7ec6286fd7ae58cbe178c6eea938d0b893352d91"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/08_proof_docket/board_scorecard.md",
+      "sha256": "fd42af632cf72a9d97f923e310ca59a89bd8874fc35a9c735ebef3a91508ead4"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/08_proof_docket/chronicle_entry.json",
+      "sha256": "3a25faf507d1bfd3b6f2805e306eb159938a68aed210453005e4e786e1cd7f78"
     },
     {
       "path": "demos/open-ended-rsi-system/08_proof_docket/proof_docket.md",
@@ -92,8 +108,20 @@
       "sha256": "5d85363824813fc613633238d9f77ed4f1bb48b1ed42b879a867f732bbed2176"
     },
     {
+      "path": "demos/open-ended-rsi-system/out/board_scorecard.json",
+      "sha256": "3f49dfbe2e54df39c1733806c461d2298395ede69dcfe76afb006ca28d31357e"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/board_scorecard.md",
+      "sha256": "fd42af632cf72a9d97f923e310ca59a89bd8874fc35a9c735ebef3a91508ead4"
+    },
+    {
       "path": "demos/open-ended-rsi-system/out/capability_genome.json",
       "sha256": "611b48b6e4a5dd2ae491c95ff0ff02e2daba330eb6002185878d2123c455d953"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/chronicle_entry.json",
+      "sha256": "3a25faf507d1bfd3b6f2805e306eb159938a68aed210453005e4e786e1cd7f78"
     },
     {
       "path": "demos/open-ended-rsi-system/out/claim_boundary.json",
@@ -118,6 +146,10 @@
     {
       "path": "demos/open-ended-rsi-system/out/generation_2.json",
       "sha256": "1f882b8bac5fdc5ad56566b21d45eba086f01aa7c7c95fb578c4529021f99c47"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/governance_ruling.json",
+      "sha256": "655d5b2f746fedc0b940025eb4e3263aab2cab52758fce76d69cb1867151fb55"
     },
     {
       "path": "demos/open-ended-rsi-system/out/intervention_log.json",

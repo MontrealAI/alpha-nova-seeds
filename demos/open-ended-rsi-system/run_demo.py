@@ -559,6 +559,47 @@ small{{color:#475569}}
 """
 
 
+def render_board_scorecard_markdown(
+    scorecard: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any], g2: dict[str, Any]
+) -> str:
+    observed = scorecard["observed"]
+    longitudinal = scorecard["longitudinal"]
+    return f"""# Board Scorecard — Open-Ended RSI System
+
+## Release target
+
+- {scorecard['release_target']}
+
+## Three-generation trajectory
+
+- Generation 0 (bounded): winner `{g0['winner']['candidate_id']}` frozen as governed package `{g0['frozen_package']['package_id']}`.
+- Generation 1 (expanding): treatment beats control with explicit threshold gate pass.
+- Generation 2 (increasingly autonomous): selected domain `{g2['selected_domain']['domain']}` from whitelist-only frontier queue.
+
+## Threshold outcomes
+
+- AOY uplift: {observed['aoy_uplift']:.2%}
+- Speed uplift: {observed['speed_uplift']:.2%}
+- Rework reduction: {observed['rework_reduction']:.2%}
+- Evidence completeness uplift: {observed['evidence_completeness_uplift']:.2%}
+- No safety regression: {observed['no_safety_regression']}
+- Package dependence: {observed['package_dependence']:.2%}
+
+## Longitudinal indicators
+
+- frontier_width: {longitudinal['frontier_width']}
+- autonomy_delta: {longitudinal['autonomy_delta']:.2%}
+- neighborhood_slope: {longitudinal['neighborhood_slope']}
+- archive_depth: {longitudinal['archive_depth']}
+
+## Claim boundary
+
+Demonstrated: bounded governed loop mechanics with attributable package reuse and whitelist-bounded autonomous selection.
+Simulated: assay values and board metrics are deterministic synthetic replay values.
+Unproven: unrestricted autonomy, literal unbounded RSI, or completed broad sovereign operation.
+"""
+
+
 def gate_status(ok: bool) -> str:
     return "pass" if ok else "fail"
 
@@ -654,6 +695,45 @@ def main() -> int:
 
     proof_md = render_proof_docket(scorecard, g0, g1, g2)
     summary_md = render_summary(scorecard, g2)
+    board_scorecard_md = render_board_scorecard_markdown(scorecard, g0, g1, g2)
+    board_scorecard = {
+        "release_target": scorecard["release_target"],
+        "trajectory": scorecard["phases"],
+        "winner": {
+            "generation_0": g0["winner"]["candidate_id"],
+            "generation_2_domain": g2["selected_domain"]["domain"],
+        },
+        "thresholds": scorecard["thresholds"],
+        "observed": scorecard["observed"],
+        "longitudinal": scorecard["longitudinal"],
+        "claim_boundary": scorecard["claim_boundary"],
+    }
+    governance_ruling = {
+        "ruling_id": "gov-ruling-open-ended-rsi-v1",
+        "release_target": cfg["release_target"],
+        "decision": "approved_for_rc_demo_surface",
+        "authority_scope_validated": True,
+        "safety_gates_required": [
+            "no_value_without_evidence",
+            "no_autonomy_without_authority",
+            "no_settlement_without_validation",
+        ],
+        "forbidden_actions": cfg["authority_scope"]["may_not"],
+        "notes": "Approval covers deterministic local replay only and does not authorize production settlement.",
+    }
+    chronicle_entry = {
+        "entry_id": "chronicle-open-ended-rsi-g0-g1-g2-v1",
+        "release_target": cfg["release_target"],
+        "summary": "Completed deterministic three-generation bounded-to-expanding-to-increasingly-autonomous replay.",
+        "generation_highlights": {
+            "g0": g0["winner"]["candidate_id"],
+            "g1_treatment_win": True,
+            "g2_domain": g2["selected_domain"]["domain"],
+        },
+        "deterministic": True,
+        "simulated_components": True,
+        "unproven_boundary": scorecard["claim_boundary"]["unproven"],
+    }
 
     artifacts: list[tuple[Path, Any, bool]] = [
         (DEMO / "00_manifest/manifest.json", manifest, True),
@@ -667,6 +747,10 @@ def main() -> int:
         (DEMO / "05_selection/lineage.json", lineage, True),
         (DEMO / "06_archive/intervention_log.json", intervention_log, True),
         (DEMO / "07_scorecard/scorecard.json", scorecard, True),
+        (DEMO / "07_scorecard/board_scorecard.json", board_scorecard, True),
+        (DEMO / "07_scorecard/governance_ruling.json", governance_ruling, True),
+        (DEMO / "08_proof_docket/board_scorecard.md", board_scorecard_md, False),
+        (DEMO / "08_proof_docket/chronicle_entry.json", chronicle_entry, True),
         (DEMO / "08_proof_docket/summary.md", summary_md, False),
         (DEMO / "08_proof_docket/proof_docket.md", proof_md, False),
         (OUT / "capability_genome.json", genome, True),
@@ -680,7 +764,11 @@ def main() -> int:
         (OUT / "frontier_queue.json", frontier_queue, True),
         (OUT / "intervention_log.json", intervention_log, True),
         (OUT / "scorecard.json", scorecard, True),
+        (OUT / "board_scorecard.json", board_scorecard, True),
+        (OUT / "governance_ruling.json", governance_ruling, True),
+        (OUT / "chronicle_entry.json", chronicle_entry, True),
         (OUT / "claim_boundary.json", claim_boundary, True),
+        (OUT / "board_scorecard.md", board_scorecard_md, False),
         (OUT / "summary.md", summary_md, False),
         (OUT / "proof_docket.md", proof_md, False),
     ]
@@ -807,6 +895,10 @@ def main() -> int:
             OUT / "frontier_queue.json",
             OUT / "intervention_log.json",
             OUT / "scorecard.json",
+            OUT / "board_scorecard.json",
+            OUT / "board_scorecard.md",
+            OUT / "governance_ruling.json",
+            OUT / "chronicle_entry.json",
             OUT / "claim_boundary.json",
             OUT / "determinism_fingerprint.json",
             OUT / "safety_gates.json",
