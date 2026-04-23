@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "release_target": "v2.8.0-rc.3",
   "style": "flat-square",
   "readme": {
@@ -9,9 +9,31 @@
       "contracts-security",
       "release-provenance",
       "proof-boundary",
-      "demo-ladder",
       "flagship-demo",
-      "accelerating-loop"
+      "demo-ladder",
+      "accelerating-loop",
+      "doctrine-stack"
+    ],
+    "rows": [
+      {
+        "label": "Operational trust rail",
+        "badges": [
+          "release-posture",
+          "ci",
+          "contracts-security",
+          "release-provenance"
+        ]
+      },
+      {
+        "label": "Orientation rail",
+        "badges": [
+          "proof-boundary",
+          "flagship-demo",
+          "demo-ladder",
+          "accelerating-loop",
+          "doctrine-stack"
+        ]
+      }
     ],
     "badges": [
       {
@@ -57,15 +79,6 @@
         "alt": "Proof-first bounded release candidate posture"
       },
       {
-        "id": "demo-ladder",
-        "kind": "static",
-        "label": "demo ladder",
-        "message": "entry",
-        "color": "0e8a16",
-        "link": "./demos/README.md",
-        "alt": "Demo ladder index"
-      },
-      {
         "id": "flagship-demo",
         "kind": "static",
         "label": "flagship demo",
@@ -73,6 +86,15 @@
         "color": "0e8a16",
         "link": "./demos/protocol_smart_contract_correctness_demo/README.md",
         "alt": "Flagship protocol correctness demo"
+      },
+      {
+        "id": "demo-ladder",
+        "kind": "static",
+        "label": "demo ladder",
+        "message": "entry",
+        "color": "0e8a16",
+        "link": "./demos/README.md",
+        "alt": "Demo ladder index"
       },
       {
         "id": "accelerating-loop",
@@ -91,33 +113,31 @@
         "color": "8250df",
         "link": "./docs/DOCTRINE_STACK.md",
         "alt": "Doctrine stack"
-      },
-      {
-        "id": "latest-rc",
-        "kind": "dynamic",
-        "image": "https://img.shields.io/github/v/release/MontrealAI/alpha-nova-seeds?include_prereleases&sort=semver&style=flat-square",
-        "link": "https://github.com/MontrealAI/alpha-nova-seeds/releases",
-        "alt": "Latest GitHub pre-release"
       }
     ]
   },
   "demos_readme": {
-    "badges": [
+    "rows": [
       {
-        "id": "release-posture",
-        "link": "../RELEASES.md"
-      },
-      {
-        "id": "flagship-demo",
-        "link": "./protocol_smart_contract_correctness_demo/README.md"
-      },
-      {
-        "id": "accelerating-loop",
-        "link": "./open-ended-rsi-system/README.md"
-      },
-      {
-        "id": "proof-boundary",
-        "link": "../docs/FRONTIER_LAB_POSTURE.md"
+        "label": "Demo ladder strip",
+        "badges": [
+          {
+            "id": "release-posture",
+            "link": "../RELEASES.md"
+          },
+          {
+            "id": "flagship-demo",
+            "link": "./protocol_smart_contract_correctness_demo/README.md"
+          },
+          {
+            "id": "accelerating-loop",
+            "link": "./open-ended-rsi-system/README.md"
+          },
+          {
+            "id": "proof-boundary",
+            "link": "../docs/FRONTIER_LAB_POSTURE.md"
+          }
+        ]
       }
     ]
   }

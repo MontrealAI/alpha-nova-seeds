@@ -24,16 +24,24 @@ README badge blocks are managed between markers:
 - Root: `<!-- BADGE_RAIL_START --> ... <!-- BADGE_RAIL_END -->`
 - Demo ladder: `<!-- DEMO_BADGE_STRIP_START --> ... <!-- DEMO_BADGE_STRIP_END -->`
 
+## Badge rail layout
+
+Root README uses two concise rows:
+
+1. **Operational trust rail**: release posture + CI + contracts security + release provenance.
+2. **Orientation rail**: proof boundary + flagship demo + demo ladder + accelerating loop + doctrine stack.
+
+This keeps first-screen parse time low for serious reviewers while preserving direct navigation.
+
 ## Dynamic vs static badge policy
 
-### Dynamic badges (GitHub workflow state / latest prerelease)
+### Dynamic badges (GitHub workflow state)
 
 Use dynamic badges only for surfaces that should reflect live platform state:
 
 - `ci.yml`
 - `contracts-security.yml`
 - `release-provenance.yml`
-- latest prerelease tag on GitHub releases
 
 ### Static/generated badges (repo truth)
 
@@ -56,10 +64,16 @@ Regenerate badge rails:
 python scripts/generate_readme_badges.py --write
 ```
 
-Validate badge rails and links:
+Validate badge rails and local/workflow references:
 
 ```bash
 python scripts/check_readme_badges.py
+```
+
+Validate badge links end-to-end (includes HTTP/HTTPS targets):
+
+```bash
+python scripts/check_readme_badges.py --check-http-links
 ```
 
 Recommended paired release-surface check:

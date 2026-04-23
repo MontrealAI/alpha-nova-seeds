@@ -3,11 +3,14 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import sys
 from pathlib import Path
+from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
+from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 BADGE_CONFIG = ROOT / "release" / "badges.json"
@@ -57,22 +60,54 @@ def _validate_local_link(errors: list[str], badge_id: str, base_dir: Path, link:
         errors.append(f"badge {badge_id} has missing local link target: {link}")
 
 
+def _validate_http_link(errors: list[str], badge_id: str, link: str, timeout: float = 8.0) -> None:
+    parsed = urlsplit(link)
+    if parsed.scheme not in {"http", "https"}:
+        return
+
+    req = Request(link, method="HEAD", headers={"User-Agent": "alpha-nova-seeds-badge-check/1.0"})
+    try:
+        with urlopen(req, timeout=timeout) as response:
+            if response.status >= 400:
+                errors.append(f"badge {badge_id} link returned HTTP {response.status}: {link}")
+    except HTTPError as exc:
+        if exc.code in {405, 403}:
+            # Some hosts block HEAD; retry with GET.
+            get_req = Request(link, method="GET", headers={"User-Agent": "alpha-nova-seeds-badge-check/1.0"})
+            try:
+                with urlopen(get_req, timeout=timeout) as response:
+                    if response.status >= 400:
+                        errors.append(f"badge {badge_id} link returned HTTP {response.status}: {link}")
+            except Exception as get_exc:  # pragma: no cover - defensive
+                errors.append(f"badge {badge_id} link check failed for {link}: {get_exc}")
+            return
+        errors.append(f"badge {badge_id} link returned HTTP {exc.code}: {link}")
+    except URLError as exc:
+        errors.append(f"badge {badge_id} link check failed for {link}: {exc}")
+
+
 def _expanded_demos_badges(cfg: dict) -> list[dict]:
-    from scripts.generate_readme_badges import _find_badge
+    from scripts.generate_readme_badges import _expand_row_entries
+
+    rows = cfg["demos_readme"].get("rows")
+    if not rows:
+        rows = [{"badges": cfg["demos_readme"].get("badges", [])}]
 
     merged: list[dict] = []
-    for entry in cfg["demos_readme"]["badges"]:
-        if isinstance(entry, str):
-            badge = dict(_find_badge(cfg, entry))
-        else:
-            badge = dict(_find_badge(cfg, entry["id"]))
-            if "link" in entry:
-                badge["link"] = entry["link"]
-        merged.append(badge)
+    for row in rows:
+        merged.extend(_expand_row_entries(cfg, row["badges"]))
     return merged
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--check-http-links",
+        action="store_true",
+        help="also validate HTTP/HTTPS badge targets with lightweight requests",
+    )
+    args = parser.parse_args()
+
     errors: list[str] = []
 
     config = json.loads(BADGE_CONFIG.read_text(encoding="utf-8"))
@@ -82,6 +117,14 @@ def main() -> int:
     missing = sorted(required - available)
     if missing:
         errors.append(f"release/badges.json missing required badge definitions: {', '.join(missing)}")
+
+    rows = config["readme"].get("rows", [])
+    if not rows:
+        errors.append("release/badges.json readme.rows is missing or empty")
+    else:
+        for idx, row in enumerate(rows, start=1):
+            if not row.get("badges"):
+                errors.append(f"readme row {idx} has no badges")
 
     release_target = config["release_target"]
     release_badge = next(
@@ -108,6 +151,8 @@ def main() -> int:
             errors.append(f"badge {badge['id']} missing link")
             continue
         _validate_local_link(errors, badge["id"], ROOT, link)
+        if args.check_http_links:
+            _validate_http_link(errors, badge["id"], link)
         if badge["kind"] == "workflow":
             workflow = badge["workflow"]
             if not (WORKFLOW_DIR / workflow).exists():
@@ -120,30 +165,30 @@ def main() -> int:
             errors.append(f"demos badge {badge['id']} missing link")
             continue
         _validate_local_link(errors, f"demos:{badge['id']}", ROOT / "demos", link)
+        if args.check_http_links:
+            _validate_http_link(errors, f"demos:{badge['id']}", link)
 
     from scripts.generate_readme_badges import (
         DEMOS_MARKERS as GEN_DEMOS_MARKERS,
         README_MARKERS as GEN_README_MARKERS,
-        _badge_markdown,
-        _find_badge,
         _load_config,
         _render_block,
+        _render_rows,
     )
 
     repo = "MontrealAI/alpha-nova-seeds"
     style = config["style"]
     cfg = _load_config()
 
-    readme_lines = [
-        _badge_markdown(repo, style, badge)
-        for badge in cfg["readme"]["badges"]
-        if badge["id"] != "latest-rc"
-    ]
-    readme_lines.append(_badge_markdown(repo, style, _find_badge(cfg, "latest-rc")))
-    expected_readme = _render_block(readme_lines, *GEN_README_MARKERS)
+    readme_rows = cfg["readme"].get("rows")
+    if not readme_rows:
+        readme_rows = [{"badges": [badge["id"] for badge in cfg["readme"]["badges"]]}]
+    expected_readme = _render_block(_render_rows(cfg, readme_rows, repo, style), *GEN_README_MARKERS)
 
-    demos_lines = [_badge_markdown(repo, style, badge) for badge in _expanded_demos_badges(cfg)]
-    expected_demos = _render_block(demos_lines, *GEN_DEMOS_MARKERS)
+    demos_rows = cfg["demos_readme"].get("rows")
+    if not demos_rows:
+        demos_rows = [{"badges": cfg["demos_readme"].get("badges", [])}]
+    expected_demos = _render_block(_render_rows(cfg, demos_rows, repo, style), *GEN_DEMOS_MARKERS)
 
     try:
         actual_readme = _extract_marked_block(README.read_text(encoding="utf-8"), README_MARKERS)
@@ -169,6 +214,8 @@ def main() -> int:
         return 1
 
     print("PASS: README badge rails are in sync with release/badges.json")
+    if args.check_http_links:
+        print("PASS: badge HTTP/HTTPS link checks succeeded")
     return 0
 
 

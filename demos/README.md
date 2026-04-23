@@ -1,6 +1,7 @@
 # Demo Ladder (v2.8.0-rc.3 target)
 
 <!-- DEMO_BADGE_STRIP_START -->
+**Demo ladder strip**
 [![Release posture: v2.8.0-rc.3](https://img.shields.io/badge/release-v2.8.0-rc.3-1f6feb?style=flat-square)](../RELEASES.md) [![Flagship protocol correctness demo](https://img.shields.io/badge/flagship%20demo-protocol%20correctness-0e8a16?style=flat-square)](./protocol_smart_contract_correctness_demo/README.md) [![Accelerating-loop demo](https://img.shields.io/badge/accelerating%20loop-open-ended%20RSI-0e8a16?style=flat-square)](./open-ended-rsi-system/README.md) [![Proof-first bounded release candidate posture](https://img.shields.io/badge/claim%20boundary-proof-first%20bounded%20RC-6f42c1?style=flat-square)](../docs/FRONTIER_LAB_POSTURE.md)
 <!-- DEMO_BADGE_STRIP_END -->
 
