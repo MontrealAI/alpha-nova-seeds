@@ -1,3 +1,6 @@
-# Normalized blinded reviewer packet
+# Lane Blue packet (public-safe)
 
-This packet intentionally excludes operator identity, explicit lane type labels, and private assignment metadata.
+Stage-scoped normalized reviewer packets are stored under:
+
+- `stage_a/`
+- `stage_b/`

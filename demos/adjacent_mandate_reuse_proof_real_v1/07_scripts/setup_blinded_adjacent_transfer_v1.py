@@ -84,7 +84,11 @@ def build_public_provenance(results_dir: Path) -> dict[str, object]:
         "run_register.csv",
         "intervention_log.csv",
         "lane_blue_packet_public/README.md",
+        "lane_blue_packet_public/stage_a/README.md",
+        "lane_blue_packet_public/stage_b/README.md",
         "lane_gold_packet_public/README.md",
+        "lane_gold_packet_public/stage_a/README.md",
+        "lane_gold_packet_public/stage_b/README.md",
         "scorecard_outputs/README.md",
         "scorecard_outputs/run_costs.csv",
         "scorecard_outputs/output_scoring.csv",
@@ -130,8 +134,10 @@ def main() -> int:
     if results_dir.exists() and args.force:
         shutil.rmtree(results_dir)
 
-    (results_dir / "lane_blue_packet_public").mkdir(parents=True)
-    (results_dir / "lane_gold_packet_public").mkdir(parents=True)
+    (results_dir / "lane_blue_packet_public" / "stage_a").mkdir(parents=True)
+    (results_dir / "lane_blue_packet_public" / "stage_b").mkdir(parents=True)
+    (results_dir / "lane_gold_packet_public" / "stage_a").mkdir(parents=True)
+    (results_dir / "lane_gold_packet_public" / "stage_b").mkdir(parents=True)
     (results_dir / "scorecard_outputs").mkdir(parents=True)
     private_dir.mkdir(parents=True, exist_ok=True)
 
@@ -458,22 +464,21 @@ Interim policy outcome:
         encoding="utf-8",
     )
 
-    (results_dir / "lane_blue_packet_public" / "README.md").write_text(
-        """# Lane Blue packet (public-safe)
-
-This packet path is reserved for normalized blinded reviewer artifacts.
-Do not include operator identity, package identity, or private assignment metadata.
-""",
-        encoding="utf-8",
-    )
-    (results_dir / "lane_gold_packet_public" / "README.md").write_text(
-        """# Lane Gold packet (public-safe)
-
-This packet path is reserved for normalized blinded reviewer artifacts.
-Do not include operator identity, package identity, or private assignment metadata.
-""",
-        encoding="utf-8",
-    )
+    for lane in ["blue", "gold"]:
+        (results_dir / f"lane_{lane}_packet_public" / "README.md").write_text(
+            f"# Lane {lane.title()} packet (public-safe)\n\n"
+            "Stage-scoped normalized reviewer packets are stored under:\n\n"
+            "- `stage_a/`\n"
+            "- `stage_b/`\n",
+            encoding="utf-8",
+        )
+        for stage in ["stage_a", "stage_b"]:
+            (results_dir / f"lane_{lane}_packet_public" / stage / "README.md").write_text(
+                "# Normalized blinded reviewer packet\n\n"
+                "This packet path is reserved for normalized blinded reviewer artifacts.\n"
+                "Do not include operator identity, package identity, explicit lane type labels, or private assignment metadata.\n",
+                encoding="utf-8",
+            )
 
     (results_dir / "scorecard_outputs" / "README.md").write_text(
         """# Scorecard outputs workspace

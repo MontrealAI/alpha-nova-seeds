@@ -4,7 +4,9 @@
 from __future__ import annotations
 
 import argparse
+import json
 import shutil
+import hashlib
 from pathlib import Path
 
 PACK_ROOT = Path(__file__).resolve().parents[1]
@@ -36,6 +38,14 @@ def sanitize_text(text: str) -> str:
     return output
 
 
+def sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
 def normalize_lane(src: Path, dst: Path) -> None:
     dst.mkdir(parents=True, exist_ok=True)
     copied = 0
@@ -56,6 +66,23 @@ def normalize_lane(src: Path, dst: Path) -> None:
     print(f"Normalized {copied} files from {src} -> {dst}")
 
 
+def refresh_public_provenance(results_dir: Path) -> None:
+    manifest_path = results_dir / "provenance_manifest.json"
+    if not manifest_path.exists():
+        return
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    hashes = []
+    for item in manifest.get("file_hashes", []):
+        rel = item.get("path")
+        if not rel:
+            continue
+        p = results_dir / rel
+        if p.exists():
+            hashes.append({"path": rel, "sha256": sha256_file(p)})
+    manifest["file_hashes"] = hashes
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--results-dir", default=str(DEFAULT_RESULTS))
@@ -74,8 +101,8 @@ def main() -> int:
         src_blue = private_dir / "raw_packets" / "stage_b" / "lane_blue"
         src_gold = private_dir / "raw_packets" / "stage_b" / "lane_gold"
 
-    dst_blue = results_dir / "lane_blue_packet_public"
-    dst_gold = results_dir / "lane_gold_packet_public"
+    dst_blue = results_dir / "lane_blue_packet_public" / args.stage
+    dst_gold = results_dir / "lane_gold_packet_public" / args.stage
 
     if args.force:
         for dst in [dst_blue, dst_gold]:
@@ -87,6 +114,7 @@ def main() -> int:
 
     normalize_lane(src_blue, dst_blue)
     normalize_lane(src_gold, dst_gold)
+    refresh_public_provenance(results_dir)
     return 0
 
 
