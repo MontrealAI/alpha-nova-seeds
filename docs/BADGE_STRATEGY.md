@@ -82,6 +82,8 @@ Recommended paired release-surface check:
 python scripts/check_release_surface_posture.py
 ```
 
+The release-surface checker derives the active RC target from `release/badges.json` and validates that README, AGENTS, RELEASES, doctrine posture docs, and the demo ladder surface all stay aligned to that same target.
+
 ## Change discipline
 
 When changing release posture or badge semantics:
