@@ -50,14 +50,13 @@ No reviewer judgments, lane outcomes, or pass/fail results were fabricated.
 2. Fill private-only files locally (outside git history).
 3. Freeze private commitments:
    ```bash
-   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/generate_private_commitment_hashes.py \
-     --private-dir demos/adjacent_mandate_reuse_proof_real_v1/local_private_blinding_materials/results_blinded_adjacent_transfer_v1
+   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/generate_private_commitment_hashes.py --private-dir demos/adjacent_mandate_reuse_proof_real_v1/local_private_blinding_materials/results_blinded_adjacent_transfer_v1
    ```
 4. Execute Stage A lane work under blinded kits and collect packets.
 5. Fill scorecard CSVs in `scorecard_outputs/` from real adjudication data.
 6. Run scorecard helper:
    ```bash
-   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py
+   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py --scorecard-dir demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1/scorecard_outputs
    ```
 7. Lock scorecard and only then reveal blinded assignment map.
 8. Run bundle completeness check:

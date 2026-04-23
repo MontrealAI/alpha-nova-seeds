@@ -9,7 +9,8 @@ The following protocol-required steps remain human-only and are not automated he
 5. Normalize packets and run 3 independent blinded reviewer adjudications.
 6. Populate scorecard CSVs from real reviewer evidence.
 7. Lock scorecard outputs and then reveal assignment map.
-8. Decide Stage A pass/fail honestly from thresholds.
-9. Run Stage B only if Stage A passed with real blinded reviewer data.
+8. Run reviewer leakage checks before reveal and document confidence/leakage rationale.
+9. Decide Stage A pass/fail honestly from thresholds.
+10. Run Stage B only if Stage A passed with real blinded reviewer data.
 
 Until those steps complete, any pass/fail claim is out of bounds.
