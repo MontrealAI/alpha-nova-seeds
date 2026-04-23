@@ -50,6 +50,8 @@ For v2.8.0-rc.3 posture, root README badges are intentionally split into:
 
 Badge metadata must remain sourced from `release/badges.json` and rendered via marker-managed generation (`scripts/generate_readme_badges.py --write`).
 
+Workflow badge links are part of the publication contract: each workflow badge must resolve to the matching GitHub Actions workflow path for its configured file (`.../actions/workflows/<workflow>.yml`), and is verified by `scripts/check_readme_badges.py`.
+
 ## Demo-and-doctrine RC acceptance surfaces
 
 For v2.8.x publication:

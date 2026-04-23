@@ -3,6 +3,8 @@
 ## [Unreleased]
 
 ### Changed
+- `scripts/check_readme_badges.py` now verifies that each workflow badge links to the exact matching GitHub Actions workflow URL (`.../actions/workflows/<workflow>.yml`), preventing misleading workflow-status navigation drift.
+- `docs/BADGE_STRATEGY.md` and `RELEASES.md` now explicitly document workflow-link path requirements as part of the badge publication contract.
 - `scripts/check_release_surface_posture.py` now reads the active RC target from `release/badges.json` and validates posture coherence across README/AGENTS/RELEASES plus `docs/FRONTIER_LAB_POSTURE.md`, `docs/DOCTRINE_STACK.md`, and `demos/README.md`.
 - `scripts/check_release_surface_posture.py` stale RC detection now uses exact parsed RC markers (from regex matches) instead of raw substring checks, preventing false failures for two-digit RC targets such as `v2.8.0-rc.10`.
 - `scripts/check_readme_badges.py` now validates that every `readme.rows` badge id exists in `readme.badges` and reports structured errors instead of uncaught `KeyError` traces during expected-block rendering.
