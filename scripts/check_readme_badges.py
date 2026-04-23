@@ -86,6 +86,25 @@ def _validate_http_link(errors: list[str], badge_id: str, link: str, timeout: fl
         errors.append(f"badge {badge_id} link check failed for {link}: {exc}")
 
 
+def _validate_workflow_badge_link(errors: list[str], badge: dict) -> None:
+    badge_id = badge["id"]
+    workflow = badge["workflow"]
+    link = badge.get("link", "")
+    parsed = urlsplit(link)
+    expected_path = f"/MontrealAI/alpha-nova-seeds/actions/workflows/{workflow}"
+
+    if parsed.scheme != "https" or parsed.netloc != "github.com":
+        errors.append(
+            f"badge {badge_id} workflow link must be a GitHub Actions workflow URL for {workflow}: {link}"
+        )
+        return
+
+    if parsed.path != expected_path:
+        errors.append(
+            f"badge {badge_id} workflow link path mismatch: expected {expected_path}, got {parsed.path}"
+        )
+
+
 def _expanded_demos_badges(cfg: dict) -> list[dict]:
     from scripts.generate_readme_badges import _expand_row_entries
 
@@ -177,6 +196,7 @@ def main() -> int:
             workflow = badge["workflow"]
             if not (WORKFLOW_DIR / workflow).exists():
                 errors.append(f"badge {badge['id']} references missing workflow file: {workflow}")
+            _validate_workflow_badge_link(errors, badge)
 
     demos_badges = _expanded_demos_badges(config)
     for badge in demos_badges:

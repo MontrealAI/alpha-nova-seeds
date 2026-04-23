@@ -43,6 +43,12 @@ Use dynamic badges only for surfaces that should reflect live platform state:
 - `contracts-security.yml`
 - `release-provenance.yml`
 
+Workflow badges must link to their exact GitHub Actions workflow page:
+
+- `https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/<workflow>.yml`
+
+`scripts/check_readme_badges.py` enforces this path contract to prevent misleading or stale workflow links.
+
 ### Static/generated badges (repo truth)
 
 Use generated static badges for bounded claims and navigation:
