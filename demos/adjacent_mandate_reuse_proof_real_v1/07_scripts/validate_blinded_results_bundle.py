@@ -29,6 +29,7 @@ REQUIRED_PUBLIC_PATHS = [
     "environment_lock.json",
     "run_register.csv",
     "intervention_log.csv",
+    "leakage_check.csv",
 ]
 
 

@@ -84,6 +84,7 @@ def build_public_provenance(results_dir: Path) -> dict[str, object]:
         "environment_lock.json",
         "run_register.csv",
         "intervention_log.csv",
+        "leakage_check.csv",
         "lane_blue_packet_public/README.md",
         "lane_blue_packet_public/stage_a/README.md",
         "lane_blue_packet_public/stage_b/README.md",
@@ -252,6 +253,10 @@ def main() -> int:
         PACK_ROOT / "02_execution" / "intervention_log.template.csv",
         results_dir / "intervention_log.csv",
     )
+    copy_text(
+        PACK_ROOT / "03_review" / "leakage_check.template.csv",
+        results_dir / "leakage_check.csv",
+    )
 
     copy_text(
         PACK_ROOT / "04_scorecard" / "run_costs.template.csv",
@@ -284,6 +289,7 @@ No reviewer judgments, lane outcomes, or pass/fail results were fabricated.
 - Environment and in-scope file hashes: `environment_lock.json`
 - Stage A and Stage B lane budget symmetry and thresholds are locked in preregistration
 - Scorecard inputs are pre-wired under `scorecard_outputs/`
+- Leakage-check worksheet is pre-wired at `leakage_check.csv`
 
 ## 2) What was blinded
 
@@ -328,7 +334,8 @@ No reviewer judgments, lane outcomes, or pass/fail results were fabricated.
    python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py --scorecard-dir demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1/scorecard_outputs
    ```
 7. Lock scorecard and only then reveal blinded assignment map.
-8. Run bundle completeness check:
+8. Record reviewer leakage checks in `leakage_check.csv` before reveal.
+9. Run bundle completeness check:
    ```bash
    python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/validate_blinded_results_bundle.py
    ```
@@ -349,8 +356,8 @@ The following protocol-required steps remain human-only and are not automated he
 4. Conduct Stage A lane execution with real blinded operator kits.
 5. Normalize packets and run 3 independent blinded reviewer adjudications.
 6. Populate scorecard CSVs from real reviewer evidence.
-7. Lock scorecard outputs and then reveal assignment map.
-8. Run reviewer leakage checks before reveal and document confidence/leakage rationale.
+7. Record reviewer leakage checks in `leakage_check.csv` before reveal.
+8. Lock scorecard outputs and then reveal assignment map.
 9. Decide Stage A pass/fail honestly from thresholds.
 10. Run Stage B only if Stage A passed with real blinded reviewer data.
 
