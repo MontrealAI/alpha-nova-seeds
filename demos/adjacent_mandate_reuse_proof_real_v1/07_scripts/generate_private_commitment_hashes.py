@@ -19,6 +19,17 @@ REQUIRED_PRIVATE_FILES = [
     "reviewer_identity_map.private.csv",
 ]
 
+KIT_SUBDIRS = ["Kit Blue", "Kit Gold"]
+KIT_REQUIRED_FILES = [
+    "ontology.json",
+    "query_bundle.json",
+    "workflow_template.md",
+    "mechanism_library.json",
+    "safety_routing_rules.md",
+    "scoring_rubric.md",
+    "extraction_schema.json",
+]
+
 
 def sha256_file(path: Path) -> str:
     h = hashlib.sha256()
@@ -36,6 +47,11 @@ def main() -> int:
 
     private_dir = Path(args.private_dir)
     missing = [name for name in REQUIRED_PRIVATE_FILES if not (private_dir / name).exists()]
+    for kit_name in KIT_SUBDIRS:
+        for filename in KIT_REQUIRED_FILES:
+            path = private_dir / "kits" / kit_name / filename
+            if not path.exists():
+                missing.append(f"kits/{kit_name}/{filename}")
     if missing:
         raise SystemExit(f"Missing private files in {private_dir}: {', '.join(missing)}")
 
@@ -49,6 +65,11 @@ def main() -> int:
     for name in REQUIRED_PRIVATE_FILES:
         digest = sha256_file(private_dir / name)
         lines.append(f"{digest}  {name}")
+    for kit_name in KIT_SUBDIRS:
+        for filename in KIT_REQUIRED_FILES:
+            rel = f"kits/{kit_name}/{filename}"
+            digest = sha256_file(private_dir / rel)
+            lines.append(f"{digest}  {rel}")
 
     out_path = private_dir / "private_commitment_hashes.txt"
     out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
