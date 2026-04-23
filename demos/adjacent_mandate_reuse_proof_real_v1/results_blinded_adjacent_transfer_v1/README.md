@@ -15,6 +15,11 @@ The result is important because it moves the claim from a bounded proof-of-mecha
 - **Private materials excluded:** answer keys, assignment maps, reviewer identity maps, and private commitments are not included
 
 ## Protocol-supported claim
+- Preregistration freeze: `prereg_experiment_manifest.json`
+- Environment and in-scope file hashes: `environment_lock.json`
+- Stage A and Stage B lane budget symmetry and thresholds are locked in preregistration
+- Scorecard inputs are pre-wired under `scorecard_outputs/`
+- Leakage-check worksheet is pre-wired at `leakage_check.csv`
 
 > AGI ALPHA demonstrated bounded recursive self-improvement through blinded adjacent transfer and one cross-domain expansion with reduced handholding under controlled internal evaluation.
 
@@ -48,6 +53,27 @@ Both stages used blinded lane labels:
 
 - `Lane Blue`
 - `Lane Gold`
+1. Initialize scaffolding (if re-running fresh):
+   ```bash
+   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/setup_blinded_adjacent_transfer_v1.py --force
+   ```
+2. Fill private-only files locally (outside git history).
+3. Freeze private commitments:
+   ```bash
+   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/generate_private_commitment_hashes.py --private-dir demos/adjacent_mandate_reuse_proof_real_v1/local_private_blinding_materials/results_blinded_adjacent_transfer_v1
+   ```
+4. Execute Stage A lane work under blinded kits and collect packets.
+5. Fill scorecard CSVs in `scorecard_outputs/` from real adjudication data.
+6. Run scorecard helper:
+   ```bash
+   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py --scorecard-dir demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1/scorecard_outputs
+   ```
+7. Record reviewer leakage checks in `leakage_check.csv` before reveal.
+8. Lock scorecard and only then reveal blinded assignment map.
+9. Run bundle completeness check:
+   ```bash
+   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/validate_blinded_results_bundle.py
+   ```
 
 Reveal occurred only after score lock.
 
