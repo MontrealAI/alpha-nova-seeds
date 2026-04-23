@@ -34,6 +34,7 @@ If regeneration is required, cut a new RC tag.
    - `cd sdk && npm run build --if-present`
    - `python scripts/check_readme_badges.py`
    - `python scripts/check_readme_badges.py --check-http-links`
+   - `python scripts/check_release_surface_posture.py`
    - `python scripts/release/generate_provenance_manifest.py --tag <TAG> --output /tmp/provenance-manifest-<TAG>.json`
 3. Trigger `release-provenance.yml`.
 4. Publish release notes with generated artifacts.
@@ -58,7 +59,7 @@ For v2.8.x publication:
 - Accelerating-loop artifact contract check (`python scripts/check_open_ended_rsi_artifacts.py`) passing, including board scorecard parity and governance/provenance machine-readable outputs.
 - Legacy replay compatibility: `demos/unbounded-rsi-system/run_demo.py --assert` remains supported for historical comparison.
 - Demo ladder cross-links and role labels passing validation.
-- Release-surface posture coherence check (`python scripts/check_release_surface_posture.py`) passing across README/AGENTS/RELEASES active RC markers.
+- Release-surface posture coherence check (`python scripts/check_release_surface_posture.py`) passing across README/AGENTS/RELEASES plus doctrine and demo-ladder RC markers derived from `release/badges.json`.
 - README badge rail check (`python scripts/check_readme_badges.py`) passing against `release/badges.json`.
 - Root README links to flagship, ladder, doctrine, and release posture docs.
 - Math markdown validation helper passing.
