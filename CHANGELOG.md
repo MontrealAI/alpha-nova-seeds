@@ -14,6 +14,7 @@
 - `normalize_reviewer_packets.py` now fails closed when raw reviewer packet source directories/artifacts are missing, and adds a `--refresh-only` mode for provenance hash refreshes (including `scorecard_outputs/out/summary.{json,md}`) without pretending packet normalization occurred.
 - `normalize_reviewer_packets.py` now validates raw source packet directories before `--force` cleanup to avoid deleting prior normalized evidence on a bad source path, and fails `--refresh-only` when `provenance_manifest.json` is absent.
 - `validate_blinded_results_bundle.py` now requires stage-scoped reviewer packet directories (`lane_*_packet_public/stage_a` and `stage_b`) so incomplete stage layouts cannot pass bundle validation.
+- `normalize_reviewer_packets.py` redaction now matches standalone labels/phrases (for example `operator`, `kit blue`) instead of arbitrary substrings, avoiding corruption of identifiers like `AccessControl` or `OperatorRole`.
 
 ## [v2.8.0-rc.7] - 2026-04-23
 

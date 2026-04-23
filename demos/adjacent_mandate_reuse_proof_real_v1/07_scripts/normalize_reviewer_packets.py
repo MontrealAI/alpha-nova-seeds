@@ -30,10 +30,17 @@ DISALLOWED_PATTERNS = [
 ]
 
 
+def _label_regex(pattern: str) -> re.Pattern[str]:
+    """Match only full standalone labels (or full phrases), not substrings in identifiers."""
+    parts = [re.escape(token) for token in pattern.split()]
+    body = r"\s+".join(parts)
+    return re.compile(rf"(?<![A-Za-z0-9_]){body}(?![A-Za-z0-9_])", flags=re.IGNORECASE)
+
+
 def sanitize_text(text: str) -> str:
     output = text
     for pattern in DISALLOWED_PATTERNS:
-        output = re.sub(re.escape(pattern), "[redacted]", output, flags=re.IGNORECASE)
+        output = _label_regex(pattern).sub("[redacted]", output)
     return output
 
 
