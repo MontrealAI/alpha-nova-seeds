@@ -95,6 +95,7 @@ This pack now includes an additive execution harness for a stricter blinded prot
 
 - setup script: `07_scripts/setup_blinded_adjacent_transfer_v1.py`
 - private commitment hashing helper: `07_scripts/generate_private_commitment_hashes.py`
+- packet normalization helper: `07_scripts/normalize_reviewer_packets.py`
 - result bundle validator: `07_scripts/validate_blinded_results_bundle.py`
 - public-safe result path: `results_blinded_adjacent_transfer_v1/`
 - local private-only path (git-ignored): `local_private_blinding_materials/`

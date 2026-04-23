@@ -20,6 +20,10 @@
       "sha256": "96d2fe9fe9247b7a2916de4289919a4bdd9f145255a27454bf834918a55055fd"
     },
     {
+      "path": "stage_b_scorecard.md",
+      "sha256": "c1511894cc5d489331856e1bdda97903c845ac2bff1adb427bba4cd8d4d80e0c"
+    },
+    {
       "path": "proof_docket_public.md",
       "sha256": "795b79448a4bd17c52313f644afba42e57fd855d44bb385f8bbf5e48d4d44939"
     },
@@ -29,11 +33,11 @@
     },
     {
       "path": "prereg_experiment_manifest.json",
-      "sha256": "28e73725eacc2596c1694a0e69f2b894ba9427bdc47aa7d4772d5962bb96988e"
+      "sha256": "fddaa6d0c1d5f53c885fafafb95157ca478c782e801e59c0cdf5c848477ca728"
     },
     {
       "path": "environment_lock.json",
-      "sha256": "9e13a9bdeb8230f6dac47e6e370867fc9efae0051dcfadadd2dadf441d176f42"
+      "sha256": "9396435e7589b22e92f1b9c9f978cf8665057f390803815b30ea8884b82f153d"
     },
     {
       "path": "run_register.csv",

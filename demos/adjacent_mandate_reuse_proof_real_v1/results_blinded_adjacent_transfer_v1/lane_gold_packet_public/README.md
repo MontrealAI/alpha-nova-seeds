@@ -1,4 +1,3 @@
-# Lane Gold packet (public-safe)
+# Normalized blinded reviewer packet
 
-This packet path is reserved for normalized blinded reviewer artifacts.
-Do not include operator identity, package identity, or private assignment metadata.
+This packet intentionally excludes operator identity, explicit lane type labels, and private assignment metadata.

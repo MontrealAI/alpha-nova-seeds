@@ -13,6 +13,7 @@ REQUIRED_PUBLIC_PATHS = [
     "README.md",
     "summary_metrics.json",
     "stage_a_scorecard.md",
+    "stage_b_scorecard.md",
     "lane_blue_packet_public",
     "lane_gold_packet_public",
     "scorecard_outputs",
