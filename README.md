@@ -1,8 +1,8 @@
-# α‑AGI Nova‑Seeds (v2.8.0-rc.3 posture)
+# α‑AGI Nova‑Seeds (v2.8.0-rc.4 posture)
 
 <!-- BADGE_RAIL_START -->
 **Operational trust rail**
-[![Release posture: v2.8.0-rc.3](https://img.shields.io/badge/release-v2.8.0-rc.3-1f6feb?style=flat-square)](./RELEASES.md) [![CI workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml) [![Contracts security workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml) [![Release provenance workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml)
+[![Release posture: v2.8.0-rc.4](https://img.shields.io/badge/release-v2.8.0-rc.4-1f6feb?style=flat-square)](./RELEASES.md) [![CI workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml) [![Contracts security workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml) [![Release provenance workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml)
 **Orientation rail**
 [![Proof-first bounded release candidate posture](https://img.shields.io/badge/claim%20boundary-proof-first%20bounded%20RC-6f42c1?style=flat-square)](./docs/FRONTIER_LAB_POSTURE.md) [![Flagship protocol correctness demo](https://img.shields.io/badge/flagship%20demo-protocol%20correctness-0e8a16?style=flat-square)](./demos/protocol_smart_contract_correctness_demo/README.md) [![Demo ladder index](https://img.shields.io/badge/demo%20ladder-entry-0e8a16?style=flat-square)](./demos/README.md) [![Accelerating-loop demo](https://img.shields.io/badge/accelerating%20loop-open-ended%20RSI-0e8a16?style=flat-square)](./demos/open-ended-rsi-system/README.md) [![Doctrine stack](https://img.shields.io/badge/doctrine-stack-8250df?style=flat-square)](./docs/DOCTRINE_STACK.md)
 <!-- BADGE_RAIL_END -->
@@ -16,7 +16,7 @@ System framing: `α‑AGI Insight → Nova‑Seeds → MARK → Sovereigns`
 - **What this is:** a proof-first architecture spanning Solidity contracts, SDK bindings, FastAPI/Postgres indexing, operator dashboard surfaces, and deterministic demo evidence ladders.
 - **What is real today:** deterministic synthetic flagship wedge replay, bounded accelerating-loop replay, release provenance workflows, and verifiable RC documentation.
 - **What is not claimed:** audited-final deployment, completed broad sovereign realization, unrestricted autonomy, or external real-world validity by default.
-- **Current RC target:** **v2.8.0-rc.3** (additive hardening cut; prior RC history remains in `CHANGELOG.md` / `RELEASES.md`).
+- **Current RC target:** **v2.8.0-rc.4** (additive hardening cut; prior RC history remains in `CHANGELOG.md` / `RELEASES.md`).
 
 ## Immediate paths
 

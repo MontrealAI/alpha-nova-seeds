@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Validate demo ladder links and role labels."""
+"""Validate demo ladder links, role labels, and active RC target markers."""
 
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,10 +33,20 @@ REQUIRED_PHRASES = [
 
 
 
-EXPECTED_RC_TARGET = "v2.8.0-rc.3"
+BADGE_CONFIG = ROOT / "release" / "badges.json"
+
+
+def _load_release_target() -> str:
+    data = json.loads(BADGE_CONFIG.read_text(encoding="utf-8"))
+    target = data.get("release_target", "")
+    if not target:
+        raise ValueError("release/badges.json missing release_target")
+    return target
+
+
 RC_TARGET_MARKERS = {
-    "demos/README.md": f"Demo Ladder ({EXPECTED_RC_TARGET} target)",
-    "demos/open-ended-rsi-system/README.md": f"Open-Ended RSI System Demo ({EXPECTED_RC_TARGET} target)",
+    "demos/README.md": "Demo Ladder ({target} target)",
+    "demos/open-ended-rsi-system/README.md": "Open-Ended RSI System Demo ({target} target)",
 }
 
 REQUIRED_CROSSLINKS = {
@@ -54,6 +65,11 @@ REQUIRED_CROSSLINKS = {
 
 def main() -> int:
     errors: list[str] = []
+    try:
+        expected_rc_target = _load_release_target()
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
+        print(f"FAIL\n- unable to load release target from release/badges.json: {exc}")
+        return 1
 
     for file in FILES:
         if not file.exists():
@@ -77,12 +93,13 @@ def main() -> int:
             errors.append(f"missing ladder index link in {path.relative_to(ROOT)}")
 
 
-    for rel_path, marker in RC_TARGET_MARKERS.items():
+    for rel_path, marker_template in RC_TARGET_MARKERS.items():
         target = ROOT / rel_path
         if not target.exists():
             errors.append(f"missing RC marker target file: {rel_path}")
             continue
         text = target.read_text(encoding="utf-8")
+        marker = marker_template.format(target=expected_rc_target)
         if marker not in text:
             errors.append(
                 f"{rel_path} missing expected RC target marker: {marker}"

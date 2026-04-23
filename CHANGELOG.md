@@ -3,27 +3,21 @@
 ## [Unreleased]
 
 ### Changed
-- `scripts/check_readme_badges.py` now verifies that each workflow badge links to the exact matching GitHub Actions workflow URL (`.../actions/workflows/<workflow>.yml`), preventing misleading workflow-status navigation drift.
-- `docs/BADGE_STRATEGY.md` and `RELEASES.md` now explicitly document workflow-link path requirements as part of the badge publication contract.
-- `scripts/check_release_surface_posture.py` now reads the active RC target from `release/badges.json` and validates posture coherence across README/AGENTS/RELEASES plus `docs/FRONTIER_LAB_POSTURE.md`, `docs/DOCTRINE_STACK.md`, and `demos/README.md`.
-- `scripts/check_release_surface_posture.py` stale RC detection now uses exact parsed RC markers (from regex matches) instead of raw substring checks, preventing false failures for two-digit RC targets such as `v2.8.0-rc.10`.
-- `scripts/check_readme_badges.py` now validates that every `readme.rows` badge id exists in `readme.badges` and reports structured errors instead of uncaught `KeyError` traces during expected-block rendering.
-- `scripts/check_readme_badges.py` now enforces that `readme.rows` actually render every `required_badges` ID, preventing silent omission of mandatory trust-surface badges from README output.
-- Badge rail generation now supports explicit row groups from `release/badges.json` so root README renders a two-tier trust/navigation rail instead of a single long badge line.
-- `release/badges.json` upgraded to row-driven metadata (`version: 2`) and now requires doctrine-stack coverage while dropping the optional latest-pre-release badge from the default front-door rail to reduce noise and drift risk.
-- `scripts/check_readme_badges.py` now validates row presence and supports optional HTTP/HTTPS link verification (`--check-http-links`) in addition to local-link and workflow-file checks.
-- Root README and demo ladder badge markers were regenerated into calmer, grouped strips for faster first-screen scanning without changing claim boundaries.
-- Added `release/v2.8.0-rc.3-front-door-badge-checklist.md` with acceptance, smoke, migration, rollback, and provenance notes for this coherence cut.
+- No unreleased changes recorded.
 
-- `scripts/check_release_surface_posture.py` now compares all discovered `vX.Y.Z-rc.N` markers against the active target and rejects any premature future RC marker (for example `v2.9.0-rc.2` or `v3.0.0-rc.1`).
-- Tightened demo-ladder coherence checks by extending `scripts/check_demo_links.py` with deterministic cross-link requirements between `demos/open-ended-rsi-system/README.md`, `demos/unbounded-rsi-system/README.md`, and the ladder index.
-- Updated `release/v2.8.0-rc.2-open-ended-rsi-checklist.md` smoke checks to include `scripts/check_open_ended_rsi_artifacts.py` and `scripts/check_release_surface_posture.py`, and added explicit runbook pointer for deterministic operator execution.
-- Added `scripts/check_release_surface_posture.py` and wired it into open-ended RSI repo-native probes/runbook/root verification commands to catch README/AGENTS/RELEASES active-RC drift deterministically.
-- Open-ended RSI demo now emits a dedicated `mandate3_execution.json` artifact capturing deterministic Mandate 3 execution details (selector policy, DISCO/Arnold execution steps, and offline-only constraints) for clearer auditability of autonomous execution behavior.
-- Open-ended RSI artifact checker now validates Mandate 3 execution logging, top-ranked frontier selection consistency, and provenance determinism guards for disabled network/external API paths.
-- Open-ended RSI demo now emits additional board/governance/provenance outputs (`board_scorecard.json`, `board_scorecard.md`, `governance_ruling.json`, `chronicle_entry.json`) and documents deterministic operator procedure in `demos/open-ended-rsi-system/RUNBOOK.md`.
-- Open-ended RSI artifact checker now requires the board/governance/chronicle artifact set and enforces board-scorecard contract parity with `scorecard.json`.
-- Demo ladder and release contract docs now link the open-ended demo runbook and explicitly record `v2.8.0-rc.2` posture coherence across README/AGENTS/RELEASES surfaces.
+## [v2.8.0-rc.4] - 2026-04-23
+
+### Added
+- Added `release/v2.8.0-rc.4-front-door-badge-coherence-checklist.md` as the next additive release checklist for badge governance, posture coherence, smoke checks, migration notes, and rollback notes.
+
+### Changed
+- Promoted active RC posture from `v2.8.0-rc.3` to `v2.8.0-rc.4` across release-facing surfaces (`README.md`, `demos/README.md`, `AGENTS.md`, `RELEASES.md`, `docs/FRONTIER_LAB_POSTURE.md`, `docs/DOCTRINE_STACK.md`, and `docs/BADGE_STRATEGY.md`) without widening claim boundaries.
+- Updated `release/badges.json` release target and release-posture badge metadata to `v2.8.0-rc.4`, then regenerated marker-managed badge rails.
+- `scripts/check_demo_links.py` now derives the expected RC target from `release/badges.json` instead of using a hard-coded value, eliminating demo-ladder RC marker drift when a new RC target is cut.
+
+### Notes
+- This RC is a coherence-and-presentation release cut for front-door trust surfaces.
+- It preserves the verifiable, proof-first, bounded release-candidate posture.
 
 ## [v2.8.0-rc.3] - 2026-04-23
 
