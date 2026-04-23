@@ -7,7 +7,8 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TARGET = "v2.8.0-rc.2"
+TARGET = "v2.8.0-rc.3"
+TARGET_VERSION = (2, 8, 0, 3)
 FILES = {
     "README": ROOT / "README.md",
     "AGENTS": ROOT / "AGENTS.md",
@@ -16,19 +17,25 @@ FILES = {
 
 PATTERNS = {
     "README": [
-        re.compile(r"v2\.8\.0-rc\.2 posture"),
-        re.compile(r"Current RC target:\s*\*\*v2\.8\.0-rc\.2\*\*"),
+        re.compile(r"v2\.8\.0-rc\.3 posture"),
+        re.compile(r"Current RC target.*\*\*v2\.8\.0-rc\.3\*\*"),
     ],
     "AGENTS": [
-        re.compile(r"tracks\s*\*\*v2\.8\.0-rc\.2\*\*"),
+        re.compile(r"tracks\s*\*\*v2\.8\.0-rc\.3\*\*"),
     ],
     "RELEASES": [
-        re.compile(r"active target:\s*v2\.8\.0-rc\.2"),
-        re.compile(r"retain `v2\.8\.0-rc\.2` as the active unpublished RC target"),
+        re.compile(r"active target:\s*v2\.8\.0-rc\.3"),
+        re.compile(r"retain `v2\.8\.0-rc\.3` as the active unpublished RC target"),
     ],
 }
 
-FORBIDDEN = ["v2.8.0-rc.3", "v2.9.0-rc.1"]
+# Reject known stale drift markers.
+FORBIDDEN = ["v2.8.0-rc.2"]
+RC_MARKER_PATTERN = re.compile(r"v(\d+)\.(\d+)\.(\d+)-rc\.(\d+)")
+
+
+def _version_tuple(match: re.Match[str]) -> tuple[int, int, int, int]:
+    return tuple(int(match.group(i)) for i in range(1, 5))
 
 
 def main() -> int:
@@ -49,7 +56,15 @@ def main() -> int:
         for disallowed in FORBIDDEN:
             if disallowed in text:
                 errors.append(
-                    f"{path.relative_to(ROOT)} contains future RC marker {disallowed}; expected active target {TARGET}"
+                    f"{path.relative_to(ROOT)} contains disallowed RC marker {disallowed}; expected active target {TARGET}"
+                )
+
+        for match in RC_MARKER_PATTERN.finditer(text):
+            marker = match.group(0)
+            version = _version_tuple(match)
+            if version > TARGET_VERSION:
+                errors.append(
+                    f"{path.relative_to(ROOT)} contains premature future RC marker {marker}; expected active target {TARGET}"
                 )
 
     if errors:

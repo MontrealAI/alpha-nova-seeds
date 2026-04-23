@@ -1,8 +1,8 @@
 # Releases
 
-## v2.8 RC release contract (active target: v2.8.0-rc.2)
+## v2.8 RC release contract (active target: v2.8.0-rc.3)
 
-Posture coherence note (2026-04-23): README.md, AGENTS.md, and RELEASES.md all retain `v2.8.0-rc.2` as the active unpublished RC target. Any new demo/release hardening should preserve this target unless maintainers explicitly cut a new RC.
+Posture coherence note (2026-04-23): README.md, AGENTS.md, and RELEASES.md all retain `v2.8.0-rc.3` as the active unpublished RC target. Any new demo/release hardening should preserve this target unless maintainers explicitly cut a new RC.
 
 Each release candidate must include:
 
@@ -32,6 +32,7 @@ If regeneration is required, cut a new RC tag.
    - `python backend/scripts/export_openapi.py`
    - `python scripts/contracts/export_abi.py`
    - `cd sdk && npm run build --if-present`
+   - `python scripts/check_readme_badges.py`
    - `python scripts/release/generate_provenance_manifest.py --tag <TAG> --output /tmp/provenance-manifest-<TAG>.json`
 3. Trigger `release-provenance.yml`.
 4. Publish release notes with generated artifacts.
@@ -47,6 +48,7 @@ For v2.8.x publication:
 - Legacy replay compatibility: `demos/unbounded-rsi-system/run_demo.py --assert` remains supported for historical comparison.
 - Demo ladder cross-links and role labels passing validation.
 - Release-surface posture coherence check (`python scripts/check_release_surface_posture.py`) passing across README/AGENTS/RELEASES active RC markers.
+- README badge rail check (`python scripts/check_readme_badges.py`) passing against `release/badges.json`.
 - Root README links to flagship, ladder, doctrine, and release posture docs.
 - Math markdown validation helper passing.
 - Doctrine consistency helper passing.

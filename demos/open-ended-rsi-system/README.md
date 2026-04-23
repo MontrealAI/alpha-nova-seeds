@@ -1,4 +1,4 @@
-# Open-Ended RSI System Demo (v2.8.0-rc.2 target)
+# Open-Ended RSI System Demo (v2.8.0-rc.3 target)
 
 This demo is a deterministic, repo-native **bounded proof-of-mechanism** for an early accelerating loop:
 
