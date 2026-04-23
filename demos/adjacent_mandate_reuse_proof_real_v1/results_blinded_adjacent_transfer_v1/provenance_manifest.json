@@ -13,7 +13,7 @@
     },
     {
       "path": "environment_lock.json",
-      "sha256": "75efcb7c986848c81a5233dca52be5b3d81e8f0801b9dcac4ac5431c1f579997"
+      "sha256": "6897c7b55aae76c203640eef98ab65c4f243113a1c5a7b32aac7289fde72d471"
     },
     {
       "path": "governance_ruling_public.md",
@@ -29,11 +29,11 @@
     },
     {
       "path": "lane_blue_packet_public/stage_a/README.md",
-      "sha256": "079778bf66a1ee7d21a3410420e87141f0f93e2a1565736802d8359e4a610e9b"
+      "sha256": "6f7d8386b2ed7ae4eb6cbff24b913016f1264b8371914139bcc557f9450bcee7"
     },
     {
       "path": "lane_blue_packet_public/stage_b/README.md",
-      "sha256": "079778bf66a1ee7d21a3410420e87141f0f93e2a1565736802d8359e4a610e9b"
+      "sha256": "6f7d8386b2ed7ae4eb6cbff24b913016f1264b8371914139bcc557f9450bcee7"
     },
     {
       "path": "lane_gold_packet_public/README.md",
@@ -41,15 +41,15 @@
     },
     {
       "path": "lane_gold_packet_public/stage_a/README.md",
-      "sha256": "079778bf66a1ee7d21a3410420e87141f0f93e2a1565736802d8359e4a610e9b"
+      "sha256": "6f7d8386b2ed7ae4eb6cbff24b913016f1264b8371914139bcc557f9450bcee7"
     },
     {
       "path": "lane_gold_packet_public/stage_b/README.md",
-      "sha256": "079778bf66a1ee7d21a3410420e87141f0f93e2a1565736802d8359e4a610e9b"
+      "sha256": "6f7d8386b2ed7ae4eb6cbff24b913016f1264b8371914139bcc557f9450bcee7"
     },
     {
       "path": "prereg_experiment_manifest.json",
-      "sha256": "7a57757ad933ebce8fbd46aa65a43a91ee8f4765f23d0a3619e2e7d45455dffb"
+      "sha256": "3afb2277934b79c9a3d93875188f07419a9125199f2ff7eaf9d03fdcc27a717c"
     },
     {
       "path": "proof_docket_public.md",
@@ -62,6 +62,14 @@
     {
       "path": "scorecard_outputs/README.md",
       "sha256": "fc7bff72cd4517c82a18ea2b292a6360fde9abdf4817284b051a463c5de6c08c"
+    },
+    {
+      "path": "scorecard_outputs/out/summary.json",
+      "sha256": "8300bc96371b02ab90ce396458888e8f83715aa1506da8168e2a2210f819c82b"
+    },
+    {
+      "path": "scorecard_outputs/out/summary.md",
+      "sha256": "f50370542eea0a8648fa4041851c8d174e6d44fb55e0ae8fe4bccbe722977133"
     },
     {
       "path": "scorecard_outputs/output_scoring.csv",

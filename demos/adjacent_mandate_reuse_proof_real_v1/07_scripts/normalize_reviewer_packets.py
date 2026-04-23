@@ -65,6 +65,17 @@ def normalize_lane(src: Path, dst: Path) -> None:
     print(f"Normalized {copied} files from {src} -> {dst}")
 
 
+def validate_source_packet_dir(src: Path) -> None:
+    if not src.exists() or not src.is_dir():
+        raise SystemExit(f"Missing source packet directory: {src}")
+    present = [name for name in ALLOWED_FILENAMES if (src / name).is_file()]
+    if not present:
+        raise SystemExit(
+            f"Source packet directory has no allowed reviewer artifacts: {src}. "
+            f"Expected one or more of: {', '.join(sorted(ALLOWED_FILENAMES))}"
+        )
+
+
 def refresh_public_provenance(results_dir: Path) -> None:
     manifest_path = results_dir / "provenance_manifest.json"
     if not manifest_path.exists():
@@ -84,6 +95,11 @@ def refresh_public_provenance(results_dir: Path) -> None:
             for file_path in sorted(packet_dir.glob("*")):
                 if file_path.is_file():
                     tracked_paths.add(str(file_path.relative_to(results_dir)))
+    scorecard_out_dir = results_dir / "scorecard_outputs" / "out"
+    if scorecard_out_dir.exists():
+        for file_path in sorted(scorecard_out_dir.glob("*")):
+            if file_path.is_file():
+                tracked_paths.add(str(file_path.relative_to(results_dir)))
 
     hashes = []
     for rel in sorted(tracked_paths):
@@ -99,11 +115,20 @@ def main() -> int:
     parser.add_argument("--results-dir", default=str(DEFAULT_RESULTS))
     parser.add_argument("--private-dir", default=str(DEFAULT_PRIVATE))
     parser.add_argument("--stage", choices=["stage_a", "stage_b"], default="stage_a")
+    parser.add_argument(
+        "--refresh-only",
+        action="store_true",
+        help="refresh public provenance hashes without reading raw reviewer packet sources",
+    )
     parser.add_argument("--force", action="store_true", help="overwrite existing normalized packet files")
     args = parser.parse_args()
 
     results_dir = Path(args.results_dir)
     private_dir = Path(args.private_dir)
+
+    if args.refresh_only:
+        refresh_public_provenance(results_dir)
+        return 0
 
     if args.stage == "stage_a":
         src_blue = private_dir / "raw_packets" / "stage_a" / "lane_blue"
@@ -120,8 +145,8 @@ def main() -> int:
             if dst.exists():
                 shutil.rmtree(dst)
 
-    for src in [src_blue, src_gold]:
-        src.mkdir(parents=True, exist_ok=True)
+    validate_source_packet_dir(src_blue)
+    validate_source_packet_dir(src_gold)
 
     normalize_lane(src_blue, dst_blue)
     normalize_lane(src_gold, dst_gold)

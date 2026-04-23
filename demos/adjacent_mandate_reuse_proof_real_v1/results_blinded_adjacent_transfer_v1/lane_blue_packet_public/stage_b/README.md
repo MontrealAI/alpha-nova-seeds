@@ -1,3 +1,4 @@
 # Normalized blinded reviewer packet
 
-This packet intentionally excludes operator identity, explicit lane type labels, and private assignment metadata.
+This packet path is reserved for normalized blinded reviewer artifacts.
+Do not include operator identity, package identity, explicit lane type labels, or private assignment metadata.

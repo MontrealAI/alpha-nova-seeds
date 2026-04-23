@@ -11,6 +11,7 @@
 - Extended the real-world blinded adjacent-transfer harness with matched private kit scaffolding (`Kit Blue`/`Kit Gold`), explicit Stage B placeholder scorecard status, and a reviewer packet normalization helper (`normalize_reviewer_packets.py`) so Stage A execution can proceed to the honest human boundary without leaking private assignment maps.
 - Hardened blinded packet/provenance integrity by adding stage-scoped normalized packet outputs (`stage_a`/`stage_b`), automatic provenance-manifest hash refresh after packet normalization, and commitment-hash coverage for private kit contents to prevent post-freeze drift.
 - Tightened `normalize_reviewer_packets.py` redaction and provenance behavior by using case-insensitive disallowed-label scrubbing and by appending hashes for newly normalized packet artifacts into `results_blinded_adjacent_transfer_v1/provenance_manifest.json`.
+- `normalize_reviewer_packets.py` now fails closed when raw reviewer packet source directories/artifacts are missing, and adds a `--refresh-only` mode for provenance hash refreshes (including `scorecard_outputs/out/summary.{json,md}`) without pretending packet normalization occurred.
 
 ## [v2.8.0-rc.7] - 2026-04-23
 
