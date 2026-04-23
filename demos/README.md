@@ -1,8 +1,8 @@
-# Demo Ladder (v2.8.0-rc.4 target)
+# Demo Ladder (v2.8.0-rc.5 target)
 
 <!-- DEMO_BADGE_STRIP_START -->
 **Demo ladder strip**
-[![Release posture: v2.8.0-rc.4](https://img.shields.io/badge/release-v2.8.0-rc.4-1f6feb?style=flat-square)](../RELEASES.md) [![Flagship protocol correctness demo](https://img.shields.io/badge/flagship%20demo-protocol%20correctness-0e8a16?style=flat-square)](./protocol_smart_contract_correctness_demo/README.md) [![Accelerating-loop demo](https://img.shields.io/badge/accelerating%20loop-open-ended%20RSI-0e8a16?style=flat-square)](./open-ended-rsi-system/README.md) [![Proof-first bounded release candidate posture](https://img.shields.io/badge/claim%20boundary-proof-first%20bounded%20RC-6f42c1?style=flat-square)](../docs/FRONTIER_LAB_POSTURE.md)
+[![Release posture: v2.8.0-rc.5](https://img.shields.io/badge/release-v2.8.0-rc.5-1f6feb?style=flat-square)](../RELEASES.md) [![Flagship protocol correctness demo](https://img.shields.io/badge/flagship%20demo-protocol%20correctness-0e8a16?style=flat-square)](./protocol_smart_contract_correctness_demo/README.md) [![Accelerating-loop demo](https://img.shields.io/badge/accelerating%20loop-open-ended%20RSI-0e8a16?style=flat-square)](./open-ended-rsi-system/README.md) [![Proof-first bounded release candidate posture](https://img.shields.io/badge/claim%20boundary-proof-first%20bounded%20RC-6f42c1?style=flat-square)](../docs/FRONTIER_LAB_POSTURE.md)
 <!-- DEMO_BADGE_STRIP_END -->
 
 This folder is the canonical demo ladder for the protocol-correctness wedge and its adjacent expansion surfaces.
