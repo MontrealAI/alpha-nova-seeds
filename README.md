@@ -1,77 +1,34 @@
-# α‑AGI Nova‑Seeds (v2.8.0-rc.2 posture)
+# α‑AGI Nova‑Seeds (v2.8.0-rc.3 posture)
 
-Nova‑Seeds are **sealed venture blueprints for sovereign opportunity formation**.
+<!-- BADGE_RAIL_START -->
+[![Release posture: v2.8.0-rc.3](https://img.shields.io/badge/release-v2.8.0-rc.3-1f6feb?style=flat-square)](./RELEASES.md) [![CI workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml) [![Contracts security workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml) [![Release provenance workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml) [![Proof-first bounded release candidate posture](https://img.shields.io/badge/claim%20boundary-proof-first%20bounded%20RC-6f42c1?style=flat-square)](./docs/FRONTIER_LAB_POSTURE.md) [![Demo ladder index](https://img.shields.io/badge/demo%20ladder-entry-0e8a16?style=flat-square)](./demos/README.md) [![Flagship protocol correctness demo](https://img.shields.io/badge/flagship%20demo-protocol%20correctness-0e8a16?style=flat-square)](./demos/protocol_smart_contract_correctness_demo/README.md) [![Accelerating-loop demo](https://img.shields.io/badge/accelerating%20loop-open-ended%20RSI-0e8a16?style=flat-square)](./demos/open-ended-rsi-system/README.md) [![Doctrine stack](https://img.shields.io/badge/doctrine-stack-8250df?style=flat-square)](./docs/DOCTRINE_STACK.md) [![Latest GitHub pre-release](https://img.shields.io/github/v/release/MontrealAI/alpha-nova-seeds?include_prereleases&sort=semver&style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/releases)
+<!-- BADGE_RAIL_END -->
 
-This repository is maintained as a **verifiable release candidate** and **production-grade starter architecture** — not an audited final deployment.
+Nova‑Seeds are **sealed venture blueprints for sovereign opportunity formation**. This repository is a **verifiable release candidate** for identity → proof → settlement → governance coordination infrastructure; it is **not** represented as an audited final deployment or default mainnet-safe system.
 
-System framing:
+System framing: `α‑AGI Insight → Nova‑Seeds → MARK → Sovereigns`
 
-`α‑AGI Insight → Nova‑Seeds → MARK → Sovereigns`
+## Front door (start in 90 seconds)
 
-Constitutional order:
+- **What this is:** a proof-first architecture spanning Solidity contracts, SDK bindings, FastAPI/Postgres indexing, operator dashboard surfaces, and deterministic demo evidence ladders.
+- **What is real today:** deterministic synthetic flagship wedge replay, bounded accelerating-loop replay, release provenance workflows, and verifiable RC documentation.
+- **What is not claimed:** audited-final deployment, completed broad sovereign realization, unrestricted autonomy, or external real-world validity by default.
+- **Current RC target:** **v2.8.0-rc.3** (additive hardening cut; prior RC history remains in `CHANGELOG.md` / `RELEASES.md`).
 
-1. identity
-2. proof
-3. settlement
-4. governance
+## Immediate paths
 
-Invariant:
+1. **Flagship wedge (primary entry):** [`demos/protocol_smart_contract_correctness_demo/`](./demos/protocol_smart_contract_correctness_demo/)
+2. **Demo ladder index:** [`demos/README.md`](./demos/README.md)
+3. **Accelerating-loop demo (bounded):** [`demos/open-ended-rsi-system/`](./demos/open-ended-rsi-system/)
+4. **Doctrine stack:** [`docs/DOCTRINE_STACK.md`](./docs/DOCTRINE_STACK.md)
+5. **Release posture contract:** [`RELEASES.md`](./RELEASES.md)
 
-- no value without evidence
-- no autonomy without authority
-- no settlement without validation
+Full ladder surfaces:
+- [`demos/adjacent_mandate_reuse_proof_demo/`](./demos/adjacent_mandate_reuse_proof_demo/)
+- [`demos/adjacent_mandate_reuse_proof_real_v1/`](./demos/adjacent_mandate_reuse_proof_real_v1/)
+- [`demos/unbounded-rsi-system/`](./demos/unbounded-rsi-system/) *(legacy compatibility)*
 
----
-
-## Release posture (April 23, 2026)
-
-- Current RC target: **v2.8.0-rc.2**.
-- This is a **additive release-candidate cut** after v2.7.0-rc.2, focused on front-door coherence, flagship/demo ladder polish, doctrine legibility, and operator UX hardening.
-- This RC remains proof-first and bounded: synthetic flagship evidence is strengthened; broader sovereign claims remain future-facing.
-
-### What is represented as real today
-
-- Contracts + SDK + backend + dashboard architecture for identity/proof/settlement/governance.
-- Deterministic synthetic flagship wedge with replayable artifact production.
-- Release/doctrine surfaces that can be reviewed from a clean machine.
-
-### What is explicitly not claimed
-
-- audited final deployment
-- default mainnet safety guarantees
-- completed real-world adjacent-mandate external proof
-- proven broad cybersecurity sovereign operation
-
----
-
-## Front-door orientation (start here)
-
-### 1) Flagship demo (primary front door)
-
-- [`demos/protocol_smart_contract_correctness_demo/`](./demos/protocol_smart_contract_correctness_demo/)
-- Why this wedge first: strongest verification, fastest replay, objective evidence density, commercially legible mandate category.
-- Output: deterministic winner selection, frozen capability package, adjacent control-vs-treatment scorecard, PASS/FAIL sovereign gate.
-
-### 2) Demo ladder index
-
-- [`demos/README.md`](./demos/README.md)
-- Clarifies role boundaries across:
-  - [`demos/adjacent_mandate_reuse_proof_demo/`](./demos/adjacent_mandate_reuse_proof_demo/)
-  - [`demos/adjacent_mandate_reuse_proof_real_v1/`](./demos/adjacent_mandate_reuse_proof_real_v1/)
-  - [`demos/open-ended-rsi-system/`](./demos/open-ended-rsi-system/)
-  - [`demos/unbounded-rsi-system/`](./demos/unbounded-rsi-system/) *(legacy compatibility surface)*
-  - flagship synthetic wedge demo
-  - compact synthetic adjacent proof demo
-  - real-world experiment pack
-  - accelerating-loop demo
-
-### 3) Accelerating-loop demo
-
-- [`demos/open-ended-rsi-system/`](./demos/open-ended-rsi-system/)
-- Purpose: bounded proof-of-mechanism for bounded → expanding → increasingly autonomous loop.
-- Output: deterministic package freeze/hash, control-vs-treatment scorecard, bounded autonomous mandate-3 selection, board-ready report artifacts.
-
-### 4) Doctrine stack
+## Doctrine stack
 
 - [`docs/DOCTRINE_STACK.md`](./docs/DOCTRINE_STACK.md)
 - [`docs/THERMODYNAMIC_MODEL.md`](./docs/THERMODYNAMIC_MODEL.md)
@@ -80,36 +37,17 @@ Invariant:
 - [`docs/RELEASE_POSITIONING.md`](./docs/RELEASE_POSITIONING.md)
 - [`docs/FRONTIER_LAB_POSTURE.md`](./docs/FRONTIER_LAB_POSTURE.md)
 
----
+## Invariants (non-negotiable)
 
-## Proof ladder and next milestone
+- no value without evidence
+- no autonomy without authority
+- no settlement without validation
 
-Protocol correctness is the first narrow organ:
+## Release posture (April 23, 2026)
 
-🌱💫 **α‑AGI Protocol Cybersecurity Sovereign 🔐** (synthetic wedge claim)
-
-Future-facing target (not yet proven by this RC):
-
-👑 **α‑AGI Cybersecurity Sovereign 🔱✨**
-
-Next real milestone remains unchanged:
-
-- one completed mandate
-- one frozen capability package
-- one adjacent mandate
-- control vs treatment
-- scorecard with predeclared thresholds
-
-Adjacent-mandate threshold gate:
-
-- ≥35% AOY uplift
-- ≥30% faster time to first accepted output
-- ≥40% lower repair/rework
-- ≥20% better evidence completeness
-- no safety regression
-- ≥30% accepted treatment outputs depending on the frozen package
-
----
+- Active release train: **v2.8.x verifiable release-candidate**.
+- This cut advances front-door clarity, badge governance, and release-surface drift prevention.
+- Proof remains bounded and explicit: synthetic deterministic evidence is strengthened; broad sovereign claims remain future-facing.
 
 ## Repository map
 
@@ -122,8 +60,6 @@ Adjacent-mandate threshold gate:
 - `demos/` — flagship/synthetic/real-world proof ladder
 - `release/` — RC checklists and release-hardening notes
 
----
-
 ## Verification-first docs
 
 - [Verify release artifacts](./docs/verify-release.md)
@@ -131,8 +67,7 @@ Adjacent-mandate threshold gate:
 - [Threat model](./docs/threat-model.md)
 - [Green path](./docs/green-path.md)
 - [Proof docket template](./docs/proof-docket-template/)
-
----
+- [Badge strategy](./docs/BADGE_STRATEGY.md)
 
 ## Quick local verification
 
@@ -145,6 +80,7 @@ python scripts/check_math_markdown.py
 python scripts/check_doctrine_consistency.py
 python scripts/check_demo_links.py
 python scripts/check_release_surface_posture.py
+python scripts/check_readme_badges.py
 python scripts/check_open_ended_rsi_artifacts.py
 python3 demos/protocol_smart_contract_correctness_demo/run_demo.py --assert
 python3 demos/open-ended-rsi-system/run_demo.py --assert

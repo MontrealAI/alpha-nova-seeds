@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "release_target": "v2.8.0-rc.3",
+  "style": "flat-square",
+  "readme": {
+    "required_badges": [
+      "release-posture",
+      "ci",
+      "contracts-security",
+      "release-provenance",
+      "proof-boundary",
+      "demo-ladder",
+      "flagship-demo",
+      "accelerating-loop"
+    ],
+    "badges": [
+      {
+        "id": "release-posture",
+        "kind": "static",
+        "label": "release",
+        "message": "v2.8.0-rc.3",
+        "color": "1f6feb",
+        "link": "./RELEASES.md",
+        "alt": "Release posture: v2.8.0-rc.3"
+      },
+      {
+        "id": "ci",
+        "kind": "workflow",
+        "workflow": "ci.yml",
+        "label": "CI",
+        "link": "https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml",
+        "alt": "CI workflow status"
+      },
+      {
+        "id": "contracts-security",
+        "kind": "workflow",
+        "workflow": "contracts-security.yml",
+        "label": "Contracts security",
+        "link": "https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml",
+        "alt": "Contracts security workflow status"
+      },
+      {
+        "id": "release-provenance",
+        "kind": "workflow",
+        "workflow": "release-provenance.yml",
+        "label": "Release provenance",
+        "link": "https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml",
+        "alt": "Release provenance workflow status"
+      },
+      {
+        "id": "proof-boundary",
+        "kind": "static",
+        "label": "claim boundary",
+        "message": "proof-first bounded RC",
+        "color": "6f42c1",
+        "link": "./docs/FRONTIER_LAB_POSTURE.md",
+        "alt": "Proof-first bounded release candidate posture"
+      },
+      {
+        "id": "demo-ladder",
+        "kind": "static",
+        "label": "demo ladder",
+        "message": "entry",
+        "color": "0e8a16",
+        "link": "./demos/README.md",
+        "alt": "Demo ladder index"
+      },
+      {
+        "id": "flagship-demo",
+        "kind": "static",
+        "label": "flagship demo",
+        "message": "protocol correctness",
+        "color": "0e8a16",
+        "link": "./demos/protocol_smart_contract_correctness_demo/README.md",
+        "alt": "Flagship protocol correctness demo"
+      },
+      {
+        "id": "accelerating-loop",
+        "kind": "static",
+        "label": "accelerating loop",
+        "message": "open-ended RSI",
+        "color": "0e8a16",
+        "link": "./demos/open-ended-rsi-system/README.md",
+        "alt": "Accelerating-loop demo"
+      },
+      {
+        "id": "doctrine-stack",
+        "kind": "static",
+        "label": "doctrine",
+        "message": "stack",
+        "color": "8250df",
+        "link": "./docs/DOCTRINE_STACK.md",
+        "alt": "Doctrine stack"
+      },
+      {
+        "id": "latest-rc",
+        "kind": "dynamic",
+        "image": "https://img.shields.io/github/v/release/MontrealAI/alpha-nova-seeds?include_prereleases&sort=semver&style=flat-square",
+        "link": "https://github.com/MontrealAI/alpha-nova-seeds/releases",
+        "alt": "Latest GitHub pre-release"
+      }
+    ]
+  },
+  "demos_readme": {
+    "badges": [
+      {
+        "id": "release-posture",
+        "link": "../RELEASES.md"
+      },
+      {
+        "id": "flagship-demo",
+        "link": "./protocol_smart_contract_correctness_demo/README.md"
+      },
+      {
+        "id": "accelerating-loop",
+        "link": "./open-ended-rsi-system/README.md"
+      },
+      {
+        "id": "proof-boundary",
+        "link": "../docs/FRONTIER_LAB_POSTURE.md"
+      }
+    ]
+  }
+}

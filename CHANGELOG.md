@@ -12,6 +12,22 @@
 - Open-ended RSI artifact checker now requires the board/governance/chronicle artifact set and enforces board-scorecard contract parity with `scorecard.json`.
 - Demo ladder and release contract docs now link the open-ended demo runbook and explicitly record `v2.8.0-rc.2` posture coherence across README/AGENTS/RELEASES surfaces.
 
+## [v2.8.0-rc.3] - 2026-04-23
+
+### Added
+- Introduced disciplined badge governance with `release/badges.json` as a single source of truth plus `scripts/generate_readme_badges.py` and `scripts/check_readme_badges.py` for deterministic README badge generation and drift checks.
+- Added `docs/BADGE_STRATEGY.md` documenting dynamic-vs-static badge policy, badge marker ownership, and release update workflow.
+
+### Changed
+- Upgraded root README front door with an institutional badge rail, tighter orientation hierarchy, explicit “what is / what is not claimed” boundary, and direct paths to flagship demo, demo ladder, accelerating-loop demo, doctrine stack, and release posture surfaces.
+- Added a compact status strip to `demos/README.md` and aligned it with the root badge strategy using marker-managed generation.
+- Reconciled release-surface posture to `v2.8.0-rc.3` across README, AGENTS, RELEASES, doctrine posture docs, and release-surface validator patterns.
+- Extended release acceptance surfaces to include README badge synchronization checks.
+
+### Notes
+- This release is an additive front-door and release-surface hardening cut.
+- It does **not** widen proof claims beyond bounded synthetic deterministic evidence.
+
 ## [v2.8.0-rc.2] - 2026-04-22
 
 ### Added
