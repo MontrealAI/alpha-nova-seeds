@@ -49,7 +49,11 @@
     },
     {
       "path": "demos/open-ended-rsi-system/03_generation/generation_2.json",
-      "sha256": "d2a04801c943aa23d9b66dda0d40fdc70db905e6cb56264e37379c61b8d0cb16"
+      "sha256": "1f882b8bac5fdc5ad56566b21d45eba086f01aa7c7c95fb578c4529021f99c47"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/03_generation/mandate3_execution.json",
+      "sha256": "e9410db87024062a5f3474b200ff3dcf7b83d86bdcbf0347791ddd383cec14af"
     },
     {
       "path": "demos/open-ended-rsi-system/04_assays/assay_bundle.json",
@@ -113,7 +117,7 @@
     },
     {
       "path": "demos/open-ended-rsi-system/out/generation_2.json",
-      "sha256": "d2a04801c943aa23d9b66dda0d40fdc70db905e6cb56264e37379c61b8d0cb16"
+      "sha256": "1f882b8bac5fdc5ad56566b21d45eba086f01aa7c7c95fb578c4529021f99c47"
     },
     {
       "path": "demos/open-ended-rsi-system/out/intervention_log.json",
@@ -122,6 +126,10 @@
     {
       "path": "demos/open-ended-rsi-system/out/lineage.json",
       "sha256": "634e0dbd96d3cc51cc6494a2b04a76cfe8eec022eb9cd862415f1c165ed6d9c6"
+    },
+    {
+      "path": "demos/open-ended-rsi-system/out/mandate3_execution.json",
+      "sha256": "e9410db87024062a5f3474b200ff3dcf7b83d86bdcbf0347791ddd383cec14af"
     },
     {
       "path": "demos/open-ended-rsi-system/out/manifest.json",
