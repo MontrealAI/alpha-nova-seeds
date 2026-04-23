@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+- Open-ended RSI demo now emits a dedicated `mandate3_execution.json` artifact capturing deterministic Mandate 3 execution details (selector policy, DISCO/Arnold execution steps, and offline-only constraints) for clearer auditability of autonomous execution behavior.
+- Open-ended RSI artifact checker now validates Mandate 3 execution logging, top-ranked frontier selection consistency, and provenance determinism guards for disabled network/external API paths.
+
 ## [v2.8.0-rc.2] - 2026-04-22
 
 ### Added

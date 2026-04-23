@@ -369,12 +369,41 @@ def generation_two(cfg: dict[str, Any], g0: dict[str, Any], g1: dict[str, Any]) 
         4,
     )
 
+    execution_log = {
+        "mandate_id": "mandate_3",
+        "domain": selected["domain"],
+        "autonomous_selector": "whitelist_bounded_weighted_frontier_ranker_v1",
+        "simulated": True,
+        "offline_only": True,
+        "steps": [
+            {
+                "step": 1,
+                "mode": "DISCO",
+                "action": "discover first workable package from selected domain reactive intermediate",
+                "status": "pass",
+            },
+            {
+                "step": 2,
+                "mode": "Arnold",
+                "action": "run one local mutation round with deterministic neighborhood scoring",
+                "status": "pass",
+            },
+            {
+                "step": 3,
+                "mode": "Assay cascade",
+                "action": "run cheap -> mid -> expensive synthetic assay pipeline",
+                "status": "pass",
+            },
+        ],
+    }
+
     return {
         "generation": 2,
         "mandate": "adjacent second domain with reduced intervention",
         "human_intervention_touches": 2,
         "selected_domain": selected,
         "frontier_queue": ranked_frontier,
+        "execution_log": execution_log,
         "disco_mode": {
             "reactive_intermediate": "missing proof-docket completeness crosswalk in selected domain",
             "first_workable_package": "g2-workable-pack-v1",
@@ -633,6 +662,7 @@ def main() -> int:
         (DEMO / "03_generation/generation_0.json", g0, True),
         (DEMO / "03_generation/generation_1.json", g1, True),
         (DEMO / "03_generation/generation_2.json", g2, True),
+        (DEMO / "03_generation/mandate3_execution.json", g2["execution_log"], True),
         (DEMO / "04_assays/assay_bundle.json", assay_bundle, True),
         (DEMO / "05_selection/lineage.json", lineage, True),
         (DEMO / "06_archive/intervention_log.json", intervention_log, True),
@@ -644,6 +674,7 @@ def main() -> int:
         (OUT / "generation_0.json", g0, True),
         (OUT / "generation_1.json", g1, True),
         (OUT / "generation_2.json", g2, True),
+        (OUT / "mandate3_execution.json", g2["execution_log"], True),
         (OUT / "assay_bundle.json", assay_bundle, True),
         (OUT / "lineage.json", lineage, True),
         (OUT / "frontier_queue.json", frontier_queue, True),
@@ -770,6 +801,7 @@ def main() -> int:
             OUT / "generation_0.json",
             OUT / "generation_1.json",
             OUT / "generation_2.json",
+            OUT / "mandate3_execution.json",
             OUT / "assay_bundle.json",
             OUT / "lineage.json",
             OUT / "frontier_queue.json",

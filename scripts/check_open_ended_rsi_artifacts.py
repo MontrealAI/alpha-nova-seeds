@@ -16,6 +16,7 @@ REQUIRED = [
     "generation_0.json",
     "generation_1.json",
     "generation_2.json",
+    "mandate3_execution.json",
     "assay_bundle.json",
     "lineage.json",
     "frontier_queue.json",
@@ -46,8 +47,10 @@ def main() -> int:
     g0 = load_json(OUT / "generation_0.json")
     g1 = load_json(OUT / "generation_1.json")
     g2 = load_json(OUT / "generation_2.json")
+    execution = load_json(OUT / "mandate3_execution.json")
     score = load_json(OUT / "scorecard.json")
     gates = load_json(OUT / "safety_gates.json")
+    provenance = load_json(OUT / "provenance_manifest.json")
 
     if not (g2["human_intervention_touches"] < g1["human_intervention_touches"] < g0["human_intervention_touches"]):
         print("FAIL: human intervention touches are not strictly descending g0 > g1 > g2")
@@ -71,6 +74,32 @@ def main() -> int:
     bad_gates = [k for k, v in gates.items() if v.get("status") != "pass"]
     if bad_gates:
         print(f"FAIL: doctrine safety gates not all pass: {', '.join(bad_gates)}")
+        return 1
+
+    ranked = g2.get("frontier_queue", [])
+    if not ranked:
+        print("FAIL: generation_2 frontier queue is empty")
+        return 1
+    if g2["selected_domain"]["domain"] != ranked[0]["domain"]:
+        print("FAIL: selected domain does not match top-ranked frontier domain")
+        return 1
+
+    if execution.get("domain") != g2["selected_domain"]["domain"]:
+        print("FAIL: mandate3_execution domain does not match generation_2 selected domain")
+        return 1
+    if execution.get("offline_only") is not True:
+        print("FAIL: mandate3_execution offline_only must be true")
+        return 1
+    if execution.get("simulated") is not True:
+        print("FAIL: mandate3_execution simulated flag must be true")
+        return 1
+    if len(execution.get("steps", [])) < 3:
+        print("FAIL: mandate3_execution must include at least 3 execution steps")
+        return 1
+
+    guards = provenance.get("determinism_guards", {})
+    if guards.get("network_calls") != "disabled" or guards.get("external_apis") != "disabled":
+        print("FAIL: provenance determinism guards must disable network and external APIs")
         return 1
 
     print("PASS: open-ended-rsi artifact contract validated")

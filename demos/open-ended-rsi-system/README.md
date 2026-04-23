@@ -41,6 +41,7 @@ Primary machine-readable outputs in `out/`:
 - `generation_0.json`
 - `generation_1.json`
 - `generation_2.json`
+- `mandate3_execution.json`
 - `assay_bundle.json`
 - `lineage.json`
 - `frontier_queue.json`
@@ -102,6 +103,7 @@ diff -u /tmp/rsi-fingerprint-a.json demos/open-ended-rsi-system/out/determinism_
 - Selection scoring uses transfer, assay coverage, safety scope, evidence density, and produces a deterministic ranked frontier queue.
 - Frontier selection is strictly whitelist-bounded from `config.json`.
 - Runs DISCO discovery then Arnold local evolution.
+- Emits a deterministic Mandate 3 execution log (`mandate3_execution.json`) that records autonomous selector policy, assay cascade completion, and offline-only constraints.
 - Emits `frontier_width`, `autonomy_delta`, `neighborhood_slope`, `archive_depth`.
 
 ## Demonstrated vs simulated vs unproven
