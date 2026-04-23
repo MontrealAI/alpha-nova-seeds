@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 DEMO = ROOT / "demos" / "open-ended-rsi-system"
@@ -36,6 +37,32 @@ def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _collect_mismatches(left: Any, right: Any, path: str) -> list[str]:
+    mismatches: list[str] = []
+    if isinstance(left, dict) and isinstance(right, dict):
+        keys = sorted(set(left) | set(right))
+        for key in keys:
+            child_path = f"{path}.{key}" if path else str(key)
+            if key not in left:
+                mismatches.append(f"{child_path} missing from board artifact")
+                continue
+            if key not in right:
+                mismatches.append(f"{child_path} missing from scorecard artifact")
+                continue
+            mismatches.extend(_collect_mismatches(left[key], right[key], child_path))
+        return mismatches
+    if isinstance(left, list) and isinstance(right, list):
+        if len(left) != len(right):
+            mismatches.append(f"{path} list length mismatch board={len(left)} score={len(right)}")
+            return mismatches
+        for idx, (lval, rval) in enumerate(zip(left, right)):
+            mismatches.extend(_collect_mismatches(lval, rval, f"{path}[{idx}]"))
+        return mismatches
+    if left != right:
+        mismatches.append(f"{path} mismatch board={left!r} score={right!r}")
+    return mismatches
+
+
 def main() -> int:
     missing = [name for name in REQUIRED if not (OUT / name).exists()]
     if missing:
@@ -49,6 +76,7 @@ def main() -> int:
     g2 = load_json(OUT / "generation_2.json")
     execution = load_json(OUT / "mandate3_execution.json")
     score = load_json(OUT / "scorecard.json")
+    board_score_path = OUT / "board_scorecard.json"
     gates = load_json(OUT / "safety_gates.json")
     provenance = load_json(OUT / "provenance_manifest.json")
 
@@ -70,6 +98,35 @@ def main() -> int:
     if failing:
         print(f"FAIL: threshold checks failed: {', '.join(failing)}")
         return 1
+
+    if board_score_path.exists():
+        board_score = load_json(board_score_path)
+        required_board_fields = [
+            "release_target",
+            "generation_summary",
+            "thresholds",
+            "observed",
+            "longitudinal",
+            "claim_boundary",
+        ]
+        missing_board_fields = [key for key in required_board_fields if key not in board_score]
+        if missing_board_fields:
+            print(
+                "FAIL: board_scorecard is missing required contract fields: "
+                + ", ".join(missing_board_fields)
+            )
+            return 1
+
+        mismatches = _collect_mismatches(
+            {key: board_score[key] for key in required_board_fields},
+            {key: score[key] for key in required_board_fields},
+            path="",
+        )
+        if mismatches:
+            mismatch_preview = "; ".join(mismatches[:6])
+            extra = "" if len(mismatches) <= 6 else f" (+{len(mismatches) - 6} more)"
+            print(f"FAIL: board_scorecard contract drift detected: {mismatch_preview}{extra}")
+            return 1
 
     bad_gates = [k for k, v in gates.items() if v.get("status") != "pass"]
     if bad_gates:
