@@ -3,6 +3,19 @@
 ## [Unreleased]
 
 ### Changed
+- Added `.gitignore` guardrails for `demos/adjacent_mandate_reuse_proof_real_v1/local_private_blinding_materials/` so private blinding maps and answer keys stay local-only when running the real-world blinded adjacent-transfer harness.
+- Added `07_scripts/assemble_reveal_packet.py` to emit a post-score-lock public reveal receipt (hash-linked to private commitment files) without exposing reviewer identities or answer keys.
+- Fixed `assemble_reveal_packet.py` lane-mapping extraction to read actual assignment-map headers (`blinded_lane_id`, `kit_variant`, `actual_lane`) with compatibility fallbacks, preventing silent blank lane metadata in reveal receipts.
+- `assemble_reveal_packet.py` now rejects scaffold placeholder commitment-hash files and requires real SHA-256 hash records before emitting a public reveal receipt.
+- `assemble_reveal_packet.py` commitment validation now enforces hexadecimal SHA-256 digest format (not just 64-character token length) before accepting private commitment records.
+- `assemble_reveal_packet.py` now fails reveal assembly when `blinded_assignment_map.private.csv` has zero data rows, preventing empty-but-apparently-valid reveal receipts.
+- `assemble_reveal_packet.py` now sets public receipt `revealed_after_score_lock` rows to `true` at assembly time and preserves source CSV values separately for audit context.
+- `assemble_reveal_packet.py` now accepts legacy assignment-map templates that omit `kit_variant`/`assigned_kit`, emitting `assigned_kit: UNSPECIFIED_LEGACY_TEMPLATE` instead of failing reveal publication.
+- `assemble_reveal_packet.py` now triggers a full provenance hash refresh (via `normalize_reviewer_packets.refresh_public_provenance`) immediately after writing `reveal_receipt_public.json`, so scorecard summary files and other tracked outputs remain in the signed hash set.
+- `normalize_reviewer_packets.py --refresh-only` now includes `scorecard_outputs/reveal_receipt_public.json` in provenance hash refreshes so reveal artifacts remain hash-linked in the public-safe manifest.
+- Regenerated `results_blinded_adjacent_transfer_v1` frozen manifests so `prereg_experiment_manifest.json` and `environment_lock.json` bind to a resolvable in-repo commit SHA for reproducible replay.
+- Pinned blinded-transfer frozen manifests to reachable baseline commit `c0931820d91e431abdac1b7a083e1fbf76c7fab9` and refreshed provenance hashes to keep replay anchoring verifiable by external operators.
+- Regenerated `results_blinded_adjacent_transfer_v1/` from a clean setup run and refreshed prereg/environment/provenance outputs, including a public `scorecard_outputs/reveal_receipt_public.json` artifact generated behind an explicit `--confirm-score-lock` gate.
 - Re-baselined `demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1/` to an honest public-safe boundary state (Stage A pending blinded human adjudication, Stage B not run/conditional), removing prior internal-pass-style artifacts and preserving only reproducible harness/handoff outputs.
 - Expanded the real-world blinded adjacent-transfer manifest templates to include full preregistration lock fields (Stage A + conditional Stage B scope, branch binding, budgets, intervention policy, publication/stopping rules, and allowed-tool boundaries) required for honest protocol execution.
 - Updated execution/review templates with stage-aware run-register rows and a dedicated reviewer leakage-check worksheet so reveal-time blinding integrity can be recorded explicitly.
