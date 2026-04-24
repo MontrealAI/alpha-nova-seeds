@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- Added `scripts/check_ascension_runtime_artifacts.py` to enforce the full bounded Ascension runtime output contract (all required layer artifacts, scorecards, and report formats) after local `run_demo.py --assert` replay.
 - Added release checklist `release/v2.8.0-rc.7-ascension-runtime-green-badges-checklist.md` with badge generation/validation commands, ascension-runtime assert command, workflow green requirements, artifact checks, claim boundary reminders, and rollback notes.
 - Added new bounded local/devnet Ascension runtime demo at `demos/ascension-runtime/` with modular source layout (`src/`), deterministic artifact emission, two-job agent competition, validation/council rulings, reservoir ledgering, archive lineage, node profile, architect next-loop planning, and board scorecard/report outputs.
 - Added bounded local/devnet Ascension runtime demo at `demos/ascension-live-runtime/` with deterministic end-to-end organism loop artifacts, event log emission, scorecard outputs, and operator reports.
