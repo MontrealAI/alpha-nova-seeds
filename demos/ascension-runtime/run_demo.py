@@ -117,7 +117,7 @@ def run(assert_mode: bool) -> None:
         schema_checks = {
             "insight_packet.json": "insight_packet.schema.json",
             "nova_seed_packet.json": "nova_seed_bundle.schema.json",
-            "mark_selection_report.json": "mark_selection_report.schema.json",
+            "mark_selection_report.json": "mark_selection_bundle.schema.json",
             "sovereign_manifest.json": "sovereign_manifest.schema.json",
             "marketplace_round.json": "marketplace_round.schema.json",
             "agi_job_receipt.json": "agi_job_receipt_bundle.schema.json",
@@ -125,7 +125,7 @@ def run(assert_mode: bool) -> None:
             "validation_round.json": "validation_round.schema.json",
             "reservoir_ledger.json": "reservoir_ledger.schema.json",
             "archive_lineage.json": "archive_lineage.schema.json",
-            "architect_recommendation.json": "architect_recommendation.schema.json",
+            "architect_recommendation.json": "architect_next_loop.schema.json",
             "ascension_runtime_scorecard.json": "ascension_runtime_scorecard.schema.json",
         }
         schema_root = DEMO.parent.parent / "schemas" / "v2.8"
