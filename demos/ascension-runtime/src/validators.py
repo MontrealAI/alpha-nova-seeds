@@ -20,9 +20,16 @@ def run(out: Path, receipts: list[dict], claim_boundary: str) -> dict:
         artifacts_exist = not missing_paths
         artifact_hashes = {str(p.relative_to(out)): sha_file(p) for p in required if p.exists()}
 
-        receipt_payload = read_json(out / "jobs" / f"{jid}_receipt.json") if (out / "jobs" / f"{jid}_receipt.json").exists() else {}
-        expected_hashes = receipt_payload.get("expected_artifact_hashes", {})
-        hashes_match = artifacts_exist and bool(expected_hashes) and all(
+        # trusted expected hashes must come from the in-memory receipt input,
+        # not from reloading mutable disk state.
+        expected_hashes = receipt.get("expected_artifact_hashes", {})
+
+        receipt_path = out / "jobs" / f"{jid}_receipt.json"
+        receipt_payload = read_json(receipt_path) if receipt_path.exists() else {}
+        receipt_expected_hashes = receipt_payload.get("expected_artifact_hashes", {})
+        receipt_matches_trusted_input = receipt_expected_hashes == expected_hashes and bool(expected_hashes)
+
+        hashes_match = artifacts_exist and receipt_matches_trusted_input and all(
             artifact_hashes.get(path) == expected_hash for path, expected_hash in expected_hashes.items()
         )
 
@@ -48,6 +55,7 @@ def run(out: Path, receipts: list[dict], claim_boundary: str) -> dict:
         approved = all(
             [
                 artifacts_exist,
+                receipt_matches_trusted_input,
                 hashes_match,
                 proof_docket_completeness,
                 claim_boundary_preserved,
@@ -63,6 +71,7 @@ def run(out: Path, receipts: list[dict], claim_boundary: str) -> dict:
                 "decision": decision,
                 "checks": {
                     "artifacts_exist": artifacts_exist,
+                    "receipt_matches_trusted_input": receipt_matches_trusted_input,
                     "hashes_match": hashes_match,
                     "proof_docket_completeness": proof_docket_completeness,
                     "claim_boundary_preserved": claim_boundary_preserved,

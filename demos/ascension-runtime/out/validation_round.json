@@ -7,6 +7,7 @@
       "decision": "approved",
       "checks": {
         "artifacts_exist": true,
+        "receipt_matches_trusted_input": true,
         "hashes_match": true,
         "proof_docket_completeness": true,
         "claim_boundary_preserved": true,
@@ -31,6 +32,7 @@
       "decision": "approved",
       "checks": {
         "artifacts_exist": true,
+        "receipt_matches_trusted_input": true,
         "hashes_match": true,
         "proof_docket_completeness": true,
         "claim_boundary_preserved": true,
