@@ -10,6 +10,7 @@
 - `assemble_reveal_packet.py` commitment validation now enforces hexadecimal SHA-256 digest format (not just 64-character token length) before accepting private commitment records.
 - `assemble_reveal_packet.py` now fails reveal assembly when `blinded_assignment_map.private.csv` has zero data rows, preventing empty-but-apparently-valid reveal receipts.
 - `assemble_reveal_packet.py` now sets public receipt `revealed_after_score_lock` rows to `true` at assembly time and preserves source CSV values separately for audit context.
+- `assemble_reveal_packet.py` now refreshes `results_blinded_adjacent_transfer_v1/provenance_manifest.json` immediately after writing `reveal_receipt_public.json`, so reveal artifacts are hash-linked without requiring a separate manual refresh step.
 - `normalize_reviewer_packets.py --refresh-only` now includes `scorecard_outputs/reveal_receipt_public.json` in provenance hash refreshes so reveal artifacts remain hash-linked in the public-safe manifest.
 - Regenerated `results_blinded_adjacent_transfer_v1` frozen manifests so `prereg_experiment_manifest.json` and `environment_lock.json` bind to a resolvable in-repo commit SHA for reproducible replay.
 - Regenerated `results_blinded_adjacent_transfer_v1/` from a clean setup run and refreshed prereg/environment/provenance outputs, including a public `scorecard_outputs/reveal_receipt_public.json` artifact generated behind an explicit `--confirm-score-lock` gate.

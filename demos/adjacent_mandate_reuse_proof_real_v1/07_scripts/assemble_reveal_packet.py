@@ -30,6 +30,27 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def refresh_provenance_manifest(results_dir: Path, reveal_path: Path) -> None:
+    manifest_path = results_dir / "provenance_manifest.json"
+    if not manifest_path.exists():
+        raise SystemExit(f"Missing provenance manifest: {manifest_path}")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    rel = str(reveal_path.relative_to(results_dir))
+    digest = sha256_file(reveal_path)
+    file_hashes = manifest.get("file_hashes", [])
+    updated = False
+    for item in file_hashes:
+        if item.get("path") == rel:
+            item["sha256"] = digest
+            updated = True
+            break
+    if not updated:
+        file_hashes.append({"path": rel, "sha256": digest})
+        file_hashes.sort(key=lambda x: x.get("path", ""))
+    manifest["file_hashes"] = file_hashes
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+
+
 def load_assignment_map(path: Path) -> list[dict[str, str]]:
     with path.open("r", encoding="utf-8", newline="") as f:
         return list(csv.DictReader(f))
@@ -130,6 +151,7 @@ def main() -> int:
     out_path = results_dir / "scorecard_outputs" / "reveal_receipt_public.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+    refresh_provenance_manifest(results_dir, out_path)
     print(f"Wrote {out_path}")
     return 0
 
