@@ -1,0 +1,57 @@
+{
+  "control": {
+    "cost_units": 12.0,
+    "accepted_count": 2,
+    "usefulness_points": 5.0,
+    "aoy": 0.4166666666666667,
+    "time_to_first_accepted_output": 1.6,
+    "avg_rework": 2.0,
+    "evidence_completeness": 0.75,
+    "safety_incidents": 0,
+    "unsupported_claims": 0,
+    "hallucinated_references": 0,
+    "package_dependence": 0.0
+  },
+  "treatment": {
+    "cost_units": 12.0,
+    "accepted_count": 4,
+    "usefulness_points": 9.0,
+    "aoy": 0.75,
+    "time_to_first_accepted_output": 0.9,
+    "avg_rework": 1.0,
+    "evidence_completeness": 0.9583333333333334,
+    "safety_incidents": 0,
+    "unsupported_claims": 0,
+    "hallucinated_references": 0,
+    "package_dependence": 0.75
+  },
+  "comparisons": {
+    "aoy_uplift": 0.7999999999999999,
+    "speed_uplift": 0.4375,
+    "rework_reduction": 0.5,
+    "evidence_completeness_uplift": 0.27777777777777785,
+    "package_dependence": 0.75,
+    "safety_regression": true,
+    "operator_intervention_reduction": 0.5,
+    "frontier_width_increase": 1
+  },
+  "minimum_pass_flags": {
+    "aoy_positive": true,
+    "speed_positive": true,
+    "evidence_completeness_uplift": true,
+    "package_dependence": true,
+    "operator_intervention_reduction": true,
+    "frontier_width_increase": true,
+    "safety_regression": true
+  },
+  "strong_pass_flags": {
+    "aoy_uplift": true,
+    "speed_uplift": true,
+    "rework_reduction": true,
+    "evidence_completeness_uplift": true,
+    "package_dependence": true,
+    "safety_regression": true
+  },
+  "cross_domain_minimum_pass": true,
+  "cross_domain_strong_pass": true
+}

@@ -1,2 +1,7 @@
-timestamp_utc,lane,run_id,actor,intervention_type,justification,artifact_touched,logged_by
-REPLACE,REPLACE,REPLACE,REPLACE,policy_clarification,REPLACE,REPLACE,REPLACE
+timestamp_utc,phase,actor,intervention_type,details
+2026-04-23T21:02:51Z,A0,solo-session,protocol_deviation,Reviewer independence emulated in-chat; no external human reviewers available
+2026-04-23T21:02:51Z,A4,solo-session,protocol_deviation,Lane execution sequential rather than true parallel
+stage-b,lane-blue,1,manual schema/API scope selection normalized into blinded packet
+stage-b,lane-blue,2,manual prompt steering to generic backend review cues
+stage-b,lane-gold,1,manual lineage package assembly and freeze
+stage-b,lane-gold,2,manual backend replay-surface checklist application
