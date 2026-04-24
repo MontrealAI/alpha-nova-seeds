@@ -13,6 +13,15 @@ The four surfaces are intentionally separated so reviewers can distinguish:
 - **what is real-world experiment material**
 - **what is accelerating-loop demonstration across bounded autonomy phases**
 
+
+## 0) Ascension runtime (organism reference runtime)
+
+- Path: [`./ascension-runtime/`](./ascension-runtime/)
+- Role: bounded local/devnet organism reference runtime across Insight → Archive/next loop
+- Run: `python3 demos/ascension-runtime/run_demo.py --assert`
+- Proves: deterministic local replay with machine-readable artifacts for each Ascension layer
+- Does not prove: audited-final deployment, live DEX/marketplace, mainnet settlement, or completed live Ascension
+
 ## 1) Flagship synthetic wedge demo (primary front door)
 
 - Path: [`./protocol_smart_contract_correctness_demo/`](./protocol_smart_contract_correctness_demo/)
@@ -73,7 +82,7 @@ It does **not** claim:
 Compatibility label: Real-world experiment pack.
 
 
-## 5) Ascension live runtime demo (bounded local/devnet)
+## 5) Ascension live runtime demo (bounded local/devnet, legacy compatibility surface)
 
 - Path: [`./ascension-live-runtime/`](./ascension-live-runtime/)
 - Role: end-to-end bounded organism loop across Insight → Archive with machine-readable receipts

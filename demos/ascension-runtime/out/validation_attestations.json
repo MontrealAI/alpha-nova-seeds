@@ -1,0 +1,41 @@
+{
+  "attestations": [
+    {
+      "job_id": "job_001",
+      "decision": "approved",
+      "checks": {
+        "artifacts_exist": true,
+        "hashes_match": true,
+        "proof_docket_completeness": true,
+        "claim_boundary_preserved": true,
+        "no_authority_widening": true,
+        "no_fabricated_external_proof": true
+      },
+      "artifact_hashes": {
+        "jobs/job_001_spec.json": "75c0a78bb63898689df96d0510a86625bcd6c50bbf10d379a09c2af78f5ec499",
+        "jobs/job_001_completion.json": "d4ab74837640aa228925e2620fcf27cce2c0a1e05884d891d047b7529c59a791",
+        "jobs/job_001_receipt.json": "f6d7569ec5147c7008a14a062ef623fe3c55c0ff97675c24fbda5c51ce6048d3",
+        "jobs/job_001_event_log.json": "e96eec495d652ebb58e8a7252716c1cdf10751ae53eb13cad53ee67161dcbb90"
+      }
+    },
+    {
+      "job_id": "job_002",
+      "decision": "approved",
+      "checks": {
+        "artifacts_exist": true,
+        "hashes_match": true,
+        "proof_docket_completeness": true,
+        "claim_boundary_preserved": true,
+        "no_authority_widening": true,
+        "no_fabricated_external_proof": true
+      },
+      "artifact_hashes": {
+        "jobs/job_002_spec.json": "61706a5f3d1fee28d2c0933c3f1f33d530151759f29dd477df2256b328795fec",
+        "jobs/job_002_completion.json": "069b605afa8e41f3fe6b54a166e699adc570c865fdb75c9a9cd76836da459ce9",
+        "jobs/job_002_receipt.json": "6cec041f33618f1afe02ae24637276ad420194ce28021e61f56769e0b1df2ddd",
+        "jobs/job_002_event_log.json": "836bc8fed50088673fddbde26e2c5990e19998f4db6357f15a3c69b6b37b559a"
+      }
+    }
+  ],
+  "claim_boundary": "The repository now contains a bounded local/devnet Minimum Viable Ascension Runtime that demonstrates the Ascension organism's proof-first economic loop. It does not claim completed live Ascension or mainnet production readiness."
+}

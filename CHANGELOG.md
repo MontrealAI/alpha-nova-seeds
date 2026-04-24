@@ -3,12 +3,15 @@
 ## [Unreleased]
 
 ### Added
+- Added new bounded local/devnet Ascension runtime demo at `demos/ascension-runtime/` with modular source layout (`src/`), deterministic artifact emission, two-job agent competition, validation/council rulings, reservoir ledgering, archive lineage, node profile, architect next-loop planning, and board scorecard/report outputs.
 - Added bounded local/devnet Ascension runtime demo at `demos/ascension-live-runtime/` with deterministic end-to-end organism loop artifacts, event log emission, scorecard outputs, and operator reports.
 - Added v2.8 Ascension artifact schemas: insight packet, seed packet, MARK report, sovereign manifest, marketplace round, AGI job receipt, agent execution log, validation round, reservoir ledger, archive lineage, and architect recommendation.
 - Added Ascension implementation/status docs at `docs/ASCENSION_IMPLEMENTATION_STATUS.md` and `docs/ASCENSION_TRACE_MATRIX.md`.
 - Added release checklist `release/v2.8.0-rc.7-ascension-live-runtime-checklist.md` for demo execution, schema/event checks, migration notes, rollback notes, and claim boundaries.
 
 ### Changed
+
+- Updated demo/docs release surfaces to include `demos/ascension-runtime/` as the organism reference runtime, refreshed Ascension trace/status docs, and added `release/v2.8.0-rc.3-ascension-runtime-checklist.md` for acceptance/migration/rollback boundaries.
 - Added read-only backend Ascension runtime endpoints (`/ascension/status`, `/ascension/seeds`, `/ascension/mark`, `/ascension/sovereigns`, `/ascension/jobs`, `/ascension/agents`, `/ascension/validators`, `/ascension/reservoir`, `/ascension/archive`, `/ascension/architect`, `/ascension/scorecard`) backed by deterministic local artifacts.
 - Updated dashboard operator surface with an Ascension Runtime tab and bound local/devnet status panels.
 - Updated root and demo-ladder docs to include the new Ascension runtime path.

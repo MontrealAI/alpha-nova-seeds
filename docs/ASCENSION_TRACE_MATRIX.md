@@ -1,20 +1,27 @@
-# Ascension Trace Matrix (bounded local/devnet)
+# ASCENSION TRACE MATRIX (bounded local/devnet runtime)
 
-| Layer | Artifact | Event coverage | Verification note |
-|---|---|---|---|
-| Insight | `out/insight_packet.json` | `InsightEmitted` | Deterministic opportunity packet + rationale |
-| Nova-Seeds | `out/nova_seed_registry_snapshot.json` | `NovaSeedRegistered` | Three-seed registry with lifecycle states |
-| MARK | `out/mark_selection_report.json` | `MarkScored` | Deterministic ranking + simulated allocation |
-| Sovereign | `out/sovereign_manifest.json` | `SovereignFormed` | Bounded authority scope and policies |
-| Business | `out/business_operating_plan.json` | Included in runtime events | Mandate decomposition references job IDs |
-| Marketplace | `out/marketplace_round.json` | `AgentApplied`, `AgentSelected` | Competing local bids and assignment |
-| AGI Jobs | `out/jobs/job_receipt.json` | `JobCreated`, `CompletionRequested`, `JobFinalized` | Proof-bound job receipt with local settlement units |
-| Agents | `out/agent_execution_log.json` | `AgentApplied`, `AgentSelected` | Strategy-diverse deterministic agent profiles |
-| Validators/Council | `out/validation_round.json`, `out/council_ruling.json` | `ValidationSubmitted` | Explicit validation checks + council ratification |
-| Value Reservoir | `out/reservoir_ledger.json` | `ReservoirCredited` | Placeholder-unit local accounting only |
-| Archive | `out/archive_lineage.json` | `ArchiveUpdated` | Capability and receipt lineage |
-| Architect | `out/architect_recommendation.json` | `ArchitectRecommended` | Next-loop recommendation + blocked proof list |
+This matrix maps the public Ascension organism to repo-native implementation surfaces for `demos/ascension-runtime/`.
 
-## Boundary reminder
+| Layer | Public role | Repo role | Artifact | Current implementation | Status class | Evidence status note |
+|---|---|---|---|---|---|---|
+| α‑AGI Insight | discovers AGI Alpha opportunities | opportunity / wedge selector | `insight_packet.json` | protocol-correctness wedge + frontier queue | implemented, local/devnet | deterministic local artifact; external foresight not proven |
+| Nova-Seeds | sealed venture blueprints / foresight genomes / FusionPlans | capability genome and seed packet | `nova_seed_packet.json` (`out/nova_seeds/*.json`) | five deterministic local seed packets | implemented, local/devnet | deterministic local artifact |
+| MARK | foresight DEX / risk oracle / selection and capital allocation | deterministic seed scoring and allocation simulation | `mark_selection_report.json` | weighted local scorer + bundle selector | implemented, simulated | local risk/selection oracle; not live DEX |
+| Sovereign | autonomous enterprise transformation | bounded operating lineage formed from selected seed | `sovereign_manifest.json` | α‑AGI Protocol Cybersecurity Sovereign candidate manifest | implemented, local/devnet | local/devnet/synthetic sovereign candidate |
+| AGI Business | decomposes FusionPlan into AGI Jobs | business operating plan and mandate decomposition | `business_operating_plan.json` | deterministic decomposition into two jobs | implemented, local/devnet | deterministic local artifact |
+| Marketplace | global job router / agent competition / validator settlement | local marketplace round | `marketplace_round.json` | local job posting, bidding, assignment, escrow placeholders | implemented, simulated | local/devnet simulation unless contracts/events are fully implemented |
+| AGI Jobs | autonomous missions carrying goal, success metric, bounty | proof-bound work units | `agi_job_receipt.json` (`out/jobs/job_001_receipt.json`) | deterministic specs/completions/receipts for two jobs | implemented, local/devnet | local deterministic receipts |
+| Agents | adaptive executors | competing deterministic local agents | `agent_execution_log.json` | deterministic fast_low_cost, evidence_heavy, balanced competition | implemented, local/devnet | bounded local agents, not unrestricted autonomy |
+| Validators / Council | guardians of integrity | validation attestations and council rulings | `validation_round.json`, `council_ruling.json` | artifact/hash/boundary checks with approval+quarantine path | implemented, local/devnet | local validation unless human/external reviewers are provided |
+| Value Reservoir | captures success and funds next cycles | validated value accounting ledger | `reservoir_ledger.json` | local validated/rejected accounting + reinvestment guidance | implemented, simulated | local accounting, not real token economy |
+| Architect | continuous meta-optimizer | next-loop recommendation engine | `architect_recommendation.json` | deterministic next-loop recommendations | implemented, local/devnet | deterministic local recommender |
+| Nodes | runtime / infrastructure nodes | local runtime profile / worker-validator execution environment | `node_runtime_profile.json` | worker, validator, sentinel profiles with constraints | implemented, local/devnet | local/devnet profile, not live node network |
+| Archive | reusable memory / stepping-stone preservation | frozen capability lineage and proof archive | `archive_lineage.json` | lineage, package manifest, archive index outputs | implemented, local/devnet | implemented as local lineage artifacts |
 
-All artifacts and events are for bounded local/devnet replay. They are not a claim of mainnet production proof.
+## Explicit status separation
+
+- **Implemented:** all listed layers emit machine-readable artifacts.
+- **Local/devnet:** Insight, Nova-Seeds, Sovereign, Business, AGI Jobs, Agents, Validators/Council, Architect, Nodes, Archive.
+- **Simulated:** MARK market behavior, Marketplace settlement rails, Reservoir token economics.
+- **Pending:** contract-backed event mirror for the full runtime loop and external reviewer integrations.
+- **Unproven:** live external-market validity, mainnet settlement, audited-final production safety, completed live Ascension.
