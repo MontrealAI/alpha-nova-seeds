@@ -448,9 +448,16 @@ def run(assert_mode: bool) -> None:
         },
     )
 
+    seed_packet_payloads = [
+        _read_json(OUT / "seeds" / f"{seed['seed_id']}_packet.json")
+        for seed in seeds
+    ]
+
+    for seed_packet in seed_packet_payloads:
+        _validate_required(seed_packet, "nova_seed_packet.schema.json")
+
     for payload, schema in [
         (insight_packet, "insight_packet.schema.json"),
-        (seeds[0], "nova_seed_packet.schema.json"),
         (_read_json(OUT / "mark_selection_report.json"), "mark_selection_report.schema.json"),
         (sovereign_manifest, "sovereign_manifest.schema.json"),
         (marketplace_round, "marketplace_round.schema.json"),
