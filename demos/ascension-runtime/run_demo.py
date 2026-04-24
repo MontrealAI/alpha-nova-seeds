@@ -116,7 +116,7 @@ def run(assert_mode: bool) -> None:
 
         schema_checks = {
             "insight_packet.json": "insight_packet.schema.json",
-            "nova_seed_packet.json": "nova_seed_packet.schema.json",
+            "nova_seed_packet.json": "nova_seed_bundle.schema.json",
             "mark_selection_report.json": "mark_selection_report.schema.json",
             "sovereign_manifest.json": "sovereign_manifest.schema.json",
             "marketplace_round.json": "marketplace_round.schema.json",
