@@ -13,10 +13,15 @@
         "no_authority_widening": true,
         "no_fabricated_external_proof": true
       },
+      "expected_artifact_hashes": {
+        "jobs/job_001_spec.json": "75c0a78bb63898689df96d0510a86625bcd6c50bbf10d379a09c2af78f5ec499",
+        "jobs/job_001_completion.json": "021489dc6d512191cbc1bffcefe54834179740a3ddf66d56e7a4cc3371798e5e",
+        "jobs/job_001_event_log.json": "e96eec495d652ebb58e8a7252716c1cdf10751ae53eb13cad53ee67161dcbb90"
+      },
       "artifact_hashes": {
         "jobs/job_001_spec.json": "75c0a78bb63898689df96d0510a86625bcd6c50bbf10d379a09c2af78f5ec499",
-        "jobs/job_001_completion.json": "d4ab74837640aa228925e2620fcf27cce2c0a1e05884d891d047b7529c59a791",
-        "jobs/job_001_receipt.json": "f6d7569ec5147c7008a14a062ef623fe3c55c0ff97675c24fbda5c51ce6048d3",
+        "jobs/job_001_completion.json": "021489dc6d512191cbc1bffcefe54834179740a3ddf66d56e7a4cc3371798e5e",
+        "jobs/job_001_receipt.json": "85d1e41a70ca3d12a11f8c74dcadb71f1f1a2f668769c4aefd1b8db228b49857",
         "jobs/job_001_event_log.json": "e96eec495d652ebb58e8a7252716c1cdf10751ae53eb13cad53ee67161dcbb90"
       },
       "missing_artifacts": []
@@ -32,10 +37,15 @@
         "no_authority_widening": true,
         "no_fabricated_external_proof": true
       },
+      "expected_artifact_hashes": {
+        "jobs/job_002_spec.json": "61706a5f3d1fee28d2c0933c3f1f33d530151759f29dd477df2256b328795fec",
+        "jobs/job_002_completion.json": "2533bc522696a30fccbb72aede651864e722ec179a896de5a2219d26197aaa93",
+        "jobs/job_002_event_log.json": "836bc8fed50088673fddbde26e2c5990e19998f4db6357f15a3c69b6b37b559a"
+      },
       "artifact_hashes": {
         "jobs/job_002_spec.json": "61706a5f3d1fee28d2c0933c3f1f33d530151759f29dd477df2256b328795fec",
-        "jobs/job_002_completion.json": "069b605afa8e41f3fe6b54a166e699adc570c865fdb75c9a9cd76836da459ce9",
-        "jobs/job_002_receipt.json": "6cec041f33618f1afe02ae24637276ad420194ce28021e61f56769e0b1df2ddd",
+        "jobs/job_002_completion.json": "2533bc522696a30fccbb72aede651864e722ec179a896de5a2219d26197aaa93",
+        "jobs/job_002_receipt.json": "5b4f7f65630f56918063e3909aba52c2ac0e84fa0cbab96c603563bb40f64f92",
         "jobs/job_002_event_log.json": "836bc8fed50088673fddbde26e2c5990e19998f4db6357f15a3c69b6b37b559a"
       },
       "missing_artifacts": []

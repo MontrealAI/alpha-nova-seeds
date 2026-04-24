@@ -35,9 +35,7 @@ def run(out: Path, selected_bundle: list[str], receipts: list[dict], mark_ranked
 
 
 def write_archive_index(out: Path, claim_boundary: str) -> None:
-    artifacts = sorted(str(p.relative_to(out)) for p in out.rglob("*.json"))
-    if "archive_index.json" not in artifacts:
-        artifacts.append("archive_index.json")
+    artifacts = sorted(set(str(p.relative_to(out)) for p in out.rglob("*.json")) | {"archive_index.json"})
     write_json(
         out / "archive_index.json",
         {

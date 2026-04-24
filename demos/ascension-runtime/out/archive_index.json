@@ -4,6 +4,7 @@
     "agent_reputation_snapshot.json",
     "agents/agent_profiles.json",
     "architect_recommendation.json",
+    "archive_index.json",
     "archive_lineage.json",
     "ascension_runtime_scorecard.json",
     "business_operating_plan.json",
@@ -36,8 +37,7 @@
     "sovereign_manifest.json",
     "sovereign_state_snapshot.json",
     "validation_attestations.json",
-    "validation_round.json",
-    "archive_index.json"
+    "validation_round.json"
   ],
   "claim_boundary": "The repository now contains a bounded local/devnet Minimum Viable Ascension Runtime that demonstrates the Ascension organism's proof-first economic loop. It does not claim completed live Ascension or mainnet production readiness."
 }

@@ -4,5 +4,10 @@
   "status": "pending_validation",
   "settlement_unit": "LOCAL_UNIT",
   "bounty_units": 45,
+  "expected_artifact_hashes": {
+    "jobs/job_002_spec.json": "61706a5f3d1fee28d2c0933c3f1f33d530151759f29dd477df2256b328795fec",
+    "jobs/job_002_completion.json": "2533bc522696a30fccbb72aede651864e722ec179a896de5a2219d26197aaa93",
+    "jobs/job_002_event_log.json": "836bc8fed50088673fddbde26e2c5990e19998f4db6357f15a3c69b6b37b559a"
+  },
   "claim_boundary": "The repository now contains a bounded local/devnet Minimum Viable Ascension Runtime that demonstrates the Ascension organism's proof-first economic loop. It does not claim completed live Ascension or mainnet production readiness."
 }
