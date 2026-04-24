@@ -7,7 +7,7 @@
     "hardhat": "NA",
     "node": "v20.19.6"
   },
-  "repo_sha": "a740f0e34e315e0f03a49a8c4d21c91149745a6a",
+  "repo_sha": "830b70bb730563df1d719df83d0b6021323d5827",
   "branch": "work",
   "scope_hashes": {
     "contracts/CouncilGovernanceV25.sol": "d84e35039bb318b9ada1b77eb9135022948aef3bb356d8c10536c46a605cffe3",
