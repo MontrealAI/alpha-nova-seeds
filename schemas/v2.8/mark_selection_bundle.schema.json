@@ -1,12 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "MARK Selection Report v2.8",
+  "title": "MARK Selection Bundle v2.8",
   "type": "object",
   "required": [
     "runtime_id",
-    "selected_seed",
+    "selected_bundle",
     "ranked",
-    "allocation_simulation",
+    "selection_reason",
+    "status",
     "claim_boundary"
   ]
 }

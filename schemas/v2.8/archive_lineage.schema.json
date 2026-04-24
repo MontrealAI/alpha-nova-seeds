@@ -3,11 +3,7 @@
   "title": "Archive Lineage v2.8",
   "type": "object",
   "required": [
-    "lineage_id",
     "seed_lineage",
-    "job_receipts",
-    "capability_packages",
-    "promotion_history",
     "claim_boundary"
   ]
 }
