@@ -12,6 +12,7 @@ OUT = ROOT / "demos" / "ascension-runtime" / "out"
 REQUIRED_ARTIFACTS = [
     "insight_packet.json",
     "insight_rationale.md",
+    "nova_seed_packet.json",
     "nova_seeds/audit_factory_seed.json",
     "nova_seeds/invariant_library_seed.json",
     "nova_seeds/fuzz_harness_seed.json",
@@ -26,6 +27,7 @@ REQUIRED_ARTIFACTS = [
     "mandate_decomposition.json",
     "marketplace_round.json",
     "marketplace_assignment_log.json",
+    "agi_job_receipt.json",
     "jobs/job_001_spec.json",
     "jobs/job_001_completion.json",
     "jobs/job_001_receipt.json",
