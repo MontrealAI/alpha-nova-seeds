@@ -1,7 +1,7 @@
 {
   "experiment_id": "adjacent-mandate-reuse-real-v1-blinded-adjacent-transfer",
   "repo": "MontrealAI/alpha-nova-seeds",
-  "repo_sha": "c0931820d91e431abdac1b7a083e1fbf76c7fab9",
+  "repo_sha": "d1ede6610dba2eab985df5457109bb927dfb7b65",
   "branch": "work",
   "target_path": "demos/adjacent_mandate_reuse_proof_real_v1",
   "execution_results_path": "demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1",
@@ -76,5 +76,5 @@
     "safety_regression_allowed": false,
     "package_dependence_min_pct": 30
   },
-  "freeze_time_utc": "2026-04-24T00:52:41+00:00"
+  "freeze_time_utc": "2026-04-24T06:53:55+00:00"
 }
