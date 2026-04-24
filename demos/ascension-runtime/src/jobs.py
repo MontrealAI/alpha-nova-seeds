@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from .utils import sha_file, write_json
+from .utils import sha_file, sha_payload, write_json
 
 
 def run(cfg: dict, out: Path, jobs: list[dict], assignments: list[dict], claim_boundary: str) -> list[dict]:
@@ -18,6 +18,7 @@ def run(cfg: dict, out: Path, jobs: list[dict], assignments: list[dict], claim_b
                 f"jobs/{job['job_id']}_spec.json",
                 f"jobs/{job['job_id']}_completion.json",
                 f"jobs/{job['job_id']}_event_log.json",
+                f"jobs/{job['job_id']}_receipt.json",
             ],
             "claim_boundary": claim_boundary,
         }
@@ -30,6 +31,7 @@ def run(cfg: dict, out: Path, jobs: list[dict], assignments: list[dict], claim_b
         spec_path = out / "jobs" / f"{job['job_id']}_spec.json"
         completion_path = out / "jobs" / f"{job['job_id']}_completion.json"
         event_log_path = out / "jobs" / f"{job['job_id']}_event_log.json"
+        receipt_path = out / "jobs" / f"{job['job_id']}_receipt.json"
 
         write_json(spec_path, spec)
         write_json(completion_path, completion)
@@ -50,7 +52,21 @@ def run(cfg: dict, out: Path, jobs: list[dict], assignments: list[dict], claim_b
             "expected_artifact_hashes": expected_hashes,
             "claim_boundary": claim_boundary,
         }
-        write_json(out / "jobs" / f"{job['job_id']}_receipt.json", receipt)
+        receipt_integrity_payload = {
+            "job_id": receipt["job_id"],
+            "receipt_id": receipt["receipt_id"],
+            "status": receipt["status"],
+            "settlement_unit": receipt["settlement_unit"],
+            "bounty_units": receipt["bounty_units"],
+            "expected_artifact_hashes": receipt["expected_artifact_hashes"],
+            "claim_boundary": receipt["claim_boundary"],
+        }
+        receipt["receipt_integrity_hash"] = sha_payload(receipt_integrity_payload)
+
+        write_json(receipt_path, receipt)
+
+        # trusted in-memory anchor for detecting any on-disk receipt file tampering later.
+        receipt["expected_receipt_file_hash"] = sha_file(receipt_path)
         receipts.append(receipt)
 
     return receipts

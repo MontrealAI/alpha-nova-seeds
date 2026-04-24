@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from .utils import read_json, sha_file, write_json
+from .utils import read_json, sha_file, sha_payload, write_json
 
 
 def run(out: Path, receipts: list[dict], claim_boundary: str) -> dict:
@@ -20,14 +20,34 @@ def run(out: Path, receipts: list[dict], claim_boundary: str) -> dict:
         artifacts_exist = not missing_paths
         artifact_hashes = {str(p.relative_to(out)): sha_file(p) for p in required if p.exists()}
 
-        # trusted expected hashes must come from the in-memory receipt input,
-        # not from reloading mutable disk state.
         expected_hashes = receipt.get("expected_artifact_hashes", {})
 
         receipt_path = out / "jobs" / f"{jid}_receipt.json"
         receipt_payload = read_json(receipt_path) if receipt_path.exists() else {}
         receipt_expected_hashes = receipt_payload.get("expected_artifact_hashes", {})
         receipt_matches_trusted_input = receipt_expected_hashes == expected_hashes and bool(expected_hashes)
+
+        receipt_integrity_payload = {
+            "job_id": receipt_payload.get("job_id"),
+            "receipt_id": receipt_payload.get("receipt_id"),
+            "status": receipt_payload.get("status"),
+            "settlement_unit": receipt_payload.get("settlement_unit"),
+            "bounty_units": receipt_payload.get("bounty_units"),
+            "expected_artifact_hashes": receipt_payload.get("expected_artifact_hashes"),
+            "claim_boundary": receipt_payload.get("claim_boundary"),
+        }
+        receipt_integrity_hash = sha_payload(receipt_integrity_payload) if receipt_payload else ""
+        receipt_integrity_hash_match = (
+            bool(receipt_payload)
+            and receipt_payload.get("receipt_integrity_hash") == receipt_integrity_hash
+            and receipt.get("receipt_integrity_hash") == receipt_integrity_hash
+        )
+
+        receipt_file_hash_match = (
+            bool(receipt_path.exists())
+            and bool(receipt.get("expected_receipt_file_hash"))
+            and sha_file(receipt_path) == receipt.get("expected_receipt_file_hash")
+        )
 
         hashes_match = artifacts_exist and receipt_matches_trusted_input and all(
             artifact_hashes.get(path) == expected_hash for path, expected_hash in expected_hashes.items()
@@ -56,6 +76,8 @@ def run(out: Path, receipts: list[dict], claim_boundary: str) -> dict:
             [
                 artifacts_exist,
                 receipt_matches_trusted_input,
+                receipt_integrity_hash_match,
+                receipt_file_hash_match,
                 hashes_match,
                 proof_docket_completeness,
                 claim_boundary_preserved,
@@ -72,6 +94,8 @@ def run(out: Path, receipts: list[dict], claim_boundary: str) -> dict:
                 "checks": {
                     "artifacts_exist": artifacts_exist,
                     "receipt_matches_trusted_input": receipt_matches_trusted_input,
+                    "receipt_integrity_hash_match": receipt_integrity_hash_match,
+                    "receipt_file_hash_match": receipt_file_hash_match,
                     "hashes_match": hashes_match,
                     "proof_docket_completeness": proof_docket_completeness,
                     "claim_boundary_preserved": claim_boundary_preserved,
