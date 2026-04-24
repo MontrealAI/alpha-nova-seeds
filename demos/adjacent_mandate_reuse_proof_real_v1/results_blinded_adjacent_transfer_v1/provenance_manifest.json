@@ -13,7 +13,7 @@
     },
     {
       "path": "environment_lock.json",
-      "sha256": "9a1e93a66621c3a4954e26b28c189af30bb9aa504ec9678070415388ed936cfc"
+      "sha256": "36d13db5e2ab07d59678d15ee36dfe852f428e5b629feef7c45007c7dc5a657c"
     },
     {
       "path": "governance_ruling_public.md",
@@ -53,7 +53,7 @@
     },
     {
       "path": "prereg_experiment_manifest.json",
-      "sha256": "b02ddda4f9f7777c253bf793d23db999f7546c0529f5c019876dac85e68b03a3"
+      "sha256": "1c023cb4fcc0f3ea766c6f6632d6bed0ba1bbe2ecfd0b6635bd20f06b2fef867"
     },
     {
       "path": "proof_docket_public.md",

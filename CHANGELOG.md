@@ -3,6 +3,9 @@
 ## [Unreleased]
 
 ### Changed
+- Added `.gitignore` guardrails for `demos/adjacent_mandate_reuse_proof_real_v1/local_private_blinding_materials/` so private blinding maps and answer keys stay local-only when running the real-world blinded adjacent-transfer harness.
+- Added `07_scripts/assemble_reveal_packet.py` to emit a post-score-lock public reveal receipt (hash-linked to private commitment files) without exposing reviewer identities or answer keys.
+- Regenerated `results_blinded_adjacent_transfer_v1/` from a clean setup run and refreshed prereg/environment/provenance outputs, including a public `scorecard_outputs/reveal_receipt_public.json` artifact generated behind an explicit `--confirm-score-lock` gate.
 - Re-baselined `demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1/` to an honest public-safe boundary state (Stage A pending blinded human adjudication, Stage B not run/conditional), removing prior internal-pass-style artifacts and preserving only reproducible harness/handoff outputs.
 - Expanded the real-world blinded adjacent-transfer manifest templates to include full preregistration lock fields (Stage A + conditional Stage B scope, branch binding, budgets, intervention policy, publication/stopping rules, and allowed-tool boundaries) required for honest protocol execution.
 - Updated execution/review templates with stage-aware run-register rows and a dedicated reviewer leakage-check worksheet so reveal-time blinding integrity can be recorded explicitly.
