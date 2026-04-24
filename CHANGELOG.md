@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Changed
+- Re-baselined `demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1/` to an honest public-safe boundary state (Stage A pending blinded human adjudication, Stage B not run/conditional), removing prior internal-pass-style artifacts and preserving only reproducible harness/handoff outputs.
 - Expanded the real-world blinded adjacent-transfer manifest templates to include full preregistration lock fields (Stage A + conditional Stage B scope, branch binding, budgets, intervention policy, publication/stopping rules, and allowed-tool boundaries) required for honest protocol execution.
 - Updated execution/review templates with stage-aware run-register rows and a dedicated reviewer leakage-check worksheet so reveal-time blinding integrity can be recorded explicitly.
 - Hardened `setup_blinded_adjacent_transfer_v1.py` and `validate_blinded_results_bundle.py` to scaffold and require `leakage_check.csv` in public-safe result bundles, then regenerated `results_blinded_adjacent_transfer_v1/` from a clean local setup run.

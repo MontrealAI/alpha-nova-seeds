@@ -1,3 +1,0 @@
-lane,run_id,operator_hours,reviewer_hours,compute_usd,cost_units,notes
-control,stage-a-control,3.0,0.0,0.0,12.0,normalized protocol cost units; solo internal blinded start
-treatment,stage-a-treatment,3.0,0.0,0.0,12.0,normalized protocol cost units; solo internal blinded start

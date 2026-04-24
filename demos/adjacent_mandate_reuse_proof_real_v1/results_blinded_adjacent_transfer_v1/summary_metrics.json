@@ -1,106 +1,31 @@
 {
-  "experiment_id": "blinded_adjacent_transfer_stage_ab_v1",
-  "repository_path": "demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1/",
-  "repo_sha": "97907b70d86f44a5a3f31f71828a9360fd1f6744",
-  "status": "completed_internal_protocol_run",
-  "publication_boundary": "public_safe_only",
-  "protocol_claim_supported": "AGI ALPHA demonstrated bounded recursive self-improvement through blinded adjacent transfer and one cross-domain expansion with reduced handholding under controlled internal evaluation.",
-  "not_supported": [
-    "independent external reviewer validation",
-    "true end-to-end operator blinding",
-    "unrestricted autonomy",
-    "literal general unbounded recursive self-improvement",
-    "broad sovereign proof"
-  ],
+  "status": "operationalized_to_honest_human_boundary",
   "stage_a": {
-    "name": "blinded adjacent transfer within protocol-correctness wedge",
-    "result": "PASS",
-    "frozen_package": {
-      "name": "GovernanceValidationPack-v1",
-      "hash": "7af9c5e920ccc2bcccea60714c412e1cf276a00728345be860a9eba40465afc1",
-      "freeze_time_utc": "2026-04-23T21:02:51Z"
-    },
-    "mandate_1_scope": [
-      "contracts/CouncilGovernanceV25.sol",
-      "contracts/ChallengePolicyModuleV25.sol"
-    ],
-    "mandate_2_scope": [
-      "contracts/ThresholdNetworkAdapterV25.sol",
-      "contracts/SignedAttestationVerifierV25.sol"
-    ],
-    "lane_mapping_revealed_after_score_lock": {
-      "Lane Blue": "treatment",
-      "Lane Gold": "control"
-    },
-    "metrics": {
-      "aoy_uplift_pct": 80.0,
-      "speed_uplift_pct": 43.75,
-      "rework_reduction_pct": 50.0,
-      "evidence_completeness_uplift_pct": 43.75,
-      "package_dependence_pct": 75.0,
-      "no_safety_regression": true
-    },
-    "pass_flags": {
-      "aoy_uplift_ge_35_pct": true,
-      "speed_uplift_ge_30_pct": true,
-      "rework_reduction_ge_40_pct": true,
-      "evidence_completeness_uplift_ge_20_pct": true,
-      "package_dependence_ge_30_pct": true,
-      "no_safety_regression": true
-    }
+    "execution_state": "pending_real_blinded_human_execution",
+    "score_lock": "not_started",
+    "result": "undetermined"
   },
   "stage_b": {
-    "name": "blinded cross-domain expansion into backend/API correctness",
-    "minimum_result": "PASS",
-    "strong_result": "PASS",
-    "promoted_lineage_package": {
-      "name": "ProtocolCorrectnessLineage-v1",
-      "hash": "85cdacce2067d759378c060c565d0fb2e5dc762fbf7c5a5975afac1396ac4bf8",
-      "freeze_time_utc": "2026-04-23T22:07:23Z"
-    },
-    "mandate_3_scope": [
-      "backend/app/main.py",
-      "backend/app/indexer.py",
-      "backend/app/schemas.py",
-      "backend/migrations/002_v26_hardening.sql",
-      "directly coupled backend docs/tests"
-    ],
-    "lane_mapping_revealed_after_score_lock": {
-      "Lane Blue": "treatment",
-      "Lane Gold": "control"
-    },
-    "metrics": {
-      "aoy_uplift_pct": 80.0,
-      "speed_uplift_pct": 43.75,
-      "rework_reduction_pct": 50.0,
-      "evidence_completeness_uplift_pct": 27.78,
-      "package_dependence_pct": 75.0,
-      "operator_intervention_reduction_pct": 50.0,
-      "frontier_width_increase_domains": 1,
-      "no_safety_regression": true
-    },
-    "minimum_pass_flags": {
-      "positive_aoy_uplift": true,
-      "positive_speed_uplift": true,
-      "evidence_completeness_uplift_ge_10_pct": true,
-      "package_dependence_ge_20_pct": true,
-      "operator_intervention_reduction_ge_25_pct": true,
-      "frontier_width_increase_ge_1_domain": true,
-      "no_safety_regression": true
-    },
-    "strong_pass_flags": {
-      "aoy_uplift_ge_35_pct": true,
-      "speed_uplift_ge_30_pct": true,
-      "rework_reduction_ge_40_pct": true,
-      "evidence_completeness_uplift_ge_20_pct": true,
-      "package_dependence_ge_30_pct": true,
-      "no_safety_regression": true
-    }
+    "execution_state": "blocked_on_stage_a_real_pass",
+    "result": "not_run"
   },
-  "deviations": [
-    "role separation partially emulated in-chat",
-    "reviewer independence not external",
-    "lane execution sequential rather than true parallel"
+  "demonstrated": [
+    "preregistration and environment freeze artifacts",
+    "public-safe output structure",
+    "private local-only blinding path",
+    "scorecard input and calculation wiring"
   ],
-  "recommended_next_validation": "Independent rerun with separate blinding officer, separate lane operators, separate blinded reviewers, and preferably a clean checkout on a separate machine."
+  "pending_human_execution": [
+    "role-separated assignment and blinding",
+    "stage_a lane execution and packet normalization",
+    "independent blinded adjudication",
+    "score lock and reveal",
+    "conditional stage_b execution"
+  ],
+  "simulated": [],
+  "unproven": [
+    "stage_a pass criteria",
+    "stage_b cross-domain transfer",
+    "bounded recursive self-improvement claim"
+  ]
 }
