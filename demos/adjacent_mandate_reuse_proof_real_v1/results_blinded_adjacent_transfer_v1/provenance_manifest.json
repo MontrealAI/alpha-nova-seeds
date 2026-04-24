@@ -13,7 +13,7 @@
     },
     {
       "path": "environment_lock.json",
-      "sha256": "9a1e93a66621c3a4954e26b28c189af30bb9aa504ec9678070415388ed936cfc"
+      "sha256": "d1edb3531460cb9c6794f1607d178b439fa507295641e5ac807f86c90a07a3bc"
     },
     {
       "path": "governance_ruling_public.md",
@@ -53,7 +53,7 @@
     },
     {
       "path": "prereg_experiment_manifest.json",
-      "sha256": "b02ddda4f9f7777c253bf793d23db999f7546c0529f5c019876dac85e68b03a3"
+      "sha256": "632a36c65718990669efc12beb4cb7d7563b093cb4c8a7529474f90a2aa6bf0f"
     },
     {
       "path": "proof_docket_public.md",
@@ -82,6 +82,10 @@
     {
       "path": "scorecard_outputs/package_dependence_ledger.csv",
       "sha256": "0db04b2827f60d245703ff9b3309a11508f7933ecbc0f4001e63e22e31c34afc"
+    },
+    {
+      "path": "scorecard_outputs/reveal_receipt_public.json",
+      "sha256": "f628180fe01e9551dd2b9b5cec1288e1ddd7c9e15754031f9153ea4bf5e565d8"
     },
     {
       "path": "scorecard_outputs/run_costs.csv",

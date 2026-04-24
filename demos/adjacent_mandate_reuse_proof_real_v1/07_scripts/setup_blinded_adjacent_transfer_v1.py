@@ -95,6 +95,7 @@ def build_public_provenance(results_dir: Path) -> dict[str, object]:
         "scorecard_outputs/run_costs.csv",
         "scorecard_outputs/output_scoring.csv",
         "scorecard_outputs/package_dependence_ledger.csv",
+        "scorecard_outputs/reveal_receipt_public.json",
     ]
     hashes = []
     for rel in tracked:
