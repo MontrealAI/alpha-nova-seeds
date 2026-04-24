@@ -108,6 +108,19 @@ python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/setup_blinded_adja
 
 This harness operationalizes Stage A and scaffolds Stage B, but does **not** fabricate missing human-blinded adjudication.
 
+### Current execution boundary (public-safe)
+
+The committed public-safe bundle at:
+
+- `results_blinded_adjacent_transfer_v1/`
+
+is intentionally bounded to the honest state:
+
+- **Stage A:** operationalized and ready, pending real blinded human execution/adjudication
+- **Stage B:** scaffolded only, blocked on a real Stage A pass
+
+This repository state should be read as execution readiness + handoff discipline, not a completed real-world pass.
+
 ## File map
 
 ```text
@@ -135,5 +148,5 @@ Its job is to help you answer one question cleanly:
 - Flagship synthetic wedge demo: [`../protocol_smart_contract_correctness_demo/`](../protocol_smart_contract_correctness_demo/)
 - Adjacent synthetic proof demo: [`../adjacent_mandate_reuse_proof_demo/`](../adjacent_mandate_reuse_proof_demo/)
 - Real-world experiment pack: [`../adjacent_mandate_reuse_proof_real_v1/`](../adjacent_mandate_reuse_proof_real_v1/)
-- Accelerating-loop demo: [`../unbounded-rsi-system/`](../unbounded-rsi-system/)
+- Accelerating-loop demo: [`../open-ended-rsi-system/`](../open-ended-rsi-system/)
 - Ladder index: [`../README.md`](../README.md)
