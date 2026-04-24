@@ -1,0 +1,46 @@
+[
+  {
+    "blinded_output_id": "SA-102",
+    "title": "Configured threshold is never enforced at completion",
+    "usefulness_points": 3,
+    "time_to_accept_hours": 1.6,
+    "rework_rounds": 2,
+    "evidence": [
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+    ],
+    "package_dependency": 0,
+    "code_pointer": "contracts/ThresholdNetworkAdapterV25.sol:78-96",
+    "broken_condition": "completeRequest verifies only one global signer and never reads profiles[r.profileId].threshold or committeeSize.",
+    "repro": "contracts/test/threshold.adapter.ts:25-60 shows a profile with threshold=2 that completes once a single signer is marked trusted.",
+    "severity": "High: the adapter can finalize below the configured multi-party threshold.",
+    "fix": "Bind completion to a per-request or per-profile signer-share threshold check and record the share count / signer set.",
+    "trace": "Open request -> set one signer trusted -> complete with one signature -> status FULFILLED."
+  },
+  {
+    "blinded_output_id": "SA-317",
+    "title": "Request identity can collide on same-block duplicate opens",
+    "usefulness_points": 2,
+    "time_to_accept_hours": 2.0,
+    "rework_rounds": 2,
+    "evidence": [
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+    ],
+    "package_dependency": 0,
+    "code_pointer": "contracts/ThresholdNetworkAdapterV25.sol:58-76",
+    "broken_condition": "requestId is built from stable inputs plus block.timestamp only, with no nonce or overwrite guard.",
+    "repro": "Two same-block opens by the same requester with the same inputs can compute the same requestId and overwrite the mapping entry.",
+    "severity": "Medium: duplicate opens can alias identity and confuse lifecycle state.",
+    "fix": "Add a requester nonce or explicit existence check before writing requests[requestId].",
+    "trace": "openRequest(seed, profile, cipher, manifest) twice in same block with same sender."
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "blinded_output_id": "SB-106",
+    "title": "Council seats API omits log_index despite ordering by it",
+    "usefulness_points": 3,
+    "time_to_accept_hours": 1.6,
+    "rework_rounds": 2,
+    "evidence": [
+      1,
+      1,
+      1,
+      1,
+      0,
+      1
+    ],
+    "package_dependency": 0,
+    "code_pointer": "backend/app/main.py:66-75; backend/app/schemas.py:25-31",
+    "broken_condition": "/governance/council-seats orders rows by block_number, log_index but the response model omits log_index, so same-block replay order cannot be reconstructed from the API surface.",
+    "repro": "Generated OpenAPI for CouncilSeatRow exposes term_id, seat_id, occupant, event_type, tx_hash, block_number only; no log_index is present while the SQL query orders by log_index.",
+    "severity": "High for proof/replay surfaces: same-block lifecycle events can become non-deterministic to clients that consume only the API payload.",
+    "fix": "Expose log_index (and ideally active / closure markers) in CouncilSeatRow and the /governance/council-seats query.",
+    "trace": "main.py lines 69-73 ORDER BY block_number DESC, log_index DESC; schemas.py CouncilSeatRow omits log_index."
+  },
+  {
+    "blinded_output_id": "SB-237",
+    "title": "Dismissed challenge outcomes do not close the lifecycle stream",
+    "usefulness_points": 2,
+    "time_to_accept_hours": 1.9,
+    "rework_rounds": 2,
+    "evidence": [
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+    ],
+    "package_dependency": 0,
+    "code_pointer": "backend/app/indexer.py:145-176; docs/council-seat-lifecycle.md:14-19",
+    "broken_condition": "_handle_challenge_resolved writes a lifecycle event only when upheld=true; dismissed challenges update seat_challenges but emit no lifecycle closure row.",
+    "repro": "A ChallengeResolved(false) path updates resolved/upheld on seat_challenges yet skips _insert_council_lifecycle, so lifecycle consumers cannot tell that a challenge closed without joining another table.",
+    "severity": "Medium: operator checks require lifecycle closure, but the event-sourced table cannot represent dismissed closure on its own.",
+    "fix": "Insert an explicit lifecycle closure event for dismissed challenges (e.g., resolved_not_upheld) or expose closure status directly in the API surface.",
+    "trace": "indexer.py lines 155-176 gate lifecycle insertion on if upheld: only."
+  }
+]

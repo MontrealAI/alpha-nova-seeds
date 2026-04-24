@@ -1,0 +1,43 @@
+{
+  "experiment_id": "adjacent-mandate-reuse-real-v1-blinded-stage-a-solo-v1",
+  "repo": "MontrealAI/alpha-nova-seeds",
+  "repo_sha": "97907b70d86f44a5a3f31f71828a9360fd1f6744",
+  "target_path": "demos/adjacent_mandate_reuse_proof_real_v1",
+  "vertical": "protocol-and-smart-contract-correctness",
+  "parent_business": "Protocol assurance and smart-contract correctness",
+  "mandate_1": {
+    "name": "Governance / dispute correctness",
+    "scope": [
+      "contracts/CouncilGovernanceV25.sol",
+      "contracts/ChallengePolicyModuleV25.sol"
+    ],
+    "goal": "Produce GovernanceValidationPack-v1"
+  },
+  "mandate_2": {
+    "name": "Threshold / attestation correctness",
+    "scope": [
+      "contracts/ThresholdNetworkAdapterV25.sol",
+      "contracts/SignedAttestationVerifierV25.sol"
+    ],
+    "goal": "Measure adjacent-mandate reuse under control vs treatment"
+  },
+  "freeze_time_utc": "2026-04-23T21:02:51Z",
+  "reviewers_blinded": true,
+  "control_and_treatment_parallel": false,
+  "human_intervention_logging_required": true,
+  "pass_thresholds": {
+    "aoy_uplift_min_pct": 35,
+    "speed_uplift_min_pct": 30,
+    "rework_reduction_min_pct": 40,
+    "evidence_completeness_uplift_min_pct": 20,
+    "safety_regression_allowed": false,
+    "package_dependence_min_pct": 30
+  },
+  "deviations": [
+    "role separation partially emulated in-chat",
+    "reviewer independence not external",
+    "lane execution sequential rather than true parallel"
+  ],
+  "publication_rule": "publish regardless of pass or fail",
+  "stopping_rule": "stop after Stage A for this solo start; Stage B requires fresh freeze after independent reveal"
+}
