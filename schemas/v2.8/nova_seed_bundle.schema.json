@@ -1,9 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Architect Recommendation v2.8",
+  "title": "Nova Seed Bundle v2.8",
   "type": "object",
   "required": [
-    "recommendation_id",
+    "runtime_id",
+    "version",
+    "seeds",
+    "status",
     "claim_boundary"
   ]
 }

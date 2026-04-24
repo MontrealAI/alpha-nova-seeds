@@ -3,14 +3,7 @@
   "title": "Insight Packet v2.8",
   "type": "object",
   "required": [
-    "opportunity_id",
-    "wedge",
-    "rationale",
-    "evidence_surface",
-    "verification_strength",
-    "archive_density",
-    "risk_level",
-    "next_possible_seeds",
+    "runtime_id",
     "claim_boundary"
   ]
 }

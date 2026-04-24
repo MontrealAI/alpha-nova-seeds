@@ -3,9 +3,8 @@
   "title": "MARK Selection Report v2.8",
   "type": "object",
   "required": [
-    "selected_seed",
+    "runtime_id",
     "ranked",
-    "allocation_simulation",
     "claim_boundary"
   ]
 }

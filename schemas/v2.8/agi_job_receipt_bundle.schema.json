@@ -1,9 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Architect Recommendation v2.8",
+  "title": "AGI Job Receipt Bundle v2.8",
   "type": "object",
   "required": [
-    "recommendation_id",
+    "runtime_id",
+    "job_receipts",
+    "status",
     "claim_boundary"
   ]
 }
