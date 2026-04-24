@@ -4,9 +4,24 @@
   "type": "object",
   "required": [
     "runtime_id",
-    "version",
-    "seeds",
-    "status",
     "claim_boundary"
+  ],
+  "oneOf": [
+    {
+      "required": [
+        "seed_id",
+        "state",
+        "fusion_plan",
+        "proof_requirements",
+        "promotion_criteria"
+      ]
+    },
+    {
+      "required": [
+        "version",
+        "seeds",
+        "status"
+      ]
+    }
   ]
 }

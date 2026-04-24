@@ -4,11 +4,7 @@
   "type": "object",
   "required": [
     "runtime_id",
-    "oracle_mode",
     "ranked",
-    "selected_bundle",
-    "selection_reason",
-    "status",
     "claim_boundary"
   ]
 }

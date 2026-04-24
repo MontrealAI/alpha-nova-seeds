@@ -4,13 +4,6 @@
   "type": "object",
   "required": [
     "seed_lineage",
-    "package_lineage",
-    "job_receipt_lineage",
-    "score_history",
-    "reusable_assets",
-    "promotion_rejection_history",
-    "next_recommended_mutations",
-    "status",
     "claim_boundary"
   ]
 }

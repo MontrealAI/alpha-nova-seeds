@@ -4,14 +4,6 @@
   "type": "object",
   "required": [
     "runtime_id",
-    "id",
-    "public_role",
-    "repo_role",
-    "selected_wedge",
-    "wedge_basis",
-    "repo_evidence",
-    "frontier_queue",
-    "status",
     "claim_boundary"
   ]
 }

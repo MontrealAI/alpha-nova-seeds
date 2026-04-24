@@ -5,9 +5,6 @@
   "required": [
     "runtime_id",
     "round_id",
-    "jobs_posted",
-    "rounds",
-    "status",
     "claim_boundary"
   ]
 }

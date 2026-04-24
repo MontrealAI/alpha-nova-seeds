@@ -3,8 +3,6 @@
   "title": "Agent Execution Log v2.8",
   "type": "object",
   "required": [
-    "bids",
-    "executions",
     "claim_boundary"
   ]
 }

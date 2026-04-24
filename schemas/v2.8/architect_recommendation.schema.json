@@ -4,9 +4,6 @@
   "type": "object",
   "required": [
     "recommendation_id",
-    "inputs",
-    "next_loop_recommendations",
-    "status",
     "claim_boundary"
   ]
 }

@@ -12,6 +12,8 @@
 ### Changed
 
 - Hardened `demos/ascension-runtime/run_demo.py --assert` to validate emitted runtime artifacts against canonical `schemas/v2.8/` Ascension schemas, including `ascension_runtime_scorecard.schema.json`.
+- Restored cross-demo v2.8 schema compatibility for shared Ascension artifacts (including per-seed `nova_seed_packet` legacy shape) so `demos/ascension-live-runtime/run_demo.py --assert` remains green.
+- Changed Ascension runtime schema validator loading to lazy import so `python3 demos/ascension-runtime/run_demo.py` works without requiring `jsonschema` unless `--assert` path is invoked.
 - Expanded v2.8 Ascension schema coverage/alignment for runtime payloads and added missing `schemas/v2.8/ascension_runtime_scorecard.schema.json` and `schemas/v2.8/ascension_trace.schema.json`.
 - Updated Ascension implementation/checklist docs to reflect assert-mode schema validation as a first-class verification surface.
 - Updated demo/docs release surfaces to include `demos/ascension-runtime/` as the organism reference runtime, refreshed Ascension trace/status docs, and added `release/v2.8.0-rc.3-ascension-runtime-checklist.md` for acceptance/migration/rollback boundaries.

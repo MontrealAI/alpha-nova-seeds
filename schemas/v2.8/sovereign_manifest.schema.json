@@ -5,16 +5,7 @@
   "required": [
     "runtime_id",
     "sovereign_id",
-    "scope",
-    "authority_boundary",
-    "mandate_families",
-    "allowed_jobs",
-    "prohibited_claims",
-    "governance_gates",
     "archive_policy",
-    "proof_requirements",
-    "settlement_ruling_policy",
-    "status",
     "claim_boundary"
   ]
 }
