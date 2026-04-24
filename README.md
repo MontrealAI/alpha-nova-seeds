@@ -25,17 +25,19 @@ This front door is intentionally proof-first: it gives serious reviewers a direc
 
 ### Start here
 
-1. **Flagship wedge (primary):** [`demos/protocol_smart_contract_correctness_demo/`](./demos/protocol_smart_contract_correctness_demo/)
-2. **Demo ladder (all evidence surfaces):** [`demos/README.md`](./demos/README.md)
-3. **Accelerating-loop demo (bounded):** [`demos/open-ended-rsi-system/`](./demos/open-ended-rsi-system/)
-4. **Doctrine stack (interpretation layer):** [`docs/DOCTRINE_STACK.md`](./docs/DOCTRINE_STACK.md)
-5. **Release posture contract:** [`RELEASES.md`](./RELEASES.md)
-6. **Release verification guide:** [`docs/verify-release.md`](./docs/verify-release.md)
+1. **Ascension runtime (local/devnet):** [`demos/ascension-runtime/`](./demos/ascension-runtime/)
+2. **Flagship wedge (primary):** [`demos/protocol_smart_contract_correctness_demo/`](./demos/protocol_smart_contract_correctness_demo/)
+3. **Demo ladder (all evidence surfaces):** [`demos/README.md`](./demos/README.md)
+4. **Accelerating-loop demo (bounded):** [`demos/open-ended-rsi-system/`](./demos/open-ended-rsi-system/)
+5. **Doctrine stack (interpretation layer):** [`docs/DOCTRINE_STACK.md`](./docs/DOCTRINE_STACK.md)
+6. **Release posture contract:** [`RELEASES.md`](./RELEASES.md)
+7. **Release verification guide:** [`docs/verify-release.md`](./docs/verify-release.md)
 
 ### First-screen navigation map
 
 | Need | Open |
 |---|---|
+| Ascension local/devnet organism runtime | [`demos/ascension-runtime/`](./demos/ascension-runtime/) |
 | Fastest deterministic proof wedge | [`demos/protocol_smart_contract_correctness_demo/`](./demos/protocol_smart_contract_correctness_demo/) |
 | Full evidence ladder | [`demos/README.md`](./demos/README.md) |
 | Accelerating-loop bounded replay | [`demos/open-ended-rsi-system/`](./demos/open-ended-rsi-system/) |

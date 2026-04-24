@@ -1,0 +1,136 @@
+{
+  "runtime_id": "ascension-runtime-local-001",
+  "layers": [
+    {
+      "layer": "Insight",
+      "implementation_status": "implemented",
+      "runtime_mode": "local-devnet",
+      "evidence_artifact": "out/insight_packet.json",
+      "result": "pass",
+      "risk_level": "medium",
+      "next_required_proof": "external foresight validation",
+      "claim_boundary": "local/devnet only; no live production claim"
+    },
+    {
+      "layer": "Nova-Seeds",
+      "implementation_status": "implemented",
+      "runtime_mode": "local-devnet",
+      "evidence_artifact": "out/nova_seeds/audit_factory_seed.json",
+      "result": "pass",
+      "risk_level": "medium",
+      "next_required_proof": "seed-onchain registry parity",
+      "claim_boundary": "local/devnet only; no live production claim"
+    },
+    {
+      "layer": "MARK",
+      "implementation_status": "implemented",
+      "runtime_mode": "simulated",
+      "evidence_artifact": "out/mark_selection_report.json",
+      "result": "pass",
+      "risk_level": "medium",
+      "next_required_proof": "testnet event-backed scoring",
+      "claim_boundary": "local/devnet only; no live production claim"
+    },
+    {
+      "layer": "Sovereign",
+      "implementation_status": "implemented",
+      "runtime_mode": "local-devnet",
+      "evidence_artifact": "out/sovereign_manifest.json",
+      "result": "pass",
+      "risk_level": "medium",
+      "next_required_proof": "contract state-lock proofs",
+      "claim_boundary": "local/devnet only; no live production claim"
+    },
+    {
+      "layer": "Business",
+      "implementation_status": "implemented",
+      "runtime_mode": "local-devnet",
+      "evidence_artifact": "out/business_operating_plan.json",
+      "result": "pass",
+      "risk_level": "low",
+      "next_required_proof": "multi-round mandate evidence",
+      "claim_boundary": "local/devnet only; no live production claim"
+    },
+    {
+      "layer": "Marketplace",
+      "implementation_status": "implemented",
+      "runtime_mode": "simulated",
+      "evidence_artifact": "out/marketplace_round.json",
+      "result": "pass",
+      "risk_level": "medium",
+      "next_required_proof": "devnet escrow integration",
+      "claim_boundary": "local/devnet only; no live production claim"
+    },
+    {
+      "layer": "AGI Jobs",
+      "implementation_status": "implemented",
+      "runtime_mode": "local-devnet",
+      "evidence_artifact": "out/jobs/job_001_receipt.json",
+      "result": "pass",
+      "risk_level": "medium",
+      "next_required_proof": "onchain receipt adapter",
+      "claim_boundary": "local/devnet only; no live production claim"
+    },
+    {
+      "layer": "Agents",
+      "implementation_status": "implemented",
+      "runtime_mode": "local-devnet",
+      "evidence_artifact": "out/agent_execution_log.json",
+      "result": "pass",
+      "risk_level": "medium",
+      "next_required_proof": "long-horizon reputation evidence",
+      "claim_boundary": "local/devnet only; no live production claim"
+    },
+    {
+      "layer": "Validators / Council",
+      "implementation_status": "implemented",
+      "runtime_mode": "local-devnet",
+      "evidence_artifact": "out/validation_round.json",
+      "result": "pass",
+      "risk_level": "medium",
+      "next_required_proof": "human/external reviewer integration",
+      "claim_boundary": "local/devnet only; no live production claim"
+    },
+    {
+      "layer": "Value Reservoir",
+      "implementation_status": "implemented",
+      "runtime_mode": "simulated",
+      "evidence_artifact": "out/reservoir_ledger.json",
+      "result": "pass",
+      "risk_level": "high",
+      "next_required_proof": "tokenized settlement evidence",
+      "claim_boundary": "local/devnet only; no live production claim"
+    },
+    {
+      "layer": "Architect",
+      "implementation_status": "implemented",
+      "runtime_mode": "local-devnet",
+      "evidence_artifact": "out/architect_recommendation.json",
+      "result": "pass",
+      "risk_level": "medium",
+      "next_required_proof": "recommendation backtesting",
+      "claim_boundary": "local/devnet only; no live production claim"
+    },
+    {
+      "layer": "Nodes",
+      "implementation_status": "implemented",
+      "runtime_mode": "local-devnet",
+      "evidence_artifact": "out/node_runtime_profile.json",
+      "result": "pass",
+      "risk_level": "low",
+      "next_required_proof": "multi-node distributed replay",
+      "claim_boundary": "local/devnet only; no live production claim"
+    },
+    {
+      "layer": "Archive",
+      "implementation_status": "implemented",
+      "runtime_mode": "local-devnet",
+      "evidence_artifact": "out/archive_lineage.json",
+      "result": "pass",
+      "risk_level": "medium",
+      "next_required_proof": "merkleized lineage commitments",
+      "claim_boundary": "local/devnet only; no live production claim"
+    }
+  ],
+  "claim_boundary": "The repository now contains a bounded local/devnet Minimum Viable Ascension Runtime that demonstrates the Ascension organism's proof-first economic loop. It does not claim completed live Ascension or mainnet production readiness."
+}
