@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Marketplace Round v2.8",
+  "type": "object",
+  "required": [
+    "round_id",
+    "job_id",
+    "bids",
+    "selected_agent",
+    "validator_requirements",
+    "settlement_conditions",
+    "claim_boundary"
+  ]
+}

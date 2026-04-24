@@ -1,6 +1,6 @@
 const API = 'http://localhost:8000';
 let snapshot = {};
-const SNAPSHOT_VERSION = 'v2.8.0-rc.1';
+const SNAPSHOT_VERSION = 'v2.8.0-rc.7';
 
 async function getJson(path, fallback) {
   try {
@@ -67,6 +67,11 @@ async function load() {
   const proof = await getJson('/proof/summary', {});
   const reviewer = await getJson('/governance/reviewer-ledger', []);
   const council = await getJson('/governance/council-seats', []);
+  const ascensionStatus = await getJson('/ascension/status', {});
+  const ascensionScorecard = await getJson('/ascension/scorecard', { layers: [] });
+  const ascensionJobs = await getJson('/ascension/jobs', {});
+  const ascensionReservoir = await getJson('/ascension/reservoir', {});
+  const ascensionArchitect = await getJson('/ascension/architect', {});
 
   for (const [k, v] of Object.entries(summary)) setMetric(k, v);
   for (const [k, v] of Object.entries(proof)) setMetric(k, v);
@@ -74,8 +79,16 @@ async function load() {
   const proofAlerts = (proof.open_challenges || 0) + (proof.chain_event_count === 0 ? 1 : 0);
   setMetric('proof_alerts', proofAlerts);
 
+  setMetric('ascension_available', ascensionStatus.available ? 'yes' : 'no');
+  setMetric('ascension_layer_count', ascensionStatus.layer_count || 0);
+  setMetric('ascension_event_count', ascensionStatus.event_count || 0);
+
   document.getElementById('reviewerLedger').textContent = JSON.stringify(reviewer, null, 2);
   document.getElementById('councilSeats').textContent = JSON.stringify(council, null, 2);
+  document.getElementById('ascensionScorecard').textContent = JSON.stringify(ascensionScorecard, null, 2);
+  document.getElementById('ascensionJobs').textContent = JSON.stringify(ascensionJobs, null, 2);
+  document.getElementById('ascensionReservoir').textContent = JSON.stringify(ascensionReservoir, null, 2);
+  document.getElementById('ascensionArchitect').textContent = JSON.stringify(ascensionArchitect, null, 2);
 
   snapshot = {
     version: SNAPSHOT_VERSION,
@@ -85,6 +98,11 @@ async function load() {
     proof,
     reviewer,
     council,
+    ascensionStatus,
+    ascensionScorecard,
+    ascensionJobs,
+    ascensionReservoir,
+    ascensionArchitect,
   };
 }
 

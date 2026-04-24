@@ -71,3 +71,12 @@ It does **not** claim:
 - unrestricted autonomy or literal unbounded recursive self-improvement.
 
 Compatibility label: Real-world experiment pack.
+
+
+## 5) Ascension live runtime demo (bounded local/devnet)
+
+- Path: [`./ascension-live-runtime/`](./ascension-live-runtime/)
+- Role: end-to-end bounded organism loop across Insight → Archive with machine-readable receipts
+- Run: `python3 demos/ascension-live-runtime/run_demo.py --assert`
+- Proves: deterministic local/devnet loop with seed selection, job competition, validation, settlement ledgering, archive lineage, and architect recommendation
+- Does not prove: audited-final deployment, mainnet safety, real external-market settlement, or completed α‑AGI Ascension
