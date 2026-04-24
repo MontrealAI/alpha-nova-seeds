@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+import os
 from fastapi import FastAPI, Response
 from sqlalchemy import text
 from typing import List
@@ -8,8 +9,21 @@ from .schemas import DashboardSummary, ProofSummary, ReviewerStakeRow, CouncilSe
 
 app = FastAPI(title="Nova-Seeds v2.6 RC API", version="2.6.0-rc.1")
 
-ROOT = Path(__file__).resolve().parents[2]
-ASCENSION_OUT = ROOT / "demos" / "ascension-live-runtime" / "out"
+def _resolve_ascension_out() -> Path:
+    env_path = os.getenv("ASCENSION_OUT_DIR")
+    if env_path:
+        return Path(env_path).expanduser().resolve()
+
+    module = Path(__file__).resolve()
+    for parent in [module.parent, *module.parents]:
+        candidate = parent / "demos" / "ascension-live-runtime" / "out"
+        if candidate.exists():
+            return candidate
+
+    return Path.cwd() / "demos" / "ascension-live-runtime" / "out"
+
+
+ASCENSION_OUT = _resolve_ascension_out()
 
 
 def _read_ascension_artifact(filename: str, fallback: dict | list) -> dict | list:

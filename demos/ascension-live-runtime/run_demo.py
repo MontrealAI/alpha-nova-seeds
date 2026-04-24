@@ -347,7 +347,6 @@ def run(assert_mode: bool) -> None:
         "claim_boundary": claim_boundary,
     }
     _write_json(OUT / "archive_lineage.json", archive_lineage)
-    _write_json(OUT / "archive_index.json", {"runtime_id": cfg["runtime_id"], "artifacts": sorted([str(p.relative_to(OUT)) for p in OUT.rglob("*.json")]), "claim_boundary": claim_boundary})
     _write_json(OUT / "capability_package_manifest.json", {"package_id": "capability-protocol-correctness-v1", "source_job": "job-001", "receipt": job_receipt["receipt_id"], "claim_boundary": claim_boundary})
     _emit_event(events, ts, "ArchiveUpdated", {"lineage_id": "archive-001", "receipt_id": job_receipt["receipt_id"]})
 
@@ -439,6 +438,14 @@ def run(assert_mode: bool) -> None:
         "<li>Insight packet emitted</li><li>MARK selected seed</li><li>Sovereign formed</li>"
         "<li>Job validated and finalized</li><li>Reservoir credited</li><li>Archive/Architect updated</li>"
         "</ul></body></html>\n",
+    )
+    _write_json(
+        OUT / "archive_index.json",
+        {
+            "runtime_id": cfg["runtime_id"],
+            "artifacts": sorted([str(path.relative_to(OUT)) for path in OUT.rglob("*.json")]),
+            "claim_boundary": claim_boundary,
+        },
     )
 
     for payload, schema in [
