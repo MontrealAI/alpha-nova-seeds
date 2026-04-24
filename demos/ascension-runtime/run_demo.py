@@ -92,6 +92,25 @@ def run(assert_mode: bool) -> None:
         if len([b for b in execution["bids"] if b["job_id"] == "job_001"]) < 2:
             raise AssertionError("At least two agents must compete for job_001")
 
+        validation_round = read_json(OUT / "validation_round.json")
+        if validation_round.get("result") != "approved":
+            raise AssertionError("Validation round must be approved in --assert mode")
+        if not validation_round.get("attestations"):
+            raise AssertionError("Validation round must include attestations")
+        if any(a.get("decision") != "approved" for a in validation_round["attestations"]):
+            raise AssertionError("All attestations must be approved in --assert mode")
+
+        council_ruling = read_json(OUT / "council_ruling.json")
+        if council_ruling.get("result") != "approve":
+            raise AssertionError("Council ruling must be approve in --assert mode")
+        if not council_ruling.get("approved_jobs"):
+            raise AssertionError("Council ruling must approve at least one job")
+
+        reservoir_ledger = read_json(OUT / "reservoir_ledger.json")
+        validated_units = reservoir_ledger.get("validated_work_units", [])
+        if len(validated_units) < 1:
+            raise AssertionError("Reservoir must contain validated work units in --assert mode")
+
     print("Ascension runtime demo completed.")
     print(f"Artifacts emitted under: {OUT}")
 
