@@ -83,4 +83,15 @@ def run(cfg: dict, out: Path, claim_boundary: str) -> list[dict]:
     for seed in seeds:
         write_json(out / "nova_seeds" / f"{seed['id']}.json", {**seed, "claim_boundary": claim_boundary})
 
+    write_json(
+        out / "nova_seed_packet.json",
+        {
+            "runtime_id": cfg["runtime_id"],
+            "version": version,
+            "seeds": [{**seed, "claim_boundary": claim_boundary} for seed in seeds],
+            "claim_boundary": claim_boundary,
+            "status": "implemented as deterministic local artifact",
+        },
+    )
+
     return seeds

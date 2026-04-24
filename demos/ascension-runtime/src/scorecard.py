@@ -8,12 +8,12 @@ from .utils import write_json, write_text
 def run(cfg: dict, out: Path, claim_boundary: str) -> dict:
     rows = [
         ("Insight", "implemented", "local-devnet", "out/insight_packet.json", "pass", "medium", "external foresight validation"),
-        ("Nova-Seeds", "implemented", "local-devnet", "out/nova_seeds/audit_factory_seed.json", "pass", "medium", "seed-onchain registry parity"),
+        ("Nova-Seeds", "implemented", "local-devnet", "out/nova_seed_packet.json", "pass", "medium", "seed-onchain registry parity"),
         ("MARK", "implemented", "simulated", "out/mark_selection_report.json", "pass", "medium", "testnet event-backed scoring"),
         ("Sovereign", "implemented", "local-devnet", "out/sovereign_manifest.json", "pass", "medium", "contract state-lock proofs"),
         ("Business", "implemented", "local-devnet", "out/business_operating_plan.json", "pass", "low", "multi-round mandate evidence"),
         ("Marketplace", "implemented", "simulated", "out/marketplace_round.json", "pass", "medium", "devnet escrow integration"),
-        ("AGI Jobs", "implemented", "local-devnet", "out/jobs/job_001_receipt.json", "pass", "medium", "onchain receipt adapter"),
+        ("AGI Jobs", "implemented", "local-devnet", "out/agi_job_receipt.json", "pass", "medium", "onchain receipt adapter"),
         ("Agents", "implemented", "local-devnet", "out/agent_execution_log.json", "pass", "medium", "long-horizon reputation evidence"),
         ("Validators / Council", "implemented", "local-devnet", "out/validation_round.json", "pass", "medium", "human/external reviewer integration"),
         ("Value Reservoir", "implemented", "simulated", "out/reservoir_ledger.json", "pass", "high", "tokenized settlement evidence"),
@@ -32,6 +32,12 @@ def run(cfg: dict, out: Path, claim_boundary: str) -> dict:
                 "result": result,
                 "risk_level": risk,
                 "next_required_proof": next_proof,
+                "pending_items": [],
+                "unproven_items": [
+                    "audited-final deployment safety",
+                    "mainnet-ready settlement",
+                    "live external-market validation",
+                ],
                 "claim_boundary": "local/devnet only; no live production claim",
             }
             for layer, impl, mode, artifact, result, risk, next_proof in rows

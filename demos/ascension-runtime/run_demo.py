@@ -41,6 +41,7 @@ def run(assert_mode: bool) -> None:
         required = [
             "insight_packet.json",
             "insight_rationale.md",
+            "nova_seed_packet.json",
             "mark_selection_report.json",
             "mark_risk_report.json",
             "mark_orderbook_snapshot.json",
@@ -50,6 +51,7 @@ def run(assert_mode: bool) -> None:
             "mandate_decomposition.json",
             "marketplace_round.json",
             "marketplace_assignment_log.json",
+            "agi_job_receipt.json",
             "agent_execution_log.json",
             "agent_reputation_snapshot.json",
             "agents/agent_profiles.json",
@@ -89,8 +91,9 @@ def run(assert_mode: bool) -> None:
         execution = read_json(OUT / "agent_execution_log.json")
         if len({e["selected_agent"] for e in execution["executions"]}) < 1:
             raise AssertionError("No selected agents found")
-        if len([b for b in execution["bids"] if b["job_id"] == "job_001"]) < 2:
-            raise AssertionError("At least two agents must compete for job_001")
+        for job_id in {"job_001", "job_002"}:
+            if len([b for b in execution["bids"] if b["job_id"] == job_id]) < 2:
+                raise AssertionError(f"At least two agents must compete for {job_id}")
 
         validation_round = read_json(OUT / "validation_round.json")
         if validation_round.get("result") != "approved":
