@@ -85,7 +85,7 @@
     },
     {
       "path": "scorecard_outputs/reveal_receipt_public.json",
-      "sha256": "49251d2c7fe877af9bb2c63655caea005f1c0a50bbf3ea9735ea80f8555c68b0"
+      "sha256": "7d05bd9fdc336100c1d45713264d0aa5af4da4da822ffa2bba6af3362b4e999a"
     },
     {
       "path": "scorecard_outputs/run_costs.csv",

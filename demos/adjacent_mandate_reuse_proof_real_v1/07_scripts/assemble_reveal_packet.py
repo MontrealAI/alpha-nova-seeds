@@ -41,6 +41,33 @@ def get_first(row: dict[str, str], keys: list[str]) -> str:
     raise KeyError(f"Missing expected header(s): {', '.join(keys)}")
 
 
+def validate_commitment_hash_file(path: Path) -> None:
+    text = path.read_text(encoding="utf-8")
+    if "Run 07_scripts/generate_private_commitment_hashes.py" in text:
+        raise SystemExit(
+            "private_commitment_hashes.txt is still scaffold placeholder content. "
+            "Run 07_scripts/generate_private_commitment_hashes.py first."
+        )
+    hash_lines = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#") or ":" in stripped:
+            continue
+        hash_lines.append(stripped)
+    if not hash_lines:
+        raise SystemExit(
+            "private_commitment_hashes.txt has no digest rows; regenerate with "
+            "07_scripts/generate_private_commitment_hashes.py."
+        )
+    for idx, line in enumerate(hash_lines, 1):
+        parts = line.split()
+        if len(parts) < 2 or len(parts[0]) != 64:
+            raise SystemExit(
+                "Invalid private commitment hash row format at line "
+                f"{idx}: {line!r}. Expected '<sha256>  <relative_path>'."
+            )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--results-dir", default=str(DEFAULT_RESULTS))
@@ -64,6 +91,7 @@ def main() -> int:
     missing = [str(p) for p in [assignment_map, commitment_hashes] if not p.exists()]
     if missing:
         raise SystemExit("Missing required private files:\n- " + "\n- ".join(missing))
+    validate_commitment_hash_file(commitment_hashes)
 
     mapping_rows = load_assignment_map(assignment_map)
     lanes_only = []
@@ -80,7 +108,7 @@ def main() -> int:
                 "lane_id": lane_id,
                 "assigned_kit": assigned_kit,
                 "assignment_role": assignment_role,
-                "revealed_after_score_lock": row.get("revealed_after_score_lock", ""),
+                "revealed_after_score_lock": "true",
             }
         )
 
