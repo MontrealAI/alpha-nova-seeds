@@ -1,14 +1,14 @@
 {
   "receipt_type": "blinded_adjacent_transfer_reveal_receipt",
-  "generated_at_utc": "2026-04-24T02:18:36+00:00",
+  "generated_at_utc": "2026-04-24T02:27:03+00:00",
   "score_lock_confirmed": true,
-  "private_assignment_map_sha256": "4708c8b14122f3217a0815b27a310fa4628fb928fc07c6d5aa3af230b3154ea8",
-  "private_commitment_hashes_sha256": "33e7c84cf43606689b9aeca5c5c908007f876781eb716869fddf664b0fb0954c",
+  "private_assignment_map_sha256": "ee9fc9b2bdffdc3a24ea9eebf11b1d854d4f8a3bc27a29682a8a02c857f8f498",
+  "private_commitment_hashes_sha256": "9259c61aa8ba73aebde7a2c37c816e11d2291b4dad4534b7bdecbe1df36fbe64",
   "lane_assignments": [
     {
       "artifact_set": "stage_a_mandate_2",
       "lane_id": "Lane Blue",
-      "assigned_kit": "Kit Blue",
+      "assigned_kit": "Kit Gold",
       "assignment_role": "Lane Operator A",
       "revealed_after_score_lock": "true",
       "revealed_after_score_lock_source": "false"
@@ -16,7 +16,7 @@
     {
       "artifact_set": "stage_a_mandate_2",
       "lane_id": "Lane Gold",
-      "assigned_kit": "Kit Gold",
+      "assigned_kit": "Kit Blue",
       "assignment_role": "Lane Operator B",
       "revealed_after_score_lock": "true",
       "revealed_after_score_lock_source": "false"
