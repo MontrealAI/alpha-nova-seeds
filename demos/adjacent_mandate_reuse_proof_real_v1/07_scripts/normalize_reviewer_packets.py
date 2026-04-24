@@ -107,6 +107,9 @@ def refresh_public_provenance(results_dir: Path) -> None:
         for file_path in sorted(scorecard_out_dir.glob("*")):
             if file_path.is_file():
                 tracked_paths.add(str(file_path.relative_to(results_dir)))
+    reveal_receipt = results_dir / "scorecard_outputs" / "reveal_receipt_public.json"
+    if reveal_receipt.exists() and reveal_receipt.is_file():
+        tracked_paths.add(str(reveal_receipt.relative_to(results_dir)))
 
     hashes = []
     for rel in sorted(tracked_paths):
