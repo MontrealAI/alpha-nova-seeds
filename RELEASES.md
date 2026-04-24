@@ -69,7 +69,7 @@ For v2.8.x publication:
 - Accelerating-loop demo replay (`demos/open-ended-rsi-system/run_demo.py --assert`) passing with required artifact emission.
 - Accelerating-loop artifact contract check (`python scripts/check_open_ended_rsi_artifacts.py`) passing, including board scorecard parity and governance/provenance machine-readable outputs.
 - Legacy replay compatibility: `demos/unbounded-rsi-system/run_demo.py --assert` remains supported for historical comparison.
-- Ascension bounded runtime replay: `python3 demos/ascension-live-runtime/run_demo.py --assert` emits deterministic local/devnet loop artifacts, event stream, scorecard, and report surfaces.
+- Ascension bounded runtime replay: `python3 demos/ascension-runtime/run_demo.py --assert` emits deterministic local/devnet loop artifacts, scorecard, and report surfaces.
 - Demo ladder cross-links and role labels passing validation.
 - Release-surface posture coherence check (`python scripts/check_release_surface_posture.py`) passing across README/AGENTS/RELEASES plus doctrine and demo-ladder RC markers derived from `release/badges.json`.
 - README badge rail check (`python scripts/check_readme_badges.py`) passing against `release/badges.json`.
