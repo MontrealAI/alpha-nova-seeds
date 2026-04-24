@@ -170,6 +170,11 @@ def main() -> int:
         action="store_true",
         help="also validate HTTP/HTTPS badge targets with lightweight requests",
     )
+    parser.add_argument(
+        "--require-green-workflows",
+        action="store_true",
+        help="also fetch workflow badge SVGs and require passing status",
+    )
     args = parser.parse_args()
 
     errors: list[str] = []
@@ -260,7 +265,8 @@ def main() -> int:
             if not (WORKFLOW_DIR / workflow).exists():
                 errors.append(f"badge {badge['id']} references missing workflow file: {workflow}")
             _validate_workflow_badge_link(errors, badge)
-            _validate_workflow_badge_is_green(errors, badge, style=config["style"])
+            if args.require_green_workflows:
+                _validate_workflow_badge_is_green(errors, badge, style=config["style"])
 
     demos_badges = _expanded_demos_badges(config)
     for badge in demos_badges:
@@ -328,6 +334,8 @@ def main() -> int:
     print("PASS: README badge rails are in sync with release/badges.json")
     if args.check_http_links:
         print("PASS: badge HTTP/HTTPS link checks succeeded")
+    if args.require_green_workflows:
+        print("PASS: workflow badge SVGs report passing status")
     return 0
 
 

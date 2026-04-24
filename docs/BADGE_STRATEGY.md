@@ -92,6 +92,12 @@ Validate badge links end-to-end (includes HTTP/HTTPS targets):
 python scripts/check_readme_badges.py --check-http-links
 ```
 
+Enforce earned-green workflow status (network check, opt-in):
+
+```bash
+python scripts/check_readme_badges.py --require-green-workflows
+```
+
 Recommended paired release-surface check:
 
 ```bash
