@@ -3,11 +3,13 @@
 
 from __future__ import annotations
 
+import ast
 from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "demos" / "ascension-runtime" / "out"
+RUN_DEMO = ROOT / "demos" / "ascension-runtime" / "run_demo.py"
 
 REQUIRED_ARTIFACTS = [
     "insight_packet.json",
@@ -57,7 +59,56 @@ REQUIRED_ARTIFACTS = [
 ]
 
 
+def _extract_run_demo_required_artifacts() -> list[str]:
+    """Parse run_demo.py and extract the assert-mode `required = [...]` artifact list."""
+    tree = ast.parse(RUN_DEMO.read_text(encoding="utf-8"), filename=str(RUN_DEMO))
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Assign):
+            for target in node.targets:
+                if isinstance(target, ast.Name) and target.id == "required":
+                    if not isinstance(node.value, ast.List):
+                        continue
+                    values: list[str] = []
+                    for elt in node.value.elts:
+                        if not isinstance(elt, ast.Constant) or not isinstance(elt.value, str):
+                            raise ValueError("run_demo.py assert-mode required list contains non-string entries")
+                        values.append(elt.value)
+                    return values
+
+    raise ValueError("unable to locate assert-mode required artifact list in run_demo.py")
+
+
+def _validate_contract_parity() -> list[str]:
+    runtime_required = sorted(_extract_run_demo_required_artifacts())
+    checker_required = sorted(REQUIRED_ARTIFACTS)
+
+    errors: list[str] = []
+    runtime_only = sorted(set(runtime_required) - set(checker_required))
+    checker_only = sorted(set(checker_required) - set(runtime_required))
+
+    if runtime_only:
+        errors.append(
+            "checker missing artifacts required by demos/ascension-runtime/run_demo.py: "
+            + ", ".join(runtime_only)
+        )
+    if checker_only:
+        errors.append(
+            "checker includes artifacts not required by demos/ascension-runtime/run_demo.py: "
+            + ", ".join(checker_only)
+        )
+
+    return errors
+
+
 def main() -> int:
+    errors = _validate_contract_parity()
+    if errors:
+        print("FAIL: ascension runtime checker contract parity failed")
+        for err in errors:
+            print(f"- {err}")
+        return 1
+
     missing = [path for path in REQUIRED_ARTIFACTS if not (OUT / path).exists()]
     if missing:
         print("FAIL: ascension runtime artifact check failed")
@@ -66,6 +117,7 @@ def main() -> int:
         return 1
 
     print("PASS: ascension runtime required artifacts are present")
+    print("PASS: checker artifact contract matches run_demo.py --assert required list")
     print(f"Checked {len(REQUIRED_ARTIFACTS)} artifacts under {OUT}")
     return 0
 
