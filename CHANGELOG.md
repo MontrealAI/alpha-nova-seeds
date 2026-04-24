@@ -12,6 +12,8 @@
 
 ### Changed
 - Updated `.github/workflows/release-provenance.yml` to include a push/pull_request provenance smoke job so the workflow badge reflects earned green status on normal branch activity while preserving the existing tag-bound release publication path under `workflow_dispatch`.
+- Reordered `demos/ascension-runtime/run_demo.py` execution flow to match the documented bounded loop sequence at the tail (`Value Reservoir → Architect → Nodes → Archive`).
+- Refined `docs/ASCENSION_TRACE_MATRIX.md` table columns to explicitly map each layer to a single status field and a dedicated “what remains unproven” statement.
 
 - Hardened `demos/ascension-runtime/run_demo.py --assert` to validate emitted runtime artifacts against canonical `schemas/v2.8/` Ascension schemas, including `ascension_runtime_scorecard.schema.json`.
 - Restored cross-demo v2.8 schema compatibility for shared Ascension artifacts (including per-seed `nova_seed_packet` legacy shape) so `demos/ascension-live-runtime/run_demo.py --assert` remains green.
