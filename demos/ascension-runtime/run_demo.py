@@ -5,7 +5,7 @@ import argparse
 from pathlib import Path
 
 from src import agents, archive, architect, business, insight, jobs, mark, marketplace, nodes, nova_seed, report, reservoir, scorecard, sovereign, validators
-from src.utils import read_json, reset_dir
+from src.utils import read_json, reset_dir, validate_json_schema
 
 DEMO = Path(__file__).resolve().parent
 OUT = DEMO / "out"
@@ -113,6 +113,24 @@ def run(assert_mode: bool) -> None:
         validated_units = reservoir_ledger.get("validated_work_units", [])
         if len(validated_units) < 1:
             raise AssertionError("Reservoir must contain validated work units in --assert mode")
+
+        schema_checks = {
+            "insight_packet.json": "insight_packet.schema.json",
+            "nova_seed_packet.json": "nova_seed_bundle.schema.json",
+            "mark_selection_report.json": "mark_selection_report.schema.json",
+            "sovereign_manifest.json": "sovereign_manifest.schema.json",
+            "marketplace_round.json": "marketplace_round.schema.json",
+            "agi_job_receipt.json": "agi_job_receipt_bundle.schema.json",
+            "agent_execution_log.json": "agent_execution_round.schema.json",
+            "validation_round.json": "validation_round.schema.json",
+            "reservoir_ledger.json": "reservoir_ledger.schema.json",
+            "archive_lineage.json": "archive_lineage.schema.json",
+            "architect_recommendation.json": "architect_recommendation.schema.json",
+            "ascension_runtime_scorecard.json": "ascension_runtime_scorecard.schema.json",
+        }
+        schema_root = DEMO.parent.parent / "schemas" / "v2.8"
+        for artifact, schema_name in schema_checks.items():
+            validate_json_schema(read_json(OUT / artifact), schema_root / schema_name)
 
     print("Ascension runtime demo completed.")
     print(f"Artifacts emitted under: {OUT}")

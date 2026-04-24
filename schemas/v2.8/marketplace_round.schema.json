@@ -3,12 +3,8 @@
   "title": "Marketplace Round v2.8",
   "type": "object",
   "required": [
+    "runtime_id",
     "round_id",
-    "job_id",
-    "bids",
-    "selected_agent",
-    "validator_requirements",
-    "settlement_conditions",
     "claim_boundary"
   ]
 }
