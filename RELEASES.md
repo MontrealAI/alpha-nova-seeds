@@ -7,6 +7,7 @@ Posture coherence note (2026-04-23): README.md, AGENTS.md, and RELEASES.md all r
 Current front-door coherence checklist:
 - `release/v2.8.0-rc.7-front-door-institutional-badge-checklist.md`
 - `release/v2.8.0-rc.7-ascension-live-runtime-checklist.md`
+- `release/v2.8.0-rc.7-ascension-runtime-green-badges-checklist.md` (badge green-gate + bounded ascension-runtime acceptance helper)
 
 Each release candidate must include:
 
