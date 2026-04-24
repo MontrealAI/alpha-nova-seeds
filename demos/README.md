@@ -14,7 +14,7 @@ The four surfaces are intentionally separated so reviewers can distinguish:
 - **what is accelerating-loop demonstration across bounded autonomy phases**
 
 
-## 0) Ascension runtime (organism reference runtime)
+## 1) Ascension runtime (organism reference runtime)
 
 - Path: [`./ascension-runtime/`](./ascension-runtime/)
 - Role: bounded local/devnet organism reference runtime across Insight → Archive/next loop
@@ -22,7 +22,7 @@ The four surfaces are intentionally separated so reviewers can distinguish:
 - Proves: deterministic local replay with machine-readable artifacts for each Ascension layer
 - Does not prove: audited-final deployment, live DEX/marketplace, mainnet settlement, or completed live Ascension
 
-## 1) Flagship synthetic wedge demo (primary front door)
+## 2) Flagship synthetic wedge demo (primary front door)
 
 - Path: [`./protocol_smart_contract_correctness_demo/`](./protocol_smart_contract_correctness_demo/)
 - Role: best public/operator entry point
@@ -30,22 +30,7 @@ The four surfaces are intentionally separated so reviewers can distinguish:
 - Proves: deterministic wedge mechanics (winner selection, frozen package, adjacent control-vs-treatment gate, sovereign PASS/FAIL emission)
 - Does not prove: live external validity or broad cybersecurity sovereign realization
 
-## 2) Adjacent synthetic proof demo (compact replay)
-
-- Path: [`./adjacent_mandate_reuse_proof_demo/`](./adjacent_mandate_reuse_proof_demo/)
-- Role: compact synthetic adjacent proof replay
-- Run: `python3 demos/adjacent_mandate_reuse_proof_demo/run_demo.py`
-- Proves: minimal threshold-gate structure and synthetic measurement pattern
-- Does not prove: real-world compounding correctness
-
-## 3) Real-world proof pack (operator execution)
-
-- Path: [`./adjacent_mandate_reuse_proof_real_v1/`](./adjacent_mandate_reuse_proof_real_v1/)
-- Role: controlled real-world experiment templates
-- Run (scorecard helper): `python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py`
-- Proves: only when executed with blinded real-world data and published proof-docket artifacts
-
-## 4) Accelerating-loop demo (bounded-to-expanding-to-more-autonomous)
+## 3) Open-ended RSI system — Accelerating-loop demo (bounded accelerating loop)
 
 - Path: [`./open-ended-rsi-system/`](./open-ended-rsi-system/)
 - Role: flagship-class accelerating-loop demonstration with governed package heredity, frontier queue autonomy, and board-ready proof outputs
@@ -54,8 +39,20 @@ The four surfaces are intentionally separated so reviewers can distinguish:
 - Proves: deterministic three-generation loop mechanics with frozen package reuse and bounded autonomous adjacent selection
 - Does not prove: unrestricted autonomy, literal unbounded RSI, or full broad sovereign realization
 
-Legacy compatibility surface:
-- [`./unbounded-rsi-system/`](./unbounded-rsi-system/) remains available for historical replay.
+## 4) Adjacent synthetic proof demo (compact replay)
+
+- Path: [`./adjacent_mandate_reuse_proof_demo/`](./adjacent_mandate_reuse_proof_demo/)
+- Role: compact synthetic adjacent proof replay
+- Run: `python3 demos/adjacent_mandate_reuse_proof_demo/run_demo.py`
+- Proves: minimal threshold-gate structure and synthetic measurement pattern
+- Does not prove: real-world compounding correctness
+
+## 5) Real-world proof pack (operator execution)
+
+- Path: [`./adjacent_mandate_reuse_proof_real_v1/`](./adjacent_mandate_reuse_proof_real_v1/)
+- Role: controlled real-world experiment templates
+- Run (scorecard helper): `python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py`
+- Proves: only when executed with blinded real-world data and published proof-docket artifacts
 
 ## Doctrine context
 
@@ -81,11 +78,6 @@ It does **not** claim:
 
 Compatibility label: Real-world experiment pack.
 
-
-## 5) Ascension live runtime demo (bounded local/devnet, legacy compatibility surface)
-
-- Path: [`./ascension-live-runtime/`](./ascension-live-runtime/)
-- Role: end-to-end bounded organism loop across Insight → Archive with machine-readable receipts
-- Run: `python3 demos/ascension-live-runtime/run_demo.py --assert`
-- Proves: deterministic local/devnet loop with seed selection, job competition, validation, settlement ledgering, archive lineage, and architect recommendation
-- Does not prove: audited-final deployment, mainnet safety, real external-market settlement, or completed α‑AGI Ascension
+Legacy compatibility surfaces:
+- [`./unbounded-rsi-system/`](./unbounded-rsi-system/) remains available for historical replay.
+- [`./ascension-live-runtime/`](./ascension-live-runtime/) remains available for historical replay.
