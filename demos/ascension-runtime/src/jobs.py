@@ -69,4 +69,14 @@ def run(cfg: dict, out: Path, jobs: list[dict], assignments: list[dict], claim_b
         receipt["expected_receipt_file_hash"] = sha_file(receipt_path)
         receipts.append(receipt)
 
+    write_json(
+        out / "agi_job_receipt.json",
+        {
+            "runtime_id": cfg["runtime_id"],
+            "job_receipts": receipts,
+            "claim_boundary": claim_boundary,
+            "status": "local deterministic receipts",
+        },
+    )
+
     return receipts

@@ -14,11 +14,13 @@ The repository now contains a bounded local/devnet Minimum Viable Ascension Runt
 
 - deterministic Insight packet and rationale;
 - five Nova-Seed packets;
+- aggregate Nova-Seed packet (`out/nova_seed_packet.json`);
 - deterministic MARK ranking, risk report, and orderbook snapshot;
 - bounded Sovereign formation artifacts;
 - AGI Business operating plan and mandate decomposition;
 - local Marketplace round with deterministic assignment;
 - two AGI Jobs with specs, completions, receipts, and event logs;
+- aggregate AGI Jobs receipt packet (`out/agi_job_receipt.json`);
 - deterministic multi-agent competition and reputation snapshots;
 - validation attestations, validation round, and council ruling;
 - local Value Reservoir ledger and epoch report;
