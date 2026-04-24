@@ -7,7 +7,6 @@
     "unit",
     "validated_work_units",
     "rejected_work_units",
-    "balance",
     "reinvestment_recommendation",
     "claim_boundary"
   ]

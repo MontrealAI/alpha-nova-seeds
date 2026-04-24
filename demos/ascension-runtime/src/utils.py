@@ -37,3 +37,20 @@ def reset_dir(path: Path) -> None:
             elif p.is_dir():
                 p.rmdir()
     path.mkdir(parents=True, exist_ok=True)
+
+
+def validate_json_schema(payload: dict[str, Any], schema_path: Path) -> None:
+    try:
+        from jsonschema import Draft202012Validator
+    except ModuleNotFoundError as exc:  # pragma: no cover - environment dependent
+        raise AssertionError(
+            "Schema validation requires optional dependency 'jsonschema'. "
+            "Install it or run without --assert."
+        ) from exc
+
+    schema = read_json(schema_path)
+    validator = Draft202012Validator(schema)
+    errors = sorted(validator.iter_errors(payload), key=lambda e: e.path)
+    if errors:
+        joined = "; ".join(error.message for error in errors[:5])
+        raise AssertionError(f"Schema validation failed for {schema_path}: {joined}")

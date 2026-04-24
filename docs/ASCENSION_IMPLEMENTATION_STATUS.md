@@ -27,7 +27,8 @@ The repository now contains a bounded local/devnet Minimum Viable Ascension Runt
 - Nodes runtime profile artifact;
 - Archive lineage, package manifest, and archive index;
 - Architect recommendation and next-loop plan;
-- board/runtime scorecard and rendered reports.
+- board/runtime scorecard and rendered reports;
+- assert-mode schema validation for core runtime artifacts against canonical `schemas/v2.8/` schema set.
 
 ## Bounded/non-claims
 
