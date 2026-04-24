@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- Added release checklist `release/v2.8.0-rc.7-ascension-runtime-green-badges-checklist.md` with badge generation/validation commands, ascension-runtime assert command, workflow green requirements, artifact checks, claim boundary reminders, and rollback notes.
 - Added new bounded local/devnet Ascension runtime demo at `demos/ascension-runtime/` with modular source layout (`src/`), deterministic artifact emission, two-job agent competition, validation/council rulings, reservoir ledgering, archive lineage, node profile, architect next-loop planning, and board scorecard/report outputs.
 - Added bounded local/devnet Ascension runtime demo at `demos/ascension-live-runtime/` with deterministic end-to-end organism loop artifacts, event log emission, scorecard outputs, and operator reports.
 - Added v2.8 Ascension artifact schemas: insight packet, seed packet, MARK report, sovereign manifest, marketplace round, AGI job receipt, agent execution log, validation round, reservoir ledger, archive lineage, and architect recommendation.
@@ -10,6 +11,7 @@
 - Added release checklist `release/v2.8.0-rc.7-ascension-live-runtime-checklist.md` for demo execution, schema/event checks, migration notes, rollback notes, and claim boundaries.
 
 ### Changed
+- Updated `.github/workflows/release-provenance.yml` to include a push/pull_request provenance smoke job so the workflow badge reflects earned green status on normal branch activity while preserving the existing tag-bound release publication path under `workflow_dispatch`.
 
 - Hardened `demos/ascension-runtime/run_demo.py --assert` to validate emitted runtime artifacts against canonical `schemas/v2.8/` Ascension schemas, including `ascension_runtime_scorecard.schema.json`.
 - Restored cross-demo v2.8 schema compatibility for shared Ascension artifacts (including per-seed `nova_seed_packet` legacy shape) so `demos/ascension-live-runtime/run_demo.py --assert` remains green.

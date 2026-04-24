@@ -1,6 +1,19 @@
 name: release-provenance
 
 on:
+  push:
+    branches: ["**"]
+    paths:
+      - "scripts/release/generate_provenance_manifest.py"
+      - "backend/scripts/export_openapi.py"
+      - "docs/verify-release.md"
+      - ".github/workflows/release-provenance.yml"
+  pull_request:
+    paths:
+      - "scripts/release/generate_provenance_manifest.py"
+      - "backend/scripts/export_openapi.py"
+      - "docs/verify-release.md"
+      - ".github/workflows/release-provenance.yml"
   workflow_dispatch:
     inputs:
       release_tag:
@@ -14,7 +27,24 @@ permissions:
   attestations: write
 
 jobs:
+  provenance-smoke:
+    if: github.event_name != 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Smoke-generate provenance manifest
+        run: |
+          python scripts/release/generate_provenance_manifest.py \
+            --tag "v0.0.0-provenance-smoke" \
+            --output /tmp/provenance-manifest-smoke.json
+
   provenance:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
