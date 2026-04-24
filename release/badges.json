@@ -9,9 +9,10 @@
       "contracts-security",
       "release-provenance",
       "proof-boundary",
+      "verifiable-rc",
       "flagship-demo",
       "demo-ladder",
-      "accelerating-loop",
+      "ascension-runtime",
       "doctrine-stack"
     ],
     "rows": [
@@ -28,9 +29,10 @@
         "label": "Orientation rail",
         "badges": [
           "proof-boundary",
+          "verifiable-rc",
           "flagship-demo",
           "demo-ladder",
-          "accelerating-loop",
+          "ascension-runtime",
           "doctrine-stack"
         ]
       }
@@ -79,6 +81,15 @@
         "alt": "Proof-first bounded release candidate posture"
       },
       {
+        "id": "verifiable-rc",
+        "kind": "static",
+        "label": "posture",
+        "message": "verifiable RC",
+        "color": "0969da",
+        "link": "./RELEASES.md",
+        "alt": "Verifiable release candidate posture"
+      },
+      {
         "id": "flagship-demo",
         "kind": "static",
         "label": "flagship demo",
@@ -97,13 +108,13 @@
         "alt": "Demo ladder index"
       },
       {
-        "id": "accelerating-loop",
+        "id": "ascension-runtime",
         "kind": "static",
-        "label": "accelerating loop",
-        "message": "open-ended RSI",
+        "label": "ascension runtime",
+        "message": "local/devnet MVA",
         "color": "0e8a16",
-        "link": "./demos/open-ended-rsi-system/README.md",
-        "alt": "Accelerating-loop demo"
+        "link": "./demos/ascension-runtime/README.md",
+        "alt": "Ascension runtime local/devnet demo"
       },
       {
         "id": "doctrine-stack",
@@ -130,8 +141,8 @@
             "link": "./protocol_smart_contract_correctness_demo/README.md"
           },
           {
-            "id": "accelerating-loop",
-            "link": "./open-ended-rsi-system/README.md"
+            "id": "ascension-runtime",
+            "link": "./ascension-runtime/README.md"
           },
           {
             "id": "proof-boundary",
