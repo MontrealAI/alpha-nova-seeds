@@ -3,10 +3,10 @@
   "title": "Nova Seed Packet v2.8",
   "type": "object",
   "required": [
-    "seed_id",
-    "state",
-    "fusion_plan",
-    "proof_requirements",
-    "promotion_criteria"
+    "runtime_id",
+    "version",
+    "seeds",
+    "status",
+    "claim_boundary"
   ]
 }

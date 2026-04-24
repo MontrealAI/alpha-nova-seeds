@@ -3,14 +3,18 @@
   "title": "Sovereign Manifest v2.8",
   "type": "object",
   "required": [
+    "runtime_id",
     "sovereign_id",
-    "seed_id",
-    "state",
-    "authority_scope",
-    "job_creation_policy",
-    "validator_policy",
-    "settlement_policy",
+    "scope",
+    "authority_boundary",
+    "mandate_families",
+    "allowed_jobs",
+    "prohibited_claims",
+    "governance_gates",
     "archive_policy",
+    "proof_requirements",
+    "settlement_ruling_policy",
+    "status",
     "claim_boundary"
   ]
 }

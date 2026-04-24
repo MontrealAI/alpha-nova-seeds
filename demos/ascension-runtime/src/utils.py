@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from jsonschema import Draft202012Validator
+
 
 def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -37,3 +39,12 @@ def reset_dir(path: Path) -> None:
             elif p.is_dir():
                 p.rmdir()
     path.mkdir(parents=True, exist_ok=True)
+
+
+def validate_json_schema(payload: dict[str, Any], schema_path: Path) -> None:
+    schema = read_json(schema_path)
+    validator = Draft202012Validator(schema)
+    errors = sorted(validator.iter_errors(payload), key=lambda e: e.path)
+    if errors:
+        joined = "; ".join(error.message for error in errors[:5])
+        raise AssertionError(f"Schema validation failed for {schema_path}: {joined}")

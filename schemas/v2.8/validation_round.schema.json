@@ -4,7 +4,6 @@
   "type": "object",
   "required": [
     "round_id",
-    "job_id",
     "attestations",
     "result",
     "claim_boundary"

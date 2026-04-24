@@ -7,8 +7,10 @@
     "unit",
     "validated_work_units",
     "rejected_work_units",
-    "balance",
+    "archive_contribution",
+    "simulated_fee_burn",
     "reinvestment_recommendation",
+    "status",
     "claim_boundary"
   ]
 }
