@@ -1,0 +1,45 @@
+{
+  "receipt_type": "blinded_adjacent_transfer_reveal_receipt",
+  "generated_at_utc": "2026-04-24T02:54:53+00:00",
+  "score_lock_confirmed": true,
+  "private_assignment_map_sha256": "ee9fc9b2bdffdc3a24ea9eebf11b1d854d4f8a3bc27a29682a8a02c857f8f498",
+  "private_commitment_hashes_sha256": "b96ccc59fba7496b46604324ffe88d1040fde9fe2a2b87e44ad86804aa95cada",
+  "lane_assignments": [
+    {
+      "artifact_set": "stage_a_mandate_2",
+      "lane_id": "Lane Blue",
+      "assigned_kit": "Kit Gold",
+      "assignment_role": "Lane Operator A",
+      "revealed_after_score_lock": "true",
+      "revealed_after_score_lock_source": "false"
+    },
+    {
+      "artifact_set": "stage_a_mandate_2",
+      "lane_id": "Lane Gold",
+      "assigned_kit": "Kit Blue",
+      "assignment_role": "Lane Operator B",
+      "revealed_after_score_lock": "true",
+      "revealed_after_score_lock_source": "false"
+    },
+    {
+      "artifact_set": "stage_b_mandate_3",
+      "lane_id": "Lane Blue",
+      "assigned_kit": "REPLACE",
+      "assignment_role": "REPLACE",
+      "revealed_after_score_lock": "true",
+      "revealed_after_score_lock_source": "false"
+    },
+    {
+      "artifact_set": "stage_b_mandate_3",
+      "lane_id": "Lane Gold",
+      "assigned_kit": "REPLACE",
+      "assignment_role": "REPLACE",
+      "revealed_after_score_lock": "true",
+      "revealed_after_score_lock_source": "false"
+    }
+  ],
+  "notes": [
+    "This receipt intentionally excludes reviewer identities and answer keys.",
+    "Reveal should happen only after adjudication and scorecard lock."
+  ]
+}
