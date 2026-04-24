@@ -23,6 +23,14 @@ This front door is intentionally proof-first: it gives serious reviewers a direc
 - **What is real today:** replayable synthetic flagship evidence, bounded accelerating-loop replay, workflow-backed provenance surfaces, and publication-time verification tooling.
 - **What is not claimed:** audited-final deployment, completed broad sovereign realization, unrestricted autonomy, or default external real-world validity.
 
+
+### Demonstrated status map (explicit boundary)
+
+- **Demonstrated now:** deterministic replayable artifacts for Insight → Nova-Seeds → MARK selection simulation → Sovereign formation → Business decomposition → Marketplace routing simulation → AGI Jobs/Agents → Validators/Council → Reservoir accounting simulation → Architect recommendation → Nodes profile → Archive lineage.
+- **Local/devnet implementation:** runtime execution is local-only under `demos/ascension-runtime/` with deterministic outputs and `--assert` verification.
+- **Simulated components:** MARK market mechanics, marketplace settlement rails, and value reservoir economics remain bounded local simulations (no live DEX or real token settlement claims).
+- **Unproven/pending:** audited-final safety, mainnet readiness, live global marketplace operation, and completed live α‑AGI Ascension economy.
+
 ### Start here
 
 1. **Ascension runtime (local/devnet):** [`demos/ascension-runtime/`](./demos/ascension-runtime/)

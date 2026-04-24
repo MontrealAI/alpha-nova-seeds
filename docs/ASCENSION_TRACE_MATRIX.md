@@ -2,13 +2,13 @@
 
 This matrix maps the public Ascension organism to repo-native implementation surfaces for `demos/ascension-runtime/`.
 
-| Layer | Public role | Repo role | Artifact | Current implementation | Status class | Evidence status note |
+| Layer | Public role | Repo role | Artifact | Current implementation | Status class | What remains unproven |
 |---|---|---|---|---|---|---|
-| α‑AGI Insight | discovers AGI Alpha opportunities | opportunity / wedge selector | `insight_packet.json` | protocol-correctness wedge + frontier queue | implemented, local/devnet | deterministic local artifact; external foresight not proven |
-| Nova-Seeds | sealed venture blueprints / foresight genomes / FusionPlans | capability genome and seed packet | `nova_seed_packet.json` (+ `out/nova_seeds/*.json`) | five deterministic local seed packets + aggregate packet | implemented, local/devnet | deterministic local artifact |
+| α‑AGI Insight | discovers AGI Alpha opportunities | opportunity / wedge selector | `insight_packet.json` | protocol-correctness wedge + frontier queue | implemented, local/devnet | external foresight quality and market acceptance are unproven |
+| Nova-Seeds | sealed venture blueprints / foresight genomes / FusionPlans | capability genome and seed packet | `nova_seed_packet.json` (+ `out/nova_seeds/*.json`) | five deterministic local seed packets + aggregate packet | implemented, local/devnet | live economic performance and real settlement outcomes are unproven |
 | MARK | foresight DEX / risk oracle / selection and capital allocation | deterministic seed scoring and allocation simulation | `mark_selection_report.json` | weighted local scorer + bundle selector | implemented, simulated | local risk/selection oracle; not live DEX |
 | Sovereign | autonomous enterprise transformation | bounded operating lineage formed from selected seed | `sovereign_manifest.json` | α‑AGI Protocol Cybersecurity Sovereign candidate manifest | implemented, local/devnet | local/devnet/synthetic sovereign candidate |
-| AGI Business | decomposes FusionPlan into AGI Jobs | business operating plan and mandate decomposition | `business_operating_plan.json` | deterministic decomposition into two jobs | implemented, local/devnet | deterministic local artifact |
+| Business | decomposes Sovereign mandate into AGI Jobs | business operating plan and mandate decomposition | `business_operating_plan.json` | deterministic decomposition into two jobs | implemented, local/devnet | external demand capture and live operating execution are unproven |
 | Marketplace | global job router / agent competition / validator settlement | local marketplace round | `marketplace_round.json` | local job posting, bidding, assignment, escrow placeholders | implemented, simulated | local/devnet simulation unless contracts/events are fully implemented |
 | AGI Jobs | autonomous missions carrying goal, success metric, bounty | proof-bound work units | `agi_job_receipt.json` (+ `out/jobs/*`) | deterministic specs/completions/receipts for two jobs | implemented, local/devnet | local deterministic receipts |
 | Agents | adaptive executors | competing deterministic local agents | `agent_execution_log.json` | deterministic fast_low_cost, evidence_heavy, balanced competition | implemented, local/devnet | bounded local agents, not unrestricted autonomy |
