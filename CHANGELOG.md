@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+### Added
+- Added bounded local/devnet Ascension runtime demo at `demos/ascension-live-runtime/` with deterministic end-to-end organism loop artifacts, event log emission, scorecard outputs, and operator reports.
+- Added v2.8 Ascension artifact schemas: insight packet, seed packet, MARK report, sovereign manifest, marketplace round, AGI job receipt, agent execution log, validation round, reservoir ledger, archive lineage, and architect recommendation.
+- Added Ascension implementation/status docs at `docs/ASCENSION_IMPLEMENTATION_STATUS.md` and `docs/ASCENSION_TRACE_MATRIX.md`.
+- Added release checklist `release/v2.8.0-rc.7-ascension-live-runtime-checklist.md` for demo execution, schema/event checks, migration notes, rollback notes, and claim boundaries.
+
+### Changed
+- Added read-only backend Ascension runtime endpoints (`/ascension/status`, `/ascension/seeds`, `/ascension/mark`, `/ascension/sovereigns`, `/ascension/jobs`, `/ascension/agents`, `/ascension/validators`, `/ascension/reservoir`, `/ascension/archive`, `/ascension/architect`, `/ascension/scorecard`) backed by deterministic local artifacts.
+- Updated dashboard operator surface with an Ascension Runtime tab and bound local/devnet status panels.
+- Updated root and demo-ladder docs to include the new Ascension runtime path.
+
 ### Changed
 - Added `.gitignore` guardrails for `demos/adjacent_mandate_reuse_proof_real_v1/local_private_blinding_materials/` so private blinding maps and answer keys stay local-only when running the real-world blinded adjacent-transfer harness.
 - Added `07_scripts/assemble_reveal_packet.py` to emit a post-score-lock public reveal receipt (hash-linked to private commitment files) without exposing reviewer identities or answer keys.

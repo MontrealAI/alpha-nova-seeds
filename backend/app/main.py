@@ -1,3 +1,5 @@
+from pathlib import Path
+import json
 from fastapi import FastAPI, Response
 from sqlalchemy import text
 from typing import List
@@ -5,6 +7,16 @@ from .db import engine
 from .schemas import DashboardSummary, ProofSummary, ReviewerStakeRow, CouncilSeatRow, ReadyStatus
 
 app = FastAPI(title="Nova-Seeds v2.6 RC API", version="2.6.0-rc.1")
+
+ROOT = Path(__file__).resolve().parents[2]
+ASCENSION_OUT = ROOT / "demos" / "ascension-live-runtime" / "out"
+
+
+def _read_ascension_artifact(filename: str, fallback: dict | list) -> dict | list:
+    path = ASCENSION_OUT / filename
+    if not path.exists():
+        return fallback
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 @app.get('/health')
@@ -73,6 +85,97 @@ def council_seats():
             LIMIT 200
         ''')).mappings().all()
     return [CouncilSeatRow(**row) for row in rows]
+
+
+@app.get('/ascension/status')
+def ascension_status():
+    scorecard = _read_ascension_artifact("ascension_runtime_scorecard.json", {"layers": []})
+    events = _read_ascension_artifact("events.json", {"events": []})
+    return {
+        "available": bool(scorecard.get("layers")),
+        "layer_count": len(scorecard.get("layers", [])),
+        "event_count": len(events.get("events", [])),
+        "claim_boundary": scorecard.get("claim_boundary", "No ascension runtime artifacts available."),
+    }
+
+
+@app.get('/ascension/seeds')
+def ascension_seeds():
+    return _read_ascension_artifact("nova_seed_registry_snapshot.json", {"seeds": []})
+
+
+@app.get('/ascension/mark')
+def ascension_mark():
+    return {
+        "selection": _read_ascension_artifact("mark_selection_report.json", {}),
+        "risk": _read_ascension_artifact("mark_risk_report.json", {}),
+    }
+
+
+@app.get('/ascension/sovereigns')
+def ascension_sovereigns():
+    return {
+        "manifest": _read_ascension_artifact("sovereign_manifest.json", {}),
+        "state": _read_ascension_artifact("sovereign_state_snapshot.json", {}),
+    }
+
+
+@app.get('/ascension/jobs')
+def ascension_jobs():
+    return {
+        "job_spec": _read_ascension_artifact("jobs/job_spec.json", {}),
+        "job_completion": _read_ascension_artifact("jobs/job_completion.json", {}),
+        "job_receipt": _read_ascension_artifact("jobs/job_receipt.json", {}),
+        "job_events": _read_ascension_artifact("jobs/job_event_log.json", {}),
+    }
+
+
+@app.get('/ascension/agents')
+def ascension_agents():
+    return {
+        "marketplace_round": _read_ascension_artifact("marketplace_round.json", {}),
+        "execution_log": _read_ascension_artifact("agent_execution_log.json", {}),
+        "reputation": _read_ascension_artifact("agent_reputation_snapshot.json", {}),
+    }
+
+
+@app.get('/ascension/validators')
+def ascension_validators():
+    return {
+        "validation_round": _read_ascension_artifact("validation_round.json", {}),
+        "attestation": _read_ascension_artifact("validation_attestation.json", {}),
+        "council_ruling": _read_ascension_artifact("council_ruling.json", {}),
+    }
+
+
+@app.get('/ascension/reservoir')
+def ascension_reservoir():
+    return {
+        "ledger": _read_ascension_artifact("reservoir_ledger.json", {}),
+        "epoch_report": _read_ascension_artifact("reservoir_epoch_report.json", {}),
+    }
+
+
+@app.get('/ascension/archive')
+def ascension_archive():
+    return {
+        "lineage": _read_ascension_artifact("archive_lineage.json", {}),
+        "index": _read_ascension_artifact("archive_index.json", {}),
+        "capability_manifest": _read_ascension_artifact("capability_package_manifest.json", {}),
+    }
+
+
+@app.get('/ascension/architect')
+def ascension_architect():
+    return {
+        "recommendation": _read_ascension_artifact("architect_recommendation.json", {}),
+        "next_loop_plan": _read_ascension_artifact("next_loop_plan.json", {}),
+    }
+
+
+@app.get('/ascension/scorecard')
+def ascension_scorecard():
+    return _read_ascension_artifact("ascension_runtime_scorecard.json", {"layers": []})
 
 
 @app.get('/metrics')

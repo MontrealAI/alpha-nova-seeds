@@ -9,7 +9,7 @@
 <body>
   <div class="page">
     <div class="hero">
-      <div class="eyebrow">NOVA-SEEDS v2.8.0-rc.1 · OPERATOR SURFACE</div>
+      <div class="eyebrow">NOVA-SEEDS v2.8.0-rc.7 · OPERATOR SURFACE</div>
       <h1>Protocol Correctness Wedge Control Panel</h1>
       <p>Identity → proof → settlement → governance. This dashboard is an operator/reviewer legibility surface with explicit synthetic-vs-real boundaries.</p>
       <div class="status-row">
@@ -81,6 +81,7 @@
       <button data-tab="rounds">Rounds</button>
       <button data-tab="reviewer">Reviewer Ledger</button>
       <button data-tab="council">Council Seats</button>
+      <button data-tab="ascension">Ascension Runtime</button>
       <button data-tab="lineage">Sovereign Lineage</button>
       <button data-tab="provenance">Release Provenance</button>
       <button data-tab="alerts">Alerts/Disputes</button>
@@ -114,6 +115,25 @@
       <h3>Council seat lifecycle</h3>
       <p class="muted">Identity, challenge lifecycle, and seat turnover visibility for governance audit trails.</p>
       <pre id="councilSeats">[]</pre>
+    </section>
+
+
+    <section id="ascension" class="panel">
+      <h3>Ascension runtime (local/devnet bounded)</h3>
+      <p class="muted">This surface is local/devnet replay evidence. It is not a mainnet, audited, or real-value settlement claim.</p>
+      <div class="grid">
+        <div class="card"><h3>Runtime available</h3><div id="ascension_available" class="metric">—</div></div>
+        <div class="card"><h3>Layer count</h3><div id="ascension_layer_count" class="metric">—</div></div>
+        <div class="card"><h3>Event count</h3><div id="ascension_event_count" class="metric">—</div></div>
+      </div>
+      <h4>Scorecard</h4>
+      <pre id="ascensionScorecard">{}</pre>
+      <h4>Jobs</h4>
+      <pre id="ascensionJobs">{}</pre>
+      <h4>Reservoir</h4>
+      <pre id="ascensionReservoir">{}</pre>
+      <h4>Architect</h4>
+      <pre id="ascensionArchitect">{}</pre>
     </section>
 
     <section id="lineage" class="panel">
