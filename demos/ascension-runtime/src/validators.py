@@ -1,8 +1,17 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
+from typing import Any
 
 from .utils import read_json, sha_file, sha_payload, write_json
+
+
+def _safe_read_json(path: Path) -> tuple[dict[str, Any], bool]:
+    try:
+        return read_json(path), True
+    except (OSError, json.JSONDecodeError, ValueError, TypeError):
+        return {}, False
 
 
 def run(out: Path, receipts: list[dict], claim_boundary: str) -> dict:
@@ -23,9 +32,9 @@ def run(out: Path, receipts: list[dict], claim_boundary: str) -> dict:
         expected_hashes = receipt.get("expected_artifact_hashes", {})
 
         receipt_path = out / "jobs" / f"{jid}_receipt.json"
-        receipt_payload = read_json(receipt_path) if receipt_path.exists() else {}
-        receipt_expected_hashes = receipt_payload.get("expected_artifact_hashes", {})
-        receipt_matches_trusted_input = receipt_expected_hashes == expected_hashes and bool(expected_hashes)
+        receipt_payload, receipt_json_valid = _safe_read_json(receipt_path) if receipt_path.exists() else ({}, False)
+        receipt_expected_hashes = receipt_payload.get("expected_artifact_hashes", {}) if receipt_json_valid else {}
+        receipt_matches_trusted_input = receipt_json_valid and receipt_expected_hashes == expected_hashes and bool(expected_hashes)
 
         receipt_integrity_payload = {
             "job_id": receipt_payload.get("job_id"),
@@ -36,9 +45,9 @@ def run(out: Path, receipts: list[dict], claim_boundary: str) -> dict:
             "expected_artifact_hashes": receipt_payload.get("expected_artifact_hashes"),
             "claim_boundary": receipt_payload.get("claim_boundary"),
         }
-        receipt_integrity_hash = sha_payload(receipt_integrity_payload) if receipt_payload else ""
+        receipt_integrity_hash = sha_payload(receipt_integrity_payload) if receipt_json_valid else ""
         receipt_integrity_hash_match = (
-            bool(receipt_payload)
+            receipt_json_valid
             and receipt_payload.get("receipt_integrity_hash") == receipt_integrity_hash
             and receipt.get("receipt_integrity_hash") == receipt_integrity_hash
         )
@@ -60,14 +69,18 @@ def run(out: Path, receipts: list[dict], claim_boundary: str) -> dict:
         }
 
         claim_boundary_preserved = True
+        malformed_artifacts: list[str] = []
         for p in required:
             if not p.exists():
                 claim_boundary_preserved = False
                 break
-            payload = read_json(p)
+            payload, ok = _safe_read_json(p)
+            if not ok:
+                claim_boundary_preserved = False
+                malformed_artifacts.append(str(p.relative_to(out)))
+                continue
             if payload.get("claim_boundary") != claim_boundary:
                 claim_boundary_preserved = False
-                break
 
         no_authority_widening = claim_boundary_preserved
         no_fabricated_external_proof = True
@@ -75,6 +88,7 @@ def run(out: Path, receipts: list[dict], claim_boundary: str) -> dict:
         approved = all(
             [
                 artifacts_exist,
+                receipt_json_valid,
                 receipt_matches_trusted_input,
                 receipt_integrity_hash_match,
                 receipt_file_hash_match,
@@ -93,6 +107,7 @@ def run(out: Path, receipts: list[dict], claim_boundary: str) -> dict:
                 "decision": decision,
                 "checks": {
                     "artifacts_exist": artifacts_exist,
+                    "receipt_json_valid": receipt_json_valid,
                     "receipt_matches_trusted_input": receipt_matches_trusted_input,
                     "receipt_integrity_hash_match": receipt_integrity_hash_match,
                     "receipt_file_hash_match": receipt_file_hash_match,
@@ -105,6 +120,7 @@ def run(out: Path, receipts: list[dict], claim_boundary: str) -> dict:
                 "expected_artifact_hashes": expected_hashes,
                 "artifact_hashes": artifact_hashes,
                 "missing_artifacts": [str(p.relative_to(out)) for p in missing_paths],
+                "malformed_artifacts": malformed_artifacts,
             }
         )
 

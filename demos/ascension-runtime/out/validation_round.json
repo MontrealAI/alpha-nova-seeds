@@ -7,6 +7,7 @@
       "decision": "approved",
       "checks": {
         "artifacts_exist": true,
+        "receipt_json_valid": true,
         "receipt_matches_trusted_input": true,
         "receipt_integrity_hash_match": true,
         "receipt_file_hash_match": true,
@@ -27,13 +28,15 @@
         "jobs/job_001_receipt.json": "41c8465bf59070a2df360a94689c35ce053a81d83aa9242d2dcbe04c1d18e442",
         "jobs/job_001_event_log.json": "e96eec495d652ebb58e8a7252716c1cdf10751ae53eb13cad53ee67161dcbb90"
       },
-      "missing_artifacts": []
+      "missing_artifacts": [],
+      "malformed_artifacts": []
     },
     {
       "job_id": "job_002",
       "decision": "approved",
       "checks": {
         "artifacts_exist": true,
+        "receipt_json_valid": true,
         "receipt_matches_trusted_input": true,
         "receipt_integrity_hash_match": true,
         "receipt_file_hash_match": true,
@@ -54,7 +57,8 @@
         "jobs/job_002_receipt.json": "dee30b0cac963d8f6acd6e2fcd2469cc6c9555d2f9dc73970e077c7867f569d3",
         "jobs/job_002_event_log.json": "836bc8fed50088673fddbde26e2c5990e19998f4db6357f15a3c69b6b37b559a"
       },
-      "missing_artifacts": []
+      "missing_artifacts": [],
+      "malformed_artifacts": []
     }
   ],
   "claim_boundary": "The repository now contains a bounded local/devnet Minimum Viable Ascension Runtime that demonstrates the Ascension organism's proof-first economic loop. It does not claim completed live Ascension or mainnet production readiness."
