@@ -35,6 +35,7 @@ def run(assert_mode: bool) -> None:
     architect.run(OUT, claim_boundary)
     scorecard.run(cfg, OUT, claim_boundary)
     report.run(OUT, claim_boundary)
+    archive.write_archive_index(OUT, claim_boundary)
 
     if assert_mode:
         required = [

@@ -16,7 +16,8 @@
         "jobs/job_001_completion.json": "d4ab74837640aa228925e2620fcf27cce2c0a1e05884d891d047b7529c59a791",
         "jobs/job_001_receipt.json": "f6d7569ec5147c7008a14a062ef623fe3c55c0ff97675c24fbda5c51ce6048d3",
         "jobs/job_001_event_log.json": "e96eec495d652ebb58e8a7252716c1cdf10751ae53eb13cad53ee67161dcbb90"
-      }
+      },
+      "missing_artifacts": []
     },
     {
       "job_id": "job_002",
@@ -34,7 +35,8 @@
         "jobs/job_002_completion.json": "069b605afa8e41f3fe6b54a166e699adc570c865fdb75c9a9cd76836da459ce9",
         "jobs/job_002_receipt.json": "6cec041f33618f1afe02ae24637276ad420194ce28021e61f56769e0b1df2ddd",
         "jobs/job_002_event_log.json": "836bc8fed50088673fddbde26e2c5990e19998f4db6357f15a3c69b6b37b559a"
-      }
+      },
+      "missing_artifacts": []
     }
   ],
   "claim_boundary": "The repository now contains a bounded local/devnet Minimum Viable Ascension Runtime that demonstrates the Ascension organism's proof-first economic loop. It does not claim completed live Ascension or mainnet production readiness."

@@ -3,7 +3,9 @@
     "agent_execution_log.json",
     "agent_reputation_snapshot.json",
     "agents/agent_profiles.json",
+    "architect_recommendation.json",
     "archive_lineage.json",
+    "ascension_runtime_scorecard.json",
     "business_operating_plan.json",
     "capability_package_manifest.json",
     "council_ruling.json",
@@ -22,6 +24,7 @@
     "mark_selection_report.json",
     "marketplace_assignment_log.json",
     "marketplace_round.json",
+    "next_loop_plan.json",
     "node_runtime_profile.json",
     "nova_seeds/audit_factory_seed.json",
     "nova_seeds/exploit_replay_seed.json",
@@ -33,7 +36,8 @@
     "sovereign_manifest.json",
     "sovereign_state_snapshot.json",
     "validation_attestations.json",
-    "validation_round.json"
+    "validation_round.json",
+    "archive_index.json"
   ],
   "claim_boundary": "The repository now contains a bounded local/devnet Minimum Viable Ascension Runtime that demonstrates the Ascension organism's proof-first economic loop. It does not claim completed live Ascension or mainnet production readiness."
 }
