@@ -32,7 +32,7 @@
     "evidence_completeness_uplift": 0.27777777777777785,
     "package_dependence": 0.75,
     "safety_regression": true,
-    "operator_intervention_reduction": 0.5,
+    "operator_intervention_reduction": 0.0,
     "frontier_width_increase": 1
   },
   "minimum_pass_flags": {
@@ -40,7 +40,7 @@
     "speed_positive": true,
     "evidence_completeness_uplift": true,
     "package_dependence": true,
-    "operator_intervention_reduction": true,
+    "operator_intervention_reduction": false,
     "frontier_width_increase": true,
     "safety_regression": true
   },
@@ -52,6 +52,8 @@
     "package_dependence": true,
     "safety_regression": true
   },
-  "cross_domain_minimum_pass": true,
-  "cross_domain_strong_pass": true
+  "cross_domain_minimum_pass": false,
+  "cross_domain_strong_pass": true,
+  "cross_domain_output_evidence_pass": true,
+  "intervention_calculation_basis": "Computed from public intervention_log.csv after reveal: Lane Blue=treatment (2 logged manual interventions); Lane Gold=control (2 logged manual interventions)."
 }

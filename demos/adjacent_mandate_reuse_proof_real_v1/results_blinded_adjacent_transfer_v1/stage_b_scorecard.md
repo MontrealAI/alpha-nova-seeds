@@ -2,10 +2,11 @@
 
 ## Result
 
-- **Minimum pass:** PASS
-- **Strong pass:** PASS
+- **Cross-domain output / evidence result:** PASS
+- **Strong output threshold result:** PASS
+- **Minimum claim-upgrading result with reduced-handholding gate:** FAIL
 
-Stage B tested whether `ProtocolCorrectnessLineage-v1` transferred into backend / API correctness with reduced handholding.
+Stage B tested whether `ProtocolCorrectnessLineage-v1` transferred into backend / API correctness. The treatment lane passed the cross-domain output/evidence thresholds, but the public intervention log does **not** support reduced handholding: both revealed lanes have two logged Stage B manual interventions.
 
 ## Lane reveal
 
@@ -35,6 +36,7 @@ Reveal occurred after score lock.
 | Unsupported claims | 0 |
 | Hallucinated references | 0 |
 | Package dependence | 0.0 |
+| Logged Stage B manual interventions | 2 |
 
 ## Treatment
 
@@ -51,6 +53,7 @@ Reveal occurred after score lock.
 | Unsupported claims | 0 |
 | Hallucinated references | 0 |
 | Package dependence | 0.75 |
+| Logged Stage B manual interventions | 2 |
 
 ## Comparisons
 
@@ -61,10 +64,10 @@ Reveal occurred after score lock.
 | Rework reduction | 50.00% | n/a | >= 40.00% | PASS |
 | Evidence completeness uplift | +27.78% | >= +10.00% | >= +20.00% | PASS |
 | Package dependence | 75.00% | >= 20.00% | >= 30.00% | PASS |
-| Operator intervention reduction | 50.00% | >= 25.00% | n/a | PASS |
+| Operator intervention reduction | 0.00% | >= 25.00% | n/a | FAIL |
 | Frontier width increase | +1 domain | >= 1 domain | n/a | PASS |
 | Safety regression | none observed | none | none | PASS |
 
 ## Boundary
 
-This is an internal controlled cross-domain expansion run. It is not independent external validation or proof of general unbounded recursive self-improvement.
+This is an internal controlled cross-domain expansion run. It supports cross-domain transfer on output/evidence metrics, but this public-safe artifact set does **not** support the reduced-handholding gate for Stage B. It is not independent external validation or proof of general unbounded recursive self-improvement.

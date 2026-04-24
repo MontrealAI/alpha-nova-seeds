@@ -8,8 +8,6 @@
     "node": "v22.16.0"
   },
   "repo_sha": "97907b70d86f44a5a3f31f71828a9360fd1f6744",
-  "repo_sha": "4d18989c5e29245f6667666e80f99c5d07bf092b",
-  "branch": "work",
   "scope_hashes": {
     "contracts/CouncilGovernanceV25.sol": "d84e35039bb318b9ada1b77eb9135022948aef3bb356d8c10536c46a605cffe3",
     "contracts/ChallengePolicyModuleV25.sol": "59d75d889005e1e061aa63244e7fa94a8d7ece16ba3489e67a5659787b84a386",

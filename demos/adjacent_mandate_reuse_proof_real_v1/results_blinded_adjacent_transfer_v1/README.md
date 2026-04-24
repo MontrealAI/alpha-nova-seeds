@@ -4,26 +4,22 @@
 
 This folder records a public-safe evidence update for the real-world adjacent-mandate proof pack.
 
-The result is important because it moves the claim from a bounded proof-of-mechanism toward a more defensible empirical mechanism: a frozen package improved one adjacent mandate, then the promoted lineage transferred into a second domain with reduced handholding under a blinded packet structure and delayed reveal discipline.
+The result is important because it moves the claim from a bounded proof-of-mechanism toward a more defensible empirical mechanism: a frozen package improved one adjacent mandate, then the promoted lineage transferred into a second domain under a blinded packet structure and delayed reveal discipline.
 
 ## Headline result
 
 - **Stage A — blinded adjacent transfer:** PASS
-- **Stage B — blinded cross-domain expansion:** PASS
-- **Stage B strong threshold:** PASS
+- **Stage B — cross-domain output/evidence transfer:** PASS
+- **Stage B strong output thresholds:** PASS
+- **Stage B reduced-handholding gate:** NOT PASSED from public intervention logs
 - **Public-safe status:** safe to publish
 - **Private materials excluded:** answer keys, assignment maps, reviewer identity maps, and private commitments are not included
 
 ## Protocol-supported claim
-- Preregistration freeze: `prereg_experiment_manifest.json`
-- Environment and in-scope file hashes: `environment_lock.json`
-- Stage A and Stage B lane budget symmetry and thresholds are locked in preregistration
-- Scorecard inputs are pre-wired under `scorecard_outputs/`
-- Leakage-check worksheet is pre-wired at `leakage_check.csv`
 
-> AGI ALPHA demonstrated bounded recursive self-improvement through blinded adjacent transfer and one cross-domain expansion with reduced handholding under controlled internal evaluation.
+> AGI ALPHA demonstrated blinded adjacent transfer and one cross-domain expansion under controlled internal evaluation.
 
-This is the strongest safe claim supported by this folder.
+This is the strongest safe claim supported by this public-safe folder. The stronger claim that Stage B also demonstrated **reduced handholding** remains pending because the public intervention log records two Stage B manual interventions for the treatment lane and two for the control lane.
 
 ## What was frozen
 
@@ -53,27 +49,6 @@ Both stages used blinded lane labels:
 
 - `Lane Blue`
 - `Lane Gold`
-1. Initialize scaffolding (if re-running fresh):
-   ```bash
-   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/setup_blinded_adjacent_transfer_v1.py --force
-   ```
-2. Fill private-only files locally (outside git history).
-3. Freeze private commitments:
-   ```bash
-   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/generate_private_commitment_hashes.py --private-dir demos/adjacent_mandate_reuse_proof_real_v1/local_private_blinding_materials/results_blinded_adjacent_transfer_v1
-   ```
-4. Execute Stage A lane work under blinded kits and collect packets.
-5. Fill scorecard CSVs in `scorecard_outputs/` from real adjudication data.
-6. Run scorecard helper:
-   ```bash
-   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/calculate_q2_scorecard.py --scorecard-dir demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1/scorecard_outputs
-   ```
-7. Record reviewer leakage checks in `leakage_check.csv` before reveal.
-8. Lock scorecard and only then reveal blinded assignment map.
-9. Run bundle completeness check:
-   ```bash
-   python3 demos/adjacent_mandate_reuse_proof_real_v1/07_scripts/validate_blinded_results_bundle.py
-   ```
 
 Reveal occurred only after score lock.
 
@@ -97,7 +72,7 @@ Stage A tested whether `GovernanceValidationPack-v1` improved the adjacent thres
 
 ## Stage B result
 
-Stage B tested whether the promoted `ProtocolCorrectnessLineage-v1` transferred into backend / API correctness with reduced handholding.
+Stage B tested whether the promoted `ProtocolCorrectnessLineage-v1` transferred into backend / API correctness.
 
 | Metric | Result | Minimum threshold | Strong threshold | Status |
 |---|---:|---:|---:|---|
@@ -106,25 +81,25 @@ Stage B tested whether the promoted `ProtocolCorrectnessLineage-v1` transferred 
 | Rework reduction | 50.00% | n/a | >= 40.00% | PASS |
 | Evidence completeness uplift | +27.78% | >= +10.00% | >= +20.00% | PASS |
 | Package dependence | 75.00% | >= 20.00% | >= 30.00% | PASS |
-| Operator intervention reduction | 50.00% | >= 25.00% | n/a | PASS |
+| Operator intervention reduction | 0.00% | >= 25.00% | n/a | FAIL |
 | Frontier width increase | +1 domain | >= 1 domain | n/a | PASS |
 | Safety regression | none observed | none | none | PASS |
 
 ## What this supports
 
-If read with the protocol caveats, this run supports the statement that AGI ALPHA demonstrated **bounded recursive self-improvement through blinded adjacent transfer and one cross-domain expansion with reduced handholding under controlled internal evaluation**.
+If read with the protocol caveats, this run supports the statement that AGI ALPHA demonstrated **blinded adjacent transfer and one cross-domain expansion under controlled internal evaluation**.
 
 The result is meaningful because it adds:
 
 - **causality:** package frozen first, then measured transfer;
 - **blinding discipline:** reviewer-facing packets used lane labels and delayed reveal;
-- **transfer:** one within-wedge adjacent mandate plus one cross-domain backend/API mandate;
-- **reduced handholding:** Stage B treatment required fewer operator interventions.
+- **transfer:** one within-wedge adjacent mandate plus one cross-domain backend/API mandate.
 
 ## What this does not prove
 
 This folder does **not** prove:
 
+- reduced handholding in Stage B based on the public intervention logs;
 - independent external reviewer validation;
 - true end-to-end operator blinding;
 - unrestricted autonomy;
@@ -148,6 +123,7 @@ The next credibility upgrade is an independent rerun with:
 - separate lane operators;
 - separate blinded reviewers;
 - a clean checkout on a separate machine;
+- explicit reduced-handholding instrumentation;
 - public-safe results committed regardless of pass or fail.
 
 ## File map

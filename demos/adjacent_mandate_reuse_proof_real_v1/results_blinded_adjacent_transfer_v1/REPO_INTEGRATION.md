@@ -19,7 +19,7 @@ Do not upload private-only files such as:
 ```md
 ## Results
 
-- [`results_blinded_adjacent_transfer_v1/`](./results_blinded_adjacent_transfer_v1/) — public-safe internal Stage A + Stage B evidence update. Stage A and Stage B passed under a blinded packet structure and delayed reveal discipline. This supports bounded recursive self-improvement through blinded adjacent transfer and one cross-domain expansion under controlled internal evaluation; it does not claim external validation or general unbounded RSI.
+- [`results_blinded_adjacent_transfer_v1/`](./results_blinded_adjacent_transfer_v1/) — public-safe internal Stage A + Stage B evidence update. Stage A passed under a blinded packet structure and delayed reveal discipline. Stage B passed the cross-domain output/evidence transfer thresholds, but the public intervention logs do not support the reduced-handholding gate. This supports blinded adjacent transfer and one cross-domain expansion under controlled internal evaluation; it does not claim external validation or general unbounded RSI.
 ```
 
 ## Suggested PR title
@@ -48,7 +48,8 @@ Included:
 - protocol reference and repo integration note
 
 Claim boundary:
-- supports bounded recursive self-improvement through blinded adjacent transfer and one cross-domain expansion under controlled internal evaluation
+- supports blinded adjacent transfer and one cross-domain expansion under controlled internal evaluation
+- Stage B passed cross-domain output/evidence thresholds but did not pass the reduced-handholding gate from the public intervention logs
 - does not claim independent external validation, unrestricted autonomy, or general unbounded RSI
 
 Private materials are intentionally excluded.
