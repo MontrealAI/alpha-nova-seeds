@@ -34,6 +34,13 @@ def load_assignment_map(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(f))
 
 
+def get_first(row: dict[str, str], keys: list[str]) -> str:
+    for key in keys:
+        if key in row:
+            return row.get(key, "")
+    raise KeyError(f"Missing expected header(s): {', '.join(keys)}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--results-dir", default=str(DEFAULT_RESULTS))
@@ -61,11 +68,19 @@ def main() -> int:
     mapping_rows = load_assignment_map(assignment_map)
     lanes_only = []
     for row in mapping_rows:
+        try:
+            lane_id = get_first(row, ["blinded_lane_id", "lane_id", "blinded_output_id"])
+            assigned_kit = get_first(row, ["kit_variant", "assigned_kit"])
+            assignment_role = get_first(row, ["actual_lane", "assignment_role"])
+        except KeyError as exc:
+            raise SystemExit(str(exc)) from exc
         lanes_only.append(
             {
-                "lane_id": row.get("lane_id", ""),
-                "assigned_kit": row.get("assigned_kit", ""),
-                "assignment_role": row.get("assignment_role", ""),
+                "artifact_set": row.get("artifact_set", ""),
+                "lane_id": lane_id,
+                "assigned_kit": assigned_kit,
+                "assignment_role": assignment_role,
+                "revealed_after_score_lock": row.get("revealed_after_score_lock", ""),
             }
         )
 
