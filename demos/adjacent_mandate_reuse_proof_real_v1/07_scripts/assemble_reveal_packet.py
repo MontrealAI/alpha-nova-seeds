@@ -66,6 +66,13 @@ def get_first(row: dict[str, str], keys: list[str]) -> str:
     raise KeyError(f"Missing expected header(s): {', '.join(keys)}")
 
 
+def get_first_optional(row: dict[str, str], keys: list[str], default: str = "") -> str:
+    for key in keys:
+        if key in row:
+            return row.get(key, "")
+    return default
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--results-dir", default=str(DEFAULT_RESULTS))
@@ -101,7 +108,11 @@ def main() -> int:
     for row in mapping_rows:
         try:
             lane_id = get_first(row, ["blinded_lane_id", "lane_id", "blinded_output_id"])
-            assigned_kit = get_first(row, ["kit_variant", "assigned_kit"])
+            assigned_kit = get_first_optional(
+                row,
+                ["kit_variant", "assigned_kit"],
+                default="UNSPECIFIED_LEGACY_TEMPLATE",
+            )
             assignment_role = get_first(row, ["actual_lane", "assignment_role"])
         except KeyError as exc:
             raise SystemExit(str(exc)) from exc

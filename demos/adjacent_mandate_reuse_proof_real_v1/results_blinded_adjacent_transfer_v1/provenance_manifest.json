@@ -53,7 +53,7 @@
     },
     {
       "path": "prereg_experiment_manifest.json",
-      "sha256": "9862ff609b14c108d9652840cb0dfb78a9cc5428a9c1918bf56c03f48072b3dc"
+      "sha256": "518aa456681799a7aefacbe1ae4e5e38e71ce9a63136405101784cdb568453fe"
     },
     {
       "path": "proof_docket_public.md",
@@ -85,7 +85,7 @@
     },
     {
       "path": "scorecard_outputs/reveal_receipt_public.json",
-      "sha256": "af07d9375f9447011899d13347de1cd9fc4359cde5671a0cedacd9145a72fa46"
+      "sha256": "9c493d08c77c71bf621a4faf26f1f78f2d6ea94df825956bfdfd17d2203bf550"
     },
     {
       "path": "scorecard_outputs/run_costs.csv",
