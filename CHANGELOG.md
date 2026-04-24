@@ -11,6 +11,14 @@
 
 ### Changed
 
+- Hardened `demos/ascension-runtime/run_demo.py --assert` to validate emitted runtime artifacts against canonical `schemas/v2.8/` Ascension schemas, including `ascension_runtime_scorecard.schema.json`.
+- Restored cross-demo v2.8 schema compatibility for shared Ascension artifacts (including per-seed `nova_seed_packet` legacy shape) so `demos/ascension-live-runtime/run_demo.py --assert` remains green.
+- Split Nova-Seed schema surfaces into `nova_seed_packet.schema.json` (legacy per-seed packet contract used by `ascension-live-runtime` required-key checks) and `nova_seed_bundle.schema.json` (aggregate runtime seed bundle contract used by `ascension-runtime`).
+- Split AGI receipt and agent execution schema surfaces between legacy single-artifact contracts (`agi_job_receipt.schema.json`, `agent_execution_log.schema.json`) and ascension-runtime aggregate contracts (`agi_job_receipt_bundle.schema.json`, `agent_execution_round.schema.json`) so assert-mode preserves execution/receipt evidence checks without breaking legacy validation.
+- Split MARK and Architect schema surfaces between legacy single-decision contracts (`mark_selection_report.schema.json`, `architect_recommendation.schema.json`) and ascension-runtime aggregate contracts (`mark_bundle_selection_report.schema.json`, `architect_runtime_recommendation.schema.json`) so selected targets and actionable next-step payloads remain mandatory in both verification paths.
+- Changed Ascension runtime schema validator loading to lazy import so `python3 demos/ascension-runtime/run_demo.py` works without requiring `jsonschema` unless `--assert` path is invoked.
+- Expanded v2.8 Ascension schema coverage/alignment for runtime payloads and added missing `schemas/v2.8/ascension_runtime_scorecard.schema.json` and `schemas/v2.8/ascension_trace.schema.json`.
+- Updated Ascension implementation/checklist docs to reflect assert-mode schema validation as a first-class verification surface.
 - Updated demo/docs release surfaces to include `demos/ascension-runtime/` as the organism reference runtime, refreshed Ascension trace/status docs, and added `release/v2.8.0-rc.3-ascension-runtime-checklist.md` for acceptance/migration/rollback boundaries.
 - Added read-only backend Ascension runtime endpoints (`/ascension/status`, `/ascension/seeds`, `/ascension/mark`, `/ascension/sovereigns`, `/ascension/jobs`, `/ascension/agents`, `/ascension/validators`, `/ascension/reservoir`, `/ascension/archive`, `/ascension/architect`, `/ascension/scorecard`) backed by deterministic local artifacts.
 - Updated dashboard operator surface with an Ascension Runtime tab and bound local/devnet status panels.
