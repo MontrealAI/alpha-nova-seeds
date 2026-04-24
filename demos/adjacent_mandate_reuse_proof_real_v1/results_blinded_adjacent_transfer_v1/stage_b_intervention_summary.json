@@ -1,0 +1,9 @@
+{
+  "control_interventions": 2,
+  "treatment_interventions": 2,
+  "reduction": 0.0,
+  "reduction_pct": 0.0,
+  "threshold_pct": 25.0,
+  "pass": false,
+  "calculation_basis": "Computed from Stage B lane rows in intervention_log.csv after reveal: Lane Blue=treatment, Lane Gold=control. Both lanes have two logged manual_intervention rows."
+}

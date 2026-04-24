@@ -1,0 +1,76 @@
+{
+  "CouncilSeatRow": {
+    "properties": {
+      "term_id": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Term Id"
+      },
+      "seat_id": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Seat Id"
+      },
+      "occupant": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Occupant"
+      },
+      "event_type": {
+        "type": "string",
+        "title": "Event Type"
+      },
+      "tx_hash": {
+        "type": "string",
+        "title": "Tx Hash"
+      },
+      "block_number": {
+        "type": "integer",
+        "title": "Block Number"
+      }
+    },
+    "type": "object",
+    "required": [
+      "event_type",
+      "tx_hash",
+      "block_number"
+    ],
+    "title": "CouncilSeatRow"
+  },
+  "ReviewerStakeRow": {
+    "properties": {
+      "reviewer": {
+        "type": "string",
+        "title": "Reviewer"
+      },
+      "net_delta": {
+        "type": "number",
+        "title": "Net Delta"
+      }
+    },
+    "type": "object",
+    "required": [
+      "reviewer",
+      "net_delta"
+    ],
+    "title": "ReviewerStakeRow"
+  }
+}
