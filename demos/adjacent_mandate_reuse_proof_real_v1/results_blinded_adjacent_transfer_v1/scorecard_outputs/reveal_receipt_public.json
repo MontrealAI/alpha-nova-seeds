@@ -1,9 +1,9 @@
 {
   "receipt_type": "blinded_adjacent_transfer_reveal_receipt",
-  "generated_at_utc": "2026-04-24T02:06:33+00:00",
+  "generated_at_utc": "2026-04-24T02:16:06+00:00",
   "score_lock_confirmed": true,
   "private_assignment_map_sha256": "4708c8b14122f3217a0815b27a310fa4628fb928fc07c6d5aa3af230b3154ea8",
-  "private_commitment_hashes_sha256": "3e147aef01cec15ec31c1caff7d9de843126b10ee8d2702e8eb24ed3c0f21e9d",
+  "private_commitment_hashes_sha256": "916c562d90d1ffe911ac540f3637c91745831a0fef2cf4ac61f1c921937be5a0",
   "lane_assignments": [
     {
       "artifact_set": "stage_a_mandate_2",

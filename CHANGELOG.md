@@ -7,6 +7,7 @@
 - Added `07_scripts/assemble_reveal_packet.py` to emit a post-score-lock public reveal receipt (hash-linked to private commitment files) without exposing reviewer identities or answer keys.
 - Fixed `assemble_reveal_packet.py` lane-mapping extraction to read actual assignment-map headers (`blinded_lane_id`, `kit_variant`, `actual_lane`) with compatibility fallbacks, preventing silent blank lane metadata in reveal receipts.
 - `assemble_reveal_packet.py` now rejects scaffold placeholder commitment-hash files and requires real SHA-256 hash records before emitting a public reveal receipt.
+- `assemble_reveal_packet.py` now enforces hexadecimal SHA-256 token format for private commitment records and fails reveal assembly when the blinded assignment map has zero rows.
 - `assemble_reveal_packet.py` now sets public receipt `revealed_after_score_lock` rows to `true` at assembly time and preserves source CSV values separately for audit context.
 - `normalize_reviewer_packets.py --refresh-only` now includes `scorecard_outputs/reveal_receipt_public.json` in provenance hash refreshes so reveal artifacts remain hash-linked in the public-safe manifest.
 - Regenerated `results_blinded_adjacent_transfer_v1` frozen manifests so `prereg_experiment_manifest.json` and `environment_lock.json` bind to a resolvable in-repo commit SHA for reproducible replay.

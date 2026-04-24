@@ -13,12 +13,16 @@ import argparse
 import csv
 import hashlib
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 
 PACK_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_RESULTS = PACK_ROOT / "results_blinded_adjacent_transfer_v1"
 DEFAULT_PRIVATE = PACK_ROOT / "local_private_blinding_materials" / "results_blinded_adjacent_transfer_v1"
+
+
+HEX64_RE = re.compile(r"^[0-9a-f]{64}$")
 
 
 def sha256_file(path: Path) -> str:
@@ -44,7 +48,7 @@ def validate_commitment_hashes(path: Path) -> None:
             "Run 07_scripts/generate_private_commitment_hashes.py before assembling reveal receipt."
         )
     has_hash_line = any(
-        len(line.split()) >= 2 and len(line.split()[0]) == 64
+        len(line.split()) >= 2 and HEX64_RE.fullmatch(line.split()[0].lower())
         for line in text.splitlines()
         if line and not line.startswith("#")
     )
@@ -88,6 +92,10 @@ def main() -> int:
     validate_commitment_hashes(commitment_hashes)
 
     mapping_rows = load_assignment_map(assignment_map)
+    if not mapping_rows:
+        raise SystemExit(
+            "Assignment map has no rows. Populate blinded_assignment_map.private.csv before reveal assembly."
+        )
     lanes_only = []
     for row in mapping_rows:
         try:
