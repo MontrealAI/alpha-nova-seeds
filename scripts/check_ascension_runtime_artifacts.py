@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+"""Validate required ascension-runtime artifact contract for local/devnet replay."""
+
+from __future__ import annotations
+
+from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / "demos" / "ascension-runtime" / "out"
+
+REQUIRED_ARTIFACTS = [
+    "insight_packet.json",
+    "insight_rationale.md",
+    "nova_seeds/audit_factory_seed.json",
+    "nova_seeds/invariant_library_seed.json",
+    "nova_seeds/fuzz_harness_seed.json",
+    "nova_seeds/exploit_replay_seed.json",
+    "nova_seeds/governance_parameter_simulator_seed.json",
+    "mark_selection_report.json",
+    "mark_risk_report.json",
+    "mark_orderbook_snapshot.json",
+    "sovereign_manifest.json",
+    "sovereign_state_snapshot.json",
+    "business_operating_plan.json",
+    "mandate_decomposition.json",
+    "marketplace_round.json",
+    "marketplace_assignment_log.json",
+    "jobs/job_001_spec.json",
+    "jobs/job_001_completion.json",
+    "jobs/job_001_receipt.json",
+    "jobs/job_001_event_log.json",
+    "jobs/job_002_spec.json",
+    "jobs/job_002_completion.json",
+    "jobs/job_002_receipt.json",
+    "jobs/job_002_event_log.json",
+    "agents/agent_profiles.json",
+    "agent_execution_log.json",
+    "agent_reputation_snapshot.json",
+    "validation_round.json",
+    "validation_attestations.json",
+    "council_ruling.json",
+    "reservoir_ledger.json",
+    "reservoir_epoch_report.json",
+    "node_runtime_profile.json",
+    "archive_lineage.json",
+    "capability_package_manifest.json",
+    "archive_index.json",
+    "architect_recommendation.json",
+    "next_loop_plan.json",
+    "ascension_runtime_scorecard.json",
+    "ascension_runtime_scorecard.md",
+    "reports/ascension_runtime_report.md",
+    "reports/ascension_runtime_report.html",
+]
+
+
+def main() -> int:
+    missing = [path for path in REQUIRED_ARTIFACTS if not (OUT / path).exists()]
+    if missing:
+        print("FAIL: ascension runtime artifact check failed")
+        for path in missing:
+            print(f"- missing: demos/ascension-runtime/out/{path}")
+        return 1
+
+    print("PASS: ascension runtime required artifacts are present")
+    print(f"Checked {len(REQUIRED_ARTIFACTS)} artifacts under {OUT}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

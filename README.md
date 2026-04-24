@@ -115,6 +115,7 @@ python scripts/check_readme_badges.py
 python scripts/check_open_ended_rsi_artifacts.py
 python3 demos/protocol_smart_contract_correctness_demo/run_demo.py --assert
 python3 demos/ascension-runtime/run_demo.py --assert
+python3 scripts/check_ascension_runtime_artifacts.py
 python3 demos/open-ended-rsi-system/run_demo.py --assert
 python3 demos/unbounded-rsi-system/run_demo.py --assert  # legacy compatibility
 ```
