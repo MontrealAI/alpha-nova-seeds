@@ -17,9 +17,24 @@ BADGE_CONFIG = ROOT / "release" / "badges.json"
 README = ROOT / "README.md"
 DEMOS_README = ROOT / "demos" / "README.md"
 WORKFLOW_DIR = ROOT / ".github" / "workflows"
+WORKFLOW_BADGE_REPO = "MontrealAI/alpha-nova-seeds"
 
 README_MARKERS = ("<!-- BADGE_RAIL_START -->", "<!-- BADGE_RAIL_END -->")
 DEMOS_MARKERS = ("<!-- DEMO_BADGE_STRIP_START -->", "<!-- DEMO_BADGE_STRIP_END -->")
+FORBIDDEN_CLAIM_PATTERNS = (
+    r"\baudited\b",
+    r"\bmainnet\b",
+    r"\bproduction[-\s]?final\b",
+    r"\baudited[-\s]?final\b",
+    r"\bcompleted ascension\b",
+)
+
+
+def _workflow_badge_svg_url(workflow: str, style: str) -> str:
+    return (
+        f"https://github.com/{WORKFLOW_BADGE_REPO}/actions/workflows/"
+        f"{workflow}/badge.svg?style={style}"
+    )
 
 
 def _extract_marked_block(text: str, markers: tuple[str, str]) -> str:
@@ -103,6 +118,36 @@ def _validate_workflow_badge_link(errors: list[str], badge: dict) -> None:
         errors.append(
             f"badge {badge_id} workflow link path mismatch: expected {expected_path}, got {parsed.path}"
         )
+
+
+def _validate_workflow_badge_is_green(
+    errors: list[str], badge: dict, style: str, timeout: float = 10.0
+) -> None:
+    url = _workflow_badge_svg_url(workflow=badge["workflow"], style=style)
+    req = Request(url, method="GET", headers={"User-Agent": "alpha-nova-seeds-badge-check/1.0"})
+    try:
+        with urlopen(req, timeout=timeout) as response:
+            svg = response.read().decode("utf-8", errors="ignore").lower()
+    except Exception as exc:
+        errors.append(f"badge {badge['id']} workflow status check failed for {url}: {exc}")
+        return
+
+    if "passing" not in svg:
+        errors.append(
+            f"badge {badge['id']} workflow badge is not green/passing for {badge['workflow']}"
+        )
+
+
+def _validate_forbidden_claims(errors: list[str], badge: dict) -> None:
+    fields = [
+        str(badge.get("label", "")),
+        str(badge.get("message", "")),
+        str(badge.get("alt", "")),
+        str(badge.get("link", "")),
+    ]
+    candidate = " ".join(fields).lower()
+    if any(re.search(pattern, candidate) for pattern in FORBIDDEN_CLAIM_PATTERNS):
+        errors.append(f"badge {badge['id']} contains forbidden claim tokens")
 
 
 def _expanded_demos_badges(cfg: dict) -> list[dict]:
@@ -206,6 +251,7 @@ def main() -> int:
         if not link:
             errors.append(f"badge {badge['id']} missing link")
             continue
+        _validate_forbidden_claims(errors, badge)
         _validate_local_link(errors, badge["id"], ROOT, link)
         if args.check_http_links:
             _validate_http_link(errors, badge["id"], link)
@@ -214,6 +260,7 @@ def main() -> int:
             if not (WORKFLOW_DIR / workflow).exists():
                 errors.append(f"badge {badge['id']} references missing workflow file: {workflow}")
             _validate_workflow_badge_link(errors, badge)
+            _validate_workflow_badge_is_green(errors, badge, style=config["style"])
 
     demos_badges = _expanded_demos_badges(config)
     for badge in demos_badges:

@@ -37,7 +37,7 @@ README badge blocks are managed between markers:
 Root README uses two concise rows:
 
 1. **Operational trust rail**: release posture + CI + contracts security + release provenance.
-2. **Orientation rail**: proof boundary + flagship demo + demo ladder + accelerating loop + doctrine stack.
+2. **Orientation rail**: proof boundary + verifiable RC + flagship demo + demo ladder + ascension runtime + doctrine stack.
 
 This keeps first-screen parse time low for serious reviewers while preserving direct navigation.
 
@@ -56,6 +56,7 @@ Workflow badges must link to their exact GitHub Actions workflow page:
 - `https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/<workflow>.yml`
 
 `scripts/check_readme_badges.py` enforces this path contract to prevent misleading or stale workflow links.
+It also checks workflow badge SVGs for passing status so we do not represent non-green workflow state as earned green.
 
 ### Static/generated badges (repo truth)
 
@@ -63,9 +64,10 @@ Use generated static badges for bounded claims and navigation:
 
 - active RC posture
 - proof-first bounded claim boundary
+- explicit verifiable RC posture
 - demo ladder entry
 - flagship demo entry
-- accelerating-loop demo entry
+- ascension-runtime demo entry
 - doctrine stack entry
 
 These values are generated from local repo truth and versioned with docs/release updates.
