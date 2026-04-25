@@ -167,3 +167,4 @@ python3 07_scripts/run_blinded_adjacent_transfer.py assert
 
 Additional commands are available for `commit-private`, `normalize-packets`, `lock-score`, `reveal`, and `assemble-public-docket`.
 The harness stops at `READY_FOR_HUMAN_EXECUTION` when real human-blinded inputs are missing.
+If a prior run has already advanced (for example to reveal/locked states), `prepare` will refuse to reset it unless you explicitly pass `--force-reset`.

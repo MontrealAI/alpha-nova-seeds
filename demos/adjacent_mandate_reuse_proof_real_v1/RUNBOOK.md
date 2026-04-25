@@ -81,3 +81,5 @@ For post-human steps, use:
 - `python3 07_scripts/run_blinded_adjacent_transfer.py lock-score`
 - `python3 07_scripts/run_blinded_adjacent_transfer.py reveal`
 - `python3 07_scripts/run_blinded_adjacent_transfer.py assemble-public-docket`
+
+Safety note: rerunning `prepare` after an advanced run state is blocked by default to avoid overwriting revealed/locked artifacts. Use `--force-reset` only when intentionally reinitializing.

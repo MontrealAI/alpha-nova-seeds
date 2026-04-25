@@ -24,6 +24,7 @@ PRIVATE_DIR = RESULTS_DIR / "private_local_only"
 KITS_DIR = RESULTS_DIR / "kits"
 SCORECARD_OUT_DIR = RESULTS_DIR / "scorecard_outputs"
 SCRIPTS_DIR = RESULTS_DIR / "scripts"
+FORCE_RESET_PREPARE = False
 
 MANDATE_1_SCOPE = [
     "contracts/CouncilGovernanceV25.sol",
@@ -287,6 +288,23 @@ def _update_experiment_status(status: str, reasons: list[str] | None = None) -> 
 
 
 def cmd_prepare() -> int:
+    if RESULTS_DIR.exists() and not FORCE_RESET_PREPARE:
+        status_path = RESULTS_DIR / "experiment_status.json"
+        if status_path.exists():
+            existing_status = str(_read_json(status_path).get("status", "")).strip()
+            advanced_states = {
+                "STAGE_A_COMPLETED_PENDING_REVEAL",
+                "STAGE_A_PASSED",
+                "STAGE_A_FAILED",
+                "STAGE_B_SCAFFOLDED",
+                "STAGE_B_COMPLETED",
+            }
+            if existing_status in advanced_states:
+                raise SystemExit(
+                    "prepare blocked: existing run is already advanced. "
+                    "Use --force-reset to intentionally reinitialize artifacts."
+                )
+
     _ensure_dirs()
     _create_docs_skeletons()
     _create_private_templates()
@@ -656,6 +674,10 @@ def cmd_reveal() -> int:
         raise SystemExit("Reveal blocked: Stage A is not in completed-pending-reveal state")
     if not assignment_map.exists():
         raise SystemExit("Reveal blocked: private assignment map missing")
+    if _resolve_private_kit_assignment() is None:
+        raise SystemExit(
+            "Reveal blocked: private assignment map is unresolved (BLINDING_OFFICER_REQUIRED or invalid)."
+        )
     if not reveal_confirm.exists() or "BLINDING_OFFICER_CONFIRMED" not in reveal_confirm.read_text(encoding="utf-8"):
         raise SystemExit("Reveal blocked: missing blinding officer confirmation")
 
@@ -842,9 +864,16 @@ COMMANDS = {
 
 
 def main() -> int:
+    global FORCE_RESET_PREPARE
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=COMMANDS)
+    parser.add_argument(
+        "--force-reset",
+        action="store_true",
+        help="allow prepare to overwrite an already-advanced run state",
+    )
     args = parser.parse_args()
+    FORCE_RESET_PREPARE = bool(args.force_reset)
     return COMMANDS[args.command]()
 
 
