@@ -121,3 +121,13 @@ python3 demos/unbounded-rsi-system/run_demo.py --assert  # legacy compatibility
 ```
 
 For full provenance verification (checksums, SBOM, attestations), use [`docs/verify-release.md`](./docs/verify-release.md).
+
+
+## Next empirical milestone (not yet proven)
+
+The next empirical milestone is the **blinded adjacent-transfer experiment** under `demos/adjacent_mandate_reuse_proof_real_v1/`.
+
+- **Stage A:** tests whether Mandate 1 → `GovernanceValidationPack-v1` materially improves Mandate 2 threshold/attestation correctness under blinded control-vs-treatment conditions.
+- **Stage B (conditional):** if Stage A passes, tests whether the resulting lineage transfers into backend/API correctness with reduced handholding.
+
+Current repo state provides execution scaffolding and public-safe handoff materials; it does not claim a completed blinded real-world pass.
