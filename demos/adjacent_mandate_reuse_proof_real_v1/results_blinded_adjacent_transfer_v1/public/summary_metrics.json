@@ -1,0 +1,21 @@
+{
+  "demonstrated": [
+    "run-ready blinded adjacent-transfer harness",
+    "package freeze and kit-building pipeline"
+  ],
+  "note": "Score lock requires real filled CSV inputs.",
+  "pending_human_execution": [
+    "real blinded lane outputs",
+    "real blinded reviewer adjudication",
+    "filled scorecard CSV lock inputs"
+  ],
+  "simulated": [
+    "template scorecard files"
+  ],
+  "status": "SCORE_LOCK_PENDING_HUMAN_INPUT",
+  "timestamp": "2026-04-25T19:05:55+00:00",
+  "unproven": [
+    "Stage A pass/fail",
+    "Stage B outcomes"
+  ]
+}

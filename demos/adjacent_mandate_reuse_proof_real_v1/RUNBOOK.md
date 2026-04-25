@@ -62,3 +62,22 @@ python3 07_scripts/calculate_q2_scorecard.py
 
 ## Phase 6 — Publish
 Complete the proof docket templates in `06_proof_docket/` using the calculated outputs.
+
+
+## Deterministic orchestration (recommended)
+
+From this folder:
+
+```bash
+python3 07_scripts/run_blinded_adjacent_transfer.py prepare
+python3 07_scripts/run_blinded_adjacent_transfer.py freeze-package
+python3 07_scripts/run_blinded_adjacent_transfer.py build-kits
+python3 07_scripts/run_blinded_adjacent_transfer.py validate-readiness
+python3 07_scripts/run_blinded_adjacent_transfer.py assert
+```
+
+For post-human steps, use:
+
+- `python3 07_scripts/run_blinded_adjacent_transfer.py lock-score`
+- `python3 07_scripts/run_blinded_adjacent_transfer.py reveal`
+- `python3 07_scripts/run_blinded_adjacent_transfer.py assemble-public-docket`
