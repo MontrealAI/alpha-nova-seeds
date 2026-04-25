@@ -357,10 +357,9 @@ def cmd_prepare() -> int:
     _write_json(PUBLIC_DIR / "preregistration_public.json", prereg)
     _write_json(RESULTS_DIR / "provenance_manifest.json", {
         "generated_at": _now(),
-        "repo_sha": repo_state["repo_sha"],
         "branch": repo_state["branch"],
         "result_path": str(RESULTS_DIR.relative_to(REPO_ROOT)),
-        "notes": "Public-safe provenance only. Private mappings remain local.",
+        "notes": "Public-safe provenance only. Private mappings remain local. Re-run prepare/freeze/build to refresh branch-local provenance pointers.",
     })
     _write_stage_b_scaffold()
     _update_experiment_status("READY_FOR_HUMAN_EXECUTION")
@@ -753,6 +752,7 @@ def cmd_validate_readiness() -> int:
     tracked_private_patterns = [
         "**/*.private.md",
         "**/*.private.csv",
+        "**/*.private.txt",
     ]
     committed_private: list[str] = []
     for pat in tracked_private_patterns:
@@ -806,8 +806,14 @@ def cmd_assert() -> int:
 
     blue_files = sorted([p.name for p in (KITS_DIR / "kit_blue").glob("*") if p.is_file()])
     gold_files = sorted([p.name for p in (KITS_DIR / "kit_gold").glob("*") if p.is_file()])
+    expected_files = sorted(KIT_FILENAMES)
     if blue_files != gold_files:
         raise SystemExit("assert failed: blue/gold kit filenames mismatch")
+    if blue_files != expected_files:
+        raise SystemExit(
+            "assert failed: kits missing required files. "
+            f"expected={expected_files} blue={blue_files} gold={gold_files}"
+        )
 
     status = _read_json(RESULTS_DIR / "experiment_status.json").get("status")
     if status not in STATUS_VALUES:

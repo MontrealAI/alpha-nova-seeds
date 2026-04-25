@@ -19,7 +19,7 @@
     "branch": "work",
     "os": "Linux-6.12.47-x86_64-with-glibc2.39",
     "python_version": "3.12.12",
-    "repo_sha": "33676bb8f29e2ff719c8462a8fb51b7d2a757255",
+    "repo_sha": "b544e77b35f1037e5aaa5552568506bd48ffcc0d",
     "scope_hashes": {
       "backend/app/indexer.py": "ba9ab531b3cd977b118f6908f5996623ee467a22240648be6576cc857159134a",
       "backend/app/main.py": "6c702d17d7ca30ac8ca1e53f137a9a4346b775c83b55e391bb76cc649e22e28b",
@@ -29,7 +29,7 @@
       "contracts/SignedAttestationVerifierV25.sol": "c117ec03c1d9044ebbde152d6c29c83a2c0a1bf9ad3c01144bee51aaf27b096f",
       "contracts/ThresholdNetworkAdapterV25.sol": "3d9cd7a6373d704d2e261d2cdc5d038068eb9960a8fa63ed84ff1e554def5e0e"
     },
-    "timestamp_generated": "2026-04-25T18:31:09+00:00"
+    "timestamp_generated": "2026-04-25T18:47:23+00:00"
   },
   "experiment_id": "adjacent-mandate-reuse-real-v1-blinded-adjacent-transfer",
   "intervention_policy": "All interventions logged with lane symmetry constraints.",
@@ -41,7 +41,7 @@
     "non-deterministic changes unrelated to experiment protocol"
   ],
   "publication_rule": "publish regardless of pass/fail",
-  "repo_sha": "33676bb8f29e2ff719c8462a8fb51b7d2a757255",
+  "repo_sha": "b544e77b35f1037e5aaa5552568506bd48ffcc0d",
   "reviewer_rubric_reference": [
     "03_review/reviewer_form_mandate_2_control.template.md",
     "03_review/reviewer_form_mandate_2_treatment.template.md",
@@ -63,7 +63,7 @@
     "max_command_count": "same_predeclared_limit",
     "max_test_runs": "same_predeclared_limit",
     "network": "disallowed",
-    "repo_sha": "33676bb8f29e2ff719c8462a8fb51b7d2a757255",
+    "repo_sha": "b544e77b35f1037e5aaa5552568506bd48ffcc0d",
     "wall_clock_budget_minutes": 180
   },
   "stage_a_mandate_1_scope": [
@@ -81,5 +81,5 @@
     "backend/app/schemas.py"
   ],
   "stopping_rule": "Stop at READY_FOR_HUMAN_EXECUTION if required human inputs are missing.",
-  "timestamp_generated": "2026-04-25T18:31:09+00:00"
+  "timestamp_generated": "2026-04-25T18:47:23+00:00"
 }

@@ -1,7 +1,6 @@
 {
   "branch": "work",
-  "generated_at": "2026-04-25T18:31:09+00:00",
-  "notes": "Public-safe provenance only. Private mappings remain local.",
-  "repo_sha": "33676bb8f29e2ff719c8462a8fb51b7d2a757255",
+  "generated_at": "2026-04-25T18:47:23+00:00",
+  "notes": "Public-safe provenance only. Private mappings remain local. Re-run prepare/freeze/build to refresh branch-local provenance pointers.",
   "result_path": "demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1"
 }
