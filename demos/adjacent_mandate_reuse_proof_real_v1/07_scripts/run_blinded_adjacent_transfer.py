@@ -306,6 +306,11 @@ def cmd_prepare() -> int:
                 )
 
     _ensure_dirs()
+    if FORCE_RESET_PREPARE:
+        for lane_dir in [PUBLIC_DIR / "lane_blue_packet_public", PUBLIC_DIR / "lane_gold_packet_public"]:
+            if lane_dir.exists():
+                shutil.rmtree(lane_dir)
+                lane_dir.mkdir(parents=True, exist_ok=True)
     _create_docs_skeletons()
     _create_private_templates()
     _create_packet_templates()
@@ -495,7 +500,8 @@ def _copy_kit(src: Path, dst: Path) -> None:
 
 
 def _pair_integrity_digest(blue_path: Path, gold_path: Path) -> str:
-    return _sha256_text(f"{_sha256_file(blue_path)}::{_sha256_file(gold_path)}")
+    pair = sorted([_sha256_file(blue_path), _sha256_file(gold_path)])
+    return _sha256_text("::".join(pair))
 
 
 def _assignment_map_path() -> Path:
