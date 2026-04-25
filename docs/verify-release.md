@@ -12,6 +12,13 @@ This guide verifies that release artifacts were produced from repository source 
 
 ## 1) Reproduce local verification surfaces (recommended before downloading artifacts)
 
+Install missing Python dependencies (if needed):
+
+```bash
+python3 -m pip install --upgrade pip
+python3 -m pip install jsonschema pytest
+```
+
 Run these commands from a clean checkout at the release tag:
 
 ```bash
@@ -97,6 +104,21 @@ Run these repository checks at the same tag to confirm release-surface coherence
 # required once in a clean environment for Ascension runtime schema asserts
 python3 -m pip install jsonschema
 
+python3 scripts/generate_readme_badges.py
+python3 scripts/check_readme_badges.py
+python3 scripts/check_release_surface_posture.py
+python3 scripts/check_demo_links.py
+python3 scripts/check_doctrine_consistency.py
+python3 scripts/check_math_markdown.py
+python3 demos/ascension-runtime/run_demo.py --assert
+```
+
+
+## 8) Verify source posture and trust rail
+
+Run these repository checks at the same tag to confirm release-surface coherence:
+
+```bash
 python3 scripts/generate_readme_badges.py
 python3 scripts/check_readme_badges.py
 python3 scripts/check_release_surface_posture.py
