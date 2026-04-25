@@ -1,0 +1,33 @@
+{
+  "demonstrated": [
+    "run-ready blinded adjacent-transfer harness",
+    "package freeze and kit-building pipeline"
+  ],
+  "note": "Score lock requires completed blinded reviewer packets.",
+  "packet_issues": [
+    "lane_blue_packet_public/findings.md still template",
+    "lane_blue_packet_public/tests_or_harnesses.md still template",
+    "lane_blue_packet_public/evidence_packet.md still template",
+    "lane_blue_packet_public/reviewer_form.md still template",
+    "lane_blue_packet_public/leakage_check.md still template",
+    "lane_gold_packet_public/findings.md still template",
+    "lane_gold_packet_public/tests_or_harnesses.md still template",
+    "lane_gold_packet_public/evidence_packet.md still template",
+    "lane_gold_packet_public/reviewer_form.md still template",
+    "lane_gold_packet_public/leakage_check.md still template"
+  ],
+  "pending_human_execution": [
+    "real blinded lane outputs",
+    "real blinded reviewer adjudication",
+    "filled scorecard CSV lock inputs"
+  ],
+  "simulated": [
+    "template scorecard files"
+  ],
+  "status": "SCORE_LOCK_PENDING_HUMAN_INPUT",
+  "timestamp": "2026-04-25T19:56:15+00:00",
+  "unproven": [
+    "Stage A pass/fail",
+    "Stage B outcomes"
+  ]
+}
