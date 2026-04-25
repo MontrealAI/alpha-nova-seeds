@@ -132,8 +132,8 @@ def _create_private_templates() -> None:
     )
     _write_text(
         PRIVATE_DIR / ".gitignore",
-        "*.private.md\n*.private.csv\nprivate_commitment_hashes.txt\n"
-        "!*.private.template.md\n!*.private.template.csv\n!private_commitment_hashes.template.txt\n",
+        "*.private.md\n*.private.csv\n*.private.txt\nprivate_commitment_hashes.txt\n"
+        "!*.private.template.md\n!*.private.template.csv\n!*.private.template.txt\n!private_commitment_hashes.template.txt\n",
     )
     for idx in [1, 2, 3]:
         _write_text(
@@ -270,11 +270,17 @@ def _write_stage_b_scaffold() -> None:
 def _update_experiment_status(status: str, reasons: list[str] | None = None) -> None:
     if status not in STATUS_VALUES:
         raise ValueError(f"Unsupported status: {status}")
+    if status in {"STAGE_A_PASSED", "STAGE_B_SCAFFOLDED"}:
+        stage_b_status = "STAGE_B_SCAFFOLDED"
+    elif status == "STAGE_B_COMPLETED":
+        stage_b_status = "STAGE_B_COMPLETED"
+    else:
+        stage_b_status = "STAGE_B_PENDING_STAGE_A_PASS"
     payload = {
         "status": status,
         "timestamp_utc": _now(),
         "reasons": reasons or [],
-        "stage_b_status": "STAGE_B_PENDING_STAGE_A_PASS",
+        "stage_b_status": stage_b_status,
         "role_separation": "HUMAN_ROLE_SEPARATION_PENDING",
     }
     _write_json(RESULTS_DIR / "experiment_status.json", payload)
@@ -665,6 +671,7 @@ def cmd_reveal() -> int:
         classification = "FAILED"
         status = "STAGE_A_FAILED"
 
+    summary["status"] = status
     summary["stage_a_classification"] = classification
     summary["reveal_timestamp"] = _now()
     summary["stage_b_status"] = "STAGE_B_PENDING_STAGE_A_PASS" if classification != "PASSED" else "STAGE_B_SCAFFOLDED"
