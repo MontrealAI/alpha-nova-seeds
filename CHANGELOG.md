@@ -6,6 +6,7 @@
 - Added `release/v3.0.1-source-coherence-checklist.md` to capture the post-v3.0.0 source-coherence patch release path (checks, claim boundaries, rollback notes, and verification expectations).
 
 ### Changed
+- Documented explicit Python dependency guidance (`jsonschema`) in release verification/checklist flows before requiring `demos/ascension-runtime/run_demo.py --assert`, preventing clean-environment verification blockers.
 - Tightened release verification guidance in `docs/verify-release.md` with explicit source-posture/trust-rail checks and bounded-runtime assert verification for v3.x reviewers.
 - Surfaced the next empirical milestone (blinded adjacent-transfer Stage A/Stage B progression) in `README.md`, `demos/README.md`, and `docs/verify-release.md` without claiming a completed blinded pass.
 - Updated `docs/FRONTIER_LAB_POSTURE.md` wording from RC-specific phrasing to release-neutral v3.0.0 posture framing.

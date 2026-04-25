@@ -8,8 +8,16 @@ This guide verifies that release artifacts were produced from repository source 
 - `sha256sum`
 - `jq`
 - Python 3.11+
+- `jsonschema` Python package (required for `demos/ascension-runtime/run_demo.py --assert`)
 
 ## 1) Reproduce local verification surfaces (recommended before downloading artifacts)
+
+Install missing Python dependencies (if needed):
+
+```bash
+python3 -m pip install --upgrade pip
+python3 -m pip install jsonschema pytest
+```
 
 Run these commands from a clean checkout at the release tag:
 
