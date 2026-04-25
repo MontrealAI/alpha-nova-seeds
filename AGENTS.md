@@ -1,7 +1,7 @@
 # AGENTS.md — alpha-nova-seeds
 
 ## Purpose
-This repository implements **α‑AGI Nova‑Seeds** as **sealed venture blueprints for sovereign opportunity formation**. The repo currently tracks **v2.8.0-rc.7** as the active unpublished release-candidate target (with prior RC history preserved in `CHANGELOG.md`/`RELEASES.md`). It remains a **verifiable release candidate** focused on proof surfaces, governance hardening, and release provenance. It is **not** represented as an audited final deployment.
+This repository implements **α‑AGI Nova‑Seeds** as **sealed venture blueprints for sovereign opportunity formation**. The repo now aligns to **v3.0.0 — Ascension Runtime & Verifiable Trust Rail** as the active published release tag (with prior RC history preserved in `CHANGELOG.md`/`RELEASES.md`). It remains a **bounded, verifiable release posture** focused on proof surfaces, governance hardening, and release provenance. It is **not** represented as an audited final deployment.
 
 System framing:
 
@@ -29,7 +29,7 @@ Treat these directories as canonical unless maintainers explicitly change the ar
 - root `example_*.json` / `*_spec.md` — examples and top-level architecture references; preserve unless superseded by versioned files
 
 ## Current release posture
-The repo has already moved beyond the original v2.5 “foundational architecture release” framing and now presents itself as a **v2.8.x verifiable release-candidate train**. All work should reinforce that posture.
+The repo has moved beyond the v2.x release-candidate train and now presents a **v3.0.0 bounded release posture** centered on Ascension Runtime and verifiable trust-rail coherence. All work should reinforce that posture.
 
 That means:
 

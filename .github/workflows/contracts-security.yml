@@ -23,6 +23,8 @@ jobs:
         with:
           node-version: "22.10.0"
       - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.3.1
       - name: Install contracts dependencies
         working-directory: contracts
         run: npm ci
@@ -45,6 +47,8 @@ jobs:
         with:
           node-version: "22.10.0"
       - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.3.1
       - name: Install Slither
         run: pip install slither-analyzer
       - name: Install contracts dependencies
