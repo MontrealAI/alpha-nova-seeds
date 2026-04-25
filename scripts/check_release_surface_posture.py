@@ -47,7 +47,9 @@ def _required_patterns(target: str) -> dict[str, list[re.Pattern[str]]]:
             re.compile(rf"Current release (?:tag|target).*\*\*{escaped}(?:\s*[—-].*?)?\*\*"),
         ],
         "AGENTS": [
-            re.compile(rf"(?:tracks|aligns to)\s*\*\*{escaped}"),
+            re.compile(
+                rf"(?:tracks|aligns to)\s*\*\*{escaped}(?:\s*[—-][^*]+)?\*\*"
+            ),
         ],
         "RELEASES": [
             re.compile(rf"active (?:tag|target):\s*{escaped}"),
