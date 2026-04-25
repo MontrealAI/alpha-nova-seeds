@@ -23,22 +23,21 @@ RELEASE_TARGET_PATTERN = re.compile(r"v(\d+)\.(\d+)\.(\d+)(?:-rc\.(\d+))?")
 VERSION_MARKER_PATTERN = re.compile(r"\bv(\d+)\.(\d+)\.(\d+)(?:-rc\.(\d+))?\b")
 
 
-def _marker_version_tuple(match: re.Match[str]) -> tuple[int, int, int, int]:
+def _marker_version_tuple(match: re.Match[str]) -> tuple[int, int, int, int, int]:
     major, minor, patch = (int(match.group(i)) for i in range(1, 4))
+    is_stable = 1 if match.group(4) is None else 0
     rc = int(match.group(4)) if match.group(4) else 0
-    return (major, minor, patch, rc)
+    return (major, minor, patch, is_stable, rc)
 
 
-def _parse_target(target: str) -> tuple[int, int, int, int]:
+def _parse_target(target: str) -> tuple[int, int, int, int, int]:
     match = RELEASE_TARGET_PATTERN.fullmatch(target)
     if not match:
         raise ValueError(
             "invalid release target format in release/badges.json: "
             f"{target} (expected vX.Y.Z or vX.Y.Z-rc.N)"
         )
-    major, minor, patch = (int(match.group(i)) for i in range(1, 4))
-    rc = int(match.group(4)) if match.group(4) else 0
-    return (major, minor, patch, rc)
+    return _marker_version_tuple(match)
 
 
 def _required_patterns(target: str) -> dict[str, list[re.Pattern[str]]]:
@@ -102,7 +101,14 @@ def main() -> int:
                 errors.append(
                     f"{path.relative_to(ROOT)} contains premature future release marker {marker}; expected active target {target}"
                 )
-            if version[:3] == target_version[:3] and version[3] < target_version[3]:
+            target_is_rc = target_version[3] == 0
+            marker_is_rc = version[3] == 0
+            if (
+                target_is_rc
+                and marker_is_rc
+                and version[:3] == target_version[:3]
+                and version[4] < target_version[4]
+            ):
                 errors.append(
                     f"{path.relative_to(ROOT)} contains disallowed stale release marker {marker}; expected active target {target}"
                 )
