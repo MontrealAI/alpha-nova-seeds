@@ -602,6 +602,28 @@ def _read_csv_rows(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(f))
 
 
+def _reviewer_packets_complete() -> tuple[bool, list[str]]:
+    missing: list[str] = []
+    required_packet_files = [
+        "findings.md",
+        "tests_or_harnesses.md",
+        "evidence_packet.md",
+        "reviewer_form.md",
+        "leakage_check.md",
+    ]
+    for lane in ["lane_blue_packet_public", "lane_gold_packet_public"]:
+        lane_dir = PUBLIC_DIR / lane
+        for name in required_packet_files:
+            path = lane_dir / name
+            if not path.exists():
+                missing.append(f"{lane}/{name}: missing")
+                continue
+            text = path.read_text(encoding="utf-8")
+            if "AWAITING_LANE_OPERATOR_OUTPUT" in text:
+                missing.append(f"{lane}/{name}: awaiting_human_output")
+    return (len(missing) == 0, missing)
+
+
 def _is_template_like_csv(path: Path) -> bool:
     rows = _read_csv_rows(path)
     if not rows:
@@ -616,6 +638,27 @@ def cmd_lock_score() -> int:
     output_scoring = SCORECARD_OUT_DIR / "output_scoring.csv"
     package_dep = SCORECARD_OUT_DIR / "package_dependence_ledger.csv"
     required = [run_costs, output_scoring, package_dep]
+
+    packets_complete, packet_issues = _reviewer_packets_complete()
+    if not packets_complete:
+        _write_json(PUBLIC_DIR / "summary_metrics.json", {
+            "status": "SCORE_LOCK_PENDING_HUMAN_INPUT",
+            "timestamp": _now(),
+            "note": "Score lock requires completed blinded reviewer packets before numeric lock.",
+            "packet_issues": packet_issues,
+            "demonstrated": [
+                "run-ready blinded adjacent-transfer harness",
+                "package freeze and kit-building pipeline",
+            ],
+            "pending_human_execution": [
+                "real blinded lane outputs",
+                "real blinded reviewer adjudication",
+                "filled scorecard CSV lock inputs",
+            ],
+            "simulated": ["template scorecard files"],
+            "unproven": ["Stage A pass/fail", "Stage B outcomes"],
+        })
+        return 0
 
     if any((not p.exists()) or _is_template_like_csv(p) for p in required):
         _write_json(PUBLIC_DIR / "summary_metrics.json", {
@@ -750,6 +793,26 @@ def cmd_validate_readiness() -> int:
         if not (REPO_ROOT / rel).exists():
             reasons.append(f"missing scope file: {rel}")
 
+    prereg_path = PUBLIC_DIR / "preregistration_public.json"
+    prereg: dict[str, Any] | None = None
+    if prereg_path.exists():
+        prereg = _read_json(prereg_path)
+        locked_scope_hashes = (
+            prereg.get("environment_lock", {}).get("scope_hashes", {})
+            if isinstance(prereg.get("environment_lock", {}), dict)
+            else {}
+        )
+        for rel in MANDATE_1_SCOPE + MANDATE_2_SCOPE + MANDATE_3_SCOPE:
+            path = REPO_ROOT / rel
+            if not path.exists():
+                continue
+            current_hash = _sha256_file(path)
+            locked_hash = str(locked_scope_hashes.get(rel, "")).strip()
+            if not locked_hash:
+                reasons.append(f"scope hash missing from prereg lock: {rel}")
+            elif locked_hash != current_hash:
+                reasons.append(f"scope hash mismatch: {rel}")
+
     if not (PACK_ROOT / "07_scripts" / "calculate_q2_scorecard.py").exists():
         _update_experiment_status("BLOCKED_MISSING_SCORECARD_HELPER", ["calculate_q2_scorecard.py missing"])
         return 1
@@ -777,6 +840,36 @@ def cmd_validate_readiness() -> int:
     if blue_files != gold_files or blue_files != sorted(KIT_FILENAMES):
         _update_experiment_status("BLOCKED_KIT_MISMATCH", ["kit_blue and kit_gold filenames do not match required set"])
         return 1
+    pending_dir = RESULTS_DIR / "scripts" / "_expected_blinding_required_kit"
+    try:
+        real_src, placebo_src, _ = _ensure_package_sources()
+        if pending_dir.exists():
+            shutil.rmtree(pending_dir)
+        _write_blinding_required_kit(pending_dir)
+        assignment = _resolve_private_kit_assignment()
+        for name in KIT_FILENAMES:
+            blue_hash = _sha256_file(KITS_DIR / "kit_blue" / name)
+            gold_hash = _sha256_file(KITS_DIR / "kit_gold" / name)
+            pending_hash = _sha256_file(pending_dir / name)
+            real_hash = _sha256_file(real_src / name)
+            placebo_hash = _sha256_file(placebo_src / name)
+            if assignment is None:
+                if blue_hash != pending_hash or gold_hash != pending_hash:
+                    reasons.append(f"kit content mismatch for unresolved assignment: {name}")
+            else:
+                treatment_kit = assignment["treatment_kit"]
+                control_kit = assignment["control_kit"]
+                treatment_hash = blue_hash if treatment_kit == "kit_blue" else gold_hash
+                control_hash = blue_hash if control_kit == "kit_blue" else gold_hash
+                if treatment_hash != real_hash:
+                    reasons.append(f"treatment kit hash mismatch: {name}")
+                if control_hash != placebo_hash:
+                    reasons.append(f"control kit hash mismatch: {name}")
+    except Exception as exc:
+        reasons.append(f"kit integrity check failed: {exc}")
+    finally:
+        if pending_dir.exists():
+            shutil.rmtree(pending_dir)
 
     tracked_private_patterns = [
         "**/*.private.md",
@@ -793,9 +886,7 @@ def cmd_validate_readiness() -> int:
         _update_experiment_status("BLOCKED_PRIVATE_FILES_COMMITTED", committed_private)
         return 1
 
-    prereg_path = PUBLIC_DIR / "preregistration_public.json"
-    if prereg_path.exists():
-        prereg = _read_json(prereg_path)
+    if prereg is not None:
         if "claim_boundary" not in prereg:
             reasons.append("prereg missing claim_boundary")
         if "conditional" not in json.dumps(prereg.get("stage_b_budget_per_lane", "")).lower():
