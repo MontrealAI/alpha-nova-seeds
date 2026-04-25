@@ -19,7 +19,7 @@ Nova-Seeds is positioned as a frontier-scale sovereign infrastructure program wi
 - implicit production-final guarantees,
 - collapsing synthetic evidence into real-world proof.
 
-## Product posture for this RC
+## Product posture for this release
 
 - The flagship demo is the public front door.
 - The dashboard is the operator front door.
