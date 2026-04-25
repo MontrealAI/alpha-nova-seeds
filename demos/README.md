@@ -81,3 +81,13 @@ Compatibility label: Real-world experiment pack.
 Legacy compatibility surfaces:
 - [`./unbounded-rsi-system/`](./unbounded-rsi-system/) remains available for historical replay.
 - [`./ascension-live-runtime/`](./ascension-live-runtime/) remains available for historical replay.
+
+
+## Next empirical milestone
+
+The next empirical milestone is the **blinded adjacent-transfer experiment** in `adjacent_mandate_reuse_proof_real_v1/`:
+
+- **Stage A:** Mandate 1 → `GovernanceValidationPack-v1` then blinded Mandate 2 control-vs-treatment test for threshold/attestation correctness uplift.
+- **Stage B (conditional):** if Stage A passes, test transfer of that lineage into backend/API correctness with reduced handholding.
+
+This ladder currently includes readiness scaffolding for that experiment; it does not claim a completed blinded human pass.

@@ -8,6 +8,7 @@ This guide verifies that release artifacts were produced from repository source 
 - `sha256sum`
 - `jq`
 - Python 3.11+
+- `jsonschema` Python package (required for `demos/ascension-runtime/run_demo.py --assert`)
 
 ## 1) Reproduce local verification surfaces (recommended before downloading artifacts)
 
@@ -86,8 +87,26 @@ gh attestation verify alpha-nova-seeds-<TAG>.tar.gz --repo MontrealAI/alpha-nova
 
 ## Operator note
 
-This verification flow proves artifact integrity/provenance signals for this bounded release posture. It does **not** claim final audit coverage.
+This verification flow proves artifact integrity/provenance signals for this bounded release posture. It does **not** claim final audit coverage, completed live Ascension, or production/mainnet readiness.
 
+## 8) Verify source posture and trust rail
+
+Run these repository checks at the same tag to confirm release-surface coherence:
+
+```bash
+# required once in a clean environment for Ascension runtime schema asserts
+python3 -m pip install jsonschema
+
+python3 scripts/generate_readme_badges.py
+python3 scripts/check_readme_badges.py
+python3 scripts/check_release_surface_posture.py
+python3 scripts/check_demo_links.py
+python3 scripts/check_doctrine_consistency.py
+python3 scripts/check_math_markdown.py
+python3 demos/ascension-runtime/run_demo.py --assert
+```
+
+These checks verify badge/workflow wiring, release-surface posture, demo ladder linkage, doctrine consistency, math rendering, and bounded Ascension runtime replay.
 
 ## Demo-and-doctrine checks
 
@@ -100,3 +119,13 @@ python3 scripts/check_doctrine_consistency.py
 ```
 
 These checks ensure demo determinism, cross-demo replayability, and canonical GitHub math rendering posture.
+
+
+## Next empirical milestone (not yet proven)
+
+The next empirical milestone is the **blinded adjacent-transfer experiment** in `demos/adjacent_mandate_reuse_proof_real_v1/`.
+
+- **Stage A:** tests whether Mandate 1 → `GovernanceValidationPack-v1` materially improves Mandate 2 threshold/attestation correctness under blinded control-vs-treatment conditions.
+- **Stage B (conditional):** if Stage A passes, tests whether resulting lineage transfers into backend/API correctness with reduced handholding.
+
+This repository currently contains execution scaffolding and public-safe templates; it does not claim a completed human-executed blinded pass.
