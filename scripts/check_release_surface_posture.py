@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate release-surface posture coherence across primary RC-facing surfaces."""
+"""Validate release-surface posture coherence across primary release-facing surfaces."""
 
 from __future__ import annotations
 
@@ -19,18 +19,25 @@ FILES = {
 }
 RELEASE_PROVENANCE_WORKFLOW = ROOT / ".github" / "workflows" / "release-provenance.yml"
 
-RC_MARKER_PATTERN = re.compile(r"v(\d+)\.(\d+)\.(\d+)-rc\.(\d+)")
+RELEASE_TARGET_PATTERN = re.compile(r"v(\d+)\.(\d+)\.(\d+)(?:-rc\.(\d+))?")
+VERSION_MARKER_PATTERN = re.compile(r"\bv(\d+)\.(\d+)\.(\d+)(?:-rc\.(\d+))?\b")
 
 
-def _version_tuple(match: re.Match[str]) -> tuple[int, int, int, int]:
-    return tuple(int(match.group(i)) for i in range(1, 5))
+def _marker_version_tuple(match: re.Match[str]) -> tuple[int, int, int, int, int]:
+    major, minor, patch = (int(match.group(i)) for i in range(1, 4))
+    is_stable = 1 if match.group(4) is None else 0
+    rc = int(match.group(4)) if match.group(4) else 0
+    return (major, minor, patch, is_stable, rc)
 
 
-def _parse_target(target: str) -> tuple[int, int, int, int]:
-    match = RC_MARKER_PATTERN.fullmatch(target)
+def _parse_target(target: str) -> tuple[int, int, int, int, int]:
+    match = RELEASE_TARGET_PATTERN.fullmatch(target)
     if not match:
-        raise ValueError(f"invalid release target format in release/badges.json: {target}")
-    return _version_tuple(match)
+        raise ValueError(
+            "invalid release target format in release/badges.json: "
+            f"{target} (expected vX.Y.Z or vX.Y.Z-rc.N)"
+        )
+    return _marker_version_tuple(match)
 
 
 def _required_patterns(target: str) -> dict[str, list[re.Pattern[str]]]:
@@ -38,14 +45,14 @@ def _required_patterns(target: str) -> dict[str, list[re.Pattern[str]]]:
     return {
         "README": [
             re.compile(rf"{escaped} posture"),
-            re.compile(rf"Current RC target.*\*\*{escaped}\*\*"),
+            re.compile(rf"Current release (?:tag|target).*\*\*{escaped}(?:\s*[—-].*?)?\*\*"),
         ],
         "AGENTS": [
-            re.compile(rf"tracks\s*\*\*{escaped}\*\*"),
+            re.compile(rf"(?:tracks|aligns to)\s*\*\*{escaped}(?:\s+—\s+[^*\n]+)?\*\*"),
         ],
         "RELEASES": [
-            re.compile(rf"active target:\s*{escaped}"),
-            re.compile(rf"retain `{escaped}` as the active unpublished RC target"),
+            re.compile(rf"active (?:tag|target):\s*{escaped}"),
+            re.compile(rf"align to `{escaped}(?:\s*[—-][^`]+)?`"),
         ],
         "FRONTIER_LAB_POSTURE": [
             re.compile(rf"{escaped}"),
@@ -87,16 +94,23 @@ def main() -> int:
                     f"{path.relative_to(ROOT)} missing required posture marker: {pattern.pattern}"
                 )
 
-        for match in RC_MARKER_PATTERN.finditer(text):
+        for match in VERSION_MARKER_PATTERN.finditer(text):
             marker = match.group(0)
-            version = _version_tuple(match)
+            version = _marker_version_tuple(match)
             if version > target_version:
                 errors.append(
-                    f"{path.relative_to(ROOT)} contains premature future RC marker {marker}; expected active target {target}"
+                    f"{path.relative_to(ROOT)} contains premature future release marker {marker}; expected active target {target}"
                 )
-            if version[:3] == target_version[:3] and version[3] < target_version[3]:
+            target_is_rc = target_version[3] == 0
+            marker_is_rc = version[3] == 0
+            if (
+                target_is_rc
+                and marker_is_rc
+                and version[:3] == target_version[:3]
+                and version[4] < target_version[4]
+            ):
                 errors.append(
-                    f"{path.relative_to(ROOT)} contains disallowed stale RC marker {marker}; expected active target {target}"
+                    f"{path.relative_to(ROOT)} contains disallowed stale release marker {marker}; expected active target {target}"
                 )
 
     if not RELEASE_PROVENANCE_WORKFLOW.exists():

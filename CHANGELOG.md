@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+## [v3.0.0] - 2026-04-25
+
+### Added
+- Added `release/v3.0.0-ascension-runtime-verifiable-trust-rail-checklist.md` to define acceptance criteria, checks, migration notes, rollback notes, and bounded claim boundaries for the v3.0.0 publication contract.
+
+### Changed
+- Aligned release-facing posture surfaces from active `v2.8.0-rc.7` target language to `v3.0.0 — Ascension Runtime & Verifiable Trust Rail` across `README.md`, `AGENTS.md`, `RELEASES.md`, `demos/README.md`, `docs/FRONTIER_LAB_POSTURE.md`, and `docs/DOCTRINE_STACK.md`.
+- Updated `release/badges.json` and regenerated marker-managed README badge rails for `v3.0.0` while retaining bounded local/devnet claim boundaries.
+- Updated `docs/verify-release.md` heading/posture framing to describe v3.0.0 verification intent without claiming audited-final or mainnet-ready status.
+- Updated `scripts/check_release_surface_posture.py` to accept both stable (`vX.Y.Z`) and RC (`vX.Y.Z-rc.N`) release targets while preserving release-surface coherence checks.
+
+### Notes
+- v3.0.0 remains bounded and proof-first.
+- This release does **not** claim audited final deployment, completed live Ascension, unrestricted autonomy, broad sovereign cybersecurity completion, or production/mainnet readiness.
+
 ### Added
 - Added additional README badge-rail guardrails in `scripts/check_readme_badges.py` for stale/future RC marker detection inside the badge block, forbidden vanity badge labels, and enforced two-row maximum root rail structure.
 - Added `scripts/check_ascension_runtime_artifacts.py` to enforce the full bounded Ascension runtime output contract (all required layer artifacts, scorecards, and report formats) after local `run_demo.py --assert` replay.
