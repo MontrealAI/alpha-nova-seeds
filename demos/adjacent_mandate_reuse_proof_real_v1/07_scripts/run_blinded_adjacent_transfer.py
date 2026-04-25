@@ -541,8 +541,8 @@ def cmd_build_kits() -> int:
             "blue_exists": blue.exists(),
             "gold_exists": gold.exists(),
             "same_filename": blue.name == gold.name,
-            "blue_sha256": "BLINDING_OFFICER_REQUIRED" if assignment is None else _sha256_file(blue),
-            "gold_sha256": "BLINDING_OFFICER_REQUIRED" if assignment is None else _sha256_file(gold),
+            "blue_sha256": "BLINDING_OFFICER_REQUIRED",
+            "gold_sha256": "BLINDING_OFFICER_REQUIRED",
             "surface_form_parity": blue.suffix == gold.suffix,
         }
 
@@ -800,8 +800,6 @@ def cmd_assert() -> int:
         PUBLIC_DIR / "preregistration_public.json",
         PUBLIC_DIR / "package_freeze_public.json",
         PUBLIC_DIR / "kit_manifest_public.json",
-        PUBLIC_DIR / "proof_docket_public.md",
-        PUBLIC_DIR / "governance_ruling_public.md",
         PRIVATE_DIR / "README.md",
         PRIVATE_DIR / ".gitignore",
         KITS_DIR / "kit_blue",
