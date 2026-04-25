@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- Added additional README badge-rail guardrails in `scripts/check_readme_badges.py` for stale/future RC marker detection inside the badge block, forbidden vanity badge labels, and enforced two-row maximum root rail structure.
 - Added `scripts/check_ascension_runtime_artifacts.py` to enforce the full bounded Ascension runtime output contract (all required layer artifacts, scorecards, and report formats) after local `run_demo.py --assert` replay.
 - Added release checklist `release/v2.8.0-rc.7-ascension-runtime-green-badges-checklist.md` with badge generation/validation commands, ascension-runtime assert command, workflow green requirements, artifact checks, claim boundary reminders, and rollback notes.
 - Added new bounded local/devnet Ascension runtime demo at `demos/ascension-runtime/` with modular source layout (`src/`), deterministic artifact emission, two-job agent competition, validation/council rulings, reservoir ledgering, archive lineage, node profile, architect next-loop planning, and board scorecard/report outputs.
@@ -12,6 +13,8 @@
 - Added release checklist `release/v2.8.0-rc.7-ascension-live-runtime-checklist.md` for demo execution, schema/event checks, migration notes, rollback notes, and claim boundaries.
 
 ### Changed
+- Updated `demos/ascension-runtime/RUNBOOK.md` to point operators to `scripts/check_ascension_runtime_artifacts.py` and to the current per-layer artifact paths used by the bounded local/devnet runtime contract.
+- Updated `docs/BADGE_STRATEGY.md` to document the new badge checker constraints (no vanity labels, max two rows, no stale/future RC markers in root badge block).
 - Updated `.github/workflows/release-provenance.yml` to include a push/pull_request provenance smoke job so the workflow badge reflects earned green status on normal branch activity while preserving the existing tag-bound release publication path under `workflow_dispatch`.
 - Updated `.github/workflows/ci.yml` so scheduled/manual Echidna campaigns are non-blocking CI coverage; contract security remains fail-loud in `contracts-security.yml`, keeping the CI badge aligned to baseline deterministic gates instead of transient long-run fuzz campaign variance.
 

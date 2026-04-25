@@ -28,6 +28,12 @@ FORBIDDEN_CLAIM_PATTERNS = (
     r"\baudited[-\s]?final\b",
     r"\bcompleted ascension\b",
 )
+FORBIDDEN_BADGE_LABEL_PATTERNS = (
+    r"\bstars?\b",
+    r"\bforks?\b",
+    r"\bwatchers?\b",
+    r"\bawesome\b",
+)
 
 
 def _workflow_badge_svg_url(workflow: str, style: str) -> str:
@@ -150,6 +156,27 @@ def _validate_forbidden_claims(errors: list[str], badge: dict) -> None:
         errors.append(f"badge {badge['id']} contains forbidden claim tokens")
 
 
+def _validate_forbidden_labels(errors: list[str], badge: dict) -> None:
+    label_fields = [
+        str(badge.get("label", "")),
+        str(badge.get("alt", "")),
+    ]
+    candidate = " ".join(label_fields).lower()
+    if any(re.search(pattern, candidate) for pattern in FORBIDDEN_BADGE_LABEL_PATTERNS):
+        errors.append(f"badge {badge['id']} contains forbidden vanity label tokens")
+
+
+def _validate_no_stale_rc_marker_in_badge_block(
+    errors: list[str], badge_block: str, active_release_target: str
+) -> None:
+    rc_markers = set(re.findall(r"\bv\d+\.\d+\.\d+-rc\.\d+\b", badge_block))
+    stale = sorted(marker for marker in rc_markers if marker != active_release_target)
+    if stale:
+        errors.append(
+            "README badge block contains stale/future RC markers: " + ", ".join(stale)
+        )
+
+
 def _expanded_demos_badges(cfg: dict) -> list[dict]:
     from scripts.generate_readme_badges import _expand_row_entries
 
@@ -191,6 +218,8 @@ def main() -> int:
     if not rows:
         errors.append("release/badges.json readme.rows is missing or empty")
     else:
+        if len(rows) > 2:
+            errors.append("release/badges.json readme.rows must contain at most two rows")
         expected_labels = {"Operational trust rail", "Orientation rail"}
         present_labels = {row.get("label", "") for row in rows}
         missing_labels = sorted(label for label in expected_labels if label not in present_labels)
@@ -257,6 +286,7 @@ def main() -> int:
             errors.append(f"badge {badge['id']} missing link")
             continue
         _validate_forbidden_claims(errors, badge)
+        _validate_forbidden_labels(errors, badge)
         _validate_local_link(errors, badge["id"], ROOT, link)
         if args.check_http_links:
             _validate_http_link(errors, badge["id"], link)
@@ -324,6 +354,8 @@ def main() -> int:
     readme_text = README.read_text(encoding="utf-8")
     if release_target not in readme_text:
         errors.append(f"README.md missing active release target marker: {release_target}")
+    if actual_readme:
+        _validate_no_stale_rc_marker_in_badge_block(errors, actual_readme, release_target)
 
     if errors:
         print("FAIL: README badge validation failed")
