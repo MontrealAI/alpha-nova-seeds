@@ -171,10 +171,12 @@ def _create_packet_templates() -> None:
             "reviewer_form.md",
             "leakage_check.md",
         ]:
-            _write_text(
-                d / filename,
-                f"# {filename}\n\nAWAITING_LANE_OPERATOR_OUTPUT\n",
-            )
+            path = d / filename
+            if not path.exists():
+                _write_text(
+                    path,
+                    f"# {filename}\n\nAWAITING_LANE_OPERATOR_OUTPUT\n",
+                )
 
 
 def _create_scorecard_templates() -> None:
@@ -410,11 +412,36 @@ def _ensure_package_sources() -> tuple[Path, Path, bool]:
     return real, placebo, used_pending_scaffold
 
 
+def _is_pending_real_package_file(path: Path) -> bool:
+    if not path.exists():
+        return True
+    text = path.read_text(encoding="utf-8")
+    if "PENDING_MANDATE_1_HUMAN_ADJUDICATION" in text:
+        return True
+    if path.suffix == ".json":
+        try:
+            data = json.loads(text)
+        except json.JSONDecodeError:
+            return True
+        status = str(data.get("status", "")).strip().upper()
+        if status == "PENDING_MANDATE_1_HUMAN_ADJUDICATION":
+            return True
+    return False
+
+
+def _materialization_status(real_src: Path) -> str:
+    for name in KIT_FILENAMES:
+        if _is_pending_real_package_file(real_src / name):
+            return "PENDING_MANDATE_1_HUMAN_ADJUDICATION"
+    return "SOURCE_PRESENT"
+
+
 def cmd_freeze_package() -> int:
     _ensure_dirs()
     real_src, _, used_pending = _ensure_package_sources()
     file_hashes = {name: _sha256_file(real_src / name) for name in KIT_FILENAMES}
     aggregate = _sha256_text("\n".join(file_hashes[name] for name in sorted(file_hashes)))
+    materialization_status = _materialization_status(real_src)
 
     freeze = {
         "package_id": "GovernanceValidationPack-v1",
@@ -428,7 +455,11 @@ def cmd_freeze_package() -> int:
         "freeze_timestamp": _now(),
         "no_edit_attestation": "No edits permitted after freeze without new freeze event.",
         "human_adjudication_status": "PENDING_HUMAN_ADJUDICATION",
-        "materialization_status": "PENDING_MANDATE_1_HUMAN_ADJUDICATION" if used_pending else "SOURCE_PRESENT",
+        "materialization_status": materialization_status,
+        "materialization_determination": {
+            "used_pending_scaffold_in_this_run": used_pending,
+            "content_scan_result": materialization_status,
+        },
     }
     _write_json(PUBLIC_DIR / "package_freeze_public.json", freeze)
     return 0

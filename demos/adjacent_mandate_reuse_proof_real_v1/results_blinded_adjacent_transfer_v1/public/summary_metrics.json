@@ -1,21 +1,41 @@
 {
   "demonstrated": [
     "run-ready blinded adjacent-transfer harness",
-    "package freeze and kit-building pipeline"
+    "deterministic preregistration/freeze/kit manifest generation"
   ],
-  "note": "Score lock requires real filled CSV inputs.",
   "pending_human_execution": [
-    "real blinded lane outputs",
-    "real blinded reviewer adjudication",
-    "filled scorecard CSV lock inputs"
+    "blinded lane outputs",
+    "reviewer adjudication",
+    "score lock from real filled scorecard inputs",
+    "reveal sign-off by blinding officer"
   ],
   "simulated": [
-    "template scorecard files"
+    "template scorecard inputs only"
   ],
-  "status": "SCORE_LOCK_PENDING_HUMAN_INPUT",
-  "timestamp": "2026-04-25T18:19:35+00:00",
+  "stage_a": "PENDING_HUMAN_INPUT",
+  "stage_b": {
+    "minimum_pass_criteria": {
+      "evidence_completeness_uplift_min_pct": 10,
+      "frontier_width_domain_increase_min": 1,
+      "no_safety_regression": true,
+      "operator_intervention_reduction_min_pct": 25,
+      "package_dependence_min_pct": 20,
+      "positive_aoy_uplift": true,
+      "positive_speed_uplift": true
+    },
+    "note": "Stage B is scaffolded only and must not run until Stage A passes with real blinded reviewer data.",
+    "scope": [
+      "backend/app/main.py",
+      "backend/app/indexer.py",
+      "backend/app/schemas.py",
+      "backend/tests/ (directly relevant files only)"
+    ],
+    "stage_b_package_id": "ProtocolCorrectnessLineage-v1",
+    "status": "STAGE_B_PENDING_STAGE_A_PASS"
+  },
+  "status": "READY_FOR_HUMAN_EXECUTION",
   "unproven": [
-    "Stage A pass/fail",
-    "Stage B outcomes"
+    "Stage A pass/fail until real blinded reviewer data is present",
+    "Stage B transfer outcomes"
   ]
 }

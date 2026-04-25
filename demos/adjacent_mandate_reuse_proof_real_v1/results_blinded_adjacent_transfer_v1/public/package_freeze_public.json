@@ -9,7 +9,7 @@
     "scoring_rubric.md": "03ad63c11004b3e591f5d608f783b8d99f6f63d97814dea24402d21afb1b2a0b",
     "workflow_template.md": "03ad63c11004b3e591f5d608f783b8d99f6f63d97814dea24402d21afb1b2a0b"
   },
-  "freeze_timestamp": "2026-04-25T18:19:34+00:00",
+  "freeze_timestamp": "2026-04-25T18:31:09+00:00",
   "human_adjudication_status": "PENDING_HUMAN_ADJUDICATION",
   "included_files": [
     "ontology.json",
@@ -21,7 +21,11 @@
     "extraction_schema.json"
   ],
   "lineage_note": "Frozen package intended for blinded kit construction only.",
-  "materialization_status": "SOURCE_PRESENT",
+  "materialization_determination": {
+    "content_scan_result": "PENDING_MANDATE_1_HUMAN_ADJUDICATION",
+    "used_pending_scaffold_in_this_run": false
+  },
+  "materialization_status": "PENDING_MANDATE_1_HUMAN_ADJUDICATION",
   "no_edit_attestation": "No edits permitted after freeze without new freeze event.",
   "package_id": "GovernanceValidationPack-v1",
   "parentage_note": "Mandate 1 freeze lineage input to Stage A adjacent transfer.",
