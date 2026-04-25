@@ -1,0 +1,76 @@
+{
+  "assignment_status": "BLINDING_OFFICER_REQUIRED",
+  "filenames": [
+    "ontology.json",
+    "query_bundle.json",
+    "workflow_template.md",
+    "mechanism_library.json",
+    "safety_routing_rules.md",
+    "scoring_rubric.md",
+    "extraction_schema.json"
+  ],
+  "generated_at": "2026-04-25T19:53:35+00:00",
+  "kit_labels": [
+    "kit_blue",
+    "kit_gold"
+  ],
+  "note": "Manifest does not reveal which lane received treatment package and suppresses hash-linking until private assignment exists.",
+  "parity_checks": {
+    "extraction_schema.json": {
+      "blue_exists": true,
+      "blue_sha256": "BLINDING_OFFICER_REQUIRED",
+      "gold_exists": true,
+      "gold_sha256": "BLINDING_OFFICER_REQUIRED",
+      "same_filename": true,
+      "surface_form_parity": true
+    },
+    "mechanism_library.json": {
+      "blue_exists": true,
+      "blue_sha256": "BLINDING_OFFICER_REQUIRED",
+      "gold_exists": true,
+      "gold_sha256": "BLINDING_OFFICER_REQUIRED",
+      "same_filename": true,
+      "surface_form_parity": true
+    },
+    "ontology.json": {
+      "blue_exists": true,
+      "blue_sha256": "BLINDING_OFFICER_REQUIRED",
+      "gold_exists": true,
+      "gold_sha256": "BLINDING_OFFICER_REQUIRED",
+      "same_filename": true,
+      "surface_form_parity": true
+    },
+    "query_bundle.json": {
+      "blue_exists": true,
+      "blue_sha256": "BLINDING_OFFICER_REQUIRED",
+      "gold_exists": true,
+      "gold_sha256": "BLINDING_OFFICER_REQUIRED",
+      "same_filename": true,
+      "surface_form_parity": true
+    },
+    "safety_routing_rules.md": {
+      "blue_exists": true,
+      "blue_sha256": "BLINDING_OFFICER_REQUIRED",
+      "gold_exists": true,
+      "gold_sha256": "BLINDING_OFFICER_REQUIRED",
+      "same_filename": true,
+      "surface_form_parity": true
+    },
+    "scoring_rubric.md": {
+      "blue_exists": true,
+      "blue_sha256": "BLINDING_OFFICER_REQUIRED",
+      "gold_exists": true,
+      "gold_sha256": "BLINDING_OFFICER_REQUIRED",
+      "same_filename": true,
+      "surface_form_parity": true
+    },
+    "workflow_template.md": {
+      "blue_exists": true,
+      "blue_sha256": "BLINDING_OFFICER_REQUIRED",
+      "gold_exists": true,
+      "gold_sha256": "BLINDING_OFFICER_REQUIRED",
+      "same_filename": true,
+      "surface_form_parity": true
+    }
+  }
+}
