@@ -1,27 +1,27 @@
-# α‑AGI Nova‑Seeds (v2.8.0-rc.7 posture)
+# α‑AGI Nova‑Seeds (v3.0.0 posture)
 
 <!-- BADGE_RAIL_START -->
 **Operational trust rail**
-[![Release posture: v2.8.0-rc.7](https://img.shields.io/badge/release-v2.8.0-rc.7-1f6feb?style=flat-square)](./RELEASES.md) [![CI workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml) [![Contracts security workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml) [![Release provenance workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml)
+[![Release posture: v3.0.0](https://img.shields.io/badge/release-v3.0.0-1f6feb?style=flat-square)](./RELEASES.md) [![CI workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/ci.yml) [![Contracts security workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/contracts-security.yml) [![Release provenance workflow status](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml/badge.svg?style=flat-square)](https://github.com/MontrealAI/alpha-nova-seeds/actions/workflows/release-provenance.yml)
 **Orientation rail**
-[![Proof-first bounded release candidate posture](https://img.shields.io/badge/claim%20boundary-proof-first%20bounded%20RC-6f42c1?style=flat-square)](./docs/FRONTIER_LAB_POSTURE.md) [![Verifiable release candidate posture](https://img.shields.io/badge/posture-verifiable%20RC-0969da?style=flat-square)](./RELEASES.md) [![Flagship protocol correctness demo](https://img.shields.io/badge/flagship%20demo-protocol%20correctness-0e8a16?style=flat-square)](./demos/protocol_smart_contract_correctness_demo/README.md) [![Demo ladder index](https://img.shields.io/badge/demo%20ladder-entry-0e8a16?style=flat-square)](./demos/README.md) [![Ascension runtime local/devnet demo](https://img.shields.io/badge/ascension%20runtime-local%2Fdevnet%20MVA-0e8a16?style=flat-square)](./demos/ascension-runtime/README.md) [![Doctrine stack](https://img.shields.io/badge/doctrine-stack-8250df?style=flat-square)](./docs/DOCTRINE_STACK.md)
+[![Proof-first bounded local/devnet posture](https://img.shields.io/badge/claim%20boundary-bounded%20local%2Fdevnet%20posture-6f42c1?style=flat-square)](./docs/FRONTIER_LAB_POSTURE.md) [![Verifiable trust rail posture](https://img.shields.io/badge/posture-verifiable%20trust%20rail-0969da?style=flat-square)](./RELEASES.md) [![Flagship protocol correctness demo](https://img.shields.io/badge/flagship%20demo-protocol%20correctness-0e8a16?style=flat-square)](./demos/protocol_smart_contract_correctness_demo/README.md) [![Demo ladder index](https://img.shields.io/badge/demo%20ladder-entry-0e8a16?style=flat-square)](./demos/README.md) [![Ascension runtime local/devnet demo](https://img.shields.io/badge/ascension%20runtime-local%2Fdevnet%20MVA-0e8a16?style=flat-square)](./demos/ascension-runtime/README.md) [![Doctrine stack](https://img.shields.io/badge/doctrine-stack-8250df?style=flat-square)](./docs/DOCTRINE_STACK.md)
 <!-- BADGE_RAIL_END -->
 
-Nova‑Seeds are **sealed venture blueprints for sovereign opportunity formation**. This repository is a **verifiable release candidate** for identity → proof → settlement → governance coordination infrastructure. It is **not** represented as an audited final deployment, unrestricted autonomous system, or default mainnet-safe platform.
+Nova‑Seeds are **sealed venture blueprints for sovereign opportunity formation**. This repository now aligns to **v3.0.0 — Ascension Runtime & Verifiable Trust Rail** as a bounded local/devnet release posture with proof-first verification surfaces. It is **not** represented as an audited final deployment, unrestricted autonomous system, completed live Ascension, broad sovereign cybersecurity completion, or default mainnet-ready platform.
 
 System framing: `α‑AGI Insight → Nova‑Seeds → MARK → Sovereigns`
 
 ## Front door (start in 90 seconds)
 
-This front door is intentionally proof-first: it gives serious reviewers a direct path to the flagship deterministic wedge, the full demo ladder, doctrine interpretation surfaces, and release verification artifacts for the active RC target **v2.8.0-rc.7**.
+This front door is intentionally proof-first: it gives serious reviewers a direct path to the flagship deterministic wedge, the full demo ladder, doctrine interpretation surfaces, and release verification artifacts for the active release tag **v3.0.0**.
 
-**Current RC target:** **v2.8.0-rc.7** (institutional badge governance and front-door coherence hardening cut; prior RC history remains in `CHANGELOG.md` / `RELEASES.md`).
+**Current release tag:** **v3.0.0 — Ascension Runtime & Verifiable Trust Rail** (bounded local/devnet runtime and verifiable trust-rail coherence; prior RC history remains in `CHANGELOG.md` / `RELEASES.md`).
 
 ### What this is / what this is not
 
-- **What this is:** a release-candidate coordination stack across Solidity contracts, SDK attestations, FastAPI/Postgres indexing, dashboard operations, and deterministic demo evidence.
+- **What this is:** a bounded release posture across Solidity contracts, SDK attestations, FastAPI/Postgres indexing, dashboard operations, deterministic demo evidence, and verifiable trust-rail surfaces.
 - **What is real today:** replayable synthetic flagship evidence, bounded accelerating-loop replay, workflow-backed provenance surfaces, and publication-time verification tooling.
-- **What is not claimed:** audited-final deployment, completed broad sovereign realization, unrestricted autonomy, or default external real-world validity.
+- **What is not claimed:** audited-final deployment, completed live Ascension, unrestricted autonomy, broad cybersecurity sovereign completion, or default external/mainnet real-world validity.
 
 
 ### Demonstrated status map (explicit boundary)
@@ -50,7 +50,7 @@ This front door is intentionally proof-first: it gives serious reviewers a direc
 | Full evidence ladder | [`demos/README.md`](./demos/README.md) |
 | Accelerating-loop bounded replay | [`demos/open-ended-rsi-system/`](./demos/open-ended-rsi-system/) |
 | Doctrine interpretation surfaces | [`docs/DOCTRINE_STACK.md`](./docs/DOCTRINE_STACK.md) |
-| RC release contract + acceptance surfaces | [`RELEASES.md`](./RELEASES.md) |
+| Release contract + acceptance surfaces | [`RELEASES.md`](./RELEASES.md) |
 | Release verification commands | [`docs/verify-release.md`](./docs/verify-release.md) |
 
 Full ladder surfaces:
@@ -73,12 +73,12 @@ Full ladder surfaces:
 - no autonomy without authority
 - no settlement without validation
 
-## Release posture (April 23, 2026)
+## Release posture (April 25, 2026)
 
-- Active release train: **v2.8.x verifiable release-candidate**.
-- Active target: **v2.8.0-rc.7**.
-- This cut advances institutional badge discipline, front-door hierarchy, and release-surface drift prevention.
-- Proof remains bounded and explicit: synthetic deterministic evidence is strengthened; broad sovereign claims remain future-facing.
+- Active release tag: **v3.0.0 — Ascension Runtime & Verifiable Trust Rail**.
+- Current posture: bounded local/devnet Ascension Runtime with verifiable trust rail and proof-first demo ladder.
+- This cut aligns front-door/release/doctrine surfaces to the v3.0.0 publication contract without widening claims.
+- Proof remains bounded and explicit: local/devnet deterministic evidence is strengthened; completed live Ascension and production/mainnet readiness remain unproven.
 
 ## Repository map
 
