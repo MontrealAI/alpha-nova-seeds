@@ -151,3 +151,19 @@ Its job is to help you answer one question cleanly:
 - Real-world experiment pack: [`../adjacent_mandate_reuse_proof_real_v1/`](../adjacent_mandate_reuse_proof_real_v1/)
 - Accelerating-loop demo: [`../open-ended-rsi-system/`](../open-ended-rsi-system/)
 - Ladder index: [`../README.md`](../README.md)
+
+
+## Orchestration command surface (blinded adjacent-transfer)
+
+Use the deterministic orchestration script to run protocol steps without fabricating human evidence:
+
+```bash
+python3 07_scripts/run_blinded_adjacent_transfer.py prepare
+python3 07_scripts/run_blinded_adjacent_transfer.py freeze-package
+python3 07_scripts/run_blinded_adjacent_transfer.py build-kits
+python3 07_scripts/run_blinded_adjacent_transfer.py validate-readiness
+python3 07_scripts/run_blinded_adjacent_transfer.py assert
+```
+
+Additional commands are available for `commit-private`, `normalize-packets`, `lock-score`, `reveal`, and `assemble-public-docket`.
+The harness stops at `READY_FOR_HUMAN_EXECUTION` when real human-blinded inputs are missing.
