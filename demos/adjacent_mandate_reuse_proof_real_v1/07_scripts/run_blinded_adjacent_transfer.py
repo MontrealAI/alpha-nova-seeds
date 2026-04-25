@@ -144,8 +144,8 @@ def _create_private_templates() -> None:
         )
     _write_text(
         PRIVATE_DIR / "blinded_assignment_map.private.template.csv",
-        "seed,kit_blue_assignment,kit_gold_assignment,blinding_officer_signoff\n"
-        "BLINDING_OFFICER_REQUIRED,BLINDING_OFFICER_REQUIRED,BLINDING_OFFICER_REQUIRED,pending\n",
+        "seed,treatment_kit,control_kit,lane_blue_kit,lane_gold_kit,blinding_officer_signoff\n"
+        "BLINDING_OFFICER_REQUIRED,BLINDING_OFFICER_REQUIRED,BLINDING_OFFICER_REQUIRED,BLINDING_OFFICER_REQUIRED,BLINDING_OFFICER_REQUIRED,pending\n",
     )
     _write_text(
         PRIVATE_DIR / "reviewer_identity_map.private.template.csv",
@@ -440,13 +440,62 @@ def _copy_kit(src: Path, dst: Path) -> None:
         shutil.copyfile(src / name, dst / name)
 
 
+def _assignment_map_path() -> Path:
+    return PRIVATE_DIR / "blinded_assignment_map.private.csv"
+
+
+def _resolve_private_kit_assignment() -> dict[str, str] | None:
+    """Read private local assignment map if present."""
+    path = _assignment_map_path()
+    if not path.exists():
+        return None
+    rows = _read_csv_rows(path)
+    if not rows:
+        return None
+    row = rows[0]
+    treatment_kit = (row.get("treatment_kit") or "").strip().lower()
+    control_kit = (row.get("control_kit") or "").strip().lower()
+    if "blinding_officer_required" in f"{treatment_kit} {control_kit}":
+        return None
+    allowed = {"kit_blue", "kit_gold"}
+    if treatment_kit not in allowed or control_kit not in allowed or treatment_kit == control_kit:
+        raise SystemExit(
+            "Invalid private assignment map. Expected distinct treatment_kit/control_kit values in {kit_blue, kit_gold}."
+        )
+    return {"treatment_kit": treatment_kit, "control_kit": control_kit}
+
+
+def _write_blinding_required_kit(dst: Path) -> None:
+    dst.mkdir(parents=True, exist_ok=True)
+    for name in KIT_FILENAMES:
+        out = dst / name
+        if name.endswith(".json"):
+            _write_json(out, {
+                "status": "BLINDING_OFFICER_REQUIRED",
+                "file": name,
+                "note": "Run build-kits locally with filled private assignment map to materialize control/treatment kits.",
+            })
+        else:
+            _write_text(
+                out,
+                "# BLINDING_OFFICER_REQUIRED\n\n"
+                "Run build-kits locally with filled private assignment map to materialize control/treatment kits.\n",
+            )
+
+
 def cmd_build_kits() -> int:
     _ensure_dirs()
     real_src, placebo_src, _ = _ensure_package_sources()
+    assignment = _resolve_private_kit_assignment()
 
-    # Assignment remains private until blinding officer fills local private map.
-    _copy_kit(real_src, KITS_DIR / "kit_blue")
-    _copy_kit(placebo_src, KITS_DIR / "kit_gold")
+    if assignment is None:
+        _write_blinding_required_kit(KITS_DIR / "kit_blue")
+        _write_blinding_required_kit(KITS_DIR / "kit_gold")
+    else:
+        treatment_dst = KITS_DIR / assignment["treatment_kit"]
+        control_dst = KITS_DIR / assignment["control_kit"]
+        _copy_kit(real_src, treatment_dst)
+        _copy_kit(placebo_src, control_dst)
 
     parity = {}
     for filename in KIT_FILENAMES:
@@ -456,8 +505,8 @@ def cmd_build_kits() -> int:
             "blue_exists": blue.exists(),
             "gold_exists": gold.exists(),
             "same_filename": blue.name == gold.name,
-            "blue_sha256": _sha256_file(blue),
-            "gold_sha256": _sha256_file(gold),
+            "blue_sha256": "BLINDING_OFFICER_REQUIRED" if assignment is None else _sha256_file(blue),
+            "gold_sha256": "BLINDING_OFFICER_REQUIRED" if assignment is None else _sha256_file(gold),
             "surface_form_parity": blue.suffix == gold.suffix,
         }
 
@@ -466,8 +515,8 @@ def cmd_build_kits() -> int:
         "kit_labels": ["kit_blue", "kit_gold"],
         "filenames": KIT_FILENAMES,
         "parity_checks": parity,
-        "assignment_status": "BLINDING_OFFICER_REQUIRED",
-        "note": "Manifest does not reveal which lane received treatment package.",
+        "assignment_status": "BLINDING_OFFICER_REQUIRED" if assignment is None else "ASSIGNED_PRIVATE_LOCAL_ONLY",
+        "note": "Manifest does not reveal which lane received treatment package and suppresses hash-linking until private assignment exists.",
     })
     return 0
 
@@ -696,6 +745,8 @@ def cmd_validate_readiness() -> int:
         if any("scope file" in r for r in reasons):
             _update_experiment_status("BLOCKED_MISSING_SCOPE_FILE", reasons)
             return 1
+        _update_experiment_status("BLOCKED_KIT_MISMATCH", reasons)
+        return 1
     _update_experiment_status("READY_FOR_HUMAN_EXECUTION", reasons)
     return 0
 

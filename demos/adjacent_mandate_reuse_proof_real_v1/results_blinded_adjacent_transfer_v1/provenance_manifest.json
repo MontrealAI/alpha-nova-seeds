@@ -1,7 +1,7 @@
 {
   "branch": "work",
-  "generated_at": "2026-04-25T18:03:03+00:00",
+  "generated_at": "2026-04-25T18:19:33+00:00",
   "notes": "Public-safe provenance only. Private mappings remain local.",
-  "repo_sha": "b59e5e54b54a506574a596c6a980883a9fb7bbf3",
+  "repo_sha": "14788c1785226f7cd2f81772b81107075a7a07a7",
   "result_path": "demos/adjacent_mandate_reuse_proof_real_v1/results_blinded_adjacent_transfer_v1"
 }

@@ -1,6 +1,5 @@
 {
-  "description": "Generic protocol-review placeholder with no Mandate 1 derived mechanisms.",
   "file": "extraction_schema.json",
-  "package": "PlaceboProtocolReviewPack-v1",
-  "status": "PLACEBO_GENERIC_CONTENT"
+  "note": "Run build-kits locally with filled private assignment map to materialize control/treatment kits.",
+  "status": "BLINDING_OFFICER_REQUIRED"
 }

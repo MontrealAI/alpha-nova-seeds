@@ -9,66 +9,66 @@
     "scoring_rubric.md",
     "extraction_schema.json"
   ],
-  "generated_at": "2026-04-25T18:03:04+00:00",
+  "generated_at": "2026-04-25T18:19:34+00:00",
   "kit_labels": [
     "kit_blue",
     "kit_gold"
   ],
-  "note": "Manifest does not reveal which lane received treatment package.",
+  "note": "Manifest does not reveal which lane received treatment package and suppresses hash-linking until private assignment exists.",
   "parity_checks": {
     "extraction_schema.json": {
       "blue_exists": true,
-      "blue_sha256": "166cbd930b7e455cac8e9fc6739a324a19daaab98180456071e642c3dfa2a74c",
+      "blue_sha256": "BLINDING_OFFICER_REQUIRED",
       "gold_exists": true,
-      "gold_sha256": "3006d5c55195e052bddb8400355ccf5ddb4330434d938742255b1e957d1a0df2",
+      "gold_sha256": "BLINDING_OFFICER_REQUIRED",
       "same_filename": true,
       "surface_form_parity": true
     },
     "mechanism_library.json": {
       "blue_exists": true,
-      "blue_sha256": "72d71d687b7d3cbd639cc55a4743fc8f65e70adc88aa5d1ecaa0e86255321cad",
+      "blue_sha256": "BLINDING_OFFICER_REQUIRED",
       "gold_exists": true,
-      "gold_sha256": "0adfb730fac5111f35a137be742c4f631d5862f2574c7dafe6ceb8a822197b6e",
+      "gold_sha256": "BLINDING_OFFICER_REQUIRED",
       "same_filename": true,
       "surface_form_parity": true
     },
     "ontology.json": {
       "blue_exists": true,
-      "blue_sha256": "c40a8fdcc0f6f953498e6639c67d00b51921572f0e38d6cf4e4b3c001ecb91b5",
+      "blue_sha256": "BLINDING_OFFICER_REQUIRED",
       "gold_exists": true,
-      "gold_sha256": "90dcfa3aebaff4f8ce597e8f0f88d05c34c6cf94df4fdae9422158952efee374",
+      "gold_sha256": "BLINDING_OFFICER_REQUIRED",
       "same_filename": true,
       "surface_form_parity": true
     },
     "query_bundle.json": {
       "blue_exists": true,
-      "blue_sha256": "8a3b84dbb7ef928b7134ccab68cac8b32a2a3d0955eb9d292bf2cfc88ff0098f",
+      "blue_sha256": "BLINDING_OFFICER_REQUIRED",
       "gold_exists": true,
-      "gold_sha256": "88d750bbb3f25262a6ba35b659a64087fe4843bfd2853c100b14c33817d0f619",
+      "gold_sha256": "BLINDING_OFFICER_REQUIRED",
       "same_filename": true,
       "surface_form_parity": true
     },
     "safety_routing_rules.md": {
       "blue_exists": true,
-      "blue_sha256": "03ad63c11004b3e591f5d608f783b8d99f6f63d97814dea24402d21afb1b2a0b",
+      "blue_sha256": "BLINDING_OFFICER_REQUIRED",
       "gold_exists": true,
-      "gold_sha256": "09073d0dcd71f80a9402db708f3153a1820770ccecca8fa45eccc3ea418c660d",
+      "gold_sha256": "BLINDING_OFFICER_REQUIRED",
       "same_filename": true,
       "surface_form_parity": true
     },
     "scoring_rubric.md": {
       "blue_exists": true,
-      "blue_sha256": "03ad63c11004b3e591f5d608f783b8d99f6f63d97814dea24402d21afb1b2a0b",
+      "blue_sha256": "BLINDING_OFFICER_REQUIRED",
       "gold_exists": true,
-      "gold_sha256": "09073d0dcd71f80a9402db708f3153a1820770ccecca8fa45eccc3ea418c660d",
+      "gold_sha256": "BLINDING_OFFICER_REQUIRED",
       "same_filename": true,
       "surface_form_parity": true
     },
     "workflow_template.md": {
       "blue_exists": true,
-      "blue_sha256": "03ad63c11004b3e591f5d608f783b8d99f6f63d97814dea24402d21afb1b2a0b",
+      "blue_sha256": "BLINDING_OFFICER_REQUIRED",
       "gold_exists": true,
-      "gold_sha256": "09073d0dcd71f80a9402db708f3153a1820770ccecca8fa45eccc3ea418c660d",
+      "gold_sha256": "BLINDING_OFFICER_REQUIRED",
       "same_filename": true,
       "surface_form_parity": true
     }

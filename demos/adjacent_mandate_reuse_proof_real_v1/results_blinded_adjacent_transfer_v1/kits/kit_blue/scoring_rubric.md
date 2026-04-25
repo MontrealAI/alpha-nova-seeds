@@ -1,3 +1,3 @@
-# PENDING_MANDATE_1_HUMAN_ADJUDICATION
+# BLINDING_OFFICER_REQUIRED
 
-Transparent scaffold placeholder for GovernanceValidationPack-v1.
+Run build-kits locally with filled private assignment map to materialize control/treatment kits.

@@ -1,3 +1,3 @@
-# PLACEBO_GENERIC_CONTENT
+# BLINDING_OFFICER_REQUIRED
 
-Generic protocol-review placeholder.
+Run build-kits locally with filled private assignment map to materialize control/treatment kits.
