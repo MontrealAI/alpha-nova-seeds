@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "release_target": "v2.8.0-rc.7",
+  "release_target": "v3.0.0",
   "style": "flat-square",
   "readme": {
     "required_badges": [
@@ -42,10 +42,10 @@
         "id": "release-posture",
         "kind": "static",
         "label": "release",
-        "message": "v2.8.0-rc.7",
+        "message": "v3.0.0",
         "color": "1f6feb",
         "link": "./RELEASES.md",
-        "alt": "Release posture: v2.8.0-rc.7"
+        "alt": "Release posture: v3.0.0"
       },
       {
         "id": "ci",
@@ -75,19 +75,19 @@
         "id": "proof-boundary",
         "kind": "static",
         "label": "claim boundary",
-        "message": "proof-first bounded RC",
+        "message": "bounded local/devnet posture",
         "color": "6f42c1",
         "link": "./docs/FRONTIER_LAB_POSTURE.md",
-        "alt": "Proof-first bounded release candidate posture"
+        "alt": "Proof-first bounded local/devnet posture"
       },
       {
         "id": "verifiable-rc",
         "kind": "static",
         "label": "posture",
-        "message": "verifiable RC",
+        "message": "verifiable trust rail",
         "color": "0969da",
         "link": "./RELEASES.md",
-        "alt": "Verifiable release candidate posture"
+        "alt": "Verifiable trust rail posture"
       },
       {
         "id": "flagship-demo",

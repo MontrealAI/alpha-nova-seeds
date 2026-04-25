@@ -1,6 +1,6 @@
-# Verify a v2.7 release candidate
+# Verify the v3.0.0 release posture
 
-This guide verifies that the release artifacts were produced from repository source and include provenance signals.
+This guide verifies that release artifacts were produced from repository source and include provenance signals for the bounded local/devnet Ascension Runtime and verifiable trust rail posture.
 
 ## Prerequisites
 
@@ -86,10 +86,10 @@ gh attestation verify alpha-nova-seeds-<TAG>.tar.gz --repo MontrealAI/alpha-nova
 
 ## Operator note
 
-This verification flow proves artifact integrity/provenance signals for an RC. It does **not** claim final audit coverage.
+This verification flow proves artifact integrity/provenance signals for this bounded release posture. It does **not** claim final audit coverage.
 
 
-## v2.7 demo-and-doctrine checks
+## Demo-and-doctrine checks
 
 ```bash
 python3 demos/protocol_smart_contract_correctness_demo/run_demo.py --assert

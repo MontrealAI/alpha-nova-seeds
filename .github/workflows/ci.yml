@@ -57,7 +57,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: foundry-rs/foundry-toolchain@v1
+      - name: Install Foundry toolchain (primary)
+        id: foundry_primary
+        continue-on-error: true
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+      - name: Install Foundry toolchain (fallback nightly)
+        if: steps.foundry_primary.outcome != 'success'
+        run: |
+          curl -L https://foundry.paradigm.xyz | bash
+          ~/.foundry/bin/foundryup -i nightly
       - name: Install contracts dependencies
         working-directory: contracts
         run: npm ci
@@ -79,7 +89,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22.10.0"
-      - uses: foundry-rs/foundry-toolchain@v1
+      - name: Install Foundry toolchain (primary)
+        id: foundry_primary
+        continue-on-error: true
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+      - name: Install Foundry toolchain (fallback nightly)
+        if: steps.foundry_primary.outcome != 'success'
+        run: |
+          curl -L https://foundry.paradigm.xyz | bash
+          ~/.foundry/bin/foundryup -i nightly
       - name: Install slither
         run: pip install slither-analyzer
       - name: Install contracts dependencies
