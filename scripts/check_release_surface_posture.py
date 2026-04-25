@@ -19,12 +19,14 @@ FILES = {
 }
 RELEASE_PROVENANCE_WORKFLOW = ROOT / ".github" / "workflows" / "release-provenance.yml"
 
-RC_MARKER_PATTERN = re.compile(r"v(\d+)\.(\d+)\.(\d+)-rc\.(\d+)")
 RELEASE_TARGET_PATTERN = re.compile(r"v(\d+)\.(\d+)\.(\d+)(?:-rc\.(\d+))?")
+VERSION_MARKER_PATTERN = re.compile(r"\bv(\d+)\.(\d+)\.(\d+)(?:-rc\.(\d+))?\b")
 
 
-def _version_tuple(match: re.Match[str]) -> tuple[int, int, int, int]:
-    return tuple(int(match.group(i)) for i in range(1, 5))
+def _marker_version_tuple(match: re.Match[str]) -> tuple[int, int, int, int]:
+    major, minor, patch = (int(match.group(i)) for i in range(1, 4))
+    rc = int(match.group(4)) if match.group(4) else 0
+    return (major, minor, patch, rc)
 
 
 def _parse_target(target: str) -> tuple[int, int, int, int]:
@@ -93,16 +95,16 @@ def main() -> int:
                     f"{path.relative_to(ROOT)} missing required posture marker: {pattern.pattern}"
                 )
 
-        for match in RC_MARKER_PATTERN.finditer(text):
+        for match in VERSION_MARKER_PATTERN.finditer(text):
             marker = match.group(0)
-            version = _version_tuple(match)
+            version = _marker_version_tuple(match)
             if version > target_version:
                 errors.append(
-                    f"{path.relative_to(ROOT)} contains premature future RC marker {marker}; expected active target {target}"
+                    f"{path.relative_to(ROOT)} contains premature future release marker {marker}; expected active target {target}"
                 )
             if version[:3] == target_version[:3] and version[3] < target_version[3]:
                 errors.append(
-                    f"{path.relative_to(ROOT)} contains disallowed stale RC marker {marker}; expected active target {target}"
+                    f"{path.relative_to(ROOT)} contains disallowed stale release marker {marker}; expected active target {target}"
                 )
 
     if not RELEASE_PROVENANCE_WORKFLOW.exists():
