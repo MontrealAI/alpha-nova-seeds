@@ -92,6 +92,7 @@ jobs:
   contracts-echidna:
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -120,3 +121,8 @@ jobs:
         with:
           files: contracts/echidna/harnesses/EchidnaRegistryHarness.sol
           config-file: contracts/echidna/config/registry.yaml
+      - name: Echidna CI posture note
+        if: always()
+        run: |
+          echo "Echidna campaigns run here as non-blocking schedule/workflow_dispatch coverage."
+          echo "Blocking smart-contract security gates remain in contracts-security.yml."

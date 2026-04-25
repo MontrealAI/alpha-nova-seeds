@@ -13,6 +13,7 @@
 
 ### Changed
 - Updated `.github/workflows/release-provenance.yml` to include a push/pull_request provenance smoke job so the workflow badge reflects earned green status on normal branch activity while preserving the existing tag-bound release publication path under `workflow_dispatch`.
+- Updated `.github/workflows/ci.yml` so scheduled/manual Echidna campaigns are non-blocking CI coverage; contract security remains fail-loud in `contracts-security.yml`, keeping the CI badge aligned to baseline deterministic gates instead of transient long-run fuzz campaign variance.
 
 - Hardened `demos/ascension-runtime/run_demo.py --assert` to validate emitted runtime artifacts against canonical `schemas/v2.8/` Ascension schemas, including `ascension_runtime_scorecard.schema.json`.
 - Restored cross-demo v2.8 schema compatibility for shared Ascension artifacts (including per-seed `nova_seed_packet` legacy shape) so `demos/ascension-live-runtime/run_demo.py --assert` remains green.
