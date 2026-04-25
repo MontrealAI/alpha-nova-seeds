@@ -58,6 +58,8 @@ Workflow badges must link to their exact GitHub Actions workflow page:
 `scripts/check_readme_badges.py` enforces this path contract to prevent misleading or stale workflow links.
 It also checks workflow badge SVGs for passing status so we do not represent non-green workflow state as earned green.
 
+`ci.yml` intentionally keeps long-running scheduled Echidna campaigns as non-blocking coverage so a transient campaign failure does not falsely represent the full CI baseline (backend, SDK, contracts build/tests, Foundry, Slither) as red. Blocking Echidna/security gates remain in `contracts-security.yml`.
+
 ### Static/generated badges (repo truth)
 
 Use generated static badges for bounded claims and navigation:
