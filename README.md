@@ -67,6 +67,19 @@ Full ladder surfaces:
 - [`docs/RELEASE_POSITIONING.md`](./docs/RELEASE_POSITIONING.md)
 - [`docs/FRONTIER_LAB_POSTURE.md`](./docs/FRONTIER_LAB_POSTURE.md)
 
+## 🧬 Template Usage
+
+This repository is also configured as a **template repository**.
+
+Use "Use this template" to instantiate:
+- new Sovereigns
+- new experiment packs
+- new domain-specific deployments
+
+Note:
+- Templates create a clean copy (no git history)
+- For collaboration or contribution, use forks instead
+
 ## Invariants (non-negotiable)
 
 - no value without evidence
