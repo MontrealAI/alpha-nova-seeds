@@ -197,6 +197,7 @@
 - Open-ended RSI determinism fingerprint now uses artifact file digests for `scorecard_hash` and `lineage_hash` to align with provenance-manifest hash semantics.
 - Open-ended RSI assert-mode frontier selection check now derives expected domain from configured deterministic scoring output instead of hardcoding one domain label.
 - Open-ended RSI Generation 0 now tracks deterministic strategy-family diversity on the Pareto frontier before winner freeze, and Generation 2 now emits a deterministically ranked frontier queue for clearer autonomy auditability.
+- Open-ended RSI demo now fails closed on config-contract violations (minimum search sizes, minimum frontier breadth, mandatory authority-boundary declarations, and offline-only probe command checks) before artifact generation starts.
 
 ### Notes
 - This RC strengthens deterministic bounded mechanism evidence and operator presentation quality.

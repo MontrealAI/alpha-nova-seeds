@@ -22,6 +22,29 @@ def load_config() -> dict[str, Any]:
     return json.loads((DEMO / "config.json").read_text(encoding="utf-8"))
 
 
+def validate_config_contract(cfg: dict[str, Any]) -> None:
+    """Fail closed on determinism, authority, and offline-execution contract."""
+
+    if cfg["candidate_pool_size"] < 32:
+        raise AssertionError("candidate_pool_size must be >= 32")
+    if cfg["neighborhood_size"] < 16:
+        raise AssertionError("neighborhood_size must be >= 16")
+    if len(cfg["frontier_whitelist"]) < 3:
+        raise AssertionError("frontier_whitelist must include at least 3 domains")
+    if "select next mandate from whitelist" not in cfg["authority_scope"]["may"]:
+        raise AssertionError("authority_scope.must include whitelist-only selection")
+    if "widen authority scope" not in cfg["authority_scope"]["may_not"]:
+        raise AssertionError("authority_scope.must forbid widening authority")
+
+    blocked_tokens = ("http://", "https://", "curl", "wget", "pip", "npm", "apt", "git")
+    for probe in cfg["repo_native_probes"]:
+        cmd = " ".join(probe["cmd"]).lower()
+        if any(token in cmd for token in blocked_tokens):
+            raise AssertionError(
+                f"Probe {probe['id']} violates offline deterministic contract: {cmd}"
+            )
+
+
 def dump(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
@@ -604,6 +627,7 @@ def main() -> int:
     args = parser.parse_args()
 
     cfg = load_config()
+    validate_config_contract(cfg)
     reset_out()
 
     probes = run_repo_native_probes(cfg)
