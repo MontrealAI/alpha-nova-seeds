@@ -11,17 +11,17 @@ permissions:
 jobs:
   inspect:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: python -m pip install --disable-pip-version-check requests
-      - run: python .snapshot/inspect_opensea_item.py
+      - run: python .snapshot/verify_initial_transfers.py
       - if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: opensea-item-diagnostic
+          name: targeted-owner-diagnostic
           path: diag-output/
           retention-days: 1
