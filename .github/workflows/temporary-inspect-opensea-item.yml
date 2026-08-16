@@ -1,0 +1,27 @@
+name: temporary-inspect-opensea-item
+
+on:
+  push:
+    branches:
+      - 'tmp/becoming-omega-snapshot-20260815'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check requests
+      - run: python .snapshot/inspect_opensea_item.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: opensea-item-diagnostic
+          path: diag-output/
+          retention-days: 1
