@@ -1,0 +1,33 @@
+name: temporary-becoming-omega-snapshot
+
+on:
+  push:
+    branches:
+      - 'tmp/becoming-omega-snapshot-20260815'
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out temporary branch
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependency
+        run: python -m pip install --disable-pip-version-check requests
+      - name: Build finalized-block snapshot
+        run: python .snapshot/snapshot.py
+      - name: Upload snapshot package
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: montrealai-becoming-omega-snapshot
+          path: snapshot-output/
+          if-no-files-found: warn
+          retention-days: 1
