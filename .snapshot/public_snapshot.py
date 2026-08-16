@@ -6,6 +6,7 @@ import importlib.util
 import re
 import threading
 import time
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
@@ -211,5 +212,47 @@ def fetch_collection_no_key():
     return list(records.values()), diagnostics, "public-pages-plus-legacy-metadata-no-api-key"
 
 
+_original_build_manifest = core.build_manifest
+MISTITLED_TOKEN_ID = token_for_nonce(322)[0]
+
+
+def build_manifest_reconciled(nfts):
+    manifest, source_addresses, audit = _original_build_manifest(nfts)
+    anomalies = []
+    for rec in manifest:
+        rec["canonical_number_raw"] = rec["canonical_number"]
+        rec["title_raw"] = rec["title"]
+        if rec["token_id_decimal"] == MISTITLED_TOKEN_ID:
+            anomalies.append({
+                "token_id_decimal": rec["token_id_decimal"],
+                "token_id_hex": rec["token_id_hex"],
+                "creation_nonce": rec["creation_nonce"],
+                "raw_title": rec["title"],
+                "raw_canonical_number": rec["canonical_number"],
+                "reconciled_title": "Crypto AI Art #317",
+                "reconciled_canonical_number": 317,
+                "reason": "The canonical collection sequence is #000 through #555. Creation nonce 321 is #316 and nonce 323 is #318; therefore nonce 322 is the sole historical metadata typo and deterministically reconciles to #317.",
+            })
+            rec["canonical_number"] = 317
+            rec["title"] = "Crypto AI Art #317"
+            rec["canonical_reconciliation"] = anomalies[-1]["reason"]
+    manifest.sort(key=lambda r: (r["canonical_number"] is None, r["canonical_number"] if r["canonical_number"] is not None else 10**9, int(r["token_id_decimal"])))
+    counts = Counter(r["canonical_number"] for r in manifest if r["canonical_number"] is not None)
+    expected = set(range(0, core.EXPECTED_COUNT))
+    actual = set(int(n) for n in counts)
+    audit = {
+        **audit,
+        "canonical_numbering": "Crypto AI Art #000 through #555",
+        "canonical_number_min": 0,
+        "canonical_number_max": 555,
+        "metadata_anomalies_reconciled": anomalies,
+        "duplicate_canonical_numbers": sorted(str(n) for n, c in counts.items() if c > 1),
+        "missing_canonical_numbers": sorted(str(n) for n in expected - actual),
+        "out_of_range_canonical_numbers": sorted(str(n) for n in actual - expected),
+    }
+    return manifest, source_addresses, audit
+
+
 core.fetch_opensea_collection = fetch_collection_no_key
+core.build_manifest = build_manifest_reconciled
 core.main()
