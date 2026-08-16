@@ -22,7 +22,7 @@ jobs:
       - name: Install dependency
         run: python -m pip install --disable-pip-version-check requests
       - name: Build finalized-block snapshot without API key
-        run: python .snapshot/selective_snapshot.py
+        run: python .snapshot/selective_index_snapshot.py
       - name: Upload snapshot package
         if: always()
         uses: actions/upload-artifact@v4
